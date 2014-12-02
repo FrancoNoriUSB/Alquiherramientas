@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
+PROJECT_ROOT = os.path.realpath(__file__)
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
@@ -28,14 +30,17 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
 INSTALLED_APPS = (
+    'bootstrap_admin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'herramientas.apps.administrador',
+    'herramientas.apps.main',
+    'widget_tweaks',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -52,21 +57,26 @@ ROOT_URLCONF = 'herramientas.urls'
 
 WSGI_APPLICATION = 'herramientas.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
-
+# Parse database configuration from $DATABASE_URL
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'herramientas',                      # Or path to database file if using sqlite3.
+        #The following settings are not used with sqlite3:
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'localhost',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+        'PORT': '5432',                      # Set to empty string for default.
     }
 }
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
+TIME_ZONE = 'America/Caracas'
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-es'
 
 TIME_ZONE = 'UTC'
 
@@ -81,3 +91,39 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATIC_ROOT = 'staticfiles'
+
+# Additional locations of static files
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, '../static/'),
+)
+
+# List of finder classes that know how to find static files in
+# various locations.
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+)
+
+# Absolute filesystem path to the directory that will hold user-uploaded files.
+# Example: "/var/www/example.com/media/"
+MEDIA_ROOT = (os.path.join(BASE_DIR, '../media'))
+
+# URL that handles the media served from MEDIA_ROOT. Make sure to use a
+# trailing slash.
+# Examples: "http://example.com/media/", "http://media.example.com/"
+MEDIA_URL = '/media/'
+
+FIXTURE_DIRS = (
+    os.path.join(BASE_DIR, '../static/fixtures'),
+)
+
+# For Sidebar Menu (List of apps and models) (RECOMMENDED)
+from django.conf import global_settings
+TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
+    'django.core.context_processors.request',
+)
+
+BOOTSTRAP_ADMIN_SIDEBAR_MENU = True
