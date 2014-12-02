@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="herramientas,alquiler,venta">
+    <link rel="SHORTCUT ICON" href="{{STATIC_URL}}files/img/ico.png"/>
+    <title>Alqui Herramientas</title>
+
+    <!--Bootstrap Local-->
+    <!--CSS -->
+    <link rel="stylesheet" href="{{STATIC_URL}}bootstrap/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="{{STATIC_URL}}bootstrap/css/bootstrap-theme.min.css">
+
+    <!--Estilos-->
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}files/css/main/base.css">
+
+    <!-- jQuery -->
+    <script src="http://code.jquery.com/jquery.js"></script>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="{{STATIC_URL}}bootstrap/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+    <!-- Header de la página -->
+    <header>
+        <div class="banners container-fluid">
+            <img src="{{STATIC_URL}}files/img/banner-alquiherramienta.png" alt="">
+        </div>
+        <nav class="navbar navbar-static-top navbar-default" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button class="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                    </button>
+                    <div class="navbar-brand">
+                        <a href="/">
+                            <img src="{{STATIC_URL}}files/img/logo-principal.png" alt="" height="45">
+                        </a>
+                    </div>
+                </div>
+                <div class="collapse navbar-collapse navHeaderCollapse navheader">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="/">Inicio</a>
+                        </li>
+                        <li>
+                            <a href="/empresa/">Empresa</a>
+                        </li>
+                        <li>
+                            <a href="/produccion/">Productos</a>
+                        </li>
+                        <li>
+                            <a href="/afiliacion/">Afiliac&iacute;on</a>
+                        </li>
+                        <li>
+                            <a href="/contactos/">Contactos</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="contenido container">
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Registro de usuario: </h4>
+                    </div>
+                    <div class="modal-body">    
+                        <form role="form" method="POST" action=".">
+                            <div class="form-group">
+                                {%csrf_token%}
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Registrarse</button>
+                            </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección interna de la página -->
+        <div class="contenido container">
+            <div class="cahas row">
+                <div class="barra-lateral col-lg-2">
+                    <div class="buscador">
+                        
+                    </div>
+                    <div class="ofertas">
+                        
+                    </div>
+                </div>
+
+                <!-- Contenido de la pagina -->
+                <div class="contenido col-lg-10">
+                    {% block content %}
+                    {% endblock content %}
+                </div>
+            </div>
+        </div>
+        </div>
+
+    <!-- Footer de la página -->
+    <footer>
+        <nav class="navbar navbar-static-bottom navbar-default" role="navigation">
+            <div class="container-fluid">
+                <div class="navfooter">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="/">Inicio</a>
+                        </li>
+                        <li>
+                            <a href="">Agregar Restaurante</a>
+                        </li>
+                        <li>
+                            <a href="">Restaurantes</a>
+                        </li>
+                        <li>
+                            <a href="">Cont&aacute;ctanos</a>
+                        </li>
+                        <li>
+                            <a href="">Ayuda</a>
+                        </li>
+                        <li>
+                            <a href="">FAQ</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </footer>
+</body>
+
+<!-- Seccion donde se carga el JS -->
+{%block js%}
+
+{%endblock js%}
+</html>
