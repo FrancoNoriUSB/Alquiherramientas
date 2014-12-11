@@ -1,0 +1,48 @@
+/*Documento de Estilos para la base de Alquiherramientas 2112
+Elaborado por: Franco Nori G.
+Colores a utilizar:
+	Amarillo: #D8971B;
+	Gris Claro: #7E7769;
+	Gris Oscuro: #625D53;
+	Azul: #0B3755;
+	Negro: #292929;
+*/
+
+/*Estilos del header*/
+body > header > nav{
+	background-image: linear-gradient(to bottom,#625D53 0,#625D53 100%) !important;
+}
+
+/*Estilos del footer*/
+body > footer > nav{
+	background-image: linear-gradient(to bottom,#625D53 0,#625D53 100%) !important;
+}
+
+/*Estilos de bootstrap modificados*/
+.navbar-brand {
+	padding: 0px;
+	line-height: 0px;
+	height: 95px;
+}
+
+header > nav > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul{
+	padding-top: 2%;
+}
+
+body > header > nav > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li > a,
+body > footer > nav > div > div > ul > li > a{
+	color: white !important;
+}
+
+body > header > nav > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li > a{
+	font-size: 20px;
+}
+
+body > header > nav > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li{
+	background-image: linear-gradient(to bottom,#7E7769 0,#7E7769 100%);
+	margin-left: 10px;
+}
+
+.navbar-default .navbar-nav>.active>a{
+	background-image: linear-gradient(to bottom,#D8971B 0,#D8971B 100%);
+}
