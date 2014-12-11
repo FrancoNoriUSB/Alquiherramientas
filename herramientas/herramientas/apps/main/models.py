@@ -77,7 +77,7 @@ class Marca(models.Model):
 		verbose_name_plural = "Marcas"
 
 	def __unicode__(self):
-		return u"%s" %(self.marca)
+		return u"%s" %(self.nombre)
 
 
 #Modelo de cada herramienta
