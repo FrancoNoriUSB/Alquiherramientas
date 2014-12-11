@@ -8,10 +8,10 @@ from django.db import models
 class Estado(models.Model):
 	nombre = models.CharField(max_length=30)
 
-    class Meta:
+	class Meta:
 		ordering = ('nombre',)
-        verbose_name = "Estado"
-        verbose_name_plural = "Estados"
+		verbose_name = "Estado"
+		verbose_name_plural = "Estados"
 
 	def __unicode__(self):
 		return u"%s" %(self.nombre)
@@ -24,10 +24,10 @@ class Ciudad(models.Model):
 	#Claves foraneas
 	estado = models.ForeignKey(Estado)
 
-    class Meta:
+	class Meta:
 		ordering = ('nombre',)
-        verbose_name = "Ciudad"
-        verbose_name_plural = "Ciudades"
+		verbose_name = "Ciudad"
+		verbose_name_plural = "Ciudades"
 
 	def __unicode__(self):
 		return u"%s" %(self.nombre)
@@ -40,10 +40,10 @@ class Zona(models.Model):
 	#Claves foraneas
 	ciudad = models.ForeignKey(Ciudad)
 
-    class Meta:
+	class Meta:
 		ordering = ('nombre',)
-        verbose_name = "Zona"
-        verbose_name_plural = "Zonas"
+		verbose_name = "Zona"
+		verbose_name_plural = "Zonas"
 
 	def __unicode__(self):
 		return u"%s" %(self.nombre)
@@ -58,10 +58,10 @@ class Direccion(models.Model):
 	ciudad = models.ForeignKey(Ciudad)
 	zona = models.ForeignKey(Zona)
 
-    class Meta:
+	class Meta:
 		ordering = ('domicilio',)
-        verbose_name = "Direccion"
-        verbose_name_plural = "Direcciones"
+		verbose_name = "Direccion"
+		verbose_name_plural = "Direcciones"
 
 	def __unicode__(self):
 		return u"%s" %(self.domicilio)
@@ -71,13 +71,13 @@ class Direccion(models.Model):
 class Marca(models.Model):
 	nombre = models.CharField(max_length=30)
 
-    class Meta:
+	class Meta:
 		ordering = ('nombre',)
-        verbose_name = "Marca"
-        verbose_name_plural = "Marcas"
+		verbose_name = "Marca"
+		verbose_name_plural = "Marcas"
 
 	def __unicode__(self):
-		return u"%s" %(self.marca)
+		return u"%s" %(self.nombre)
 
 
 #Modelo de cada herramienta
@@ -87,10 +87,10 @@ class Modelo(models.Model):
 	#Claves foraneas
 	marca = models.ForeignKey(Marca)
 
-    class Meta:
+	class Meta:
 		ordering = ('nombre',)
-        verbose_name = "Modelo"
-        verbose_name_plural = "Modelos"
+		verbose_name = "Modelo"
+		verbose_name_plural = "Modelos"
 
 	def __unicode__(self):
 		return u"%s" %(self.nombre)
@@ -104,10 +104,10 @@ class Herramienta(models.Model):
 	marca = models.ForeignKey(Marca)
 	modelo = models.ForeignKey(Modelo)
 
-    class Meta:
+	class Meta:
 		ordering = ('nombre',)
-        verbose_name = "Herramienta"
-        verbose_name_plural = "Herramientas"
+		verbose_name = "Herramienta"
+		verbose_name_plural = "Herramientas"
 
 	def __unicode__(self):
 		return u"%s" %(self.nombre)
@@ -125,8 +125,8 @@ class Publicacion(models.Model):
 	class Meta:
 		abstract = True
 		ordering = ('titulo',)
-        verbose_name = "Publicacion"
-        verbose_name_plural = "Publicaciones"
+		verbose_name = "Publicacion"
+		verbose_name_plural = "Publicaciones"
 
 	def __unicode__(self):
 		return u"%s" %(self.titulo)
@@ -138,11 +138,11 @@ class Alquiler(Publicacion):
 	# Dos numeros decimales.
 	precioDia = models.DecimalField(max_digits=20,decimal_places=2)
 
-    class Meta(Alquiler.Meta):
+	class Meta:
 		abstract = False
 		ordering = ('diasAlquiler',)
-        verbose_name = "Alquiler"
-        verbose_name_plural = "Alquileres"
+		verbose_name = "Alquiler"
+		verbose_name_plural = "Alquileres"
 
 
 #Clase de compra de herramienta que hereda de la publicacion
@@ -150,8 +150,8 @@ class Compra(Publicacion):
 	# Dos numeros decimales.
 	precio = models.DecimalField(max_digits=20, decimal_places=2)
 
-	class Meta(Compra.Meta):
+	class Meta:
 		abstract = False
 		ordering = ('precio',)
-        verbose_name = "Compra"
-        verbose_name_plural = "Compras"
+		verbose_name = "Compra"
+		verbose_name_plural = "Compras"

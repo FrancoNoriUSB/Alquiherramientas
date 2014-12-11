@@ -17,10 +17,27 @@ from django.core.mail.message import EmailMessage
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django_countries import countries
 
+
 def home(request):
 
-	ctx = {
-
-	}
+	ctx = {}
 
 	return render_to_response('main/home/home.html', ctx, context_instance=RequestContext(request))
+
+
+# Retorna una lista de todas las herramientas.
+def allHerramieta(request):
+	herramientas = Herramienta.objects.all()
+
+	ctx = {'herramientas': herramientas,}
+
+	return render_to_response('main/home/herramientas.html', ctx, context_instance=RequestContext(request))
+
+
+# Retorna los detalles de una herramienta seleccionada.
+def viewHerramienta(request, herramienta):
+	herramienta = Herramienta.objects.get(pk=herramienta)
+
+	ctx = {'herramienta': herramienta}
+
+	return render_to_response('main/home/viewHerramienta.html', ctx, context_instance=RequestContext(request))
