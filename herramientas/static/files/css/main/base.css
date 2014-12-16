@@ -34,6 +34,10 @@ body > footer > nav > div > div > ul > li > a{
 	color: white !important;
 }
 
+body > header > nav > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li > a:hover{
+	background-image: linear-gradient(to bottom,#D8971B 0,#D8971B 100%);
+}
+
 body > header > nav > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li > a{
 	font-size: 20px;
 }

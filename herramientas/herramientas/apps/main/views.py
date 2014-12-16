@@ -29,7 +29,9 @@ def home(request):
 def allHerramieta(request):
 	herramientas = Herramienta.objects.all()
 
-	ctx = {'herramientas': herramientas,}
+	ctx = {
+		'herramientas': herramientas,
+	}
 
 	return render_to_response('main/home/herramientas.html', ctx, context_instance=RequestContext(request))
 
@@ -38,6 +40,8 @@ def allHerramieta(request):
 def viewHerramienta(request, herramienta):
 	herramienta = Herramienta.objects.get(pk=herramienta)
 
-	ctx = {'herramienta': herramienta}
+	ctx = {
+		'herramienta': herramienta
+	}
 
 	return render_to_response('main/home/viewHerramienta.html', ctx, context_instance=RequestContext(request))
