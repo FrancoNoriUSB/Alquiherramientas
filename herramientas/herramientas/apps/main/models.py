@@ -67,6 +67,19 @@ class Direccion(models.Model):
 		return u"%s" %(self.domicilio)
 
 
+#Categoria de cada herramienta
+class Categoria(models.Model):
+
+	nombre = models.CharField(max_length=50)
+
+	class Meta:
+		verbose_name = "Categoria"
+		verbose_name_plural = "Categorias"
+
+	def __unicode__(self):
+		return u"%s" %(self.nombre)
+
+
 #Marca de la herramienta
 class Marca(models.Model):
 	nombre = models.CharField(max_length=30)
@@ -101,6 +114,7 @@ class Herramienta(models.Model):
 	nombre = models.CharField(max_length=30)
 
 	#Claves foraneas
+	categoria = models.ForeignKey(Categoria)
 	marca = models.ForeignKey(Marca)
 	modelo = models.ForeignKey(Modelo)
 
@@ -117,10 +131,15 @@ class Herramienta(models.Model):
 class Publicacion(models.Model):
 	titulo = models.CharField(max_length=100)
 	contenido = models.CharField(max_length=10000)
+	oferta = models.BooleanField(default=False, help_text='Marcado si desea que se muestre como una oferta')
+	fecha_publicacion = models.DateTimeField(auto_now_add=True)
+	fecha_actualizacion = models.DateTimeField(auto_now=True)
+	fecha_expiracion = models.DateTimeField()
 
 	#Claves foraneas
 	direccion = models.ForeignKey(Direccion)
 	herramienta = models.OneToOneField(Herramienta)
+
 
 	class Meta:
 		abstract = True

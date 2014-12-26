@@ -1,0 +1,9 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+                    
+	{% for producto in productos %}
+		<a href="/productos/{{ producto.id }}">{{producto.titulo}}</a>
+	{% endfor %}
+
+{% endblock content %}

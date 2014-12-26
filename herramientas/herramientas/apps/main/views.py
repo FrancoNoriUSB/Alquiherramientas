@@ -16,32 +16,115 @@ from forms import *
 from django.core.mail.message import EmailMessage
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django_countries import countries
+from random import randint
+from itertools import chain
 
 
-def home(request):
+#Vista del inicio
+def inicio(request):
 
-	ctx = {}
-
-	return render_to_response('main/home/home.html', ctx, context_instance=RequestContext(request))
-
-
-# Retorna una lista de todas las herramientas.
-def allHerramieta(request):
-	herramientas = Herramienta.objects.all()
-
-	ctx = {
-		'herramientas': herramientas,
-	}
-
-	return render_to_response('main/home/herramientas.html', ctx, context_instance=RequestContext(request))
-
-
-# Retorna los detalles de una herramienta seleccionada.
-def viewHerramienta(request, herramienta):
-	herramienta = Herramienta.objects.get(pk=herramienta)
+	# Ofertas de los productos
+	oferta = []
+	oferta_alquiler = Alquiler.objects.filter(oferta=True).order_by('?')
+	oferta_venta = Compra.objects.filter(oferta=True).order_by('?')
+	oferta = list(chain(oferta_alquiler, oferta_venta))
+	
+	if len(oferta) > 0:
+		oferta = oferta[randint(0, len(oferta)-1)]
 
 	ctx = {
-		'herramienta': herramienta
+		'oferta':oferta,
 	}
 
-	return render_to_response('main/home/viewHerramienta.html', ctx, context_instance=RequestContext(request))
+	return render_to_response('main/inicio/inicio.html', ctx, context_instance=RequestContext(request))
+
+
+# Vista de la informacion de la empresa
+def empresa(request):
+
+	# Ofertas de los productos
+	oferta = []
+	oferta_alquiler = Alquiler.objects.filter(oferta=True).order_by('?')
+	oferta_venta = Compra.objects.filter(oferta=True).order_by('?')
+	oferta = list(chain(oferta_alquiler, oferta_venta))
+	
+	if len(oferta) > 0:
+		oferta = oferta[randint(0, len(oferta)-1)]
+
+	ctx = {
+		'oferta':oferta,
+	}
+
+	return render_to_response('main/empresa/empresa.html', ctx, context_instance=RequestContext(request))
+
+
+# Vista de los productos
+def productos(request):
+
+	# Ofertas de los productos
+	oferta = []
+	oferta_alquiler = Alquiler.objects.filter(oferta=True).order_by('?')
+	oferta_venta = Compra.objects.filter(oferta=True).order_by('?')
+	oferta = list(chain(oferta_alquiler, oferta_venta))
+	
+	if len(oferta) > 0:
+		oferta = oferta[randint(0, len(oferta)-1)]
+
+	compra = Compra.objects.all().order_by('fecha_publicacion')
+	alquileres = Alquiler.objects.all().order_by('fecha_publicacion')
+
+	ctx = {
+		'oferta': oferta,
+		'productos':productos,
+	}
+
+	return render_to_response('main/productos/productos.html', ctx, context_instance=RequestContext(request))
+
+
+# Vista de un producto especifico
+def producto(request, id_producto):
+	producto = Publicacion.objects.get(id=id_producto)
+
+	ctx = {
+		'producto': producto
+	}
+
+	return render_to_response('main/productos/producto.html', ctx, context_instance=RequestContext(request))
+
+
+# Vista para la afiliacion
+def afiliacion(request):
+
+	# Ofertas de los productos
+	oferta = []
+	oferta_alquiler = Alquiler.objects.filter(oferta=True).order_by('?')
+	oferta_venta = Compra.objects.filter(oferta=True).order_by('?')
+	oferta = list(chain(oferta_alquiler, oferta_venta))
+	
+	if len(oferta) > 0:
+		oferta = oferta[randint(0, len(oferta)-1)]
+
+	ctx = {
+		'oferta':oferta,
+	}
+
+	return render_to_response('main/afiliacion/afiliacion.html', ctx, context_instance=RequestContext(request))
+
+
+# Vista de contactos
+def contactos(request):
+
+	# Ofertas de los productos
+	oferta = []
+	oferta_alquiler = Alquiler.objects.filter(oferta=True).order_by('?')
+	oferta_venta = Compra.objects.filter(oferta=True).order_by('?')
+	oferta = list(chain(oferta_alquiler, oferta_venta))
+	
+	if len(oferta) > 0:
+		oferta = oferta[randint(0, len(oferta)-1)]
+
+	ctx = {
+		'oferta':oferta,
+	}
+
+	return render_to_response('main/contactos/contactos.html', ctx, context_instance=RequestContext(request))

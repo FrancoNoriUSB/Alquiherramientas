@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+    {% load main_extras %}
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -48,19 +49,19 @@
                 </div>
                 <div class="collapse navbar-collapse navHeaderCollapse navheader">
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="active">
+                        <li class="{% active_page request 'inicio' %}">
                             <a href="/">Inicio</a>
                         </li>
-                        <li>
+                        <li class="{% active_page request 'empresa' %}">
                             <a href="/empresa/">Empresa</a>
                         </li>
-                        <li>
-                            <a href="/produccion/">Productos</a>
+                        <li class="{% active_page request 'productos' %}">
+                            <a href="/productos/">Productos</a>
                         </li>
-                        <li>
+                        <li class="{% active_page request 'afiliacion' %}">
                             <a href="/afiliacion/">Afiliac&iacute;on</a>
                         </li>
-                        <li>
+                        <li class="{% active_page request 'contactos' %}">
                             <a href="/contactos/">Contactos</a>
                         </li>
                     </ul>

@@ -1,149 +1,6 @@
 [
 {
     "fields": {
-        "model": "logentry",
-        "name": "log entry",
-        "app_label": "admin"
-    },
-    "model": "contenttypes.contenttype",
-    "pk": 1
-},
-{
-    "fields": {
-        "model": "permission",
-        "name": "permission",
-        "app_label": "auth"
-    },
-    "model": "contenttypes.contenttype",
-    "pk": 2
-},
-{
-    "fields": {
-        "model": "group",
-        "name": "group",
-        "app_label": "auth"
-    },
-    "model": "contenttypes.contenttype",
-    "pk": 3
-},
-{
-    "fields": {
-        "model": "user",
-        "name": "user",
-        "app_label": "auth"
-    },
-    "model": "contenttypes.contenttype",
-    "pk": 4
-},
-{
-    "fields": {
-        "model": "contenttype",
-        "name": "content type",
-        "app_label": "contenttypes"
-    },
-    "model": "contenttypes.contenttype",
-    "pk": 5
-},
-{
-    "fields": {
-        "model": "session",
-        "name": "session",
-        "app_label": "sessions"
-    },
-    "model": "contenttypes.contenttype",
-    "pk": 6
-},
-{
-    "fields": {
-        "model": "estado",
-        "name": "Estado",
-        "app_label": "main"
-    },
-    "model": "contenttypes.contenttype",
-    "pk": 7
-},
-{
-    "fields": {
-        "model": "ciudad",
-        "name": "Ciudad",
-        "app_label": "main"
-    },
-    "model": "contenttypes.contenttype",
-    "pk": 8
-},
-{
-    "fields": {
-        "model": "zona",
-        "name": "Zona",
-        "app_label": "main"
-    },
-    "model": "contenttypes.contenttype",
-    "pk": 9
-},
-{
-    "fields": {
-        "model": "direccion",
-        "name": "Direccion",
-        "app_label": "main"
-    },
-    "model": "contenttypes.contenttype",
-    "pk": 10
-},
-{
-    "fields": {
-        "model": "marca",
-        "name": "Marca",
-        "app_label": "main"
-    },
-    "model": "contenttypes.contenttype",
-    "pk": 11
-},
-{
-    "fields": {
-        "model": "modelo",
-        "name": "Modelo",
-        "app_label": "main"
-    },
-    "model": "contenttypes.contenttype",
-    "pk": 12
-},
-{
-    "fields": {
-        "model": "herramienta",
-        "name": "Herramienta",
-        "app_label": "main"
-    },
-    "model": "contenttypes.contenttype",
-    "pk": 13
-},
-{
-    "fields": {
-        "model": "alquiler",
-        "name": "Alquiler",
-        "app_label": "main"
-    },
-    "model": "contenttypes.contenttype",
-    "pk": 14
-},
-{
-    "fields": {
-        "model": "compra",
-        "name": "Compra",
-        "app_label": "main"
-    },
-    "model": "contenttypes.contenttype",
-    "pk": 15
-},
-{
-    "fields": {
-        "expire_date": "2014-12-24T20:41:43.321Z",
-        "session_data": "MWI2NmEzNjI4YTliMmM5MDlmOWZjZDQ3Yjc1MzhjZDhlYTgxMmI5MDp7Il9hdXRoX3VzZXJfaGFzaCI6IjY2MTI1YzRjZjg0MzdiOTBkZjc1OGFiMmVkOGIyNDllZWY4ZWVlOWQiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjF9"
-    },
-    "model": "sessions.session",
-    "pk": "gni7d2ouqp2bh9yh3bssa6gvbjektx7n"
-},
-{
-    "fields": {
         "nombre": "Amazonas"
     },
     "model": "main.estado",
@@ -391,7 +248,15 @@
 },
 {
     "fields": {
+        "nombre": "herramienta"
+    },
+    "model": "main.categoria",
+    "pk": 1
+},
+{
+    "fields": {
         "nombre": "Taladro",
+        "categoria": 1,
         "modelo": 4,
         "marca": 3
     },
@@ -401,6 +266,7 @@
 {
     "fields": {
         "nombre": "Martillo",
+        "categoria": 1,
         "modelo": 1,
         "marca": 5
     },
@@ -410,6 +276,7 @@
 {
     "fields": {
         "nombre": "Camion",
+        "categoria": 1,
         "modelo": 2,
         "marca": 6
     },
@@ -419,6 +286,10 @@
 {
     "fields": {
         "contenido": "Se alquila un camion 350, en buen estado, usa diesel.",
+        "oferta": true,
+        "fecha_publicacion": "2014-10-20",
+        "fecha_actualizacion": "2014-10-20",
+        "fecha_expiracion": "2014-10-20",
         "herramienta": 3,
         "direccion": 1,
         "titulo": "Alquiler de camio",
@@ -431,6 +302,10 @@
 {
     "fields": {
         "contenido": "Se vende un taladro, rojo con brocas de acero.",
+        "oferta": false,
+        "fecha_publicacion": "2014-10-20",
+        "fecha_actualizacion": "2014-10-20",
+        "fecha_expiracion": "2014-10-20",
         "titulo": "Venta de taladro",
         "herramienta": 1,
         "precio": "100.00",
@@ -843,24 +718,6 @@
     },
     "model": "auth.permission",
     "pk": 45
-},
-{
-    "fields": {
-        "username": "edgar",
-        "first_name": "",
-        "last_name": "",
-        "is_active": true,
-        "is_superuser": true,
-        "is_staff": true,
-        "last_login": "2014-12-10T20:41:43.319Z",
-        "groups": [],
-        "user_permissions": [],
-        "password": "pbkdf2_sha256$12000$qy60qS8TuCbh$vTmE2+JPHHdDiewz4fEm3dK3DHmYXEfXqAytKO+T0ns=",
-        "email": "valderrama_862@hotmail.com",
-        "date_joined": "2014-12-10T20:40:32.794Z"
-    },
-    "model": "auth.user",
-    "pk": 1
 },
 {
     "fields": {
