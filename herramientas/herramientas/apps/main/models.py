@@ -142,7 +142,6 @@ class Publicacion(models.Model):
 
 
 	class Meta:
-		abstract = True
 		ordering = ('titulo',)
 		verbose_name = "Publicacion"
 		verbose_name_plural = "Publicaciones"
@@ -157,8 +156,7 @@ class Alquiler(Publicacion):
 	# Dos numeros decimales.
 	precioDia = models.DecimalField(max_digits=20,decimal_places=2)
 
-	class Meta(Publicacion.Meta):
-		abstract = False
+	class Meta:
 		ordering = ('diasAlquiler',)
 		verbose_name = "Alquiler"
 		verbose_name_plural = "Alquileres"
@@ -169,8 +167,7 @@ class Compra(Publicacion):
 	# Dos numeros decimales.
 	precio = models.DecimalField(max_digits=20, decimal_places=2)
 
-	class Meta(Publicacion.Meta):
-		abstract = False
+	class Meta:
 		ordering = ('precio',)
 		verbose_name = "Compra"
 		verbose_name_plural = "Compras"
