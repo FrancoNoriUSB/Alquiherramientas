@@ -152,22 +152,22 @@ class Publicacion(models.Model):
 
 #Clase de alquiler de herramienta que hereda de la publicacion
 class Alquiler(Publicacion):
-	diasAlquiler = models.IntegerField()
+	dias = models.IntegerField()
 	# Dos numeros decimales.
-	precioDia = models.DecimalField(max_digits=20,decimal_places=2)
+	precio = models.DecimalField(max_digits=20,decimal_places=2)
 
 	class Meta:
-		ordering = ('diasAlquiler',)
+		ordering = ('dias',)
 		verbose_name = "Alquiler"
 		verbose_name_plural = "Alquileres"
 
 
-#Clase de compra de herramienta que hereda de la publicacion
-class Compra(Publicacion):
+#Clase de venta de herramienta que hereda de la publicacion
+class Venta(Publicacion):
 	# Dos numeros decimales.
 	precio = models.DecimalField(max_digits=20, decimal_places=2)
 
 	class Meta:
 		ordering = ('precio',)
-		verbose_name = "Compra"
-		verbose_name_plural = "Compras"
+		verbose_name = "Venta"
+		verbose_name_plural = "Ventas"
