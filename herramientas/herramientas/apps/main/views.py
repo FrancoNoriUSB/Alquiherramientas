@@ -128,3 +128,13 @@ def contactos(request):
 	}
 
 	return render_to_response('main/contactos/contactos.html', ctx, context_instance=RequestContext(request))
+
+
+def ultimasPublicaciones(request):
+	publicaciones = Publicacion.objects.all().order_by("-fecha_publicacion")
+
+	ctx = {
+		'publicaciones':publicaciones,
+	}
+
+	return render_to_response('main/inicio/inicio.html', ctx, context_instance=RequestContext(request))

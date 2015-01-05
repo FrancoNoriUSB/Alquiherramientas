@@ -285,37 +285,6 @@
 },
 {
     "fields": {
-        "contenido": "Se alquila un camion 350, en buen estado, usa diesel.",
-        "oferta": true,
-        "fecha_publicacion": "2014-10-20",
-        "fecha_actualizacion": "2014-10-20",
-        "fecha_expiracion": "2014-10-20",
-        "herramienta": 3,
-        "direccion": 1,
-        "titulo": "Alquiler de camio",
-        "precioDia": "50.00",
-        "diasAlquiler": 5
-    },
-    "model": "main.alquiler",
-    "pk": 1
-},
-{
-    "fields": {
-        "contenido": "Se vende un taladro, rojo con brocas de acero.",
-        "oferta": false,
-        "fecha_publicacion": "2014-10-20",
-        "fecha_actualizacion": "2014-10-20",
-        "fecha_expiracion": "2014-10-20",
-        "titulo": "Venta de taladro",
-        "herramienta": 1,
-        "precio": "100.00",
-        "direccion": 2
-    },
-    "model": "main.compra",
-    "pk": 1
-},
-{
-    "fields": {
         "codename": "add_logentry",
         "name": "Can add log entry",
         "content_type": 1
@@ -1212,31 +1181,5 @@
     },
     "model": "admin.logentry",
     "pk": 38
-},
-{
-    "fields": {
-        "action_flag": 1,
-        "action_time": "2014-12-10T22:25:09.692Z",
-        "object_repr": "Venta de taladro",
-        "object_id": "1",
-        "change_message": "",
-        "user": 1,
-        "content_type": 15
-    },
-    "model": "admin.logentry",
-    "pk": 39
-},
-{
-    "fields": {
-        "action_flag": 1,
-        "action_time": "2014-12-10T22:26:02.614Z",
-        "object_repr": "Alquiler de camio",
-        "object_id": "1",
-        "change_message": "",
-        "user": 1,
-        "content_type": 14
-    },
-    "model": "admin.logentry",
-    "pk": 40
 }
 ]

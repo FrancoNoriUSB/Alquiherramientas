@@ -1,1 +1,24 @@
 {% extends "main/base.html" %}
+{% block content %}
+	<h3>Ultimos anuncios Venta/Alquiler</h3>
+	<div class="row">
+		{% for p in publicaciones %}
+			<div class="col-lg-4" style="height: 400px">
+				<img src="{{MEDIA_URL}}{{ p.imagen }}" class="img-responsive" style="margin: 0 auto; width: 100%; height: 70%"/>
+				{{ p.herramienta }}<br/>
+
+				{% if p.compra %}
+					<p>Venta: </p><p style="text-align: right">{{p.compra.precio}}</p>
+				{% else %}
+					<p style="text-align: justify;">Alquiler: {{p.alquiler.precioDia}}</p>
+				{% endif %}
+
+				Marca: {{ p.herramienta.marca }}<br/>
+				Modelo: {{ p.herramienta.modelo }}<br/>
+				Zona: {{ p.direccion.zona }}<br/><br/>
+			</div>
+		{% endfor %}
+
+	</div>
+	
+{% endblock %}

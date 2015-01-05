@@ -130,6 +130,7 @@ class Herramienta(models.Model):
 # Publicacion de las herramientas.
 class Publicacion(models.Model):
 	titulo = models.CharField(max_length=100)
+	imagen = models.ImageField()
 	contenido = models.CharField(max_length=10000)
 	oferta = models.BooleanField(default=False, help_text='Marcado si desea que se muestre como una oferta')
 	fecha_publicacion = models.DateTimeField(auto_now_add=True)

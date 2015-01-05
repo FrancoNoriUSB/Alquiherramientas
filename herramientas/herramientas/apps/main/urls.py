@@ -5,7 +5,7 @@ from django.conf import settings
 urlpatterns = patterns('herramientas.apps.main.views',
 
 	#View del home
-    url(r'^$', 'inicio', name='inicio'),
+    url(r'^$', 'ultimasPublicaciones', name='inicio'),
 
     #View de empresa
     url(r'^empresa/$', 'empresa', name='empresa'),
