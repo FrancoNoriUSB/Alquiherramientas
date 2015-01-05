@@ -1,1 +1,29 @@
 {% extends "main/base.html" %}
+
+{% block content %}
+	<div class="row">
+		<h4>Anuncios venta/alquiler</h4>
+		{%for publicacion in publicaciones%}
+		<div class="col-lg-3 col-md-3 col-sm-9 col-xs-9">
+			<img src="{{publicacion.imagen.url}}" alt="">
+			<h4>{{publicacion.titulo}}</h4>
+            <div class="divider"></div>
+            {%if publicacion.dias%}
+            	Alquiler &nbsp;&nbsp;&nbsp;&nbsp; {{publicacion.precio}}(por dia)
+            {%else%}
+				Venta &nbsp;&nbsp;&nbsp;&nbsp; {{publicacion.precio}}
+            {%endif%}
+            <br>
+            Marca: {{publicacion.herramienta.marca.nombre}}
+            <br>
+			A&ntilde;o: {{publicacion.herramienta.ano}}
+            <br>
+			Estado: {{publicacion.direccion.estado.nombre}} <a href="/publicacion/{{publicacion.id}}/">ver mas</a>
+		</div>
+		{%endfor%}
+	</div>
+{% endblock content %}
+
+{% block js %}
+	
+{% endblock js %}

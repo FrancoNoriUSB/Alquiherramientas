@@ -1,6 +1,12 @@
 # -*- coding: utf-8 -*-
 from django.utils.translation import gettext as _
+import datetime
 from django.db import models
+
+#Rango de anos a utilizar en las herramientas
+anos = []
+for n in range(1960, (datetime.datetime.now().year+1)):
+    anos.append((n,n))
 
 #Modelos de la base de datos de Alquiherramientas 2112
 
@@ -67,9 +73,64 @@ class Direccion(models.Model):
 		return u"%s" %(self.domicilio)
 
 
+#Imagen de los anuncios que se publican
+class Imagen(models.Model):
+    imagen = models.ImageField(upload_to='uploads/img/', null=True)
+    thumbnail = models.ImageField(upload_to='uploads/img/thumbnails/', blank=True, null=True, editable=False)
+    descripcion = models.CharField(max_length=140, null=True)
+
+    #Metodo para crear el thumbnail al momento de cear la imagen
+    def create_thumbnail(self):
+        # If there is no image associated with this.
+        # do not create thumbnail
+        if not self.imagen:
+            return
+
+        from PIL import Image
+        from cStringIO import StringIO
+        from django.core.files.uploadedfile import SimpleUploadedFile
+        import os
+
+        # Set our max thumbnail size in a tuple (max width, max height)
+        THUMBNAIL_SIZE = (200, 200)
+
+        # Open original photo which we want to thumbnail using PIL's Image
+        imagen = Image.open(StringIO(self.imagen.read()))
+        image_type = imagen.format.lower()
+
+        imagen.thumbnail(THUMBNAIL_SIZE, Image.ANTIALIAS)
+
+        # Save the thumbnail
+        temp_handle = StringIO()
+        imagen.save(temp_handle, image_type)
+        temp_handle.seek(0)
+
+        # Save image to a SimpleUploadedFile which can be saved into
+        # ImageField
+        suf = SimpleUploadedFile(os.path.split(self.imagen.name)[-1], temp_handle.read(),
+                                 content_type='imagen/%s' % (image_type))
+        # Save SimpleUploadedFile into image field
+        self.thumbnail.save('%s_thumbnail.%s' %
+                            (os.path.splitext(suf.name)[0], image_type), suf, save=False)
+
+    def save(self):
+        # create a thumbnail
+        self.create_thumbnail()
+
+        super(Imagen, self).save()
+
+    class Meta:
+        abstract = True
+        ordering = ('imagen',)
+        verbose_name = _('Imagen')
+        verbose_name_plural = _('Imagenes')
+
+    def __unicode__(self):
+        return self.descripcion
+
+
 #Categoria de cada herramienta
 class Categoria(models.Model):
-
 	nombre = models.CharField(max_length=50)
 
 	class Meta:
@@ -111,7 +172,9 @@ class Modelo(models.Model):
 
 #Herramienta que se vende o alquila
 class Herramienta(models.Model):
+
 	nombre = models.CharField(max_length=30)
+	ano = models.IntegerField(default=datetime.datetime.now().year, choices=anos, max_length=4)
 
 	#Claves foraneas
 	categoria = models.ForeignKey(Categoria)
@@ -131,6 +194,7 @@ class Herramienta(models.Model):
 class Publicacion(models.Model):
 	titulo = models.CharField(max_length=100)
 	contenido = models.CharField(max_length=10000)
+	imagen = models.ImageField(upload_to='uploads/publicaciones')
 	oferta = models.BooleanField(default=False, help_text='Marcado si desea que se muestre como una oferta')
 	fecha_publicacion = models.DateTimeField(auto_now_add=True)
 	fecha_actualizacion = models.DateTimeField(auto_now=True)
@@ -148,6 +212,19 @@ class Publicacion(models.Model):
 
 	def __unicode__(self):
 		return u"%s" %(self.titulo)
+
+
+#Imagenes de las publicaciones
+class ImagenPublicacion(Imagen):
+    publicacion = models.ForeignKey(Publicacion, related_name='imagenes')
+
+    class Meta:
+    	abstract = False
+        verbose_name = "ImagenPublicacion"
+        verbose_name_plural = "ImagenesPublicaciones"
+
+    def __unicode__(self):
+        return u"%s" %(self.descripcion)
 
 
 #Clase de alquiler de herramienta que hereda de la publicacion

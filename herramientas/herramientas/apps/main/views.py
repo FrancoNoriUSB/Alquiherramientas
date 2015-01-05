@@ -17,23 +17,23 @@ from django.core.mail.message import EmailMessage
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django_countries import countries
 from random import randint
-from itertools import chain
-
 
 #Vista del inicio
 def inicio(request):
 
-	# Ofertas de los productos
-	oferta = []
-	oferta_alquiler = Alquiler.objects.filter(oferta=True).order_by('?')
-	oferta_venta = Compra.objects.filter(oferta=True).order_by('?')
-	oferta = list(chain(oferta_alquiler, oferta_venta))
+	#Formulario de busqueda
+	busquedaF = BusquedaForm()
+
+	# Ofertas de los publicaciones
+	ofertas = []
+	ofertas = Publicacion.objects.filter(oferta=True).order_by('?')
 	
-	if len(oferta) > 0:
-		oferta = oferta[randint(0, len(oferta)-1)]
+	if len(ofertas) > 0:
+		ofertas = ofertas[randint(0, len(ofertas)-1)]
 
 	ctx = {
-		'oferta':oferta,
+		'BusquedaForm':busquedaF,
+		'ofertas':ofertas,
 	}
 
 	return render_to_response('main/inicio/inicio.html', ctx, context_instance=RequestContext(request))
@@ -42,70 +42,89 @@ def inicio(request):
 # Vista de la informacion de la empresa
 def empresa(request):
 
-	# Ofertas de los productos
-	oferta = []
-	oferta_alquiler = Alquiler.objects.filter(oferta=True).order_by('?')
-	oferta_venta = Compra.objects.filter(oferta=True).order_by('?')
-	oferta = list(chain(oferta_alquiler, oferta_venta))
+	#Formulario de busqueda
+	busquedaF = BusquedaForm()
+
+	# Ofertas de los publicaciones
+	ofertas = []
+	ofertas = Publicacion.objects.filter(oferta=True).order_by('?')
 	
-	if len(oferta) > 0:
-		oferta = oferta[randint(0, len(oferta)-1)]
+	if len(ofertas) > 0:
+		ofertas = ofertas[randint(0, len(ofertas)-1)]
 
 	ctx = {
-		'oferta':oferta,
+		'BusquedaForm':busquedaF,
+		'ofertas':ofertas,
 	}
 
 	return render_to_response('main/empresa/empresa.html', ctx, context_instance=RequestContext(request))
 
 
-# Vista de los productos
-def productos(request):
+# Vista de los publicaciones
+def publicaciones(request):
 
-	# Ofertas de los productos
-	oferta = []
-	oferta_alquiler = Alquiler.objects.filter(oferta=True).order_by('?')
-	oferta_venta = Compra.objects.filter(oferta=True).order_by('?')
-	oferta = list(chain(oferta_alquiler, oferta_venta))
+	#Formulario de busqueda
+	busquedaF = BusquedaForm()
+
+	# Ofertas de los publicaciones
+	ofertas = []
+	ofertas = Publicacion.objects.filter(oferta=True).order_by('?')
 	
-	if len(oferta) > 0:
-		oferta = oferta[randint(0, len(oferta)-1)]
+	if len(ofertas) > 0:
+		ofertas = ofertas[randint(0, len(ofertas)-1)]
 
-	compra = Compra.objects.all().order_by('fecha_publicacion')
-	alquileres = Alquiler.objects.all().order_by('fecha_publicacion')
+	#publicaciones que se ofertan
+	publicaciones = Publicacion.objects.all().order_by('fecha_publicacion')
 
 	ctx = {
-		'oferta': oferta,
-		'productos':productos,
+		'BusquedaForm':busquedaF,
+		'ofertas':ofertas,
+		'publicaciones':publicaciones,
 	}
 
-	return render_to_response('main/productos/productos.html', ctx, context_instance=RequestContext(request))
+	return render_to_response('main/publicaciones/publicaciones.html', ctx, context_instance=RequestContext(request))
 
 
 # Vista de un producto especifico
 def producto(request, id_producto):
+
+	#Formulario de busqueda
+	busquedaF = BusquedaForm()
+
+	# Ofertas de los publicaciones
+	ofertas = []
+	ofertas = Publicacion.objects.filter(oferta=True).order_by('?')
+	
+	if len(ofertas) > 0:
+		ofertas = ofertas[randint(0, len(ofertas)-1)]
+
 	producto = Publicacion.objects.get(id=id_producto)
 
 	ctx = {
+		'BusquedaForm':busquedaF,
+		'ofertas':ofertas,
 		'producto': producto
 	}
 
-	return render_to_response('main/productos/producto.html', ctx, context_instance=RequestContext(request))
+	return render_to_response('main/publicaciones/publicacion.html', ctx, context_instance=RequestContext(request))
 
 
 # Vista para la afiliacion
 def afiliacion(request):
 
-	# Ofertas de los productos
-	oferta = []
-	oferta_alquiler = Alquiler.objects.filter(oferta=True).order_by('?')
-	oferta_venta = Compra.objects.filter(oferta=True).order_by('?')
-	oferta = list(chain(oferta_alquiler, oferta_venta))
+	#Formulario de busqueda
+	busquedaF = BusquedaForm()
+
+	# Ofertas de los publicaciones
+	ofertas = []
+	ofertas = Publicacion.objects.filter(oferta=True).order_by('?')
 	
-	if len(oferta) > 0:
-		oferta = oferta[randint(0, len(oferta)-1)]
+	if len(ofertas) > 0:
+		ofertas = ofertas[randint(0, len(ofertas)-1)]
 
 	ctx = {
-		'oferta':oferta,
+		'BusquedaForm':busquedaF,
+		'ofertas':ofertas,
 	}
 
 	return render_to_response('main/afiliacion/afiliacion.html', ctx, context_instance=RequestContext(request))
@@ -114,17 +133,19 @@ def afiliacion(request):
 # Vista de contactos
 def contactos(request):
 
-	# Ofertas de los productos
-	oferta = []
-	oferta_alquiler = Alquiler.objects.filter(oferta=True).order_by('?')
-	oferta_venta = Compra.objects.filter(oferta=True).order_by('?')
-	oferta = list(chain(oferta_alquiler, oferta_venta))
+	#Formulario de busqueda
+	busquedaF = BusquedaForm()
+
+	# Ofertas de los publicaciones
+	ofertas = []
+	ofertas = Publicacion.objects.filter(oferta=True).order_by('?')
 	
-	if len(oferta) > 0:
-		oferta = oferta[randint(0, len(oferta)-1)]
+	if len(ofertas) > 0:
+		ofertas = ofertas[randint(0, len(ofertas)-1)]
 
 	ctx = {
-		'oferta':oferta,
+		'BusquedaForm':busquedaF,
+		'ofertas':ofertas,
 	}
 
 	return render_to_response('main/contactos/contactos.html', ctx, context_instance=RequestContext(request))
