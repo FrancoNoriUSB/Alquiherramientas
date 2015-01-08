@@ -11,12 +11,12 @@ from django.template import RequestContext
 from datetime import datetime, date
 from django.db.models import Count
 from django.db.models import Q
-from models import *
-from forms import *
-from django.core.mail.message import EmailMessage
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django_countries import countries
 from random import randint
+from funciones import *
+from models import *
+from forms import *
 
 #Vista del inicio
 def inicio(request):
@@ -24,16 +24,80 @@ def inicio(request):
 	#Formulario de busqueda
 	busquedaF = BusquedaForm()
 
-	# Ofertas de los publicaciones
+	# Ofertas de los productos
 	ofertas = []
-	ofertas = Publicacion.objects.filter(oferta=True).order_by('?')
+	ofertas = Producto.objects.filter(oferta=True).order_by('?')
 	
 	if len(ofertas) > 0:
 		ofertas = ofertas[randint(0, len(ofertas)-1)]
 
+	#productos que se ofertan
+	productos = Producto.objects.all().order_by('fecha_producto')
+
+	#Caso que se realizo una busqueda
+	if request.GET:
+		busquedaF = BusquedaForm(request.GET)
+        
+        #Caso para el buscador de herramientas
+        if busquedaF.is_valid():
+			tipo = busquedaF.cleaned_data['tipo']
+			categoria = busquedaF.cleaned_data['categoria']
+			marca = busquedaF.cleaned_data['marca']
+			estado = busquedaF.cleaned_data['estado']
+			ciudad = busquedaF.cleaned_data['ciudad']
+			zona = busquedaF.cleaned_data['zona']
+
+			#Verificacion de campos
+			if tipo != '' or categoria != None or marca != None or estado != None or ciudad != None or zona != None:
+
+				#Verificacion de string vacio
+				if tipo == '':
+				    tipo = None
+
+				#Campos a buscar
+				fields_list = []
+				if tipo == 'alquiler':
+					fields_list.append('alquiler')
+				else:
+					fields_list.append('venta')
+
+				fields_list.append('herramienta')
+				fields_list.append('herramienta')
+				fields_list.append('direccion')
+				fields_list.append('direccion')
+				fields_list.append('direccion')
+
+				#Comparadores para buscar
+				types_list=[]
+				types_list.append('exact')
+				types_list.append('categoria__nombre__exact')
+				types_list.append('marca__nombre__exact')
+				types_list.append('estado__nombre__exact')
+				types_list.append('ciudad__nombre__exact')
+				types_list.append('zona__nombre__exact')
+
+				#Valores a buscar
+				values_list=[]
+				values_list.append(tipo)
+				values_list.append(categoria)
+				values_list.append(marca)
+				values_list.append(estado)
+				values_list.append(ciudad)
+				values_list.append(zona)
+
+				operator = 'and'
+
+				productos = dynamic_query(Producto, fields_list, types_list, values_list, operator)
+
+				#Caso no encontro nada
+				if productos == []:
+					productos = Producto.objects.all().order_by('fecha_producto')
+
+
 	ctx = {
 		'BusquedaForm':busquedaF,
 		'ofertas':ofertas,
+		'productos':productos,
 	}
 
 	return render_to_response('main/inicio/inicio.html', ctx, context_instance=RequestContext(request))
@@ -45,9 +109,9 @@ def empresa(request):
 	#Formulario de busqueda
 	busquedaF = BusquedaForm()
 
-	# Ofertas de los publicaciones
+	# Ofertas de los productos
 	ofertas = []
-	ofertas = Publicacion.objects.filter(oferta=True).order_by('?')
+	ofertas = Producto.objects.filter(oferta=True).order_by('?')
 	
 	if len(ofertas) > 0:
 		ofertas = ofertas[randint(0, len(ofertas)-1)]
@@ -60,29 +124,29 @@ def empresa(request):
 	return render_to_response('main/empresa/empresa.html', ctx, context_instance=RequestContext(request))
 
 
-# Vista de los publicaciones
-def publicaciones(request):
+# Vista de los productos
+def productos(request):
 
 	#Formulario de busqueda
 	busquedaF = BusquedaForm()
 
-	# Ofertas de los publicaciones
+	# Ofertas de los productos
 	ofertas = []
-	ofertas = Publicacion.objects.filter(oferta=True).order_by('?')
+	ofertas = Producto.objects.filter(oferta=True).order_by('?')
 	
 	if len(ofertas) > 0:
 		ofertas = ofertas[randint(0, len(ofertas)-1)]
 
-	#publicaciones que se ofertan
-	publicaciones = Publicacion.objects.all().order_by('fecha_publicacion')
+	#productos que se ofertan
+	productos = Producto.objects.all().order_by('fecha_producto')
 
 	ctx = {
 		'BusquedaForm':busquedaF,
 		'ofertas':ofertas,
-		'publicaciones':publicaciones,
+		'productos':productos,
 	}
 
-	return render_to_response('main/publicaciones/publicaciones.html', ctx, context_instance=RequestContext(request))
+	return render_to_response('main/productos/productos.html', ctx, context_instance=RequestContext(request))
 
 
 # Vista de un producto especifico
@@ -91,14 +155,14 @@ def producto(request, id_producto):
 	#Formulario de busqueda
 	busquedaF = BusquedaForm()
 
-	# Ofertas de los publicaciones
+	# Ofertas de los productos
 	ofertas = []
-	ofertas = Publicacion.objects.filter(oferta=True).order_by('?')
+	ofertas = Producto.objects.filter(oferta=True).order_by('?')
 	
 	if len(ofertas) > 0:
 		ofertas = ofertas[randint(0, len(ofertas)-1)]
 
-	producto = Publicacion.objects.get(id=id_producto)
+	producto = Producto.objects.get(id=id_producto)
 
 	ctx = {
 		'BusquedaForm':busquedaF,
@@ -106,7 +170,7 @@ def producto(request, id_producto):
 		'producto': producto
 	}
 
-	return render_to_response('main/publicaciones/publicacion.html', ctx, context_instance=RequestContext(request))
+	return render_to_response('main/productos/producto.html', ctx, context_instance=RequestContext(request))
 
 
 # Vista para la afiliacion
@@ -115,9 +179,9 @@ def afiliacion(request):
 	#Formulario de busqueda
 	busquedaF = BusquedaForm()
 
-	# Ofertas de los publicaciones
+	# Ofertas de los productos
 	ofertas = []
-	ofertas = Publicacion.objects.filter(oferta=True).order_by('?')
+	ofertas = Producto.objects.filter(oferta=True).order_by('?')
 	
 	if len(ofertas) > 0:
 		ofertas = ofertas[randint(0, len(ofertas)-1)]
@@ -136,9 +200,9 @@ def contactos(request):
 	#Formulario de busqueda
 	busquedaF = BusquedaForm()
 
-	# Ofertas de los publicaciones
+	# Ofertas de los productos
 	ofertas = []
-	ofertas = Publicacion.objects.filter(oferta=True).order_by('?')
+	ofertas = Producto.objects.filter(oferta=True).order_by('?')
 	
 	if len(ofertas) > 0:
 		ofertas = ofertas[randint(0, len(ofertas)-1)]

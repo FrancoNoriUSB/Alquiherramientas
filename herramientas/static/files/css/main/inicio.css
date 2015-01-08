@@ -1,0 +1,17 @@
+/*Documento de Estilos para la base de Alquiherramientas 2112
+Elaborado por: Franco Nori G.
+Colores a utilizar:
+	Amarillo: #D8971B;
+	Gris Claro: #7E7769;
+	Gris Oscuro: #625D53;
+	Azul: #0B3755;
+	Negro: #292929;
+*/
+
+/*Estilos del contenido*/
+
+body > div > div.contenido.container-fluid > div > div.contenido > div > div > a > img{
+	height: 180px !important;
+	margin-left: auto;
+	margin-right: auto;
+}
