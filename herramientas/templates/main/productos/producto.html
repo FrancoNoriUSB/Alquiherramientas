@@ -1,0 +1,25 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+	<div class="row">
+		<h4>{{producto.titulo}}/{{producto.herramienta.marca.nombre}}</h4>
+		<div class="col-lg-3 col-md-3 col-sm-9 col-xs-9">
+			<img class="img-responsive" src="{{producto.imagen.url}}" alt="">
+            {%if producto.alquiler%}
+            	Alquiler &nbsp;&nbsp;&nbsp;&nbsp; {{producto.alquiler.precio}} (por dia)
+            {%else%}
+				Venta &nbsp;&nbsp;&nbsp;&nbsp; {{producto.venta.precio}}
+            {%endif%}
+            <br>
+            <strong>Marca:</strong> {{producto.herramienta.marca.nombre}}
+            <br>
+			<strong>A&ntilde;o:</strong> {{producto.herramienta.ano}}
+            <br>
+			<strong>Estado:</strong> {{producto.direccion.estado.nombre}} <a href="/productos/{{producto.id}}/">ver mas</a>
+		</div>
+	</div>
+{% endblock content %}
+
+{% block js %}
+	
+{% endblock js %}

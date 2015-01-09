@@ -10,9 +10,9 @@ urlpatterns = patterns('herramientas.apps.main.views',
     #View de empresa
     url(r'^empresa/$', 'empresa', name='empresa'),
 
-    #Views de los publicaciones
-    url(r'^publicaciones/$', 'publicaciones', name='publicaciones'),
-    url(r'^publicaciones/(?P<id_publicacion>\d+)/$', 'publicacion', name='publicacion'),
+    #Views de los productos
+    url(r'^productos/$', 'productos', name='productos'),
+    url(r'^productos/(?P<id_producto>\d+)/$', 'producto', name='producto'),
 
     #View de afiliacion
     url(r'^afiliacion/$', 'afiliacion', name='afiliacion'),

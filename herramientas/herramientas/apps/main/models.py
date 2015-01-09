@@ -190,13 +190,13 @@ class Herramienta(models.Model):
 		return u"%s" %(self.nombre)
 
 
-# Publicacion de las herramientas.
-class Publicacion(models.Model):
+# Producto de las herramientas.
+class Producto(models.Model):
 	titulo = models.CharField(max_length=100)
 	contenido = models.CharField(max_length=10000)
-	imagen = models.ImageField(upload_to='uploads/publicaciones')
+	imagen = models.ImageField(upload_to='uploads/Productos')
 	oferta = models.BooleanField(default=False, help_text='Marcado si desea que se muestre como una oferta')
-	fecha_publicacion = models.DateTimeField(auto_now_add=True)
+	fecha_producto = models.DateTimeField(auto_now_add=True)
 	fecha_actualizacion = models.DateTimeField(auto_now=True)
 	fecha_expiracion = models.DateTimeField()
 
@@ -204,31 +204,30 @@ class Publicacion(models.Model):
 	direccion = models.ForeignKey(Direccion)
 	herramienta = models.OneToOneField(Herramienta)
 
-
 	class Meta:
 		ordering = ('titulo',)
-		verbose_name = "Publicacion"
-		verbose_name_plural = "Publicaciones"
+		verbose_name = "Producto"
+		verbose_name_plural = "Productos"
 
 	def __unicode__(self):
 		return u"%s" %(self.titulo)
 
 
-#Imagenes de las publicaciones
-class ImagenPublicacion(Imagen):
-    publicacion = models.ForeignKey(Publicacion, related_name='imagenes')
+#Imagenes de las Productos
+class ImagenProducto(Imagen):
+    Producto = models.ForeignKey(Producto, related_name='imagenes')
 
     class Meta:
     	abstract = False
-        verbose_name = "ImagenPublicacion"
-        verbose_name_plural = "ImagenesPublicaciones"
+        verbose_name = "ImagenProducto"
+        verbose_name_plural = "ImagenesProductos"
 
     def __unicode__(self):
         return u"%s" %(self.descripcion)
 
 
-#Clase de alquiler de herramienta que hereda de la publicacion
-class Alquiler(Publicacion):
+#Clase de alquiler de herramienta que hereda de la Producto
+class Alquiler(Producto):
 	dias = models.IntegerField()
 	# Dos numeros decimales.
 	precio = models.DecimalField(max_digits=20,decimal_places=2)
@@ -239,8 +238,8 @@ class Alquiler(Publicacion):
 		verbose_name_plural = "Alquileres"
 
 
-#Clase de venta de herramienta que hereda de la publicacion
-class Venta(Publicacion):
+#Clase de venta de herramienta que hereda de la Producto
+class Venta(Producto):
 	# Dos numeros decimales.
 	precio = models.DecimalField(max_digits=20, decimal_places=2)
 
