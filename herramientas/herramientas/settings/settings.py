@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'herramientas.apps.main',
     'widget_tweaks',
     'django_countries',
+    'bootstrap3',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -142,3 +143,10 @@ TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
 )
 
 BOOTSTRAP_ADMIN_SIDEBAR_MENU = True
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'evalderrama862@gmail.com'
+EMAIL_HOST_PASSWORD = 'MyNaMeIs**862'
+EMAIL_PORT = 587
+

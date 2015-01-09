@@ -12,12 +12,15 @@ class BusquedaForm(forms.Form):
 		('','Venta/Alquiler'),
 		('Alquiler', 'Alquiler'), 
 		('Compra','Venta'),
-		)
+	)
 
-	venta_alquiler = forms.ChoiceField(choices=choices_alquiler, required=True, widget=forms.Select(attrs={'class': "form-control"}))
+	venta_alquiler = forms.ChoiceField(choices=choices_alquiler, required=True, widget=forms.Select())
 	categoria = forms.ModelChoiceField(queryset=Categoria.objects.all(), empty_label=' - Categoria -')
 	marca = forms.ModelChoiceField(queryset=Marca.objects.all(), empty_label=' - Marca -')
 	estado = forms.ModelChoiceField(queryset=Estado.objects.all(), empty_label=' - Estado -')
 	ciudad = forms.ModelChoiceField(queryset=Ciudad.objects.all(), empty_label=' - Ciudad -')
 	zona = forms.ModelChoiceField(queryset=Zona.objects.all(), empty_label=' - Zona -')
 
+class ContactoForm(forms.Form):
+	remitente = forms.EmailField()
+	mensaje = forms.CharField(widget=forms.Textarea)

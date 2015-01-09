@@ -1,24 +1,28 @@
 {% extends "main/base.html" %}
 {% block content %}
-	<h3>Ultimos anuncios Venta/Alquiler</h3>
 	<div class="row">
-		{% for p in publicaciones %}
-			<div class="col-lg-4" style="height: 400px">
-				<img src="{{MEDIA_URL}}{{ p.imagen }}" class="img-responsive" style="margin: 0 auto; width: 100%; height: 70%"/>
-				{{ p.herramienta }}<br/>
-
-				{% if p.compra %}
-					<p>Venta: </p><p style="text-align: right">{{p.compra.precio}}</p>
-				{% else %}
-					<p style="text-align: justify;">Alquiler: {{p.alquiler.precioDia}}</p>
-				{% endif %}
-
-				Marca: {{ p.herramienta.marca }}<br/>
-				Modelo: {{ p.herramienta.modelo }}<br/>
-				Zona: {{ p.direccion.zona }}<br/><br/>
-			</div>
-		{% endfor %}
-
+		<h4>Anuncios venta/alquiler</h4>
+		{%for publicacion in publicaciones%}
+		<div class="col-lg-3 col-md-3 col-sm-9 col-xs-9">
+			<img src="{{publicacion.imagen.url}}" alt="">
+			<h4>{{publicacion.titulo}}</h4>
+            <div class="divider"></div>
+            {%if publicacion.dias%}
+            	Alquiler &nbsp;&nbsp;&nbsp;&nbsp; {{publicacion.precio}}(por dia)
+            {%else%}
+				Venta &nbsp;&nbsp;&nbsp;&nbsp; {{publicacion.precio}}
+            {%endif%}
+            <br>
+            Marca: {{publicacion.herramienta.marca.nombre}}
+            <br>
+			A&ntilde;o: {{publicacion.herramienta.ano}}
+            <br>
+			Estado: {{publicacion.direccion.estado.nombre}} <a href="/publicacion/{{publicacion.id}}/">ver mas</a>
+		</div>
+		{%endfor%}
 	</div>
+{% endblock content %}
+
+{% block js %}
 	
-{% endblock %}
+{% endblock js %}

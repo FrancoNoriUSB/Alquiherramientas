@@ -1,11 +1,11 @@
 from django.contrib import admin
-from herramientas.apps.main.models import Alquiler, Ciudad, Compra, Direccion, Estado
+from herramientas.apps.main.models import Alquiler, Ciudad, Venta, Direccion, Estado
 from herramientas.apps.main.models import Herramienta, Marca, Modelo, Publicacion, Zona
 
 
 admin.site.register(Alquiler)
 admin.site.register(Ciudad)
-admin.site.register(Compra)
+admin.site.register(Venta)
 admin.site.register(Direccion)
 admin.site.register(Estado)
 admin.site.register(Herramienta)

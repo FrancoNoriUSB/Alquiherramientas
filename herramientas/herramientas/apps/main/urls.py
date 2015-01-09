@@ -5,14 +5,14 @@ from django.conf import settings
 urlpatterns = patterns('herramientas.apps.main.views',
 
 	#View del home
-    url(r'^$', 'ultimasPublicaciones', name='inicio'),
+    url(r'^$', 'inicio', name='inicio'),
 
     #View de empresa
     url(r'^empresa/$', 'empresa', name='empresa'),
 
-    #Views de los productos
-    url(r'^productos/$', 'productos', name='productos'),
-    url(r'^productos/(?P<id_producto>\d+)/$', 'producto', name='producto'),
+    #Views de los publicaciones
+    url(r'^publicaciones/$', 'publicaciones', name='publicaciones'),
+    url(r'^publicaciones/(?P<id_publicacion>\d+)/$', 'publicacion', name='publicacion'),
 
     #View de afiliacion
     url(r'^afiliacion/$', 'afiliacion', name='afiliacion'),

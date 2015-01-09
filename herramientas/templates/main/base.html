@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
     {% load main_extras %}
+    {% load widget_tweaks %}
+    {% load bootstrap3 %}
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -55,8 +57,8 @@
                         <li class="{% active_page request 'empresa' %}">
                             <a href="/empresa/">Empresa</a>
                         </li>
-                        <li class="{% active_page request 'productos' %}">
-                            <a href="/productos/">Productos</a>
+                        <li class="{% active_page request 'publicaciones' %}">
+                            <a href="/publicaciones/">Productos</a>
                         </li>
                         <li class="{% active_page request 'afiliacion' %}">
                             <a href="/afiliacion/">Afiliac&iacute;on</a>
@@ -95,15 +97,58 @@
         </div>
 
         <!-- Sección interna de la página -->
-        <div class="contenido container">
+        <div class="contenido container-fluid">
             <div class="cahas row">
                 <div class="barra-lateral col-lg-3">
+                    <div class="registro-ingreso">
+                        <button class="btn btn-default">Registrate</button>
+                        <button class="btn btn-default">Ingresa</button>
+                    </div>
                     <div class="buscador">
-                        
+                        <h4>Buscador</h4>
+                        <form id="form" role="form" enctype="multipart/form-data" method="get" action="">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                {%render_field BusquedaForm.venta_alquiler class="form-control"%}
+                            </div>
+                            <div class="form-inline">
+                                {%render_field BusquedaForm.categoria class="form-control"%}
+                                {%render_field BusquedaForm.marca class="form-control"%}
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                {%render_field BusquedaForm.estado class="form-control"%}
+                            </div>
+                            <div class="form-inline">
+                                {%render_field BusquedaForm.ciudad class="form-control"%}
+                                {%render_field BusquedaForm.zona class="form-control"%}
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">
+                                    Buscar <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                            </div>
+                        </form>
                     </div>
+                    {%if oferta%}
                     <div class="ofertas">
-                        
+                        <h4>Ofertas</h4>
+                        <img src="{{ofertas.imagen.url}}" alt="">
+                        <h5>{{ofertas.titulo}}</h5>
+                        <p>
+                            {%if ofertas.dias%}
+                                Alquiler {{ofertas.precio}}
+                            {%else%}
+                                Venta
+                            {%endif%}
+                            Marca: {{ofertas.herramienta.marca.nombre}}
+                            A&ntilde;o: {{ofertas.herramienta.ano}}
+                            Estado: {{ofertas.direccion.estado.nombre}}
+                        </p>
+                        <a href="/productos/{{ofertas.id}}/">ver mas</a>
                     </div>
+                    {%endif%}
                 </div>
 
                 <!-- Contenido de la pagina -->
@@ -128,7 +173,7 @@
                             <a href="/empresa/">Empresa</a>
                         </li>
                         <li>
-                            <a href="/produccion/">Productos</a>
+                            <a href="/publicaciones/">Productos</a>
                         </li>
                         <li>
                             <a href="/afiliacion/">Afiliac&iacute;on</a>
