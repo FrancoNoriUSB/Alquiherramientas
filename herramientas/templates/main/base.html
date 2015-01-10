@@ -108,7 +108,7 @@
                     </div>
                     <div class="buscador">
                         <h4>Buscador</h4>
-                        <form id="form" role="form" enctype="multipart/form-data" method="get" action="">
+                        <form id="form" role="form" enctype="multipart/form-data" method="get" action="/">
                             {% csrf_token %}
                             <div class="form-group">
                                 {%render_field BusquedaForm.tipo class="form-control"%}

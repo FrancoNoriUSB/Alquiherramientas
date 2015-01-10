@@ -56,11 +56,6 @@ def inicio(request):
 
 				#Campos a buscar
 				fields_list = []
-				if tipo == 'alquiler':
-					fields_list.append('alquiler')
-				else:
-					fields_list.append('venta')
-
 				fields_list.append('herramienta')
 				fields_list.append('herramienta')
 				fields_list.append('direccion')
@@ -69,7 +64,6 @@ def inicio(request):
 
 				#Comparadores para buscar
 				types_list=[]
-				types_list.append('exact')
 				types_list.append('categoria__nombre__exact')
 				types_list.append('marca__nombre__exact')
 				types_list.append('estado__nombre__exact')
@@ -78,7 +72,6 @@ def inicio(request):
 
 				#Valores a buscar
 				values_list=[]
-				values_list.append(tipo)
 				values_list.append(categoria)
 				values_list.append(marca)
 				values_list.append(estado)
@@ -88,11 +81,28 @@ def inicio(request):
 				operator = 'and'
 
 				productos = dynamic_query(Producto, fields_list, types_list, values_list, operator)
+				
+				if tipo == 'alquiler':
+					fields_list.append('alquiler')
+				else:
+					fields_list.append('venta')
 
 				#Caso no encontro nada
 				if productos == []:
 					productos = Producto.objects.all().order_by('fecha_producto')
 
+	#Busqueda de propiedades en el pais actual
+	paginator = Paginator(productos, 6)
+	page = request.GET.get('page')
+
+	try:
+		productos = paginator.page(page)
+	except PageNotAnInteger:
+		# If page is not an integer, deliver first page.
+		productos = paginator.page(1)
+	except EmptyPage:
+		# If page is out of range (e.g. 9999), deliver last page of results.
+		productos = paginator.page(paginator.num_pages)
 
 	ctx = {
 		'BusquedaForm':busquedaF,
