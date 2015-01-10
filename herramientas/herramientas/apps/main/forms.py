@@ -20,3 +20,8 @@ class BusquedaForm(forms.Form):
 	estado = forms.ModelChoiceField(queryset=Estado.objects.all(), empty_label=' - Estado -', required=False)
 	ciudad = forms.ModelChoiceField(queryset=Ciudad.objects.all(), empty_label=' - Ciudad -', required=False)
 	zona = forms.ModelChoiceField(queryset=Zona.objects.all(), empty_label=' - Zona -', required=False)
+
+
+class ContactoForm(forms.Form):
+	remitente = forms.EmailField()
+	mensaje = forms.CharField(widget=forms.Textarea)

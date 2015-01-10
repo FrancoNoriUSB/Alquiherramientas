@@ -210,6 +210,18 @@ def contactos(request):
 	#Formulario de busqueda
 	busquedaF = BusquedaForm()
 
+	#Formulario de contacto
+	if request.method == 'POST':
+		contactoF = ContactoForm(request.POST)
+		if contactoF.is_valid():
+			titulo = "Mensaje de: "+contactoF.cleaned_data['remitente']
+			mensaje = contactoF.cleaned_data['mensaje']
+			correo = EmailMessage(titulo, mensaje, to=['valderrama_862@hotmail.com'])
+			correo.send()
+			return HttpResponseRedirect('/')
+	else:
+		contactoF = ContactoForm()
+
 	# Ofertas de los productos
 	ofertas = []
 	ofertas = Producto.objects.filter(oferta=True).order_by('?')
@@ -220,6 +232,7 @@ def contactos(request):
 	ctx = {
 		'BusquedaForm':busquedaF,
 		'ofertas':ofertas,
+		'ContactoForm': contactoF,
 	}
 
 	return render_to_response('main/contactos/contactos.html', ctx, context_instance=RequestContext(request))

@@ -1,1 +1,16 @@
 {% extends "main/base.html" %}
+{% load main_extras %}
+{% load widget_tweaks %}
+{% load bootstrap3 %}
+{% block content %}
+huehue
+<form id="contacto" role="form" method="post" action="">{% csrf_token %}
+	<div class="form-group">
+        {%render_field ContactoForm.remitente class="form-control" placeholder="Correo"%}
+    </div>
+    <div class="form-group">
+    	{%render_field ContactoForm.mensaje class="form-control" placeholder="Mensaje"%}
+    </div>
+	<input type="submit" value="Enviar" />
+</form>
+{% endblock content %}
