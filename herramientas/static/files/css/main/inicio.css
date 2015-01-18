@@ -10,6 +10,14 @@ Colores a utilizar:
 
 /*Estilos del contenido*/
 
+body > div > div.contenido.container-fluid > div > div.contenido.col-lg-9.col-md-9.col-sm-9 > div > div.paginacion.row > div > h4{
+	float: left;
+}
+
+body > div > div.contenido.container-fluid > div > div.contenido.col-lg-9.col-md-9.col-sm-9 > div > div.paginacion.row > div > nav{
+	float: right;
+}
+
 body > div > div.contenido.container-fluid > div > div.contenido > div > div > a > img{
 	height: 180px !important;
 	margin-left: auto;
