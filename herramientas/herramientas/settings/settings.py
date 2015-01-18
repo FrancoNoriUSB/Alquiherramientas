@@ -149,3 +149,5 @@ EMAIL_HOST_USER = 'evserigrafia@gmail.com'
 EMAIL_HOST_PASSWORD = 'mynameis862'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+AUTH_USER_MODEL = 'administrador.User'
