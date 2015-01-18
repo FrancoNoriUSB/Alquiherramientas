@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
@@ -17,12 +18,15 @@ from random import randint
 from funciones import *
 from models import *
 from forms import *
+from herramientas.apps.administrador.forms import *
 
 #Vista del inicio
 def inicio(request):
 
 	#Formulario de busqueda
 	busquedaF = BusquedaForm()
+	# formulario de nuevo usuario
+	usuarioF = UserCreationForm()
 
 	# Ofertas de los productos
 	ofertas = []
@@ -93,11 +97,18 @@ def inicio(request):
 				if productos == []:
 					productos = Producto.objects.all().order_by('fecha_producto')
 
+	# Creando un nuevo usuario
+	if request.method=='POST':
+		usuarioF = UserCreationForm(request.POST)
+		if usuarioF.is_valid():
+			usuarioF.save()
+			return HttpResponseRedirect('/')
 
 	ctx = {
 		'BusquedaForm':busquedaF,
 		'ofertas':ofertas,
 		'productos':productos,
+		'UsuarioForm':usuarioF,
 	}
 
 	return render_to_response('main/inicio/inicio.html', ctx, context_instance=RequestContext(request))
@@ -108,6 +119,8 @@ def empresa(request):
 
 	#Formulario de busqueda
 	busquedaF = BusquedaForm()
+	# Formulario de nuevo usuario
+	usuarioF = UserCreationForm()	
 
 	# Ofertas de los productos
 	ofertas = []
@@ -116,9 +129,17 @@ def empresa(request):
 	if len(ofertas) > 0:
 		ofertas = ofertas[randint(0, len(ofertas)-1)]
 
+	# Creando un nuevo usuario
+	if request.method=='POST':
+		usuarioF = UserCreationForm(request.POST)
+		if usuarioF.is_valid():
+			usuarioF.save()
+			return HttpResponseRedirect('/')
+
 	ctx = {
 		'BusquedaForm':busquedaF,
 		'ofertas':ofertas,
+		'UsuarioForm':usuarioF,
 	}
 
 	return render_to_response('main/empresa/empresa.html', ctx, context_instance=RequestContext(request))
@@ -129,6 +150,8 @@ def productos(request):
 
 	#Formulario de busqueda
 	busquedaF = BusquedaForm()
+	# Formulario de nuevo usuario
+	usuarioF = UserCreationForm()
 
 	# Ofertas de los productos
 	ofertas = []
@@ -140,10 +163,19 @@ def productos(request):
 	#productos que se ofertan
 	productos = Producto.objects.all().order_by('fecha_producto')
 
+
+	# Creando un nuevo usuario
+	if request.method=='POST':
+		usuarioF = UserCreationForm(request.POST)
+		if usuarioF.is_valid():
+			usuarioF.save()
+			return HttpResponseRedirect('/')
+
 	ctx = {
 		'BusquedaForm':busquedaF,
 		'ofertas':ofertas,
 		'productos':productos,
+		'UsuarioForm':usuarioF,
 	}
 
 	return render_to_response('main/productos/productos.html', ctx, context_instance=RequestContext(request))
@@ -154,6 +186,8 @@ def producto(request, id_producto):
 
 	#Formulario de busqueda
 	busquedaF = BusquedaForm()
+	# Formulario de nuevo usuario
+	usuarioF = UserCreationForm()
 
 	# Ofertas de los productos
 	ofertas = []
@@ -164,10 +198,19 @@ def producto(request, id_producto):
 
 	producto = Producto.objects.get(id=id_producto)
 
+
+	# Creando un nuevo usuario
+	if request.method=='POST':
+		usuarioF = UserCreationForm(request.POST)
+		if usuarioF.is_valid():
+			usuarioF.save()
+			return HttpResponseRedirect('/')
+
 	ctx = {
 		'BusquedaForm':busquedaF,
 		'ofertas':ofertas,
-		'producto': producto
+		'producto': producto,
+		'UsuarioForm':usuarioF,
 	}
 
 	return render_to_response('main/productos/producto.html', ctx, context_instance=RequestContext(request))
@@ -178,6 +221,8 @@ def afiliacion(request):
 
 	#Formulario de busqueda
 	busquedaF = BusquedaForm()
+	# Formulario de nuevo usuario
+	usuarioF = UserCreationForm()
 
 	# Ofertas de los productos
 	ofertas = []
@@ -186,9 +231,18 @@ def afiliacion(request):
 	if len(ofertas) > 0:
 		ofertas = ofertas[randint(0, len(ofertas)-1)]
 
+
+	# Creando un nuevo usuario
+	if request.method=='POST':
+		usuarioF = UserCreationForm(request.POST)
+		if usuarioF.is_valid():
+			usuarioF.save()
+			return HttpResponseRedirect('/')
+
 	ctx = {
 		'BusquedaForm':busquedaF,
 		'ofertas':ofertas,
+		'UsuarioForm':usuarioF,
 	}
 
 	return render_to_response('main/afiliacion/afiliacion.html', ctx, context_instance=RequestContext(request))
@@ -199,6 +253,8 @@ def contactos(request):
 
 	#Formulario de busqueda
 	busquedaF = BusquedaForm()
+	# Formulario de nuevo usuario
+	usuarioF = UserCreationForm()
 
 	#Formulario de contacto
 	if request.method == 'POST':
@@ -208,7 +264,7 @@ def contactos(request):
 			mensaje = contactoF.cleaned_data['mensaje']
 			correo = EmailMessage(titulo, mensaje, to=['valderrama_862@hotmail.com'])
 			correo.send()
-			return HttpResponseRedirect('/')
+			return HttpResponseRedirect('/contactos/')
 	else:
 		contactoF = ContactoForm()
 
@@ -219,10 +275,19 @@ def contactos(request):
 	if len(ofertas) > 0:
 		ofertas = ofertas[randint(0, len(ofertas)-1)]
 
+
+	# Creando un nuevo usuario
+	if request.method=='POST':
+		usuarioF = UserCreationForm(request.POST)
+		if usuarioF.is_valid():
+			usuarioF.save()
+			return HttpResponseRedirect('/')
+
 	ctx = {
 		'BusquedaForm':busquedaF,
 		'ofertas':ofertas,
 		'ContactoForm': contactoF,
+		'UsuarioForm':usuarioF,
 	}
 
 	return render_to_response('main/contactos/contactos.html', ctx, context_instance=RequestContext(request))
