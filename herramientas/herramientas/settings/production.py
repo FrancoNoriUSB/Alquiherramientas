@@ -110,7 +110,7 @@ DATETIME_FORMAT = 'N j, Y, P'
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = 'staticfiles'
+STATIC_ROOT = '/home/franconori/webapps/static_herramientas'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
@@ -151,5 +151,4 @@ EMAIL_HOST_USER = 'evserigrafia@gmail.com'
 EMAIL_HOST_PASSWORD = 'mynameis862'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-
 AUTH_USER_MODEL = 'administrador.User'
