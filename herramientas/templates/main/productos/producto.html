@@ -2,7 +2,7 @@
 
 {% block content %}
 	<div class="row">
-		<h4>{{producto.titulo}}/{{producto.herramienta.marca.nombre}}</h4>
+		<h3 class="titulo">{{producto.titulo}}/{{producto.herramienta.marca.nombre}}</h3>
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 			<img class="img-responsive" src="{{producto.imagen.url}}" alt="">
             {%if producto.alquiler%}

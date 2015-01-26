@@ -50,3 +50,93 @@ body > header > nav > div > div.collapse.navbar-collapse.navHeaderCollapse.navhe
 .navbar-default .navbar-nav>.active>a{
 	background-image: linear-gradient(to bottom,#D8971B 0,#D8971B 100%);
 }
+
+/*Estilo para poner los titulos de cada pagina, clase de un h3*/
+.titulo {
+	margin: 1% 0 5% 0;
+}
+
+/*Estilo para poner un boton de color gris y el hover gris tambien*/
+.boton{
+	background-image: linear-gradient(to bottom,#7E7769 0,#625D53 100%);
+	border: none;
+}
+
+.boton:hover{
+	background-color: #625D53;
+	border: none;
+}
+
+.ver-mas {
+	padding: 1% 1% 1% 1%;
+	width: 30%;
+	float: right;
+}
+
+/*Estilos de los paneles de busqueda y oferta*/
+.buscador {
+	background-color: #0B3755;
+	margin-top: 3%;
+}
+
+.buscador h3{
+	color: #FFFFFF;
+	margin: 3% 0 8% 0;
+}
+
+#form {
+	padding: 3% 10% 3% 10%;
+}
+
+.der {
+	float: right;
+	width: 48%;
+}
+
+.izq {
+	float: left;
+	width: 48%;
+}
+
+.ofertas {
+	background-color: #292929;
+	margin: 3% 0 3% 0;
+	color: #7E7769;
+}
+
+.ofertas-content {
+	padding: 3% 10% 3% 10%;
+}
+
+.ofertas-content h3{
+	color: #FFFFFF;
+	margin: 3% 0 8% 0;
+}
+
+.ofertas-content h4{
+	color: #FFFFFF;
+}
+
+body > div > div.contenido.container-fluid > div > div.barra-lateral.col-lg-4 > div.ofertas > div > img {
+	height: 280px !important;
+}
+
+/*Hace que el precio de las cosas aparezca a la derecha*/
+.precio {
+	float: right;
+	color: #D8971B;
+	font-weight: 900;
+	margin: 0 0 0 0;
+}
+
+/*Alquiler o venta en blanco.*/
+body > div > div.contenido.container-fluid > div > div.barra-lateral.col-lg-4 > div.ofertas > div > p:nth-child(6){
+	color: #FFFFFF;
+	margin: 0 0 0 0;
+	font-weight: bolder;
+}
+
+body > div > div.contenido.container-fluid > div > div.barra-lateral.col-lg-4 > div.ofertas > div > h3:nth-child(3){
+	margin: 8% 0 3% 0;
+}
+

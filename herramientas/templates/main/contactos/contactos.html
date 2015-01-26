@@ -3,7 +3,7 @@
 {% load widget_tweaks %}
 {% load bootstrap3 %}
 {% block content %}
-huehue
+<h3 class="titulo"> Contacto </h3>
 <form id="contacto" role="form" method="post" action="">{% csrf_token %}
 	<div class="form-group">
         {%render_field ContactoForm.remitente class="form-control" placeholder="Correo"%}
@@ -11,6 +11,8 @@ huehue
     <div class="form-group">
     	{%render_field ContactoForm.mensaje class="form-control" placeholder="Mensaje"%}
     </div>
-	<input type="submit" value="Enviar" />
+	<button type="submit" class="btn btn-primary">
+        Enviar
+    </button>
 </form>
 {% endblock content %}

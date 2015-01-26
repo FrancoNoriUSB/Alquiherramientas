@@ -114,7 +114,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-primary">Registrarse</button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                             </div>
                     </form>
                     </div>
@@ -125,14 +125,14 @@
         <!-- Sección interna de la página -->
         <div class="contenido container-fluid">
             <div class="row">
-                <div class="barra-lateral col-lg-3">
+                <div class="barra-lateral col-lg-4">
                     <div class="registro-ingreso">
                         <button class="btn btn-default" data-toggle="modal" data-target="#myModal">Registrate</button>
                         <button class="btn btn-default">Ingresa</button>
                     </div>
                     <div class="buscador">
-                        <h4>Buscador</h4>
                         <form id="form" role="form" enctype="multipart/form-data" method="get" action="/">
+                        <h3>Buscador</h3>
                             {% csrf_token %}
                             <div class="form-group">
                                 {%render_field BusquedaForm.tipo class="form-control"%}
@@ -140,21 +140,21 @@
                             <div class="form-group">
                                 {%render_field BusquedaForm.categoria class="form-control"%}
                             </div>
-                            <div class="form-group">
+                            <div class="form-group izq">
                                 {%render_field BusquedaForm.marca class="form-control"%}
                             </div>
-                            <div class="form-group">
+                            <div class="form-group der">
                                 {%render_field BusquedaForm.estado class="form-control"%}
                             </div>
-                            <div class="form-group">
+                            <div class="form-group izq">
                                 {%render_field BusquedaForm.ciudad class="form-control"%}
                             </div>
-                            <div class="form-group">
+                            <div class="form-group der">
                                 {%render_field BusquedaForm.zona class="form-control"%}
                             </div>
                             <br>
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary boton">
                                     Buscar <span class="glyphicon glyphicon-search"></span>
                                 </button>
                             </div>
@@ -162,26 +162,28 @@
                     </div>
                     {%if ofertas%}
                     <div class="ofertas">
-                        <h4>Ofertas</h4>
-                        <img class="img-responsive" src="{{ofertas.imagen.url}}" alt="">
-                        <h5>{{ofertas.titulo}}</h5>
-                        <p>
-                            {%if ofertas.alquiler%}
-                                Alquiler <strong>{{ofertas.alquiler.precio}}</strong> (por dia) <br>
-                            {%else%}
-                                Venta <br>
-                            {%endif%}
-                            <strong>Marca:</strong> {{ofertas.herramienta.marca.nombre}} <br>
-                            <strong>A&ntilde;o:</strong> {{ofertas.herramienta.ano}} <br>
-                            <strong>Estado:</strong> {{ofertas.direccion.estado.nombre}}
-                        </p>
-                        <a href="/productos/{{ofertas.id}}/">ver mas</a>
+                        <div class="ofertas-content">
+                            <h3>Ofertas</h3>
+                            <img class="img-responsive" src="{{ofertas.imagen.url}}" alt="">
+                            <h4>{{ofertas.titulo}}</h4>
+                            <p style="font-weight: bolder;">
+                                {%if ofertas.alquiler%}
+                                    <p class="precio">{{ofertas.alquiler.precio}} (por dia)</p><p>Alquiler </p>
+                                {%else%}
+                                    <p class="precio">{{ofertas.venta.precio}} </p><p>Venta </p>
+                                {%endif%}
+                                <strong>Marca:</strong> {{ofertas.herramienta.marca.nombre}} <br>
+                                <strong>A&ntilde;o:</strong> {{ofertas.herramienta.ano}} <br>
+                            <button class="btn btn-primary boton ver-mas">ver +</button>
+                                <strong>Estado:</strong> {{ofertas.direccion.estado.nombre}}
+                            </p>
+                        </div>
                     </div>
                     {%endif%}
                 </div>
 
                 <!-- Contenido de la pagina -->
-                <div class="contenido col-lg-9 col-md-9 col-sm-9">
+                <div class="contenido col-lg-8 col-md-8 col-sm-8">
                     {% block content %}
                     {% endblock content %}
                 </div>

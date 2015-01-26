@@ -6,10 +6,34 @@
 
 {% endblock scripts %}
 {% block content %}
+<h3 class="titulo">Anuncios Venta/Alquiler</h3>
 	<div class="row">
-		<div class="paginacion row">
-    		<div class="col-lg-12 col-md-12">
-			<h4>Anuncios Venta/Alquiler</h4>
+		{%for producto in productos%}
+		<div class="col-lg-4 col-md-4 col-sm-9 col-xs-9">
+			<a href="/productos/{{producto.id}}/">
+				<img class="img-responsive" src="{{producto.imagen.url}}" alt="">
+			</a>
+			<h4>{{producto.titulo}}</h4>
+            <div class="divider"></div>
+            {%if producto.alquiler%}
+            	<p class="precio"> {{producto.alquiler.precio}} (por dia) </p> <strong class="tipo"> Alquiler</strong> 
+            {%else%}
+				<p class="precio"> {{producto.venta.precio}}</p> <strong class="tipo"> Venta</strong>
+            {%endif%}
+            <br>
+            <strong>Marca:</strong> {{producto.herramienta.marca.nombre}}
+            <br>
+			<strong>A&ntilde;o:</strong> {{producto.herramienta.ano}}
+            <br>
+            <a href="/productos/{{producto.id}}/">
+                <button class="btn btn-primary boton ver-mas">ver +</button>
+            </a>
+            <strong>Estado:</strong> {{producto.direccion.estado.nombre}} <br> 
+		</div>
+		{%endfor%}
+
+        <div class="paginacion row">
+            <div class="col-lg-12 col-md-12">
                 <nav>
                   <ul class="pagination">
                     {% if productos.has_previous %}
@@ -26,29 +50,8 @@
                   </ul>
                 </nav>
             </div>
-    	</div>
-    	
-		{%for producto in productos%}
-		<div class="col-lg-4 col-md-4 col-sm-9 col-xs-9">
-			<a href="/productos/{{producto.id}}/">
-				<img class="img-responsive" src="{{producto.imagen.url}}" alt="">
-			</a>
-			<h4>{{producto.titulo}}</h4>
-            <div class="divider"></div>
-            {%if producto.alquiler%}
-            	Alquiler &nbsp;&nbsp;&nbsp;&nbsp; {{producto.alquiler.precio}} (por dia)
-            {%else%}
-				Venta &nbsp;&nbsp;&nbsp;&nbsp; {{producto.venta.precio}}
-            {%endif%}
-            <br>
-            <strong>Marca:</strong> {{producto.herramienta.marca.nombre}}
-            <br>
-			<strong>A&ntilde;o:</strong> {{producto.herramienta.ano}}
-            <br>
-			<strong>Estado:</strong> {{producto.direccion.estado.nombre}} <br> 
-			<a href="/productos/{{producto.id}}/">ver mas</a>
-		</div>
-		{%endfor%}
+        </div>
+        
 	</div>
 {% endblock content %}
 
