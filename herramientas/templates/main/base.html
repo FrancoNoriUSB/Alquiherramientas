@@ -228,4 +228,45 @@
         $('#myInput').focus()
       })
 </script>
+<!-- Funcion para cargar zonas y ciudades dinamicamente -->
+<script type="text/javascript">
+var ciudades = {{ ciudades|safe }};
+var zonas = {{ zonas|safe }};
+
+function cargar_ciudades(){
+    var estado = $('#id_estado');
+    var elem_ciudades = $('#id_ciudad');
+    estado = estado.val();
+
+    if (estado != ""){
+        elem_ciudades.empty();
+        elem_ciudades.append('<option value="" selected="selected"> - Ciudad -</option>');
+        $.each(ciudades[estado], function(i, ciudad){
+            console.log(elem_ciudades.append('<option value="'+ i +'">' + ciudad + '</option>'));
+        });
+    } else {
+        elem_ciudades.empty();
+        elem_ciudades.append('<option value="" selected="selected"> - Ciudad -</option>');
+    }
+}
+
+function cargar_zonas(){
+    var ciudad = $('#id_ciudad');
+    var elem_zonas = $('#id_zona');
+    ciudad = ciudad.val();
+
+    if (ciudad != ""){
+        elem_zonas.empty();
+        elem_zonas.append('<option value="" selected="selected"> - Zona -</option>');
+        $.each(zonas[ciudad], function(i, zona){
+            elem_zonas.append('<option value="'+ i +'">' + zona + '</option>');
+        });
+    } else {
+        elem_zonas.empty();
+        elem_zonas.append('<option value="" selected="selected"> - Zona -</option>');
+    }
+}
+$(document).on('change', '#id_estado', cargar_ciudades);
+$(document).on('change', '#id_ciudad', cargar_zonas);
+</script>
 </html>

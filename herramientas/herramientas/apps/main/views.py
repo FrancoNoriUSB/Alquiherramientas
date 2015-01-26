@@ -19,6 +19,7 @@ from funciones import *
 from models import *
 from forms import *
 from herramientas.apps.administrador.forms import *
+import json
 
 #Vista del inicio
 def inicio(request):
@@ -35,7 +36,13 @@ def inicio(request):
 	if len(ofertas) > 0:
 		ofertas = ofertas[randint(0, len(ofertas)-1)]
 
-	#productos que se ofertan
+	#Ciudades
+	ciudades = {}
+	
+	#Zonas
+	zonas = {}
+
+	#Productos que se ofertan
 	productos = Producto.objects.all().order_by('fecha_producto')
 
 	#Caso que se realizo una busqueda
@@ -115,11 +122,25 @@ def inicio(request):
 			usuarioF.save()
 			return HttpResponseRedirect('/')
 
+	#Preparar el objeto Json de las ciudades
+	for estado in Estado.objects.all():
+		ciudades[estado.id] = dict(Ciudad.objects.filter(estado=estado).values_list('id', 'nombre'))
+	ciudades = json.dumps(ciudades)
+
+	#Preparar el objeto Json de las zonas
+	for ciudad in Ciudad.objects.all():
+		zona = dict(Zona.objects.filter(ciudad__id=ciudad.id).values_list('id', 'nombre'))
+		if zona != {}:
+			zonas[ciudad.id] = zona
+	zonas = json.dumps(zonas)
+
 	ctx = {
 		'BusquedaForm':busquedaF,
 		'ofertas':ofertas,
 		'productos':productos,
 		'UsuarioForm':usuarioF,
+		'ciudades':ciudades,
+		'zonas':zonas,
 	}
 
 	return render_to_response('main/inicio/inicio.html', ctx, context_instance=RequestContext(request))
@@ -132,6 +153,12 @@ def empresa(request):
 	busquedaF = BusquedaForm()
 	# Formulario de nuevo usuario
 	usuarioF = UserCreationForm()	
+
+	#Ciudades
+	ciudades = Ciudad.objects.all()
+	
+	#Zonas
+	zonas = Zona.objects.all()
 
 	# Ofertas de los productos
 	ofertas = []
@@ -151,6 +178,8 @@ def empresa(request):
 		'BusquedaForm':busquedaF,
 		'ofertas':ofertas,
 		'UsuarioForm':usuarioF,
+		'ciudades':ciudades,
+		'zonas':zonas,
 	}
 
 	return render_to_response('main/empresa/empresa.html', ctx, context_instance=RequestContext(request))
@@ -164,6 +193,12 @@ def productos(request):
 	# Formulario de nuevo usuario
 	usuarioF = UserCreationForm()
 
+	#Ciudades
+	ciudades = Ciudad.objects.all()
+	
+	#Zonas
+	zonas = Zona.objects.all()
+	
 	# Ofertas de los productos
 	ofertas = []
 	ofertas = Producto.objects.filter(oferta=True).order_by('?')
@@ -186,6 +221,8 @@ def productos(request):
 		'ofertas':ofertas,
 		'productos':productos,
 		'UsuarioForm':usuarioF,
+		'ciudades':ciudades,
+		'zonas':zonas,
 	}
 
 	return render_to_response('main/productos/productos.html', ctx, context_instance=RequestContext(request))
@@ -199,6 +236,12 @@ def producto(request, id_producto):
 	# Formulario de nuevo usuario
 	usuarioF = UserCreationForm()
 
+	#Ciudades
+	ciudades = Ciudad.objects.all()
+	
+	#Zonas
+	zonas = Zona.objects.all()
+	
 	# Ofertas de los productos
 	ofertas = []
 	ofertas = Producto.objects.filter(oferta=True).order_by('?')
@@ -220,6 +263,8 @@ def producto(request, id_producto):
 		'ofertas':ofertas,
 		'producto': producto,
 		'UsuarioForm':usuarioF,
+		'ciudades':ciudades,
+		'zonas':zonas,
 	}
 
 	return render_to_response('main/productos/producto.html', ctx, context_instance=RequestContext(request))
@@ -233,6 +278,12 @@ def afiliacion(request):
 	# Formulario de nuevo usuario
 	usuarioF = UserCreationForm()
 
+	#Ciudades
+	ciudades = Ciudad.objects.all()
+	
+	#Zonas
+	zonas = Zona.objects.all()
+	
 	# Ofertas de los productos
 	ofertas = []
 	ofertas = Producto.objects.filter(oferta=True).order_by('?')
@@ -251,6 +302,8 @@ def afiliacion(request):
 		'BusquedaForm':busquedaF,
 		'ofertas':ofertas,
 		'UsuarioForm':usuarioF,
+		'ciudades':ciudades,
+		'zonas':zonas,
 	}
 
 	return render_to_response('main/afiliacion/afiliacion.html', ctx, context_instance=RequestContext(request))
@@ -264,6 +317,12 @@ def contactos(request):
 	# Formulario de nuevo usuario
 	usuarioF = UserCreationForm()
 
+	#Ciudades
+	ciudades = Ciudad.objects.all()
+	
+	#Zonas
+	zonas = Zona.objects.all()
+	
 	#Formulario de contacto
 	if request.method == 'POST':
 		contactoF = ContactoForm(request.POST)
@@ -295,6 +354,8 @@ def contactos(request):
 		'ofertas':ofertas,
 		'ContactoForm': contactoF,
 		'UsuarioForm':usuarioF,
+		'ciudades':ciudades,
+		'zonas':zonas,
 	}
 
 	return render_to_response('main/contactos/contactos.html', ctx, context_instance=RequestContext(request))

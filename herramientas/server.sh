@@ -1,3 +1,3 @@
 #!/bin/bash          
-          rm -rf Equity/settings.py
-          cp Equity/settings_serv.py Equity/settings.py   
+          rm -rf herramientas/settings/settings.py
+          cp herramientas/settings/production.py herramientas/settings/settings.py   
