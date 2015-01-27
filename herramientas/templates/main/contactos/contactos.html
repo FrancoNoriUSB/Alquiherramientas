@@ -3,16 +3,62 @@
 {% load widget_tweaks %}
 {% load bootstrap3 %}
 {% block content %}
-<h3 class="titulo"> Contacto </h3>
-<form id="contacto" role="form" method="post" action="">{% csrf_token %}
-	<div class="form-group">
-        {%render_field ContactoForm.remitente class="form-control" placeholder="Correo"%}
-    </div>
-    <div class="form-group">
-    	{%render_field ContactoForm.mensaje class="form-control" placeholder="Mensaje"%}
-    </div>
-	<button type="submit" class="btn btn-primary">
-        Enviar
-    </button>
-</form>
+<div class="container">
+	<h3 class="titulo">Contacto:</h3>
+	<div class="row">
+		<div class="col-lg-8 col-md-8 col-sm-8">
+			<h4><strong>Tel&eacute;fonos:</strong></h4>
+			<p>
+				0212.785.00.00
+				<br>
+				<br>
+				0212.785.00.00
+				<br>
+				<br>
+				0212.785.00.00
+			</p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-8 col-md-8 col-sm-8">
+			<h4><strong>Correo Electr&oacute;nico:</strong></h4>
+			<p>
+				Contacto@alquiherramientas.com
+			</p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-8 col-md-8 col-sm-8">
+			<h4><strong>Redes Sociales:</strong></h4>
+			<p>
+				<a href="">
+					<img src="{{STATIC_URL}}files/img/fb.png" alt="">
+					Alquiherramientas2112
+				</a>
+				<br>
+				<br>
+				<a href="">
+					<img src="{{STATIC_URL}}files/img/tw.png" alt="">
+					@Alquiherramientas2112
+				</a>
+			</p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-6 col-md-6 col-sm-6">
+			<h4><strong>Cont&aacute;ctanos:</strong></h4>
+			<form id="contacto" role="form" method="post" action="">{% csrf_token %}
+				<div class="form-group">
+			        {%render_field ContactoForm.remitente class="form-control" placeholder="Correo"%}
+			    </div>
+			    <div class="form-group">
+			    	{%render_field ContactoForm.mensaje class="form-control" placeholder="Mensaje"%}
+			    </div>
+				<button type="submit" class="btn btn-primary">
+			        Enviar
+			    </button>
+			</form>
+		</div>
+	</div>
+</div>
 {% endblock content %}
