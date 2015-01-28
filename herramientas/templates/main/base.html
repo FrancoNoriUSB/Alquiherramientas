@@ -3,6 +3,7 @@
     {% load main_extras %}
     {% load widget_tweaks %}
     {% load bootstrap3 %}
+    {% load humanize %}
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -64,7 +65,20 @@
                             <a href="/empresa/">Empresa</a>
                         </li>
                         <li class="{% active_page request 'productos' %}">
-                            <a href="/productos/">Productos</a>
+                            <div class="btn-group">
+                                <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                    Productos
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a href="/productos/">Venta</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="/productos/">Alquiler</a>
+                                    </li>
+                                </ul>
+                            </div>
                         </li>
                         <li class="{% active_page request 'afiliacion' %}">
                             <a href="/afiliacion/">Afiliac&iacute;on</a>
@@ -85,42 +99,66 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h4 class="modal-title" id="registroModalLabel">Registro de usuario: </h4>
+                        <img class="img-responsive" src="{{STATIC_URL}}files/img/logo-principal.png" alt="">
                     </div>
-                    <div class="modal-body">    
-                        <form role="form" method="POST" action=".">
-                            <div class="form-group">
-                                {%csrf_token%}
-                                <div class="form-group">
-                                    {%render_field UsuarioForm.nombre class="form-control" placeholder="Nombre"%}
-                                </div>
-                                <div class="form-group">
-                                    {%render_field UsuarioForm.apellido class="form-control" placeholder="Apellido"%}
-                                </div>
-                                <div class="form-group">
-                                    {%render_field UsuarioForm.email class="form-control" placeholder="Correo Electrónico"%}
-                                </div>
-                                <div class="form-group">
-                                    {%render_field UsuarioForm.password1 class="form-control" placeholder="Contraseña"%}
-                                </div>
-                                <div class="form-group">
-                                    {%render_field UsuarioForm.password2 class="form-control" placeholder="Repita Contraseña"%}
-                                </div>
-                                <div class="form-group">
-                                    {%render_field UsuarioForm.ciudad class="form-control" placeholder="Ciudad de Residencia"%}
-                                </div>
-                                <div class="form-group">
-                                    {%render_field UsuarioForm.nacionalidad class="form-control"%}
-                                </div>
-                                <div class="form-group">
-                                    {%render_field UsuarioForm.cedula class="form-control" placeholder="Cédula"%}
-                                </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <h4 class="modal-title" id="registroModalLabel">Registro gratuito</h4>
+                                <br>
+                                <form role="form" method="POST" action=".">
+                                    <div class="form-group">
+                                        {%csrf_token%}
+                                        <div class="form-inline">
+                                            <label for="id_nombre">Nombre</label>
+                                            {%render_field UsuarioForm.nombre class="form-control" placeholder="Nombre"%}
+                                        </div>
+                                        <br>
+                                        <br>
+                                        <div class="form-inline">
+                                            <label for="id_apellido">Apellido</label>
+                                            {%render_field UsuarioForm.apellido class="form-control" placeholder="Apellido"%}
+                                        </div>
+                                        <br>
+                                        <br>
+                                        <div class="form-inline">
+                                            <label for="id_email">Correo electr&oacute;nico</label>
+                                            {%render_field UsuarioForm.email class="form-control" placeholder="Correo Electrónico"%}
+                                        </div>
+                                        <br>
+                                        <br>
+                                        <div class="form-inline">
+                                            <label for="id_password1">Contrase&ntilde;a</label>
+                                            {%render_field UsuarioForm.password1 class="form-control" placeholder="Contraseña"%}
+                                        </div>
+                                        <br>
+                                        <br>
+                                        <div class="form-inline">
+                                            <label for="id_password2">Confirmaci&oacute;n contrase&ntilde;a</label>
+                                            {%render_field UsuarioForm.password2 class="form-control" placeholder="Repita Contraseña"%}
+                                        </div>
+                                        <br>
+                                        <br>
+                                        <div class="form-inline">
+                                            <label for="id_ciudad">Ciudad</label>
+                                            {%render_field UsuarioForm.ciudad class="form-control" placeholder="Ciudad de Residencia"%}
+                                        </div>
+                                        <br>
+                                        <br>
+                                        <div class="form-inline">
+                                            <label for="">Documento</label>
+                                            {%render_field UsuarioForm.nacionalidad class="form-control"%}
+                                            {%render_field UsuarioForm.cedula class="form-control" placeholder="Cédula"%}
+                                        </div>
+                                        <br>
+                                        <br>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary"><strong></strong>Registrarse</button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary">Registrarse</button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                            </div>
-                    </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -131,10 +169,10 @@
             <div class="row">
                 <div class="barra-lateral col-lg-4 col-md-4 col-sm-4">
                     <div class="registro-ingreso">
-                        <button class="btn btn-default" data-toggle="modal" data-target="#registroModal">Registrate</button>
-                        <button class="btn btn-default">Ingresa</button>
+                        <button class="btn btn-default" data-toggle="modal" data-target="#registroModal"><strong>REG&iacute;STRATE</strong></button>
+                        <button class="btn btn-default"><strong class="text-up">INGRESA</strong></button>
                     </div>
-                    <div class="buscador">
+                    <div class="col-lg-12 col-md-12 col-sm-12 buscador">
                         <form id="form" role="form" enctype="multipart/form-data" method="get" action="/">
                         <h3>Buscador</h3>
                             {% csrf_token %}
@@ -165,7 +203,7 @@
                         </form>
                     </div>
                     {%if ofertas%}
-                    <div class="ofertas">
+                    <div class="col-lg-12 col-md-12 col-sm-12 ofertas">
                         <div class="ofertas-content">
                             <h3>Ofertas</h3>
                             <img class="img-responsive" src="{{ofertas.imagen.url}}" alt="">
@@ -174,7 +212,7 @@
                                 {%if ofertas.alquiler%}
                                     <p class="precio">{{ofertas.alquiler.precio}} (por dia)</p><p>Alquiler </p>
                                 {%else%}
-                                    <p class="precio">{{ofertas.venta.precio}} </p><p>Venta </p>
+                                    <p class="precio">{{ofertas.venta.precio|floatformat|intcomma}} </p><p>Venta </p>
                                 {%endif%}
                                 <strong>Marca:</strong> {{ofertas.herramienta.marca.nombre}} <br>
                                 <strong>A&ntilde;o:</strong> {{ofertas.herramienta.ano}} <br>

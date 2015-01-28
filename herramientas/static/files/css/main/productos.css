@@ -15,3 +15,21 @@ body > div > div.contenido.container-fluid > div > div.contenido > div > div > a
 	margin-left: auto;
 	margin-right: auto;
 }
+
+/*Hace que el precio de las cosas aparezca a la derecha*/
+.precio {
+	float: right;
+	color: #D8971B;
+	font-weight: 900;
+	margin: 0 0 0 0;
+}
+
+.tipo {
+	color: #0B3755;
+}
+
+.derecha {
+	padding: 1% 1% 1% 1%;
+	width: 30%;
+	float: right;
+}

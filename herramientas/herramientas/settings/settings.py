@@ -37,6 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     'herramientas.apps.administrador',
     'herramientas.apps.main',
     'widget_tweaks',

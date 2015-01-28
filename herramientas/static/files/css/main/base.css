@@ -35,16 +35,27 @@ header > nav > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > 
 }
 
 body > header > nav > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li > a,
-body > footer > nav > div > div > ul > li > a{
+body > footer > nav > div > div > ul > li > a,
+body > header > nav > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li > div > button{
 	color: white !important;
 }
 
-body > header > nav > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li > a:hover{
+body > header > nav > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li > a:hover,
+body > header > nav > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li > div > button:hover{
 	background-image: linear-gradient(to bottom,#D8971B 0,#D8971B 100%);
 }
 
-body > header > nav > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li > a{
+body > header > nav > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li > a,
+body > header > nav > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li > div > button{
 	font-size: 20px;
+}
+
+
+body > header > nav > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li > div > button{
+	background-image: linear-gradient(to bottom,#7E7769 0,#7E7769 100%);
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border-radius: 0px;
 }
 
 body > header > nav > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li{
@@ -52,8 +63,9 @@ body > header > nav > div > div.collapse.navbar-collapse.navHeaderCollapse.navhe
 	margin-left: 10px;
 }
 
-.navbar-default .navbar-nav>.active>a{
-	background-image: linear-gradient(to bottom,#D8971B 0,#D8971B 100%);
+.navbar-default .navbar-nav>.active>a,
+.navbar-default .navbar-nav>.active>.btn-group>.btn{
+	background-image: linear-gradient(to bottom,#D8971B 0,#D8971B 100%) !important;
 }
 
 /*Estilo para poner los titulos de cada pagina, clase de un h3*/
@@ -82,6 +94,7 @@ body > header > nav > div > div.collapse.navbar-collapse.navHeaderCollapse.navhe
 .buscador {
 	background-color: #0B3755;
 	margin-top: 3%;
+	padding-bottom: 15px;
 }
 
 .buscador h3{
@@ -103,6 +116,10 @@ body > header > nav > div > div.collapse.navbar-collapse.navHeaderCollapse.navhe
 	width: 48%;
 }
 
+#form > div > button{
+	float: right;
+}
+
 .ofertas {
 	background-color: #292929;
 	margin: 3% 0 3% 0;
@@ -120,6 +137,63 @@ body > header > nav > div > div.collapse.navbar-collapse.navHeaderCollapse.navhe
 
 .ofertas-content h4{
 	color: #FFFFFF;
+}
+
+/*Registro de usuario y login*/
+#registroModal > div > div{
+	background-color: #625D53;
+}
+
+#registroModal > div > div > div.modal-header{
+	padding: 5px;
+	border-bottom: 0px solid #e5e5e5;
+	min-height: 16.42857143px;
+}
+
+#registroModal > div > div > div.modal-header > img{
+	margin-right: auto;
+	margin-left: auto;
+}
+
+#registroModal > div > div > div.modal-body{
+	padding-top:0px;
+	padding-bottom:30px;
+	padding-left: 50px;
+	padding-right: 50px;
+}
+
+#registroModal > div > div > div.modal-body > div{
+	background-color: #7E7769;
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+
+#registroModal > div > div > div.modal-body > div > div > form > div.form-group > div{
+	float: right;
+}
+
+#registroModal > div > div > div.modal-body > div > div > form > div.form-group > div > label,
+#registroModalLabel{
+	color: white;
+}
+
+#registroModal > div > div > div.modal-body > div > div > form > div > div.form-group > button{
+	background-image: -webkit-linear-gradient(#0B3755 0%, #0B3755 100%);
+	background-image: -o-linear-gradient(#0B3755 0%, #0B3755 100%);
+	background-image: linear-gradient(#0B3755 0%, #0B3755 100%);
+	border-color: #0B3755;
+}
+
+#registroModalLabel{
+	text-align: center;
+}
+
+#registroModal > div > div > div.modal-body > div > div > form > div > div:nth-child(20){
+	width: 56%;
+}
+
+#id_cedula{
+	width: 47%;
 }
 
 /*Hace que el precio de las cosas aparezca a la derecha*/
