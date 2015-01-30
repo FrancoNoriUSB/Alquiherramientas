@@ -10,7 +10,9 @@ Colores a utilizar:
 
 /*Estilos del header*/
 body > header > nav{
-	background-image: linear-gradient(to bottom,#625D53 0,#625D53 100%) !important;
+	background-image: -webkit-linear-gradient(#625D53 0%, #625D53 100%) !important;
+	background-image: -o-linear-gradient(#625D53 0%, #625D53 100%) !important;
+	background-image: linear-gradient(#625D53 0%, #625D53 100%) !important;
 }
 
 body > header > div > div > div > img{
@@ -20,7 +22,9 @@ body > header > div > div > div > img{
 
 /*Estilos del footer*/
 body > footer > nav{
-	background-image: linear-gradient(to bottom,#625D53 0,#625D53 100%) !important;
+	background-image: -webkit-linear-gradient(#625D53 0%, #625D53 100%) !important;
+	background-image: -o-linear-gradient(#625D53 0%, #625D53 100%) !important;
+	background-image: linear-gradient(#625D53 0%, #625D53 100%) !important;
 }
 
 /*Estilos de bootstrap modificados*/
@@ -42,7 +46,9 @@ body > header > nav > div > div.collapse.navbar-collapse.navHeaderCollapse.navhe
 
 body > header > nav > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li > a:hover,
 body > header > nav > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li > div > button:hover{
-	background-image: linear-gradient(to bottom,#D8971B 0,#D8971B 100%);
+	background-image: -webkit-linear-gradient(#D8971B 0%, #D8971B 100%);
+	background-image: -o-linear-gradient(#D8971B 0%, #D8971B 100%);
+	background-image: linear-gradient(#D8971B 0%, #D8971B 100%);
 }
 
 body > header > nav > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li > a,
@@ -52,20 +58,26 @@ body > header > nav > div > div.collapse.navbar-collapse.navHeaderCollapse.navhe
 
 
 body > header > nav > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li > div > button{
-	background-image: linear-gradient(to bottom,#7E7769 0,#7E7769 100%);
+	background-image: -webkit-linear-gradient(#7E7769 0%, #7E7769 100%);
+	background-image: -o-linear-gradient(#7E7769 0%, #7E7769 100%);
+	background-image: linear-gradient(#7E7769 0%, #7E7769 100%);
 	padding-top: 10px;
 	padding-bottom: 10px;
 	border-radius: 0px;
 }
 
 body > header > nav > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li{
-	background-image: linear-gradient(to bottom,#7E7769 0,#7E7769 100%);
+	background-image: -webkit-linear-gradient(#7E7769 0%, #7E7769 100%);
+	background-image: -o-linear-gradient(#7E7769 0%, #7E7769 100%);
+	background-image: linear-gradient(#7E7769 0%, #7E7769 100%);
 	margin-left: 10px;
 }
 
 .navbar-default .navbar-nav>.active>a,
 .navbar-default .navbar-nav>.active>.btn-group>.btn{
-	background-image: linear-gradient(to bottom,#D8971B 0,#D8971B 100%) !important;
+	background-image: -webkit-linear-gradient(#D8971B 0%, #D8971B 100%) !important;
+	background-image: -o-linear-gradient(#D8971B 0%, #D8971B 100%) !important;
+	background-image: linear-gradient(#D8971B 0%, #D8971B 100%) !important;
 }
 
 /*Estilo para poner los titulos de cada pagina, clase de un h3*/
@@ -75,7 +87,9 @@ body > header > nav > div > div.collapse.navbar-collapse.navHeaderCollapse.navhe
 
 /*Estilo para poner un boton de color gris y el hover gris tambien*/
 .boton{
-	background-image: linear-gradient(to bottom,#7E7769 0,#625D53 100%);
+	background-image: -webkit-linear-gradient(#7E7769 0%, #625D53 100%);
+	background-image: -o-linear-gradient(#7E7769 0%, #625D53 100%);
+	background-image: linear-gradient(#7E7769 0%, #625D53 100%);
 	border: none;
 }
 

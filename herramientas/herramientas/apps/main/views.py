@@ -13,7 +13,6 @@ from datetime import datetime, date
 from django.db.models import Count
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django_countries import countries
 from random import randint
 from funciones import *
 from models import *
@@ -211,10 +210,10 @@ def productos(request):
     loginF = LoginForm()
 
     #Ciudades
-    ciudades = Ciudad.objects.all()
+    ciudades = {}
     
     #Zonas
-    zonas = Zona.objects.all()
+    zonas = {}
     
     # Ofertas de los productos
     ofertas = []
@@ -232,6 +231,18 @@ def productos(request):
         if usuarioF.is_valid():
             usuarioF.save()
             return HttpResponseRedirect('/')
+
+    #Preparar el objeto Json de las ciudades
+    for estado in Estado.objects.all():
+        ciudades[estado.id] = dict(Ciudad.objects.filter(estado=estado).values_list('id', 'nombre'))
+    ciudades = json.dumps(ciudades)
+
+    #Preparar el objeto Json de las zonas
+    for ciudad in Ciudad.objects.all():
+        zona = dict(Zona.objects.filter(ciudad__id=ciudad.id).values_list('id', 'nombre'))
+        if zona != {}:
+            zonas[ciudad.id] = zona
+    zonas = json.dumps(zonas)
 
     ctx = {
         'BusquedaForm':busquedaF,
