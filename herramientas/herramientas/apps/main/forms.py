@@ -26,3 +26,14 @@ class BusquedaForm(forms.Form):
 class ContactoForm(forms.Form):
 	remitente = forms.EmailField()
 	mensaje = forms.CharField(widget=forms.Textarea)
+
+class CompraForm (forms.Form):
+	precio = forms.IntegerField(required=True)
+	total = forms.IntegerField(required=True)
+	clausulas = forms.BooleanField(required=True)
+
+class AlquilerForm(forms.Form):
+	precio = forms.IntegerField(required=True)
+	dias = forms.IntegerField(required=True)
+	total = forms.IntegerField(required=True)
+	clausulas = forms.BooleanField(required=True)

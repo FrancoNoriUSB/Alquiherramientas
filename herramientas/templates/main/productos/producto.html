@@ -1,25 +1,159 @@
 {% extends "main/base.html" %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% block scripts %}
+	
+    <!--Estilos-->
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}files/css/main/producto.css">
 
+{% endblock scripts %}
 {% block content %}
 	<div class="row">
 		<h3 class="titulo">{{producto.titulo}}/{{producto.herramienta.marca.nombre}}</h3>
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-			<img class="img-responsive" src="{{producto.imagen.url}}" alt="">
+			<img class="img-responsive centered" src="{{producto.imagen.url}}" alt="">
             {%if producto.alquiler%}
-            	Alquiler &nbsp;&nbsp;&nbsp;&nbsp; {{producto.alquiler.precio}} (por dia)
+            	<p class="precio">{{producto.alquiler.precio}} (por dia)</p><br/>
             {%else%}
-				Venta &nbsp;&nbsp;&nbsp;&nbsp; {{producto.venta.precio}}
+            	<p class="precio">{{producto.venta.precio}}</p><br/>
             {%endif%}
-            <br>
-            <strong>Marca:</strong> {{producto.herramienta.marca.nombre}}
-            <br>
-			<strong>A&ntilde;o:</strong> {{producto.herramienta.ano}}
-            <br>
-			<strong>Estado:</strong> {{producto.direccion.estado.nombre}} <a href="/productos/{{producto.id}}/">ver mas</a>
+
+            <table>
+            	<tr>
+            		<td>
+            			<strong>Marca:</strong> {{producto.herramienta.marca.nombre}}
+            		</td>
+            		<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            		<td>
+            			<strong>Direcci&oacute;n:</strong> {{producto.direccion}}
+            		</td>
+            	</tr>
+            	<tr>
+            		<td>
+            			<strong>Modelo:</strong> {{producto.herramienta.modelo}}
+            		</td>
+            		<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            		<td>
+            			<strong>A&ntilde;o:</strong> {{producto.herramienta.ano}}
+            		</td>
+            	</tr>
+            	<tr>
+            		<td>
+            			<strong>Zona:</strong> {{producto.direccion.zona}}
+            		</td>
+            	</tr>
+            </table>
+            <br/>
+
+            <p>
+            	Minions ipsum uuuhhh uuuhhh hahaha me want bananaaa! Poopayee chasy tulaliloo uuuhhh butt daa pepete chasy butt butt. Daa belloo! Pepete tatata bala tu bee do bee do bee do. Wiiiii chasy bee do bee do bee do belloo! Chasy ti aamoo! Jiji belloo! Potatoooo jeje tatata bala tu. Gelatooo poopayee para tú tatata bala tu tulaliloo. Tatata bala tu ti aamoo! Bananaaaa belloo! Butt bee do bee do bee do bananaaaa poulet tikka masala me want bananaaa! Po kass la bodaaa potatoooo baboiii poulet tikka masala jiji bappleees para tú potatoooo daa tulaliloo. 
+            </p><br/>
+
+            <div role="tabpanel">
+
+				<!-- Nav tabs -->
+				<ul class="nav nav-tabs" role="tablist">
+					<li role="presentation" class="active">
+						<a href="#accion" aria-controls="accion" role="tab" data-toggle="tab">
+							{%if producto.alquiler%}
+				            	Alquilar
+				            {%else%}
+				            	Comprar
+				            {%endif%}
+						</a>
+					</li>
+					<li role="presentation"><a href="#faq" aria-controls="faq" role="tab" data-toggle="tab">Preguntas Frecuentes</a></li>
+					<li role="presentation"><a href="#contactar" aria-controls="contactar" role="tab" data-toggle="tab">Contactar</a></li>
+				</ul>
+
+				<!-- Tab panes -->
+				<div class="tab-content">
+					<div role="tabpanel" class="tab-pane fade in active" id="accion"><br/>
+						{% if producto.alquiler %}
+							<form id="alquiler" role="form" method="post" action="">{% csrf_token %}
+								<table>
+									<tr>
+										<td><strong>Precio por d&iacute;a: </strong></td>
+										<td class="size-100">{% render_field alquilerF.precio class="form-control" disabled="disabled" id="precio-alqui"%}</td>
+									</tr>
+									<tr>
+										<td><strong>Dias: </strong></td>
+										<td>{% render_field alquilerF.dias class="form-control" onchange="calc()" id="dias-alqui"%}</td>
+									</tr>
+									<tr>
+										<td><strong>Total: </strong></td>
+										<td> {% render_field alquilerF.total class="form-control" disabled="disabled" id="total-alqui"%}</td>
+									</tr>
+								</table>
+							    <div class="checkbox">
+							    	{% render_field alquilerF.clausulas %} Acepto las clausulas
+							    </div>
+								<button type="submit" class="btn btn-primary">
+							        Alquilar
+							    </button>
+							</form>
+						{% else %}
+							<form id="compra" role="form" method="post" action="">{% csrf_token %}
+								<table>
+									<tr>
+										<td><strong>Precio: {{producto.compra.precio}}</strong></td>
+										<td class="size-100">{% render_field compraF.precio class="form-control" disabled="disabled"%}</td>
+									</tr>
+									<tr>
+										<td><strong>Total: </strong></td>
+										<td> {% render_field compraF.total class="form-control" disabled="disabled"%}</td>
+									</tr>
+								</table>
+							    <div class="checkbox">
+							    	{% render_field alquilerF.clausulas %} Acepto las clausulas
+							    </div>
+								<button type="submit" class="btn btn-primary">
+							        Alquilar
+							    </button>
+							</form>
+						{% endif %}
+					</div>
+					<div role="tabpanel" class="tab-pane fade" id="faq"><br/>
+						<ul>
+							<li>Minions ipsum uuuhhh hahaha me want bananaaa! Poopayee chasy tulaliloo uuuhhh butt daa pepete chasy butt butt.</li>
+							<li>Minions ipsum uuuhhh hahaha me want bananaaa! Poopayee chasy tulaliloo uuuhhh butt daa pepete chasy butt butt.</li>
+							<li>Minions ipsum uuuhhh hahaha me want bananaaa! Poopayee chasy tulaliloo uuuhhh butt daa pepete chasy butt butt.</li>
+						</ul>
+					</div>
+					<div role="tabpanel" class="tab-pane fade" id="contactar"><br/>
+						<form id="contacto" role="form" method="post" action="">{% csrf_token %}
+							<div class="form-group">
+						        {%render_field contactoF.remitente class="form-control" placeholder="Correo"%}
+						    </div>
+						    <div class="form-group">
+						    	{%render_field contactoF.mensaje class="form-control" placeholder="Mensaje"%}
+						    </div>
+							<button type="submit" class="btn btn-primary">
+						        Enviar
+						    </button>
+						</form>
+					</div>
+				</div>
+			</div><br/>
+
+
+
+
 		</div>
 	</div>
 {% endblock content %}
 
 {% block js %}
-	
+	<script type="text/javascript">
+	$('#myTab a').click(function (e) {
+		e.preventDefault()
+		$(this).tab('show')
+	})
+
+	function calc(){
+		var precio = document.getElementById("precio-alqui");
+		var dias = document.getElementById("dias-alqui");
+		document.getElementById("total-alqui").value = precio.value * dias.value;
+	}
+	</script>
 {% endblock js %}

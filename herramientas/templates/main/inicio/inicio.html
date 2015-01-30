@@ -20,7 +20,7 @@
 			<h4>{{producto.titulo}}</h4>
             <div class="divider"></div>
             {%if producto.alquiler%}
-            	<p class="precio"> {{producto.alquiler.precio}} (por dia) </p> <strong class="tipo"> Alquiler</strong> 
+            	<p class="precio"> {{producto.alquiler.precio}} (por d&iacute;a) </p> <strong class="tipo"> Alquiler</strong> 
             {%else%}
 				<p class="precio"> {{producto.venta.precio|floatformat|intcomma}}</p> <strong class="tipo"> Venta</strong>
             {%endif%}
