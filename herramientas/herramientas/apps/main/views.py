@@ -96,17 +96,17 @@ def inicio(request):
 
                 operator = 'and'
 
-                productos_list = dynamic_query(Producto, fields_list, types_list, values_list, operator)
-
-                #Si no encontro nada, borrarlo
-                if productos_list == {}:
-                    productos_list = Producto.objects.all().order_by('fecha_producto')  
-
-                #Limpiando el queryset de alquileres o ventas
                 if tipo != None:
-                    for producto in productos_list:
-                       print producto
-
+                    if tipo == 'alquiler':
+                        productos_list = dynamic_query(Alquiler, fields_list, types_list, values_list, operator)
+                        if productos_list == {}:
+                            productos_list = Alquiler.objects.all().order_by('fecha_producto')
+                    else:
+                        productos_list = dynamic_query(Venta, fields_list, types_list, values_list, operator)
+                        if productos_list == {}:
+                            productos_list = Venta.objects.all().order_by('fecha_producto')
+                else:
+                    productos_list = dynamic_query(Producto, fields_list, types_list, values_list, operator)
 
     #Busqueda de propiedades en el pais actual
     productos_list = tuple(productos_list)
@@ -122,10 +122,9 @@ def inicio(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         productos = paginator.page(paginator.num_pages)
 
-    # Creando un nuevo usuario o iniciando sesion
+    # Creando un nuevo usuario
     if request.method=='POST':
         usuarioF = UserCreationForm(request.POST)
-        loginF = LoginForm(request.POST)
         if usuarioF.is_valid():
             usuarioF.save()
             return HttpResponseRedirect('/')
@@ -227,7 +226,10 @@ def productos(request, palabra):
         ofertas = ofertas[randint(0, len(ofertas)-1)]
 
     #productos que se ofertan
-    productos = Producto.objects.all().order_by('fecha_producto')
+    if palabra == 'alquiler':
+        productos = Alquiler.objects.all().order_by('fecha_producto')
+    else:
+        productos = Venta.objects.all().order_by('fecha_producto')
 
     # Creando un nuevo usuario
     if request.method=='POST':
