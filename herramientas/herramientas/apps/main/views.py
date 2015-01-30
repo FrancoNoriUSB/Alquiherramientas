@@ -258,6 +258,9 @@ def producto(request, id_producto):
     #Formulario de ingreso
     loginF = LoginForm()
 
+    # Formulario de contacto
+    contactoF = ContactoForm()
+
     #Ciudades
     ciudades = Ciudad.objects.all()
     
@@ -273,6 +276,19 @@ def producto(request, id_producto):
 
     producto = Producto.objects.get(id=id_producto)
 
+    # Formularios de compra o alquiler con data inicial.
+    try:
+        data = {'precio': producto.alquiler.precio}
+        print (data)
+        alquilerF = AlquilerForm(initial=data)
+        compraF = CompraForm()
+    except:
+        data = {'precio': producto.venta.precio,
+                'total': producto.venta.precio}
+        print (data)
+        compraF = CompraForm(initial=data)
+        alquilerF = AlquilerForm()
+
     # Creando un nuevo usuario
     if request.method=='POST':
         usuarioF = UserCreationForm(request.POST)
@@ -285,9 +301,12 @@ def producto(request, id_producto):
         'ofertas':ofertas,
         'producto': producto,
         'UsuarioForm':usuarioF,
+        'compraF' : compraF,
+        'alquilerF' : alquilerF,
         'LoginForm':loginF,
         'ciudades':ciudades,
         'zonas':zonas,
+        'contactoF': contactoF,
     }
 
     return render_to_response('main/productos/producto.html', ctx, context_instance=RequestContext(request))
