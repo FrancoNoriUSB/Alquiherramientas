@@ -41,7 +41,6 @@ INSTALLED_APPS = (
     'herramientas.apps.administrador',
     'herramientas.apps.main',
     'widget_tweaks',
-    'django_countries',
     'bootstrap3',
 )
 
