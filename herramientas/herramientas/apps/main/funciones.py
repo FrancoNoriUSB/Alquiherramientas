@@ -65,6 +65,7 @@ def dynamic_query(model, fields, types, values, operator):
         if q:
             # We have a Q object, return the QuerySet
             return model.objects.filter(q)
+
     else:
         # Return an empty result
         return {}

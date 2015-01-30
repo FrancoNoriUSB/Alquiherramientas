@@ -209,8 +209,8 @@ class Producto(models.Model):
 		verbose_name = "Producto"
 		verbose_name_plural = "Productos"
 
-	def __unicode__(self):
-		return u"%s" %(self.titulo)
+	def __pass__(self):
+		return self
 
 
 #Imagenes de las Productos

@@ -11,7 +11,7 @@ urlpatterns = patterns('herramientas.apps.main.views',
     url(r'^empresa/$', 'empresa', name='empresa'),
 
     #Views de los productos
-    url(r'^productos/$', 'productos', name='productos'),
+    url(r'^productos/(?P<palabra>[A-Z a-z]+)$', 'productos', name='productos'),
     url(r'^productos/(?P<id_producto>\d+)/$', 'producto', name='producto'),
 
     #View de afiliacion

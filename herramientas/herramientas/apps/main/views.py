@@ -48,6 +48,8 @@ def inicio(request):
     #Productos que se ofertan
     productos = Producto.objects.all().order_by('fecha_producto')
 
+    productos_list = productos
+
     #Caso que se realizo una busqueda
     if request.GET:
         busquedaF = BusquedaForm(request.GET)
@@ -94,19 +96,21 @@ def inicio(request):
 
                 operator = 'and'
 
-                productos = dynamic_query(Producto, fields_list, types_list, values_list, operator)
-                
-                if tipo == 'alquiler':
-                    fields_list.append('alquiler')
-                else:
-                    fields_list.append('venta')
+                productos_list = dynamic_query(Producto, fields_list, types_list, values_list, operator)
 
-                #Caso no encontro nada
-                if productos == []:
-                    productos = Producto.objects.all().order_by('fecha_producto')
+                #Si no encontro nada, borrarlo
+                if productos_list == {}:
+                    productos_list = Producto.objects.all().order_by('fecha_producto')  
+
+                #Limpiando el queryset de alquileres o ventas
+                if tipo != None:
+                    for producto in productos_list:
+                       print producto
+
 
     #Busqueda de propiedades en el pais actual
-    paginator = Paginator(productos, 6)
+    productos_list = tuple(productos_list)
+    paginator = Paginator(productos_list, 6)
     page = request.GET.get('page')
 
     try:
@@ -198,7 +202,7 @@ def empresa(request):
 
 
 # Vista de los productos
-def productos(request):
+def productos(request, palabra):
 
     #Formulario de busqueda
     busquedaF = BusquedaForm()
