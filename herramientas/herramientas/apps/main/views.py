@@ -24,338 +24,415 @@ import json
 #Vista del inicio
 def inicio(request):
 
-	#Formulario de busqueda
-	busquedaF = BusquedaForm()
-	# formulario de nuevo usuario
-	usuarioF = UserCreationForm()
+    #Formulario de busqueda
+    busquedaF = BusquedaForm()
 
-	# Ofertas de los productos
-	ofertas = []
-	ofertas = Producto.objects.filter(oferta=True).order_by('?')
-	
-	if len(ofertas) > 0:
-		ofertas = ofertas[randint(0, len(ofertas)-1)]
+    # formulario de nuevo usuario
+    usuarioF = UserCreationForm()
 
-	#Ciudades
-	ciudades = {}
-	
-	#Zonas
-	zonas = {}
+    #Formulario de ingreso
+    loginF = LoginForm()
 
-	#Productos que se ofertan
-	productos = Producto.objects.all().order_by('fecha_producto')
+    # Ofertas de los productos
+    ofertas = []
+    ofertas = Producto.objects.filter(oferta=True).order_by('?')
+    
+    if len(ofertas) > 0:
+        ofertas = ofertas[randint(0, len(ofertas)-1)]
 
-	#Caso que se realizo una busqueda
-	if request.GET:
-		busquedaF = BusquedaForm(request.GET)
+    #Ciudades
+    ciudades = {}
+    
+    #Zonas
+    zonas = {}
+
+    #Productos que se ofertan
+    productos = Producto.objects.all().order_by('fecha_producto')
+
+    #Caso que se realizo una busqueda
+    if request.GET:
+        busquedaF = BusquedaForm(request.GET)
         
         #Caso para el buscador de herramientas
         if busquedaF.is_valid():
-			tipo = busquedaF.cleaned_data['tipo']
-			categoria = busquedaF.cleaned_data['categoria']
-			marca = busquedaF.cleaned_data['marca']
-			estado = busquedaF.cleaned_data['estado']
-			ciudad = busquedaF.cleaned_data['ciudad']
-			zona = busquedaF.cleaned_data['zona']
+            tipo = busquedaF.cleaned_data['tipo']
+            categoria = busquedaF.cleaned_data['categoria']
+            marca = busquedaF.cleaned_data['marca']
+            estado = busquedaF.cleaned_data['estado']
+            ciudad = busquedaF.cleaned_data['ciudad']
+            zona = busquedaF.cleaned_data['zona']
 
-			#Verificacion de campos
-			if tipo != '' or categoria != None or marca != None or estado != None or ciudad != None or zona != None:
+            #Verificacion de campos
+            if tipo != '' or categoria != None or marca != None or estado != None or ciudad != None or zona != None:
 
-				#Verificacion de string vacio
-				if tipo == '':
-				    tipo = None
+                #Verificacion de string vacio
+                if tipo == '':
+                    tipo = None
 
-				#Campos a buscar
-				fields_list = []
-				fields_list.append('herramienta')
-				fields_list.append('herramienta')
-				fields_list.append('direccion')
-				fields_list.append('direccion')
-				fields_list.append('direccion')
+                #Campos a buscar
+                fields_list = []
+                fields_list.append('herramienta')
+                fields_list.append('herramienta')
+                fields_list.append('direccion')
+                fields_list.append('direccion')
+                fields_list.append('direccion')
 
-				#Comparadores para buscar
-				types_list=[]
-				types_list.append('categoria__nombre__exact')
-				types_list.append('marca__nombre__exact')
-				types_list.append('estado__nombre__exact')
-				types_list.append('ciudad__nombre__exact')
-				types_list.append('zona__nombre__exact')
+                #Comparadores para buscar
+                types_list=[]
+                types_list.append('categoria__nombre__exact')
+                types_list.append('marca__nombre__exact')
+                types_list.append('estado__nombre__exact')
+                types_list.append('ciudad__nombre__exact')
+                types_list.append('zona__nombre__exact')
 
-				#Valores a buscar
-				values_list=[]
-				values_list.append(categoria)
-				values_list.append(marca)
-				values_list.append(estado)
-				values_list.append(ciudad)
-				values_list.append(zona)
+                #Valores a buscar
+                values_list=[]
+                values_list.append(categoria)
+                values_list.append(marca)
+                values_list.append(estado)
+                values_list.append(ciudad)
+                values_list.append(zona)
 
-				operator = 'and'
+                operator = 'and'
 
-				productos = dynamic_query(Producto, fields_list, types_list, values_list, operator)
-				
-				if tipo == 'alquiler':
-					fields_list.append('alquiler')
-				else:
-					fields_list.append('venta')
+                productos = dynamic_query(Producto, fields_list, types_list, values_list, operator)
+                
+                if tipo == 'alquiler':
+                    fields_list.append('alquiler')
+                else:
+                    fields_list.append('venta')
 
-				#Caso no encontro nada
-				if productos == []:
-					productos = Producto.objects.all().order_by('fecha_producto')
+                #Caso no encontro nada
+                if productos == []:
+                    productos = Producto.objects.all().order_by('fecha_producto')
 
-	#Busqueda de propiedades en el pais actual
-	paginator = Paginator(productos, 6)
-	page = request.GET.get('page')
+    #Busqueda de propiedades en el pais actual
+    paginator = Paginator(productos, 6)
+    page = request.GET.get('page')
 
-	try:
-		productos = paginator.page(page)
-	except PageNotAnInteger:
-		# If page is not an integer, deliver first page.
-		productos = paginator.page(1)
-	except EmptyPage:
-		# If page is out of range (e.g. 9999), deliver last page of results.
-		productos = paginator.page(paginator.num_pages)
+    try:
+        productos = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        productos = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        productos = paginator.page(paginator.num_pages)
 
-	# Creando un nuevo usuario
-	if request.method=='POST':
-		usuarioF = UserCreationForm(request.POST)
-		if usuarioF.is_valid():
-			usuarioF.save()
-			return HttpResponseRedirect('/')
+    # Creando un nuevo usuario o iniciando sesion
+    if request.method=='POST':
+        usuarioF = UserCreationForm(request.POST)
+        loginF = LoginForm(request.POST)
+        if usuarioF.is_valid():
+            usuarioF.save()
+            return HttpResponseRedirect('/')
+        elif loginF.is_valid():
+            return HttpResponseRedirect('/login/')
 
-	#Preparar el objeto Json de las ciudades
-	for estado in Estado.objects.all():
-		ciudades[estado.id] = dict(Ciudad.objects.filter(estado=estado).values_list('id', 'nombre'))
-	ciudades = json.dumps(ciudades)
+    #Preparar el objeto Json de las ciudades
+    for estado in Estado.objects.all():
+        ciudades[estado.id] = dict(Ciudad.objects.filter(estado=estado).values_list('id', 'nombre'))
+    ciudades = json.dumps(ciudades)
 
-	#Preparar el objeto Json de las zonas
-	for ciudad in Ciudad.objects.all():
-		zona = dict(Zona.objects.filter(ciudad__id=ciudad.id).values_list('id', 'nombre'))
-		if zona != {}:
-			zonas[ciudad.id] = zona
-	zonas = json.dumps(zonas)
+    #Preparar el objeto Json de las zonas
+    for ciudad in Ciudad.objects.all():
+        zona = dict(Zona.objects.filter(ciudad__id=ciudad.id).values_list('id', 'nombre'))
+        if zona != {}:
+            zonas[ciudad.id] = zona
+    zonas = json.dumps(zonas)
 
-	ctx = {
-		'BusquedaForm':busquedaF,
-		'ofertas':ofertas,
-		'productos':productos,
-		'UsuarioForm':usuarioF,
-		'ciudades':ciudades,
-		'zonas':zonas,
-	}
+    ctx = {
+        'BusquedaForm':busquedaF,
+        'ofertas':ofertas,
+        'productos':productos,
+        'UsuarioForm':usuarioF,
+        'LoginForm':loginF,
+        'ciudades':ciudades,
+        'zonas':zonas,
+    }
 
-	return render_to_response('main/inicio/inicio.html', ctx, context_instance=RequestContext(request))
+    return render_to_response('main/inicio/inicio.html', ctx, context_instance=RequestContext(request))
 
 
 # Vista de la informacion de la empresa
 def empresa(request):
 
-	#Formulario de busqueda
-	busquedaF = BusquedaForm()
-	# Formulario de nuevo usuario
-	usuarioF = UserCreationForm()	
+    #Formulario de busqueda
+    busquedaF = BusquedaForm()
 
-	#Ciudades
-	ciudades = Ciudad.objects.all()
-	
-	#Zonas
-	zonas = Zona.objects.all()
+    # Formulario de nuevo usuario
+    usuarioF = UserCreationForm()   
 
-	# Ofertas de los productos
-	ofertas = []
-	ofertas = Producto.objects.filter(oferta=True).order_by('?')
-	
-	if len(ofertas) > 0:
-		ofertas = ofertas[randint(0, len(ofertas)-1)]
+    #Formulario de ingreso
+    loginF = LoginForm()
 
-	# Creando un nuevo usuario
-	if request.method=='POST':
-		usuarioF = UserCreationForm(request.POST)
-		if usuarioF.is_valid():
-			usuarioF.save()
-			return HttpResponseRedirect('/')
+    #Ciudades
+    ciudades = Ciudad.objects.all()
+    
+    #Zonas
+    zonas = Zona.objects.all()
 
-	ctx = {
-		'BusquedaForm':busquedaF,
-		'ofertas':ofertas,
-		'UsuarioForm':usuarioF,
-		'ciudades':ciudades,
-		'zonas':zonas,
-	}
+    # Ofertas de los productos
+    ofertas = []
+    ofertas = Producto.objects.filter(oferta=True).order_by('?')
+    
+    if len(ofertas) > 0:
+        ofertas = ofertas[randint(0, len(ofertas)-1)]
 
-	return render_to_response('main/empresa/empresa.html', ctx, context_instance=RequestContext(request))
+    # Creando un nuevo usuario
+    if request.method=='POST':
+        usuarioF = UserCreationForm(request.POST)
+        if usuarioF.is_valid():
+            usuarioF.save()
+            return HttpResponseRedirect('/')
+
+    ctx = {
+        'BusquedaForm':busquedaF,
+        'ofertas':ofertas,
+        'UsuarioForm':usuarioF,
+        'LoginForm':loginF,
+        'ciudades':ciudades,
+        'zonas':zonas,
+    }
+
+    return render_to_response('main/empresa/empresa.html', ctx, context_instance=RequestContext(request))
 
 
 # Vista de los productos
 def productos(request):
 
-	#Formulario de busqueda
-	busquedaF = BusquedaForm()
-	# Formulario de nuevo usuario
-	usuarioF = UserCreationForm()
+    #Formulario de busqueda
+    busquedaF = BusquedaForm()
 
-	#Ciudades
-	ciudades = Ciudad.objects.all()
-	
-	#Zonas
-	zonas = Zona.objects.all()
-	
-	# Ofertas de los productos
-	ofertas = []
-	ofertas = Producto.objects.filter(oferta=True).order_by('?')
-	
-	if len(ofertas) > 0:
-		ofertas = ofertas[randint(0, len(ofertas)-1)]
+    #Formulario de nuevo usuario
+    usuarioF = UserCreationForm()
 
-	#productos que se ofertan
-	productos = Producto.objects.all().order_by('fecha_producto')
+    #Formulario de ingreso
+    loginF = LoginForm()
 
-	# Creando un nuevo usuario
-	if request.method=='POST':
-		usuarioF = UserCreationForm(request.POST)
-		if usuarioF.is_valid():
-			usuarioF.save()
-			return HttpResponseRedirect('/')
+    #Ciudades
+    ciudades = Ciudad.objects.all()
+    
+    #Zonas
+    zonas = Zona.objects.all()
+    
+    # Ofertas de los productos
+    ofertas = []
+    ofertas = Producto.objects.filter(oferta=True).order_by('?')
+    
+    if len(ofertas) > 0:
+        ofertas = ofertas[randint(0, len(ofertas)-1)]
 
-	ctx = {
-		'BusquedaForm':busquedaF,
-		'ofertas':ofertas,
-		'productos':productos,
-		'UsuarioForm':usuarioF,
-		'ciudades':ciudades,
-		'zonas':zonas,
-	}
+    #productos que se ofertan
+    productos = Producto.objects.all().order_by('fecha_producto')
 
-	return render_to_response('main/productos/productos.html', ctx, context_instance=RequestContext(request))
+    # Creando un nuevo usuario
+    if request.method=='POST':
+        usuarioF = UserCreationForm(request.POST)
+        if usuarioF.is_valid():
+            usuarioF.save()
+            return HttpResponseRedirect('/')
+
+    ctx = {
+        'BusquedaForm':busquedaF,
+        'ofertas':ofertas,
+        'productos':productos,
+        'UsuarioForm':usuarioF,
+        'LoginForm':loginF,
+        'ciudades':ciudades,
+        'zonas':zonas,
+    }
+
+    return render_to_response('main/productos/productos.html', ctx, context_instance=RequestContext(request))
 
 
 # Vista de un producto especifico
 def producto(request, id_producto):
 
-	#Formulario de busqueda
-	busquedaF = BusquedaForm()
-	# Formulario de nuevo usuario
-	usuarioF = UserCreationForm()
+    #Formulario de busqueda
+    busquedaF = BusquedaForm()
+    
+    # Formulario de nuevo usuario
+    usuarioF = UserCreationForm()
 
-	#Ciudades
-	ciudades = Ciudad.objects.all()
-	
-	#Zonas
-	zonas = Zona.objects.all()
-	
-	# Ofertas de los productos
-	ofertas = []
-	ofertas = Producto.objects.filter(oferta=True).order_by('?')
-	
-	if len(ofertas) > 0:
-		ofertas = ofertas[randint(0, len(ofertas)-1)]
+    #Formulario de ingreso
+    loginF = LoginForm()
 
-	producto = Producto.objects.get(id=id_producto)
+    #Ciudades
+    ciudades = Ciudad.objects.all()
+    
+    #Zonas
+    zonas = Zona.objects.all()
+    
+    # Ofertas de los productos
+    ofertas = []
+    ofertas = Producto.objects.filter(oferta=True).order_by('?')
+    
+    if len(ofertas) > 0:
+        ofertas = ofertas[randint(0, len(ofertas)-1)]
 
-	# Creando un nuevo usuario
-	if request.method=='POST':
-		usuarioF = UserCreationForm(request.POST)
-		if usuarioF.is_valid():
-			usuarioF.save()
-			return HttpResponseRedirect('/')
+    producto = Producto.objects.get(id=id_producto)
 
-	ctx = {
-		'BusquedaForm':busquedaF,
-		'ofertas':ofertas,
-		'producto': producto,
-		'UsuarioForm':usuarioF,
-		'ciudades':ciudades,
-		'zonas':zonas,
-	}
+    # Creando un nuevo usuario
+    if request.method=='POST':
+        usuarioF = UserCreationForm(request.POST)
+        if usuarioF.is_valid():
+            usuarioF.save()
+            return HttpResponseRedirect('/')
 
-	return render_to_response('main/productos/producto.html', ctx, context_instance=RequestContext(request))
+    ctx = {
+        'BusquedaForm':busquedaF,
+        'ofertas':ofertas,
+        'producto': producto,
+        'UsuarioForm':usuarioF,
+        'LoginForm':loginF,
+        'ciudades':ciudades,
+        'zonas':zonas,
+    }
+
+    return render_to_response('main/productos/producto.html', ctx, context_instance=RequestContext(request))
 
 
 # Vista para la afiliacion
 def afiliacion(request):
 
-	#Formulario de busqueda
-	busquedaF = BusquedaForm()
-	# Formulario de nuevo usuario
-	usuarioF = UserCreationForm()
+    #Formulario de busqueda
+    busquedaF = BusquedaForm()
+    
+    # Formulario de nuevo usuario
+    usuarioF = UserCreationForm()
 
-	#Ciudades
-	ciudades = Ciudad.objects.all()
-	
-	#Zonas
-	zonas = Zona.objects.all()
-	
-	# Ofertas de los productos
-	ofertas = []
-	ofertas = Producto.objects.filter(oferta=True).order_by('?')
-	
-	if len(ofertas) > 0:
-		ofertas = ofertas[randint(0, len(ofertas)-1)]
+    #Formulario de ingreso
+    loginF = LoginForm()
 
-	# Creando un nuevo usuario
-	if request.method=='POST':
-		usuarioF = UserCreationForm(request.POST)
-		if usuarioF.is_valid():
-			usuarioF.save()
-			return HttpResponseRedirect('/')
+    #Ciudades
+    ciudades = Ciudad.objects.all()
+    
+    #Zonas
+    zonas = Zona.objects.all()
+    
+    # Ofertas de los productos
+    ofertas = []
+    ofertas = Producto.objects.filter(oferta=True).order_by('?')
+    
+    if len(ofertas) > 0:
+        ofertas = ofertas[randint(0, len(ofertas)-1)]
 
-	ctx = {
-		'BusquedaForm':busquedaF,
-		'ofertas':ofertas,
-		'UsuarioForm':usuarioF,
-		'ciudades':ciudades,
-		'zonas':zonas,
-	}
+    # Creando un nuevo usuario
+    if request.method=='POST':
+        usuarioF = UserCreationForm(request.POST)
+        if usuarioF.is_valid():
+            usuarioF.save()
+            return HttpResponseRedirect('/')
 
-	return render_to_response('main/afiliacion/afiliacion.html', ctx, context_instance=RequestContext(request))
+    ctx = {
+        'BusquedaForm':busquedaF,
+        'ofertas':ofertas,
+        'UsuarioForm':usuarioF,
+        'LoginForm':loginF,
+        'ciudades':ciudades,
+        'zonas':zonas,
+    }
+
+    return render_to_response('main/afiliacion/afiliacion.html', ctx, context_instance=RequestContext(request))
 
 
 # Vista de contactos
 def contactos(request):
 
-	#Formulario de busqueda
-	busquedaF = BusquedaForm()
-	# Formulario de nuevo usuario
-	usuarioF = UserCreationForm()
+    #Formulario de busqueda
+    busquedaF = BusquedaForm()
+    
+    # Formulario de nuevo usuario
+    usuarioF = UserCreationForm()
 
-	#Ciudades
-	ciudades = Ciudad.objects.all()
-	
-	#Zonas
-	zonas = Zona.objects.all()
-	
-	#Formulario de contacto
-	if request.method == 'POST':
-		contactoF = ContactoForm(request.POST)
-		if contactoF.is_valid():
-			titulo = "Mensaje de: "+contactoF.cleaned_data['remitente']
-			mensaje = contactoF.cleaned_data['mensaje']
-			correo = EmailMessage(titulo, mensaje, to=['valderrama_862@hotmail.com'])
-			correo.send()
-			return HttpResponseRedirect('/contactos/')
-	else:
-		contactoF = ContactoForm()
+    #Formulario de ingreso
+    loginF = LoginForm()
 
-	# Ofertas de los productos
-	ofertas = []
-	ofertas = Producto.objects.filter(oferta=True).order_by('?')
-	
-	if len(ofertas) > 0:
-		ofertas = ofertas[randint(0, len(ofertas)-1)]
+    #Ciudades
+    ciudades = Ciudad.objects.all()
+    
+    #Zonas
+    zonas = Zona.objects.all()
+    
+    #Formulario de contacto
+    if request.method == 'POST':
+        contactoF = ContactoForm(request.POST)
+        if contactoF.is_valid():
+            titulo = "Mensaje de: "+contactoF.cleaned_data['remitente']
+            mensaje = contactoF.cleaned_data['mensaje']
+            correo = EmailMessage(titulo, mensaje, to=['valderrama_862@hotmail.com'])
+            correo.send()
+            return HttpResponseRedirect('/contactos/')
+    else:
+        contactoF = ContactoForm()
 
-	# Creando un nuevo usuario
-	if request.method=='POST':
-		usuarioF = UserCreationForm(request.POST)
-		if usuarioF.is_valid():
-			usuarioF.save()
-			return HttpResponseRedirect('/')
+    # Ofertas de los productos
+    ofertas = []
+    ofertas = Producto.objects.filter(oferta=True).order_by('?')
+    
+    if len(ofertas) > 0:
+        ofertas = ofertas[randint(0, len(ofertas)-1)]
 
-	ctx = {
-		'BusquedaForm':busquedaF,
-		'ofertas':ofertas,
-		'ContactoForm': contactoF,
-		'UsuarioForm':usuarioF,
-		'ciudades':ciudades,
-		'zonas':zonas,
-	}
+    # Creando un nuevo usuario
+    if request.method=='POST':
+        usuarioF = UserCreationForm(request.POST)
+        if usuarioF.is_valid():
+            usuarioF.save()
+            return HttpResponseRedirect('/')
 
-	return render_to_response('main/contactos/contactos.html', ctx, context_instance=RequestContext(request))
+    ctx = {
+        'BusquedaForm':busquedaF,
+        'ofertas':ofertas,
+        'ContactoForm':contactoF,
+        'UsuarioForm':usuarioF,
+        'LoginForm':loginF,
+        'ciudades':ciudades,
+        'zonas':zonas,
+    }
+
+    return render_to_response('main/contactos/contactos.html', ctx, context_instance=RequestContext(request))
+
+
+# Vista para login de usuario
+def loginUser(request):
+
+    email = ''
+    password = ''
+    
+    if request.user.is_authenticated() and request.user:
+        return HttpResponseRedirect('/perfil/')
+    else:
+        email = request.POST['email']
+        password = request.POST['password']
+        usuario = authenticate(email=email, password=password)
+
+        if usuario:
+                # Caso del usuario activo
+                if usuario.is_active:
+                    login(request, usuario)
+                    return HttpResponseRedirect('/perfil/')
+                else:
+                    return "Tu cuenta esta bloqueada"
+        else:
+            # Usuario invalido o no existe!
+            print "Invalid login details: {0}, {1}".format(email, password)
+
+    return HttpResponseRedirect('/')
+
+
+#Vista de perfil de usuario
+@login_required
+def perfil(request):
+
+    ctx = {
+
+    }
+
+    return render_to_response('main/perfil/perfil.html', ctx, context_instance=RequestContext(request))
+
+# Vista para logout de usuario
+def logoutUser(request):
+
+    logout(request)
+    return HttpResponseRedirect('/')

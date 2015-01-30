@@ -22,6 +22,7 @@ class BusquedaForm(forms.Form):
 	zona = forms.ModelChoiceField(queryset=Zona.objects.all(), empty_label=' - Zona -', required=False)
 
 
+#Formulario para contactar a la empresa
 class ContactoForm(forms.Form):
 	remitente = forms.EmailField()
 	mensaje = forms.CharField(widget=forms.Textarea)

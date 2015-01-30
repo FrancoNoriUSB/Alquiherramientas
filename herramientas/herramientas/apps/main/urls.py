@@ -19,4 +19,13 @@ urlpatterns = patterns('herramientas.apps.main.views',
 
     #View de contactos
     url(r'^contactos/$', 'contactos', name='contactos'),
+
+    #View de login de usuario
+    url(r'^login/$', 'loginUser', name='loginUser'),
+
+    #View de perfil de usuario
+    url(r'^perfil/$', 'perfil', name='perfil'),
+
+    #View de login de usuario
+    url(r'^logout/$', 'logoutUser', name='logoutUser'),
 )

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+    {% load main_extras %}
+    {% load widget_tweaks %}
+    {% load bootstrap3 %}
+    {% load humanize %}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="herramientas,alquiler,venta">
+    <link rel="SHORTCUT ICON" href="{{STATIC_URL}}files/img/ico.png"/>
+    <title>Alqui Herramientas</title>
+
+    <!--Bootstrap Local-->
+    <!--CSS -->
+    <link rel="stylesheet" href="{{STATIC_URL}}bootstrap/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="{{STATIC_URL}}bootstrap/css/bootstrap-theme.min.css">
+
+    <!--Estilos-->
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}files/css/main/base.css">
+
+    <!-- jQuery -->
+    <script src="http://code.jquery.com/jquery.js"></script>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="{{STATIC_URL}}bootstrap/js/bootstrap.min.js"></script>
+    {% block scripts %}
+        
+    {% endblock scripts %}
+</head>
+<body>
+
+    <!-- Header de la página -->
+    <header>
+        <div class="banners container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-hidden">
+                    <img class="img-responsive" src="{{STATIC_URL}}files/img/banner-alquiherramienta.png" alt="">
+                </div>
+            </div>
+        </div>
+        <nav class="navbar navbar-static-top navbar-default" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button class="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                    </button>
+                    <div class="navbar-brand">
+                        <a href="/">
+                            <img class="img-responsive" src="{{STATIC_URL}}files/img/logo-principal.png" alt="">
+                        </a>
+                    </div>
+                </div>
+                <div class="collapse navbar-collapse navHeaderCollapse navheader">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="{% active_page request 'inicio' %}">
+                            <a href="/">Inicio</a>
+                        </li>
+                        <li class="{% active_page request 'empresa' %}">
+                            <a href="/empresa/">Empresa</a>
+                        </li>
+                        <li class="{% active_page request 'productos' %}">
+                            <div class="btn-group">
+                                <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                    Productos
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a href="/productos/">Venta</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="/productos/">Alquiler</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="{% active_page request 'afiliacion' %}">
+                            <a href="/afiliacion/">Afiliac&iacute;on</a>
+                        </li>
+                        <li class="{% active_page request 'contactos' %}">
+                            <a href="/contactos/">Contactos</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!--Contenido del perfil de usuario-->
+    <div class="contenido container">
+        <!-- Sección interna de la página -->
+        <div class="contenido container-fluid">
+            <div class="row">
+                <!-- Contenido de la pagina -->
+                <div class="contenido col-lg-12 col-md-12 col-sm-12">
+                    <h4>Bienvenido <a href="/perfil/">{{request.user.nombre}}</a></h4>
+                    <a href="/logout/">Salir</a>
+                    {% block content %}
+                    {% endblock content %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer de la página -->
+    <footer>
+        <nav class="navbar navbar-static-bottom navbar-default" role="navigation">
+            <div class="container">
+                <div class="navfooter">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="/">Inicio</a>
+                        </li>
+                        <li>
+                            <a href="/empresa/">Empresa</a>
+                        </li>
+                        <li>
+                            <a href="/productos/">Productos</a>
+                        </li>
+                        <li>
+                            <a href="/afiliacion/">Afiliac&iacute;on</a>
+                        </li>
+                        <li>
+                            <a href="/contactos/">Contactos</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </footer>
+</body>
+
+<!-- Seccion donde se carga el JS -->
+{%block js%}
+
+{%endblock js%}
+<script type="text/javascript">
+    $('#myModal').on('shown.bs.modal', function () {
+        $('#myInput').focus()
+      })
+</script>
+<!-- Funcion para cargar zonas y ciudades dinamicamente -->
+<script type="text/javascript">
+/*Funcion que abre y cierra el dropdown de registro*/
+$('#login').on('click', function (event) {
+    $(this).parent().toggleClass('open');
+});
+</script>
+</html>

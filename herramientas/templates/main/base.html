@@ -153,7 +153,7 @@
                                         <br>
                                         <br>
                                         <div class="form-group">
-                                            <button type="submit" class="btn btn-primary"><strong></strong>Registrarse</button>
+                                            <button type="submit" class="btn btn-primary"><strong>Registrarse</strong></button>
                                         </div>
                                     </div>
                                 </form>
@@ -169,8 +169,39 @@
             <div class="row">
                 <div class="barra-lateral col-lg-4 col-md-4 col-sm-4">
                     <div class="registro-ingreso">
+                        {%if user.is_authenticated%}
+                        <h4>Bienvenido <a href="/perfil/">{{request.user.nombre}}</a></h4>
+                        <a href="/logout/">Salir</a>
+                        {%else%}
                         <button class="btn btn-default" data-toggle="modal" data-target="#registroModal"><strong>REG&iacute;STRATE</strong></button>
-                        <button class="btn btn-default"><strong class="text-up">INGRESA</strong></button>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" aria-expanded="false" id="login">
+                            <strong>INGRESA</strong>
+                            </button>
+                            <div class="dropdown-menu" role="menu">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <br>
+                                    <form role="form" method="POST" action="/login/">
+                                        <div class="form-group">
+                                            {%csrf_token%}
+                                            <div class="form-inline">
+                                                {%render_field LoginForm.email class="form-control" placeholder="correo electrónico"%}
+                                            </div>
+                                            <br>
+                                            <div class="form-inline">
+                                                {%render_field LoginForm.password class="form-control" placeholder="contraseña"%}
+                                            </div>
+                                            <br>
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-primary"><strong>Entrar</strong></button>
+                                            </div>
+                                            <br>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        {%endif%}
                     </div>
                     <div class="col-lg-12 col-md-12 col-sm-12 buscador">
                         <form id="form" role="form" enctype="multipart/form-data" method="get" action="/">
@@ -310,5 +341,10 @@ function cargar_zonas(){
 }
 $(document).on('change', '#id_estado', cargar_ciudades);
 $(document).on('change', '#id_ciudad', cargar_zonas);
+
+/*Funcion que abre y cierra el dropdown de registro*/
+$('#login').on('click', function (event) {
+    $(this).parent().toggleClass('open');
+});
 </script>
 </html>

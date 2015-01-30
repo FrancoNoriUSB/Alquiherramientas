@@ -54,3 +54,16 @@ class UserChangeForm(forms.ModelForm):
         # This is done here, rather than on the field, because the
         # field does not have access to the initial value
         return self.initial["password"]
+        
+        
+#Formulario para el login de usuario        
+class LoginForm(forms.ModelForm):
+
+    class Meta:
+        model = User
+        fields = ('email','password')
+        widgets = {
+            'password': forms.PasswordInput(attrs={'class':"form-control", 'placeholder':"Contraseña"}),
+            'email': forms.EmailInput(attrs={'class':"form-control", 'placeholder':"Correo"}),
+        }
+
