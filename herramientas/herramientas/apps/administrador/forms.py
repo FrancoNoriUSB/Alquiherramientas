@@ -1,5 +1,4 @@
 # -*- encoding: utf-8 -*-
-from django.contrib import admin
 from django import forms
 from django.contrib import admin
 from django.contrib.auth.models import Group
@@ -55,8 +54,7 @@ class UserChangeForm(forms.ModelForm):
         # field does not have access to the initial value
         return self.initial["password"]
         
-        
-#Formulario para el login de usuario        
+#Formulario para el login de usuario                
 class LoginForm(forms.ModelForm):
 
     class Meta:

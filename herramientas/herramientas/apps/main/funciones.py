@@ -48,11 +48,14 @@ def dynamic_query(model, fields, types, values, operator):
     for (f, t, v) in zip(fields, types, values):
         # We only want to build a Q with a value
         if v != None:
-            kwargs = {str('%s__%s' % (f,t)) : str('%s' % v)}
+            if t == 'precio__range':
+                kwargs = {str('%s__%s' % (f,t)) : (v)}
+            else:
+                kwargs = {str('%s__%s' % (f,t)) : str('%s' % v)}
             queries.append(Q(**kwargs))
     
     # Make sure we have a list of filters
-    if len(queries) > 0:
+    if len(queries) > 0:    
         q = Q()
         # AND/OR awareness
         for query in queries:
@@ -63,6 +66,7 @@ def dynamic_query(model, fields, types, values, operator):
             else:
                 q = None
         if q:
+            print q
             # We have a Q object, return the QuerySet
             return model.objects.filter(q)
 

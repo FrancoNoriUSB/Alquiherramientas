@@ -14,12 +14,22 @@ class BusquedaForm(forms.Form):
 		('venta','Venta'),
 	)
 
+	choices_precio = (
+		('','- Precio -'),
+		('0-10000','0-10.000'),
+		('10000-50000','10.000 - 50.000'),
+		('50000-200000','50.000 - 200.000'),
+		('200000-1000000','200.000 - 1.000.000'),
+		('1000000-10000000','1.000.000 - 10.000.000'),
+		('10000000-10000000000000000','10.000.000 - más'),
+	)
+
 	tipo = forms.ChoiceField(choices=choices_alquiler, widget=forms.Select(), required=False)
 	categoria = forms.ModelChoiceField(queryset=Categoria.objects.all(), empty_label=' - Categoria -', required=False)
 	marca = forms.ModelChoiceField(queryset=Marca.objects.all(), empty_label=' - Marca -', required=False)
 	estado = forms.ModelChoiceField(queryset=Estado.objects.all(), empty_label=' - Estado -', required=False)
-	ciudad = forms.ModelChoiceField(queryset=Ciudad.objects.all(), empty_label=' - Ciudad -', required=False)
-	zona = forms.ModelChoiceField(queryset=Zona.objects.all(), empty_label=' - Zona -', required=False)
+	ano = forms.ModelChoiceField(queryset=Herramienta.objects.all().values_list('ano', flat=True).distinct().order_by('ano'), empty_label=' - Año -', required=False)
+	precio = forms.ChoiceField(choices=choices_precio, widget=forms.Select(), required=False)
 
 
 #Formulario para contactar a la empresa

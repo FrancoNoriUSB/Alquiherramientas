@@ -165,101 +165,101 @@
         </div>
 
         <!-- Sección interna de la página -->
-        <div class="contenido container-fluid">
-            <div class="row">
-                <div class="barra-lateral col-lg-4 col-md-4 col-sm-4">
-                    <div class="registro-ingreso">
-                        {%if user.is_authenticated%}
+        <div class="row">
+            <div class="barra-lateral col-lg-4 col-md-4 col-sm-4">
+                <div class="registro-ingreso">
+                    {%if user.is_authenticated%}
                         <h4>Bienvenido <a href="/perfil/">{{request.user.nombre}}</a></h4>
                         <a href="/logout/">Salir</a>
-                        {%else%}
-                        <button class="btn btn-default" data-toggle="modal" data-target="#registroModal"><strong>REG&iacute;STRATE</strong></button>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default dropdown-toggle" aria-expanded="false" id="login">
-                            <strong>INGRESA</strong>
-                            </button>
-                            <div class="dropdown-menu" role="menu">
-                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <br>
-                                    <form role="form" method="POST" action="/login/">
-                                        <div class="form-group">
-                                            {%csrf_token%}
-                                            <div class="form-inline">
-                                                {%render_field LoginForm.email class="form-control" placeholder="correo electrónico"%}
-                                            </div>
-                                            <br>
-                                            <div class="form-inline">
-                                                {%render_field LoginForm.password class="form-control" placeholder="contraseña"%}
-                                            </div>
-                                            <br>
-                                            <div class="form-group">
-                                                <button type="submit" class="btn btn-primary"><strong>Entrar</strong></button>
-                                            </div>
-                                            <br>
+                    {%else%}
+                    <button class="btn btn-default" data-toggle="modal" data-target="#registroModal"><strong>REG&iacute;STRATE</strong></button>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default dropdown-toggle" aria-expanded="false" id="login">
+                        <strong>INGRESA</strong>
+                        </button>
+                        <div class="dropdown-menu" role="menu">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <br>
+                                <form role="form" method="POST" action="/login/">
+                                    <div class="form-group">
+                                        {%csrf_token%}
+                                        <div class="form-inline">
+                                            {%render_field LoginForm.email class="form-control" placeholder="correo electrónico"%}
                                         </div>
-                                    </form>
-                                </div>
+                                        <br>
+                                        <div class="form-inline">
+                                            {%render_field LoginForm.password class="form-control" placeholder="contraseña"%}
+                                        </div>
+                                        <br>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary"><strong>Entrar</strong></button>
+                                        </div>
+                                        <br>
+                                    </div>
+                                </form>
                             </div>
-                        </div>
-                        {%endif%}
-                    </div>
-                    <div class="col-lg-12 col-md-12 col-sm-12 buscador">
-                        <form id="form" role="form" enctype="multipart/form-data" method="get" action="/">
-                        <h3>Buscador</h3>
-                            {% csrf_token %}
-                            <div class="form-group">
-                                {%render_field BusquedaForm.tipo class="form-control"%}
-                            </div>
-                            <div class="form-group">
-                                {%render_field BusquedaForm.categoria class="form-control"%}
-                            </div>
-                            <div class="form-group izq">
-                                {%render_field BusquedaForm.marca class="form-control"%}
-                            </div>
-                            <div class="form-group der">
-                                {%render_field BusquedaForm.estado class="form-control"%}
-                            </div>
-                            <div class="form-group izq">
-                                {%render_field BusquedaForm.ciudad class="form-control"%}
-                            </div>
-                            <div class="form-group der">
-                                {%render_field BusquedaForm.zona class="form-control"%}
-                            </div>
-                            <br>
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-primary boton">
-                                    Buscar <span class="glyphicon glyphicon-search"></span>
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                    {%if ofertas%}
-                    <div class="col-lg-12 col-md-12 col-sm-12 ofertas">
-                        <div class="ofertas-content">
-                            <h3>Ofertas</h3>
-                            <img class="img-responsive" src="{{ofertas.imagen.url}}" alt="">
-                            <h4>{{ofertas.titulo}}</h4>
-                            <p style="font-weight: bolder;">
-                                {%if ofertas.alquiler%}
-                                    <p class="precio">{{ofertas.alquiler.precio}} (por d&iacute;a)</p><p>Alquiler </p>
-                                {%else%}
-                                    <p class="precio">{{ofertas.venta.precio|floatformat|intcomma}} </p><p>Venta </p>
-                                {%endif%}
-                                <strong>Marca:</strong> {{ofertas.herramienta.marca.nombre}} <br>
-                                <strong>A&ntilde;o:</strong> {{ofertas.herramienta.ano}} <br>
-                            <button class="btn btn-primary boton ver-mas">ver +</button>
-                                <strong>Estado:</strong> {{ofertas.direccion.estado.nombre}}
-                            </p>
                         </div>
                     </div>
                     {%endif%}
                 </div>
-
-                <!-- Contenido de la pagina -->
-                <div class="contenido col-lg-8 col-md-8 col-sm-8">
-                    {% block content %}
-                    {% endblock content %}
+                <div class="col-lg-12 col-md-12 col-sm-12 buscador">
+                    <form id="form" role="form" enctype="multipart/form-data" method="get" action="/">
+                    <h3>Buscador</h3>
+                        {% csrf_token %}
+                        <div class="form-group">
+                            {%render_field BusquedaForm.tipo class="form-control"%}
+                        </div>
+                        <div class="form-group">
+                            {%render_field BusquedaForm.categoria class="form-control"%}
+                        </div>
+                        <div class="form-group izq">
+                            {%render_field BusquedaForm.marca class="form-control"%}
+                        </div>
+                        <div class="form-group der">
+                            {%render_field BusquedaForm.ano class="form-control"%}
+                        </div>
+                        <div class="form-group izq">
+                            {%render_field BusquedaForm.estado class="form-control"%}
+                        </div>
+                        <div class="form-group der">
+                            {%render_field BusquedaForm.precio class="form-control"%}
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary boton">
+                                Buscar <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </div>
+                    </form>
                 </div>
+                {%if ofertas%}
+                <div class="col-lg-12 col-md-12 col-sm-12 ofertas">
+                    <div class="ofertas-content">
+                        <h3>Ofertas</h3>
+                        <img class="img-responsive" src="{{ofertas.imagen.url}}" alt="">
+                        <h4>{{ofertas.titulo}}</h4>
+                        <p style="font-weight: bolder;">
+                            {%if ofertas.alquiler%}
+                                <p class="precio">{{ofertas.alquiler.precio}} (por d&iacute;a)</p><p>Alquiler </p>
+                            {%else%}
+                                <p class="precio">{{ofertas.venta.precio|floatformat|intcomma}} </p><p>Venta </p>
+                            {%endif%}
+                            <strong>Marca:</strong> {{ofertas.herramienta.marca.nombre}} <br>
+                            <strong>A&ntilde;o:</strong> {{ofertas.herramienta.ano}} <br>
+                            <a href="/productos/{{ofertas.id}}/">
+                                <button class="btn btn-primary boton ver-mas">ver +</button>
+                            </a>
+                            <strong>Estado:</strong> {{ofertas.direccion.estado.nombre}}
+                        </p>
+                    </div>
+                </div>
+                {%endif%}
+            </div>
+
+            <!-- Contenido de la pagina -->
+            <div class="contenido col-lg-8 col-md-8 col-sm-8">
+                {% block content %}
+                {% endblock content %}
             </div>
         </div>
     </div>
@@ -271,16 +271,16 @@
                 <div class="navfooter">
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a href="/">Inicio</a>
+                            <a href="/">Inicio <span>|</span></a>
                         </li>
                         <li>
-                            <a href="/empresa/">Empresa</a>
+                            <a href="/empresa/">Empresa <span>|</span></a>
                         </li>
                         <li>
-                            <a href="/productos/">Productos</a>
+                            <a href="/productos/">Productos <span>|</span></a>
                         </li>
                         <li>
-                            <a href="/afiliacion/">Afiliac&iacute;on</a>
+                            <a href="/afiliacion/">Afiliac&iacute;on <span>|</span></a>
                         </li>
                         <li>
                             <a href="/contactos/">Contactos</a>

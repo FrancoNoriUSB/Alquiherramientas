@@ -60,11 +60,20 @@ def inicio(request):
             categoria = busquedaF.cleaned_data['categoria']
             marca = busquedaF.cleaned_data['marca']
             estado = busquedaF.cleaned_data['estado']
-            ciudad = busquedaF.cleaned_data['ciudad']
-            zona = busquedaF.cleaned_data['zona']
+            ano = busquedaF.cleaned_data['ano']
+            precio = busquedaF.cleaned_data['precio']
+            precio = precio.split('-', 2)
+
+            #Precios en el rango que se pide
+            if len(precio) > 1:
+                precio_menor = precio[0]
+                precio_mayor = precio[1]
+            else:
+                precio_menor = 0
+                precio_mayor = 10000000000000000
 
             #Verificacion de campos
-            if tipo != '' or categoria != None or marca != None or estado != None or ciudad != None or zona != None:
+            if tipo != '' or categoria != None or marca != None or estado != None or ano != None or len(precio) > 1:
 
                 #Verificacion de string vacio
                 if tipo == '':
@@ -74,25 +83,25 @@ def inicio(request):
                 fields_list = []
                 fields_list.append('herramienta')
                 fields_list.append('herramienta')
+                fields_list.append('herramienta')
                 fields_list.append('direccion')
-                fields_list.append('direccion')
-                fields_list.append('direccion')
+                #fields_list.append('venta')
 
                 #Comparadores para buscar
                 types_list=[]
                 types_list.append('categoria__nombre__exact')
                 types_list.append('marca__nombre__exact')
+                types_list.append('ano__exact')
                 types_list.append('estado__nombre__exact')
-                types_list.append('ciudad__nombre__exact')
-                types_list.append('zona__nombre__exact')
+                #types_list.append('precio__range')
 
                 #Valores a buscar
                 values_list=[]
                 values_list.append(categoria)
                 values_list.append(marca)
+                values_list.append(ano)
                 values_list.append(estado)
-                values_list.append(ciudad)
-                values_list.append(zona)
+                #values_list.append((precio_menor, precio_mayor))
 
                 operator = 'and'
 
