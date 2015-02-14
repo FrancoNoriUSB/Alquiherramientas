@@ -34,6 +34,9 @@
             </a>
             <strong>Estado:</strong> {{producto.direccion.estado.nombre}} <br> 
 		</div>
+        {%empty%}
+            <h3>Lo sentimos, no se encontraron productos con estos datos.</h3>
+            <h4>Redefine los campos de b&uacute;squeda para encontrar lo que buscas.</h4>
 		{%endfor%}
 
         <div class="paginacion row">

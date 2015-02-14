@@ -24,7 +24,7 @@ class BusquedaForm(forms.Form):
 		('10000000-10000000000000000','10.000.000 - más'),
 	)
 
-	tipo = forms.ChoiceField(choices=choices_alquiler, widget=forms.Select(), required=False)
+	tipo = forms.ChoiceField(choices=choices_alquiler, widget=forms.Select(), required=True)
 	categoria = forms.ModelChoiceField(queryset=Categoria.objects.all(), empty_label=' - Categoria -', required=False)
 	marca = forms.ModelChoiceField(queryset=Marca.objects.all(), empty_label=' - Marca -', required=False)
 	estado = forms.ModelChoiceField(queryset=Estado.objects.all(), empty_label=' - Estado -', required=False)
@@ -37,11 +37,15 @@ class ContactoForm(forms.Form):
 	remitente = forms.EmailField()
 	mensaje = forms.CharField(widget=forms.Textarea)
 
+
+#Formulario para comprar articulos
 class CompraForm (forms.Form):
 	precio = forms.IntegerField(required=True)
 	total = forms.IntegerField(required=True)
 	clausulas = forms.BooleanField(required=True)
 
+
+#Formulario para alquilar articulos
 class AlquilerForm(forms.Form):
 	precio = forms.IntegerField(required=True)
 	dias = forms.IntegerField(required=True)

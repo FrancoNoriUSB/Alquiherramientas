@@ -391,6 +391,9 @@ def contactos(request):
     # Formulario de nuevo usuario
     usuarioF = UserCreationForm()
 
+    # Formulario de contacto
+    contactoF = ContactoForm()
+
     #Formulario de ingreso
     loginF = LoginForm()
 
@@ -409,8 +412,6 @@ def contactos(request):
             correo = EmailMessage(titulo, mensaje, to=['valderrama_862@hotmail.com'])
             correo.send()
             return HttpResponseRedirect('/contactos/')
-    else:
-        contactoF = ContactoForm()
 
     # Ofertas de los productos
     ofertas = []

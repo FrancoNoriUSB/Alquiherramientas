@@ -1,0 +1,39 @@
+
+    {% load widget_tweaks %}
+    {% load bootstrap3 %}
+    {% load humanize %}
+    <!--Bootstrap Local-->
+    <!--CSS -->
+    <link rel="stylesheet" href="{{STATIC_URL}}bootstrap/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="{{STATIC_URL}}bootstrap/css/bootstrap-theme.min.css">
+
+    <!-- jQuery -->
+    <script src="http://code.jquery.com/jquery.js"></script>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="{{STATIC_URL}}bootstrap/js/bootstrap.min.js"></script>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12 col-md-12 col-sm-12">
+			<form role="form" method="POST" action=".">
+                <div class="form-group">
+                    {%csrf_token%}
+                    <div class="form-inline">
+                        {%render_field LoginForm.email class="form-control" placeholder="correo electrónico"%}
+                    </div>
+                    <br>
+                    <div class="form-inline">
+                        {%render_field LoginForm.password class="form-control" placeholder="contraseña"%}
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary"><strong>Entrar</strong></button>
+                    </div>
+                    <br>
+                </div>
+            </form>
+		</div>
+	</div>
+</div>

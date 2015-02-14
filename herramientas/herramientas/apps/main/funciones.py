@@ -31,7 +31,6 @@ def contact_email(request, form, correo):
     email.to = emails
     email.content_subtype = "html"
     enviado=email.send()
-    print enviado
     return True
 
 #Query dinamico extraido de un proyecto ajeno
