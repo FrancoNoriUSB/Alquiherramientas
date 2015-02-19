@@ -4,33 +4,22 @@ from django.db.models import Q
 
 #Set de funciones varias a utilizar en el frontend
 
-#Funcion para los correos que se envian en Contact Us
-def contact_email(request, form, correo):
+#Funcion para los correos que se envian en contactanos
+def contact_email(request, form):
 
     emailF = form
     emails = []
 
     #Informacion del usuario
-    name = "<nombre usuario>"
-    emails.append("<correos envio>")
-    telephone = emailF.cleaned_data['telefonos']
-
-    #Verificacion de si posee telefono
-    if telephone == '':
-        telephone = 'No posee telefono de contacto.'
+    name = emailF.cleaned_data['nombre']
+    telephone = emailF.cleaned_data['telefono']
+    emails.append("info@menu2cero.com")
 
     #Mensaje a enviar
-    message = 'Correo de contacto del usuario: '+ str(name) +'. Con correo: ' + str(emailF.cleaned_data['correo']) +'<br>'
-    message += 'Mensaje: '+ str(emailF.cleaned_data['comentario']) + '<br>'
+    message = 'Correo de contacto del usuario: '+ str(name) +'.<br> Con correo: ' + str(emailF.cleaned_data['correo']) +'<br>'
+    message += 'Mensaje: '+ str(emailF.cleaned_data['mensaje']) + '<br>'
     message += 'Telefono de contacto: '+ str(telephone)
-
-    email = EmailMessage()
-    email.subject = '[Alquiherramientas 2112] Correo contacto'
-    email.body = message
-    email.from_email = 'Usuario Alquiherramientas <'+str(emailF.cleaned_data['correo'])+'>'
-    email.to = emails
-    email.content_subtype = "html"
-    enviado=email.send()
+    send_mail('[Menu2Cero] Correo contacto', message, 'info@menu2cero.com', emails, html_message=message, fail_silently=False)
     return True
 
 #Query dinamico extraido de un proyecto ajeno
