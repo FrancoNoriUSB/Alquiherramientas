@@ -44,7 +44,7 @@
     <div id="wrapper">
 
         <!-- Navigation -->
-        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -52,7 +52,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">ADMINISTRADOR</a>
+                <a class="navbar-brand" href="/administrador/">ADMINISTRADOR</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -104,14 +104,14 @@
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                       <span class="glyphicon glyphicon-user"></span> {{request.user.username}}
+                       <span class="glyphicon glyphicon-user"></span> {{request.user.nombre}}
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li>
-                            <a href="#"><span class="glyphicon glyphicon-user"></span> Profile</a>
+                            <a href="/administrador/perfil/"><span class="glyphicon glyphicon-user"></span> Perfil</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="login.html"><span class="glyphicon glyphicon-off"></span> Logout</a>
+                        <li><a href="/administrador/logout/"><span class="glyphicon glyphicon-off"></span> Logout</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -124,7 +124,7 @@
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li>
-                            <a href="/">Inicio</a>
+                            <a href="/administrador/">Inicio</a>
                         </li>
                         <li>
                             <a href="/administrador/empresa/">Empresa</a>
@@ -185,7 +185,9 @@
         </nav>
 
         <div id="page-wrapper">
-           
+            {% block contenido %}
+                
+            {% endblock contenido %}
         </div>
         <!-- /#page-wrapper -->
 

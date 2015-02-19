@@ -25,8 +25,31 @@ def login_admin(request):
 
 	loginF = LoginForm()
 
+	email = ''
+	password = ''
+	if request.POST:
+		loginF = LoginForm(request.POST)
+		if request.user.is_authenticated() and request.user and request.user.is_staff:
+			return HttpResponseRedirect('/administrador/')
+		else:
+			email = request.POST['email']
+			password = request.POST['password']
+			usuario = authenticate(email=email, password=password, is_staff=True)
+			if usuario:
+					# Caso del usuario activo
+					if usuario.is_active:
+						login(request, usuario)
+						return HttpResponseRedirect('/administrador/')
+					else:
+						return "Tu cuenta esta bloqueada"
+			else:
+				# Usuario invalido o no existe!
+				print "Invalid login details: {0}, {1}".format(email, password)
+
+		return HttpResponseRedirect('/administrador/')
+
 	ctx={
-	'LoginForm':loginF,
+		'LoginForm':loginF,
 	}
 
 	return render_to_response('administrador/login/login.html', ctx, context_instance=RequestContext(request))
@@ -123,3 +146,11 @@ def usuarios_admin(request):
 def configuracion_admin(request):
 
 	return ''
+
+
+#Vista para cerrar la sesion
+@login_required
+def logout_admin(request):
+
+    logout(request)
+    return HttpResponseRedirect('/administrador/')

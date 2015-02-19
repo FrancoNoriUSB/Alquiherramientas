@@ -194,6 +194,7 @@ class Herramienta(models.Model):
 class Producto(models.Model):
 	titulo = models.CharField(max_length=100)
 	contenido = models.CharField(max_length=10000)
+	cantidad = models.IntegerField(max_length=3, default=1)
 	imagen = models.ImageField(upload_to='uploads/Productos')
 	oferta = models.BooleanField(default=False, help_text='Marcado si desea que se muestre como una oferta')
 	fecha_producto = models.DateTimeField(auto_now_add=True)

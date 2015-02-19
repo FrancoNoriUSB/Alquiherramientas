@@ -36,4 +36,7 @@ urlpatterns = patterns('herramientas.apps.administrador.views',
 	#Url de configuracion
     url(r'^administrador/configuracion/$', 'configuracion_admin', name='configuracion_admin'),
 
+    #Url del panel de inicio del admin
+    url(r'^administrador/logout/$', 'logout_admin', name='logout_admin'),
+
 )
