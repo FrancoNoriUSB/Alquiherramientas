@@ -10,6 +10,22 @@ for n in range(1960, (datetime.datetime.now().year+1)):
 
 #Modelos de la base de datos de Alquiherramientas 2112
 
+#Informacion de empresa
+class Empresa(models.Model):
+
+	info = models.CharField(max_length=800)
+	mision = models.CharField(max_length=800)
+	vision = models.CharField(max_length=800)
+	servicios = models.CharField(max_length=800)
+
+	class Meta:
+		ordering = ('info',)
+		verbose_name="Empresa"
+		verbose_name_plural="Empresas"
+
+	def __unicode__(self):
+		return u"%s"%(self.info)
+
 #Estados del pais
 class Estado(models.Model):
 	nombre = models.CharField(max_length=30)

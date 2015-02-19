@@ -13,13 +13,15 @@ urlpatterns = patterns('herramientas.apps.administrador.views',
 	#Url de la empresa
     url(r'^administrador/empresa/$', 'empresa_admin', name='empresa_admin'),
 
-	#Url de ventas y alquileres
-    url(r'^administrador/venta/agregar$', 'venta_agregar', name='venta_agregar'),
+	#Urls de ventas
+    url(r'^administrador/venta/agregar/$', 'venta_agregar', name='venta_agregar'),
     url(r'^administrador/venta/editar/(?P<id_producto>[0-9A-Za-z]+)/$', 'venta_editar', name='venta_editar'),
-    url(r'^administrador/venta/listar$', 'venta_listar', name='venta_listar'),
-    url(r'^administrador/alquiler/agregar$', 'alquiler_agregar', name='alquiler_agregar'),
+    url(r'^administrador/venta/listar/$', 'venta_listar', name='venta_listar'),
+
+    #Urls de alquileres
+    url(r'^administrador/alquiler/agregar/$', 'alquiler_agregar', name='alquiler_agregar'),
     url(r'^administrador/alquiler/editar/(?P<id_producto>[0-9A-Za-z]+)/$', 'alquiler_editar', name='alquiler_editar'),
-    url(r'^administrador/alquiler/listar$', 'alquiler_listar', name='alquiler_listar'),
+    url(r'^administrador/alquiler/listar/$', 'alquiler_listar', name='alquiler_listar'),
 
 	#Url de afiliacion de usuarios
     url(r'^administrador/afiliacion/$', 'afiliacion_admin', name='afiliacion_admin'),

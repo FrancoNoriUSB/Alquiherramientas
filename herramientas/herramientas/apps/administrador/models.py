@@ -73,3 +73,21 @@ class User(AbstractBaseUser):
 
 	def has_module_perms(self, package):
 		return self.is_staff
+
+
+#Modelo para los banners de la aplicacion
+class Banner(models.Model):
+
+    nombre = models.CharField(max_length=100)
+    imagen = models.ImageField(upload_to='slide-home/')
+    url = models.CharField(max_length=200)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "Banner"
+        verbose_name_plural = "Banners"
+
+    def __unicode__(self):
+        return u"%s" %(self.nombre)

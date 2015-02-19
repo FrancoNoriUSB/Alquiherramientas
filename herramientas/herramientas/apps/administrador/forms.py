@@ -5,6 +5,7 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from models import *
+from herramientas.apps.main.models import *
 
 
 # Define el formulario para la creacion de los usuarios
@@ -54,6 +55,7 @@ class UserChangeForm(forms.ModelForm):
         # field does not have access to the initial value
         return self.initial["password"]
         
+
 #Formulario para el login de usuario                
 class LoginForm(forms.ModelForm):
 
@@ -65,3 +67,49 @@ class LoginForm(forms.ModelForm):
             'email': forms.EmailInput(attrs={'class':"form-control", 'placeholder':"Correo"}),
         }
 
+
+#Formulario de empresa
+class EmpresaForm(forms.ModelForm):
+    class Meta:
+        model = Empresa
+        fields = ('info','mision','vision','servicios')
+        widgets = {
+            'info': forms.Textarea(),
+            'mision': forms.Textarea(),
+            'vision': forms.Textarea(),
+            'servicios': forms.Textarea(),
+        }
+
+
+#Formulario para vender articulos
+class VentaForm(forms.ModelForm):
+    class Meta:
+        model = Venta
+        exclude = ['fecha_producto', 'fecha_actualizacion',]
+        widgets = {
+            'titulo': forms.TextInput(),
+            'contenido': forms.Textarea(),
+            'cantidad': forms.IntegerField(),
+            'imagen': forms.FileInput(),
+            'oferta': forms.Select(),
+            'precio': forms.IntegerField(),
+        }
+
+
+#Formulario para alquilar articulos
+class AlquilerForm(forms.ModelForm):
+    class Meta:
+        model = Alquiler
+        exclude = ['fecha_producto', 'fecha_actualizacion',]
+        widgets = {
+            'titulo': forms.TextInput(),
+            'contenido': forms.Textarea(),
+            'cantidad': forms.IntegerField(),
+            'imagen': forms.FileInput(),
+            'oferta': forms.Select(),
+            'precio': forms.IntegerField(),
+            'dias': forms.IntegerField(),
+        }
+
+
+#Formulario de banners

@@ -70,82 +70,134 @@ def inicio(request):
 @login_required(login_url='/administrador/login/')
 def empresa_admin(request):
 
-	return ''
+	ctx={
+
+	}
+
+	return render_to_response('administrador/empresa/empresa.html', ctx, context_instance=RequestContext(request))
 
 
 #Vista de agregar producto de venta en el admin
 @login_required(login_url='/administrador/login/')
 def venta_agregar(request):
 
-	return ''
+	ctx={
+
+	}
+
+	return render_to_response('administrador/venta/agregar.html', ctx, context_instance=RequestContext(request))
+
 
 #Vista de editar producto de venta en el admin
 @login_required(login_url='/administrador/login/')
 def venta_editar(request, id_producto):
 
-	return ''
+	ctx={
+
+	}
+
+	return render_to_response('administrador/venta/editar.html', ctx, context_instance=RequestContext(request))
+
 
 
 #Vista de listar productos de venta en el admin
 @login_required(login_url='/administrador/login/')
 def venta_listar(request):
 
-	return ''
+	ctx={
+
+	}
+
+	return render_to_response('administrador/venta/ventas.html', ctx, context_instance=RequestContext(request))
 
 
 #Vista de agregar producto de alquiler en el admin
 @login_required(login_url='/administrador/login/')
 def alquiler_agregar(request):
 
-	return ''
+	ctx={
+
+	}
+
+	return render_to_response('administrador/alquiler/agregar.html', ctx, context_instance=RequestContext(request))
+
 
 #Vista de editar producto de alquiler en el admin
 @login_required(login_url='/administrador/login/')
 def alquiler_editar(request, id_producto):
 
-	return ''
+	ctx={
+
+	}
+
+	return render_to_response('administrador/alquiler/editar.html', ctx, context_instance=RequestContext(request))
 
 
 #Vista de listar productos de alquiler en el admin
 @login_required(login_url='/administrador/login/')
 def alquiler_listar(request):
 
-	return ''
+	ctx={
+
+	}
+
+	return render_to_response('administrador/alquiler/alquileres.html', ctx, context_instance=RequestContext(request))
 
 
 #Vista de afiliaciones en el admin
 @login_required(login_url='/administrador/login/')
 def afiliacion_admin(request):
 
-	return ''
+	ctx={
+
+	}
+
+	return render_to_response('administrador/afiliacion/afiliacion.html', ctx, context_instance=RequestContext(request))
 
 
 #Vista de contactos en el admin
 @login_required(login_url='/administrador/login/')
 def contactos_admin(request):
 
-	return ''
+	ctx={
+
+	}
+
+	return render_to_response('administrador/contactos/contactos.html', ctx, context_instance=RequestContext(request))
 
 
 #Vista de la empresa en el admin
 @login_required(login_url='/administrador/login/')
 def banners_admin(request):
 
-	return ''
+	ctx={
+
+	}
+
+	return render_to_response('administrador/banners/banners.html', ctx, context_instance=RequestContext(request))
 
 
 #Vista de la empresa en el admin
 @login_required(login_url='/administrador/login/')
 def usuarios_admin(request):
 
-	return ''
+	ctx={
+
+	}
+
+	return render_to_response('administrador/usuarios/usuarios.html', ctx, context_instance=RequestContext(request))
 
 
 #Vista de la empresa en el admin
 @login_required(login_url='/administrador/login/')
 def configuracion_admin(request):
 
-	return ''
+	ctx={
+
+	}
+
+	return render_to_response('administrador/configuracion/configuracion.html', ctx, context_instance=RequestContext(request))
+
 
 
 #Vista para cerrar la sesion

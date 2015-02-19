@@ -157,3 +157,23 @@
 	}
 	</script>
 {% endblock js %}
+
+
+<!-- Ejemplo de boton de mercadopago -->
+{% block contenido %}
+
+<!--Estilos-->
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}files/css/admin/plan.css">
+<br>
+<div class="container-fluid">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">Plan de restaurante</h3>
+		</div>
+		<div class="panel-body">
+			<!-- BOTON! -->
+			{% autoescape off %}{{boton_pago}}{% endautoescape %}
+		</div>
+	</div>
+</div>
+{% endblock contenido%}
