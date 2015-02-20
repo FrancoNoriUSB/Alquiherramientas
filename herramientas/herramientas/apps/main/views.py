@@ -17,16 +17,16 @@ from random import randint
 from funciones import *
 from models import *
 from forms import *
-from herramientas.apps.administrador.forms import *
+from herramientas.apps.administrador.forms import LoginForm
 import json
 
 #Mercadopago
 #Funcion que se encuentra en mercadopago.py
-import mercadopago
-import os, sys
+# import mercadopago
+# import os, sys
 
-#Variable global que tiene datos especificos del cliente. No tocar por ahora
-mp = mercadopago.MP("2041234873847333", "dcFLGjyBjtk5dOfN4rC16s45a3mECeaA")
+# #Variable global que tiene datos especificos del cliente. No tocar por ahora
+# mp = mercadopago.MP("2041234873847333", "dcFLGjyBjtk5dOfN4rC16s45a3mECeaA")
 
 #Vista del inicio
 def inicio(request):
@@ -305,6 +305,12 @@ def producto(request, id_producto):
     ofertas = []
     ofertas = Producto.objects.filter(oferta=True).order_by('?')
     
+    #Datos iniciales de formularios de venta y alquiler
+    dataA = {}
+    dataV = {}
+    ventaF = VentaForm()
+    alquilerF = AlquilerForm()
+
     if len(ofertas) > 0:
         ofertas = ofertas[randint(0, len(ofertas)-1)]
 
@@ -312,14 +318,22 @@ def producto(request, id_producto):
 
     # Formularios de compra o alquiler con data inicial.
     try:
-        data = {'precioA': producto.alquiler.precio}
-        alquilerF = AlquilerForm(initial=data)
-        compraF = CompraForm()
+        dataA = {
+            'precio': producto.alquiler.precio,
+            'dias':0,
+            'total':0,
+            'clausulas':False
+        }
     except:
-        data = {'precio': producto.venta.precio,
-                'total': producto.venta.precio}
-        compraF = CompraForm(initial=data)
-        alquilerF = AlquilerForm()
+        dataV = {
+            'precio': producto.venta.precio,
+            'total': producto.venta.precio
+        }
+
+    if dataA != {}:
+        alquilerF = AlquilerForm(initial=dataA)
+    elif dataV != {}:
+        ventaF = VentaForm(initial=dataV)
 
     # Creando un nuevo usuario
     if request.method=='POST':
@@ -328,13 +342,13 @@ def producto(request, id_producto):
             usuarioF.save()
             return HttpResponseRedirect('/')
 
-    plan = 'Plata'
-    #Boton de pago de mercadopago. Ejemplo que use en Menu
-    if plan != 'Plata':
-        boton = mercadopago(request, plan, int(monto))
-    else:
-        boton = ''
-    #Fin
+    # plan = 'Plata'
+    # #Boton de pago de mercadopago. Ejemplo que use en Menu
+    # if plan != 'Plata':
+    #     boton = mercadopago(request, plan, int(monto))
+    # else:
+    #     boton = ''
+    # #Fin
 
     ctx = {
         'BusquedaForm':busquedaF,
@@ -342,7 +356,7 @@ def producto(request, id_producto):
         'producto': producto,
         'UsuarioForm':usuarioF,
         'alquilerF' : alquilerF,
-        'compraF' : compraF,
+        'ventaF' : ventaF,
         'LoginForm':loginF,
         'ciudades':ciudades,
         'zonas':zonas,
@@ -352,29 +366,29 @@ def producto(request, id_producto):
     return render_to_response('main/productos/producto.html', ctx, context_instance=RequestContext(request))
 
 
-#View para setear el boton de mercadopago
-def mercadopago(request, pago, monto, **kwargs):
-    preference = {
-      "items": [
-        {
-          "title": pago,
-          "quantity": 1,
-          "currency_id": "VEN",
-          "unit_price": monto
-        }
-      ]
-    }
+# #View para setear el boton de mercadopago
+# def mercadopago(request, pago, monto, **kwargs):
+#     preference = {
+#       "items": [
+#         {
+#           "title": pago,
+#           "quantity": 1,
+#           "currency_id": "VEN",
+#           "unit_price": monto
+#         }
+#       ]
+#     }
 
-    preferenceResult = mp.create_preference(preference)
+#     preferenceResult = mp.create_preference(preference)
 
-    url = preferenceResult["response"]["init_point"]
+#     url = preferenceResult["response"]["init_point"]
 
-    output = """
-        <a href="{url}" name="MP-Checkout" class="blue-l-arall-rn">Pagar</a>
-        <script type="text/javascript" src="http://mp-tools.mlstatic.com/buttons/render.js"></script>
-    """.format (url=url)
+#     output = """
+#         <a href="{url}" name="MP-Checkout" class="blue-l-arall-rn">Pagar</a>
+#         <script type="text/javascript" src="http://mp-tools.mlstatic.com/buttons/render.js"></script>
+#     """.format (url=url)
     
-    return output
+#     return output
 
 
 # Vista para la afiliacion

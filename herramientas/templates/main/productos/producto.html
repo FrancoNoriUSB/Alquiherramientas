@@ -74,19 +74,19 @@
 								<table>
 									<tr>
 										<td><strong>Precio por d&iacute;a: </strong></td>
-										<td class="size-100">{% render_field alquilerF.precioA class="form-control" disabled="disabled" id="precio-alqui"%}</td>
+										<td class="size-100">{% render_field alquilerF.precio class="form-control" disabled="disabled" %}</td>
 									</tr>
 									<tr>
 										<td><strong>Dias: </strong></td>
-										<td>{% render_field alquilerF.diasA class="form-control" onchange="calc()" id="dias-alqui"%}</td>
+										<td>{% render_field alquilerF.dias class="form-control" onchange="calc()" %}</td>
 									</tr>
 									<tr>
 										<td><strong>Total: </strong></td>
-										<td> {% render_field alquilerF.totalA class="form-control" disabled="disabled" id="total-alqui"%}</td>
+										<td> {% render_field alquilerF.total class="form-control" disabled="disabled" %}</td>
 									</tr>
 								</table>
 							    <div class="checkbox">
-							    	{% render_field alquilerF.clausulasA type="checkbox" %} Acepto las clausulas
+							    	{% render_field alquilerF.clausulas type="checkbox" %} Acepto las clausulas
 							    </div>
 								<button type="submit" class="btn btn-primary">
 							        Alquilar
@@ -97,15 +97,15 @@
 								<table>
 									<tr>
 										<td><strong>Precio: {{producto.compra.precio}}</strong></td>
-										<td class="size-100">{% render_field compraF.precio class="form-control" disabled="disabled"%}</td>
+										<td class="size-100">{% render_field ventaF.precio class="form-control" disabled="disabled"%}</td>
 									</tr>
 									<tr>
 										<td><strong>Total: </strong></td>
-										<td> {% render_field compraF.total class="form-control" disabled="disabled"%}</td>
+										<td> {% render_field ventaF.total class="form-control" disabled="disabled"%}</td>
 									</tr>
 								</table>
 							    <div class="checkbox">
-							    	{% render_field compraF.clausulas type="checkbox" %} Acepto las clausulas
+							    	{% render_field ventaF.clausulas type="checkbox" %} Acepto las clausulas
 							    </div>
 								<button type="submit" class="btn btn-primary">
 							        Comprar
@@ -140,11 +140,8 @@
 						</form>
 					</div>
 				</div>
-			</div><br/>
-
-
-
-
+			</div>
+			<br/>
 		</div>
 	</div>
 {% endblock content %}
@@ -157,9 +154,9 @@
 	})
 
 	function calc(){
-		var precio = document.getElementById("precio-alqui");
-		var dias = document.getElementById("dias-alqui");
-		document.getElementById("total-alqui").value = precio.value * dias.value;
+		var precio = document.getElementById("id_precioA");
+		var dias = document.getElementById("id_diasA");
+		document.getElementById("id_totalA").value = precio.value * dias.value;
 	}
 	</script>
 {% endblock js %}

@@ -37,11 +37,11 @@ class ContactoForm(forms.Form):
 	nombre = forms.CharField(required=True)
 	telefono = forms.CharField(required=True)
 	correo = forms.EmailField(required=True)
-	mensaje = forms.CharField(widget=forms.Textarea, required=True)
+	mensaje = forms.CharField(widget=forms.Textarea(), required=True)
 
 
-#Formulario para comprar articulos
-class CompraForm (forms.Form):
+#Formulario para vender articulos
+class VentaForm(forms.Form):
 	precio = forms.IntegerField(required=True)
 	total = forms.IntegerField(required=True)
 	clausulas = forms.BooleanField(required=True)
@@ -49,7 +49,7 @@ class CompraForm (forms.Form):
 
 #Formulario para alquilar articulos
 class AlquilerForm(forms.Form):
-	precioA = forms.IntegerField(required=True)
-	diasA = forms.IntegerField(required=True)
-	totalA = forms.IntegerField(required=True)
-	clausulasA = forms.BooleanField(required=True)
+	precio = forms.IntegerField(required=True)
+	dias = forms.IntegerField(required=True)
+	total = forms.IntegerField(required=True)
+	clausulas = forms.BooleanField(required=True)
