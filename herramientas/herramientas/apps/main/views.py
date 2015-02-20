@@ -312,14 +312,12 @@ def producto(request, id_producto):
 
     # Formularios de compra o alquiler con data inicial.
     try:
-        data = {'precio': producto.alquiler.precio}
-        print (data)
+        data = {'precioA': producto.alquiler.precio}
         alquilerF = AlquilerForm(initial=data)
         compraF = CompraForm()
     except:
         data = {'precio': producto.venta.precio,
                 'total': producto.venta.precio}
-        print (data)
         compraF = CompraForm(initial=data)
         alquilerF = AlquilerForm()
 
@@ -330,7 +328,7 @@ def producto(request, id_producto):
             usuarioF.save()
             return HttpResponseRedirect('/')
 
-
+    plan = 'Plata'
     #Boton de pago de mercadopago. Ejemplo que use en Menu
     if plan != 'Plata':
         boton = mercadopago(request, plan, int(monto))
@@ -343,8 +341,8 @@ def producto(request, id_producto):
         'ofertas':ofertas,
         'producto': producto,
         'UsuarioForm':usuarioF,
-        'compraF' : compraF,
         'alquilerF' : alquilerF,
+        'compraF' : compraF,
         'LoginForm':loginF,
         'ciudades':ciudades,
         'zonas':zonas,

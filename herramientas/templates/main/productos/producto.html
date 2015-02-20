@@ -74,19 +74,19 @@
 								<table>
 									<tr>
 										<td><strong>Precio por d&iacute;a: </strong></td>
-										<td class="size-100">{% render_field alquilerF.precio class="form-control" disabled="disabled" id="precio-alqui"%}</td>
+										<td class="size-100">{% render_field alquilerF.precioA class="form-control" disabled="disabled" id="precio-alqui"%}</td>
 									</tr>
 									<tr>
 										<td><strong>Dias: </strong></td>
-										<td>{% render_field alquilerF.dias class="form-control" onchange="calc()" id="dias-alqui"%}</td>
+										<td>{% render_field alquilerF.diasA class="form-control" onchange="calc()" id="dias-alqui"%}</td>
 									</tr>
 									<tr>
 										<td><strong>Total: </strong></td>
-										<td> {% render_field alquilerF.total class="form-control" disabled="disabled" id="total-alqui"%}</td>
+										<td> {% render_field alquilerF.totalA class="form-control" disabled="disabled" id="total-alqui"%}</td>
 									</tr>
 								</table>
 							    <div class="checkbox">
-							    	{% render_field alquilerF.clausulas %} Acepto las clausulas
+							    	{% render_field alquilerF.clausulasA type="checkbox" %} Acepto las clausulas
 							    </div>
 								<button type="submit" class="btn btn-primary">
 							        Alquilar
@@ -105,10 +105,10 @@
 									</tr>
 								</table>
 							    <div class="checkbox">
-							    	{% render_field alquilerF.clausulas %} Acepto las clausulas
+							    	{% render_field compraF.clausulas type="checkbox" %} Acepto las clausulas
 							    </div>
 								<button type="submit" class="btn btn-primary">
-							        Alquilar
+							        Comprar
 							    </button>
 							</form>
 						{% endif %}
@@ -123,7 +123,13 @@
 					<div role="tabpanel" class="tab-pane fade" id="contactar"><br/>
 						<form id="contacto" role="form" method="post" action="">{% csrf_token %}
 							<div class="form-group">
-						        {%render_field contactoF.remitente class="form-control" placeholder="Correo"%}
+						        {%render_field contactoF.nombre class="form-control" placeholder="Nombre"%}
+						    </div>
+						    <div class="form-group">
+						        {%render_field contactoF.telefono class="form-control" placeholder="Telefono"%}
+						    </div>
+							<div class="form-group">
+						        {%render_field contactoF.correo class="form-control" placeholder="Correo"%}
 						    </div>
 						    <div class="form-group">
 						    	{%render_field contactoF.mensaje class="form-control" placeholder="Mensaje"%}
