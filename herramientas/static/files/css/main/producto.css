@@ -12,6 +12,10 @@ Colores a utilizar:
 .centered {
 	margin: 0 auto;
 }
+ /* Centrar la imagen dentro del slider */
+.item img{
+	margin: 0 auto;
+}
 
 /* Redefinicion de precio para que no se vaya a la derecha.*/ 
 .precio {
@@ -24,4 +28,14 @@ Colores a utilizar:
 /*tamanio 100 para los campos de formulario.*/
 .size-100 {
 	width: 100px;
+}
+
+.obligatorio{
+	display: none;
+	color: red;
+}
+
+.errorDia{
+	display: none;
+	color: red;
 }

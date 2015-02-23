@@ -20,13 +20,13 @@ from forms import *
 from herramientas.apps.administrador.forms import LoginForm
 import json
 
-#Mercadopago
-#Funcion que se encuentra en mercadopago.py
-# import mercadopago
-# import os, sys
+# Mercadopago
+# Funcion que se encuentra en mercadopago.py
+import mercadopago
+import os, sys
 
-# #Variable global que tiene datos especificos del cliente. No tocar por ahora
-# mp = mercadopago.MP("2041234873847333", "dcFLGjyBjtk5dOfN4rC16s45a3mECeaA")
+#Variable global que tiene datos especificos del cliente. No tocar por ahora
+mp = mercadopago.MP("2041234873847333", "dcFLGjyBjtk5dOfN4rC16s45a3mECeaA")
 
 #Vista del inicio
 def inicio(request):
@@ -321,13 +321,16 @@ def producto(request, id_producto):
         dataA = {
             'precio': producto.alquiler.precio,
             'dias':0,
+            'garantia': int(producto.alquiler.precio) / 10,
             'total':0,
             'clausulas':False
         }
     except:
+        garantia = int(producto.venta.precio) / 10
         dataV = {
             'precio': producto.venta.precio,
-            'total': producto.venta.precio
+            'garantia': garantia,
+            'total': producto.venta.precio + garantia
         }
 
     if dataA != {}:
@@ -342,13 +345,23 @@ def producto(request, id_producto):
             usuarioF.save()
             return HttpResponseRedirect('/')
 
-    # plan = 'Plata'
-    # #Boton de pago de mercadopago. Ejemplo que use en Menu
-    # if plan != 'Plata':
-    #     boton = mercadopago(request, plan, int(monto))
-    # else:
-    #     boton = ''
-    # #Fin
+
+    # Crear el slider con las imagenes del producto
+    imagenes = producto.imagenes.all()
+    x = 1
+    indicador = """ <li data-target="#carousel-example-generic" data-slide-to="%s" class="active"></li> """ %x
+    wrap = """ <div class="item active">
+                    <img src="/media/%s" />
+                </div> """ % producto.imagen
+    for i in imagenes:
+        indicador += """ <li data-target="#carousel-example-generic" data-slide-to="%s"></li> """ %x
+        wrap += """ <div class="item">
+                          <img src="/media/%s"/>
+                        </div> """ % i.imagen
+        x += 1
+
+    indicator = """ <ol class="carousel-indicators"> """ + indicador + """ </ol> """
+    wrapper = """ <div class="carousel-inner" role="listbox"> """ + wrap + """ </div> """
 
     ctx = {
         'BusquedaForm':busquedaF,
@@ -361,34 +374,149 @@ def producto(request, id_producto):
         'ciudades':ciudades,
         'zonas':zonas,
         'contactoF': contactoF,
+        'indicator': indicator,
+        'wrapper': wrapper,
+
     }
 
     return render_to_response('main/productos/producto.html', ctx, context_instance=RequestContext(request))
 
+# View que contiene el boton de pago. Falta trabajar.
+def pagar(request, id_producto):
 
-# #View para setear el boton de mercadopago
-# def mercadopago(request, pago, monto, **kwargs):
-#     preference = {
-#       "items": [
-#         {
-#           "title": pago,
-#           "quantity": 1,
-#           "currency_id": "VEN",
-#           "unit_price": monto
-#         }
-#       ]
-#     }
-
-#     preferenceResult = mp.create_preference(preference)
-
-#     url = preferenceResult["response"]["init_point"]
-
-#     output = """
-#         <a href="{url}" name="MP-Checkout" class="blue-l-arall-rn">Pagar</a>
-#         <script type="text/javascript" src="http://mp-tools.mlstatic.com/buttons/render.js"></script>
-#     """.format (url=url)
+    #Formulario de busqueda
+    busquedaF = BusquedaForm()
     
-#     return output
+    # Formulario de nuevo usuario
+    usuarioF = UserCreationForm()
+
+    #Formulario de ingreso
+    loginF = LoginForm()
+
+    # Formulario de contacto
+    contactoF = ContactoForm()
+
+    #Ciudades
+    ciudades = Ciudad.objects.all()
+    
+    #Zonas
+    zonas = Zona.objects.all()
+    
+    # Ofertas de los productos
+    ofertas = []
+    ofertas = Producto.objects.filter(oferta=True).order_by('?')
+
+    if len(ofertas) > 0:
+        ofertas = ofertas[randint(0, len(ofertas)-1)]
+
+    producto = Producto.objects.get(id=id_producto)
+
+    # Creando un nuevo usuario
+    if request.method=='POST':
+        usuarioF = UserCreationForm(request.POST)
+        if usuarioF.is_valid():
+            usuarioF.save()
+            return HttpResponseRedirect('/')
+
+        nombre = producto.titulo
+        razon = producto.id
+        fecha = datetime.datetime.now()
+        usuario = request.user.get_short_name()
+        try:
+            precio = producto.venta.precio
+            pagoVenta = PagoVenta.objects.create(concepto=nombre,monto=precio,fecha=fecha,usuario=usuario)
+        except:
+            alquilerF = AlquilerForm(request.POST)
+            if alquilerF.is_valid():
+                precio = alquilerF.cleaned_data['total']
+                dias = alquilerF.cleaned_data['dias']
+                pagoAlquiler = PagoAlquiler.objects.create(concepto=nombre,monto=precio,dias=dias,fecha=fecha,usuario=usuario)
+
+    boton = mercadopago(request, nombre, float(precio))
+
+    ctx = {
+        'BusquedaForm':busquedaF,
+        'ofertas':ofertas,
+        'producto': producto,
+        'UsuarioForm':usuarioF,
+        'LoginForm':loginF,
+        'ciudades':ciudades,
+        'zonas':zonas,
+        'contactoF': contactoF,
+        'boton_mp': boton,
+    }
+
+    return render_to_response('main/productos/pago.html', ctx, context_instance=RequestContext(request))
+
+# View de los datos bancarios.
+def datos(request):
+
+    #Formulario de busqueda
+    busquedaF = BusquedaForm()
+    
+    # Formulario de nuevo usuario
+    usuarioF = UserCreationForm()
+
+    # Formulario de contacto
+    contactoF = ContactoForm()
+
+    #Formulario de ingreso
+    loginF = LoginForm()
+
+    #Ciudades
+    ciudades = Ciudad.objects.all()
+    
+    #Zonas
+    zonas = Zona.objects.all()
+
+    # Ofertas de los productos
+    ofertas = []
+    ofertas = Producto.objects.filter(oferta=True).order_by('?')
+    
+    if len(ofertas) > 0:
+        ofertas = ofertas[randint(0, len(ofertas)-1)]
+
+    # Creando un nuevo usuario
+    if request.method=='POST':
+        usuarioF = UserCreationForm(request.POST)
+        if usuarioF.is_valid():
+            usuarioF.save()
+            return HttpResponseRedirect('/')
+
+    ctx = {
+        'BusquedaForm':busquedaF,
+        'ofertas':ofertas,
+        'UsuarioForm':usuarioF,
+        'LoginForm':loginF,
+        'ciudades':ciudades,
+        'zonas':zonas,
+    }
+
+    return render_to_response('main/productos/datos.html', ctx, context_instance=RequestContext(request))
+
+#View para setear el boton de mercadopago
+def mercadopago(request, pago, monto, **kwargs):
+    preference = {
+      "items": [
+        {
+          "title": pago,
+          "quantity": 1,
+          "currency_id": "VEN",
+          "unit_price": monto
+        }
+      ]
+    }
+
+    preferenceResult = mp.create_preference(preference)
+
+    url = preferenceResult["response"]["init_point"]
+
+    output = """
+        <a href="{url}" name="MP-Checkout" class="blue-l-arall-rn">Pagar</a>
+        <script type="text/javascript" src="http://mp-tools.mlstatic.com/buttons/render.js"></script>
+    """.format (url=url)
+    
+    return output
 
 
 # Vista para la afiliacion

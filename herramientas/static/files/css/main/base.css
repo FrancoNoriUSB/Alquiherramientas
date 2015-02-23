@@ -80,6 +80,10 @@ body > header > nav > div > div.collapse.navbar-collapse.navHeaderCollapse.navhe
 	background-image: linear-gradient(#D8971B 0%, #D8971B 100%) !important;
 }
 
+.navbar-default{
+	z-index: 1;
+}
+
 /*Estilo para poner los titulos de cada pagina, clase de un h3*/
 .titulo {
 	margin: 1% 0 5% 0;

@@ -13,6 +13,8 @@ urlpatterns = patterns('herramientas.apps.main.views',
     #Views de los productos
     url(r'^productos/(?P<palabra>[A-Z a-z]+)$', 'productos', name='productos'),
     url(r'^productos/(?P<id_producto>\d+)/$', 'producto', name='producto'),
+    url(r'^productos/(?P<id_producto>\d+)/pago/$', 'pagar', name='pagar'),
+    url(r'^datos/$', 'datos', name='datos'),
 
     #View de afiliacion
     url(r'^afiliacion/$', 'afiliacion', name='afiliacion'),
