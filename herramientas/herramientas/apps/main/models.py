@@ -236,8 +236,8 @@ class ImagenProducto(Imagen):
 
     class Meta:
     	abstract = False
-        verbose_name = "ImagenProducto"
-        verbose_name_plural = "ImagenesProductos"
+        verbose_name = "Imagen Producto"
+        verbose_name_plural = "Imagenes Producto"
 
     def __unicode__(self):
         return u"%s" %(self.descripcion)
@@ -264,3 +264,39 @@ class Venta(Producto):
 		ordering = ('precio',)
 		verbose_name = "Venta"
 		verbose_name_plural = "Ventas"
+
+# Clase de registro de los pagos realizados.
+class Pago(models.Model):
+	concepto = models.CharField(max_length=200)
+	monto = models.DecimalField(max_digits=20, decimal_places=2)
+	fecha = models.DateTimeField(auto_now_add=True)
+	usuario = models.EmailField()
+
+	class Meta:
+		verbose_name = "Pago"
+		verbose_name_plural = "Pagos"
+
+	def __str__(self):
+		pass
+
+
+class PagoVenta(Pago):
+
+	class Meta:
+		verbose_name = "Pago Venta"
+		verbose_name_plural = "Pago Ventas"
+
+	def __str__(self):
+		pass
+
+
+class PagoAlquiler(Pago):
+	dias = models.IntegerField()
+
+	class Meta:
+		verbose_name = "Pago Alquiler"
+		verbose_name_plural = "Pago Alquilers"
+
+	def __str__(self):
+		pass
+

@@ -1,0 +1,18 @@
+{% extends "main/base.html" %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% block scripts %}
+	
+    <!--Estilos-->
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}files/css/main/producto.css">
+
+{% endblock scripts %}
+{% block content %}
+	<div class="row">
+		{% autoescape off %}{{boton_mp}}{% endautoescape %}
+	</div>
+{% endblock content %}
+
+{% block js %}
+
+{% endblock js %}

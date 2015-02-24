@@ -11,7 +11,24 @@
 	<div class="row">
 		<h3 class="titulo">{{producto.titulo}}/{{producto.herramienta.marca.nombre}}</h3>
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-			<img class="img-responsive centered" src="{{producto.imagen.url}}" alt="">
+
+			<!-- Slider de imagenes -->
+			<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+			  <!-- Indicators -->
+			  {% autoescape off %}{{indicator}}{{wrapper}}{% endautoescape %}
+			  <!-- Controls -->
+			  <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+			    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+			    <span class="sr-only">Previous</span>
+			  </a>
+			  <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+			    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+			    <span class="sr-only">Next</span>
+			  </a>
+			</div>
+
+			<br/>
+
             {%if producto.alquiler%}
             	<p class="precio">{{producto.alquiler.precio}} (por dia)</p><br/>
             {%else%}
@@ -70,46 +87,66 @@
 				<div class="tab-content">
 					<div role="tabpanel" class="tab-pane fade in active" id="accion"><br/>
 						{% if producto.alquiler %}
-							<form id="alquiler" role="form" method="post" action="">{% csrf_token %}
+							<form id="alquiler" role="form" method="post" action="pago/" target="_blank">{% csrf_token %}
 								<table>
 									<tr>
 										<td><strong>Precio por d&iacute;a: </strong></td>
-										<td class="size-100">{% render_field alquilerF.precio class="form-control" disabled="disabled" %}</td>
+										<td class="size-100">{% render_field alquilerF.precio class="form-control" readonly="readonly" id="precioAlqui" %}</td>
 									</tr>
 									<tr>
 										<td><strong>Dias: </strong></td>
-										<td>{% render_field alquilerF.dias class="form-control"%}</td>
+
+										<p class="errorDia">Ingrese un n&uacute;mero de dias mayor a 0.</p>
+										<td>{% render_field alquilerF.dias class="form-control" id="diasAlqui" %}</td>
+									</tr>
+									<tr>
+										<td><strong>Garantia: </strong></td>
+										<td>{% render_field alquilerF.garantia class="form-control" readonly="readonly" id="garantiaAlqui" %}</td>
 									</tr>
 									<tr>
 										<td><strong>Total: </strong></td>
-										<td> {% render_field alquilerF.total class="form-control" disabled="disabled" %}</td>
+										<td> {% render_field alquilerF.total class="form-control" readonly="readonly" id="totalAlqui"%}</td>
 									</tr>
 								</table>
 							    <div class="checkbox">
-							    	{% render_field alquilerF.clausulas type="checkbox" %} Acepto las clausulas
+							    	<p class="obligatorio">Este campo es obligatorio.</p>
+							    	{% render_field alquilerF.clausulas type="checkbox" id="clausulaAlqui" %} Acepto las clausulas
 							    </div>
-								<button type="submit" class="btn btn-primary">
-							        Alquilar
-							    </button>
+							    {% if user.is_authenticated %}
+									<button type="submit" class="btn btn-primary alquiler">
+								        Alquilar
+								    </button>
+							    {% else %}
+							    	<p>Debes ingresar al sistema para poder realizar alquileres.</p>
+							    {% endif %}
 							</form>
 						{% else %}
-							<form id="compra" role="form" method="post" action="">{% csrf_token %}
+							<form id="compra" role="form" method="post" action="pago/" target="_blank">{% csrf_token %}
 								<table>
 									<tr>
 										<td><strong>Precio: {{producto.compra.precio}}</strong></td>
-										<td class="size-100">{% render_field ventaF.precio class="form-control" disabled="disabled"%}</td>
+										<td class="size-100">{% render_field ventaF.precio class="form-control" readonly="readonly"%}</td>
+									</tr>
+									<tr>
+										<td><strong>Garantia:</strong></td>
+										<td class="size-100">{% render_field ventaF.garantia class="form-control" readonly="readonly"%}</td>
 									</tr>
 									<tr>
 										<td><strong>Total: </strong></td>
-										<td> {% render_field ventaF.total class="form-control" disabled="disabled"%}</td>
+										<td> {% render_field ventaF.total class="form-control" readonly="readonly" id="totalVenta"%}</td>
 									</tr>
 								</table>
 							    <div class="checkbox">
-							    	{% render_field ventaF.clausulas type="checkbox" %} Acepto las clausulas
+							    	<p class="obligatorio">Este campo es obligatorio.</p>
+							    	{% render_field ventaF.clausulas type="checkbox" id="clausulaVenta" %} Acepto las clausulas
 							    </div>
-								<button type="submit" class="btn btn-primary">
-							        Comprar
-							    </button>
+								{% if user.is_authenticated %}
+									<button type="submit" class="btn btn-primary alquiler">
+								        Comprar
+								    </button>
+							    {% else %}
+							    	<p>Debes ingresar al sistema para poder realizar compras.</p>
+							    {% endif %}
 							</form>
 						{% endif %}
 					</div>
@@ -151,32 +188,49 @@
 	$('#myTab a').click(function (e) {
 		e.preventDefault()
 		$(this).tab('show')
-	})
+	});
 
-	function calc(){
-		var precio = document.getElementById("id_precio");
-		var dias = document.getElementById("id_dias");
-		document.getElementById("id_total").value = precio.value * dias.value;
-	}
+	$(function(){
+		$('#diasAlqui').change(function(){
+			if ($('#diasAlqui').val() == 0){
+				$('#totalAlqui').val('0');
+			} else {
+				$('#totalAlqui').val(
+					parseFloat($('#precioAlqui').val() * $('#diasAlqui').val()) + parseFloat($('#garantiaAlqui').val())
+				);
+			}
+		});
+	});
+
+	$(function(){
+		$('.alquiler').click(function(e){
+			if (parseFloat($('#totalAlqui').val()) > 100000.00){
+				e.preventDefault();
+				window.location.replace('/datos/');
+			};
+			if ($('#diasAlqui').val() == 0){
+				e.preventDefault();
+				$('.errorDia').show();
+			};
+			if ($('#clausulaAlqui').prop('checked') == false){
+				e.preventDefault();
+				$('.obligatorio').show();
+			};
+		});
+	});
+
+	$(function(){
+		$('.venta').click(function(e){
+			if (parseFloat($('#totalVenta').val()) > 100000.00){
+				e.preventDefault();
+				window.location.replace('/datos/');
+			};
+			if ($('#clausulaVenta').prop('checked') == false){
+				e.preventDefault();
+				$('.obligatorio').show();
+			};
+		});
+	});
+
 	</script>
 {% endblock js %}
-
-
-<!-- Ejemplo de boton de mercadopago -->
-{% block contenido %}
-
-<!--Estilos-->
-<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}files/css/admin/plan.css">
-<br>
-<div class="container-fluid">
-	<div class="panel panel-default">
-		<div class="panel-heading">
-			<h3 class="panel-title">Plan de restaurante</h3>
-		</div>
-		<div class="panel-body">
-			<!-- BOTON! -->
-			{% autoescape off %}{{boton_pago}}{% endautoescape %}
-		</div>
-	</div>
-</div>
-{% endblock contenido%}
