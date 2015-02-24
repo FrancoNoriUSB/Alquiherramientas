@@ -98,12 +98,14 @@ class CategoriaForm(forms.ModelForm):
     class Meta:
         model = Categoria
         fields = ('nombre',)
+        fields = ('nombre',)
 
 
 #Formulario de marcas
 class MarcaForm(forms.ModelForm):
     class Meta:
         model = Marca
+        fields = ('nombre',)
         fields = ('nombre',)
 
 
@@ -112,18 +114,21 @@ class ModeloForm(forms.ModelForm):
     class Meta:
         model = Modelo
         fields = ('nombre',)
+        fields = ('nombre','marca',)
 
 
 #Formulario de herramienta
 class HerramientaForm(forms.ModelForm):
     class Meta:
         model = Herramienta
+        fields = ('nombre','ano','categoria','marca','modelo',)
 
 
 #Formulario de direccion
 class DireccionForm(forms.ModelForm):
     class Meta:
         model = Direccion
+        fields = ('domicilio','estado','ciudad','zona',)
 
 
 #Formulario para vender articulos
