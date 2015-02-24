@@ -22,11 +22,11 @@ import json
 
 #Mercadopago
 #Funcion que se encuentra en mercadopago.py
-# import mercadopago
-# import os, sys
+import mercadopago
+import os, sys
 
-# #Variable global que tiene datos especificos del cliente. No tocar por ahora
-# mp = mercadopago.MP("2041234873847333", "dcFLGjyBjtk5dOfN4rC16s45a3mECeaA")
+#Variable global que tiene datos especificos del cliente. No tocar por ahora
+mp = mercadopago.MP("1735954876648483", "hsJ0KIzKHXSYVudbHcCG3yBdmEUF0abn")
 
 #Vista del inicio
 def inicio(request):
@@ -366,29 +366,29 @@ def producto(request, id_producto):
     return render_to_response('main/productos/producto.html', ctx, context_instance=RequestContext(request))
 
 
-# #View para setear el boton de mercadopago
-# def mercadopago(request, pago, monto, **kwargs):
-#     preference = {
-#       "items": [
-#         {
-#           "title": pago,
-#           "quantity": 1,
-#           "currency_id": "VEN",
-#           "unit_price": monto
-#         }
-#       ]
-#     }
+#View para setear el boton de mercadopago
+def mercadopago(request, pago, monto, **kwargs):
+    preference = {
+      "items": [
+        {
+          "title": pago,
+          "quantity": 1,
+          "currency_id": "VEN",
+          "unit_price": monto
+        }
+      ]
+    }
 
-#     preferenceResult = mp.create_preference(preference)
+    preferenceResult = mp.create_preference(preference)
 
-#     url = preferenceResult["response"]["init_point"]
+    url = preferenceResult["response"]["init_point"]
 
-#     output = """
-#         <a href="{url}" name="MP-Checkout" class="blue-l-arall-rn">Pagar</a>
-#         <script type="text/javascript" src="http://mp-tools.mlstatic.com/buttons/render.js"></script>
-#     """.format (url=url)
+    output = """
+        <a href="{url}" name="MP-Checkout" class="blue-l-arall-rn">Pagar</a>
+        <script type="text/javascript" src="http://mp-tools.mlstatic.com/buttons/render.js"></script>
+    """.format (url=url)
     
-#     return output
+    return output
 
 
 # Vista para la afiliacion

@@ -14,9 +14,8 @@ from django.db.models import Count
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from models import *
-from forms import *
-from herramientas.apps.main.models import *
 from herramientas.apps.administrador.forms import *
+from herramientas.apps.main.models import *
 import json
 
 
@@ -24,9 +23,9 @@ import json
 def login_admin(request):
 
 	loginF = LoginForm()
-
 	email = ''
 	password = ''
+
 	if request.POST:
 		loginF = LoginForm(request.POST)
 		if request.user.is_authenticated() and request.user and request.user.is_staff:
@@ -70,8 +69,21 @@ def inicio(request):
 @login_required(login_url='/administrador/login/')
 def empresa_admin(request):
 
-	ctx={
+	editado = ''
+	empresa = get_object_or_404(Empresa, id=1)
+	empresaF = EmpresaForm(instance=empresa)
 
+	if request.POST:
+		empresaF = EmpresaForm(request.POST, instance=empresa)
+		if empresaF.is_valid():
+			empresaF.save()
+			editado = True
+
+	empresaF = EmpresaForm(instance=empresa)
+
+	ctx={
+		'EmpresaForm':empresaF,
+		'editado':editado,
 	}
 
 	return render_to_response('administrador/empresa/empresa.html', ctx, context_instance=RequestContext(request))
@@ -81,8 +93,31 @@ def empresa_admin(request):
 @login_required(login_url='/administrador/login/')
 def venta_agregar(request):
 
-	ctx={
+	editado = ''
+	ventaF = VentaForm()
+	herramientaF = HerramientaForm()
+	direccionF = DireccionForm()
 
+	if request.POST:
+		ventaF = VentaForm(request.POST, request.FILES)
+		herramientaF = HerramientaForm(request.POST)
+		direccionF = DireccionForm(request.POST)
+		if ventaF.is_valid() and herramientaF.is_valid() and direccionF.is_valid():
+			print "SI SI SI"
+			venta = ventaF.save(commit=False)
+			herramienta = herramientaF.save()
+			direccion = direccionF.save()
+			venta.herramienta = herramienta
+			venta.direccion = direccion
+			venta.save()
+			editado = True
+
+
+	ctx={
+		'VentaForm':ventaF,
+		'HerramientaForm':herramientaF,
+		'DireccionForm':direccionF,
+		'editado':editado,
 	}
 
 	return render_to_response('administrador/venta/agregar.html', ctx, context_instance=RequestContext(request))

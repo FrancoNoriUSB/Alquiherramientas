@@ -1,1 +1,36 @@
 {%extends "administrador/base.html"%}
+{% load bootstrap3 %}
+
+{% block contenido %}
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+				<img src="{{STATIC_URL}}files/img/logo-principal.png" alt="">
+				<h3>Panel de administraci&oacute;n de Alquiherramientas 2112.</h3>
+				<h4>Bienvenido, {{request.user.nombre}}</h4>
+				<br>
+				<h5>Enlaces r&aacute;pidos:</h5>
+				<ul class="list-group">
+					<li class="list-group-item">
+						<a href="/administrador/venta/agregar/">Agregar venta <span class="glyphicon glyphicon-plus"></span></a>
+					</li>
+					<li class="list-group-item">
+						<a href="/administrador/venta/listar/">Listar ventas <span class="glyphicon glyphicon-th-list"></span></a>
+					</li>
+					<li class="list-group-item">
+						<a href="/administrador/alquiler/agregar/">Agregar alquiler <span class="glyphicon glyphicon-plus"></span></a>
+					</li>
+					<li class="list-group-item">
+						<a href="/administrador/alquiler/listar/">Listar alquileres <span class="glyphicon glyphicon-th-list"></span></a>
+					</li>
+					<li class="list-group-item">
+						<a href="/administrador/usuarios/">Administrar usuarios <span class="glyphicon glyphicon-user"></span></a>
+					</li>
+					<li class="list-group-item">
+						<a href="/administrador/banners/">Banners <span class="glyphicon glyphicon-picture"></span></a>
+					</li>
+				</ul>
+	        </div>
+        </div>
+	</div>
+{% endblock contenido %}

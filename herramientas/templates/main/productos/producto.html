@@ -78,7 +78,7 @@
 									</tr>
 									<tr>
 										<td><strong>Dias: </strong></td>
-										<td>{% render_field alquilerF.dias class="form-control" onchange="calc()" %}</td>
+										<td>{% render_field alquilerF.dias class="form-control"%}</td>
 									</tr>
 									<tr>
 										<td><strong>Total: </strong></td>
@@ -154,9 +154,9 @@
 	})
 
 	function calc(){
-		var precio = document.getElementById("id_precioA");
-		var dias = document.getElementById("id_diasA");
-		document.getElementById("id_totalA").value = precio.value * dias.value;
+		var precio = document.getElementById("id_precio");
+		var dias = document.getElementById("id_dias");
+		document.getElementById("id_total").value = precio.value * dias.value;
 	}
 	</script>
 {% endblock js %}
