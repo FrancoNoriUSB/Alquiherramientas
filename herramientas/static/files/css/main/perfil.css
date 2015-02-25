@@ -7,3 +7,20 @@ Colores a utilizar:
 	Azul: #0B3755;
 	Negro: #292929;
 */
+
+.thumbnail {
+	height:75px;
+	width: 75px;
+	margin-top: 10px;
+}
+
+.bordes{
+	border-top: groove;
+	border-bottom: groove;
+}
+
+td{
+	padding: 0 8px 0 8px;
+	
+}
+

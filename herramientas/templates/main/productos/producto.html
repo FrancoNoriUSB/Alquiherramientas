@@ -141,7 +141,7 @@
 							    	{% render_field ventaF.clausulas type="checkbox" id="clausulaVenta" %} Acepto las clausulas
 							    </div>
 								{% if user.is_authenticated %}
-									<button type="submit" class="btn btn-primary alquiler">
+									<button type="submit" class="btn btn-primary venta">
 								        Comprar
 								    </button>
 							    {% else %}
@@ -204,13 +204,11 @@
 
 	$(function(){
 		$('.alquiler').click(function(e){
-			if (parseFloat($('#totalAlqui').val()) > 100000.00){
-				e.preventDefault();
-				window.location.replace('/datos/');
-			};
 			if ($('#diasAlqui').val() == 0){
 				e.preventDefault();
 				$('.errorDia').show();
+			} else {
+				$('.errorDia').hide();
 			};
 			if ($('#clausulaAlqui').prop('checked') == false){
 				e.preventDefault();
@@ -221,10 +219,6 @@
 
 	$(function(){
 		$('.venta').click(function(e){
-			if (parseFloat($('#totalVenta').val()) > 100000.00){
-				e.preventDefault();
-				window.location.replace('/datos/');
-			};
 			if ($('#clausulaVenta').prop('checked') == false){
 				e.preventDefault();
 				$('.obligatorio').show();

@@ -7,14 +7,14 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('main', '0005_merge'),
+        ('main', '0001_initial'),
     ]
 
     operations = [
-        migrations.AlterField(
-            model_name='producto',
-            name='fecha_expiracion',
-            field=models.DateTimeField(null=True),
+        migrations.AddField(
+            model_name='pago',
+            name='verificado',
+            field=models.BooleanField(default=False),
             preserve_default=True,
         ),
     ]

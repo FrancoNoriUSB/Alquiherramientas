@@ -70,11 +70,11 @@
                                 </button>
                                 <ul class="dropdown-menu" role="menu">
                                     <li>
-                                        <a href="/productos/">Venta</a>
+                                        <a href="/productos/venta">Venta</a>
                                     </li>
                                     <li class="divider"></li>
                                     <li>
-                                        <a href="/productos/">Alquiler</a>
+                                        <a href="/productos/alquiler">Alquiler</a>
                                     </li>
                                 </ul>
                             </div>
@@ -98,10 +98,25 @@
             <div class="row">
                 <!-- Contenido de la pagina -->
                 <div class="contenido col-lg-12 col-md-12 col-sm-12">
-                    <h4>Bienvenido <a href="/perfil/">{{request.user.nombre}}</a></h4>
-                    <a href="/logout/">Salir</a>
+                    <div class="col-lg-4">
+                        <h4>Bienvenido <a href="/perfil/">{{request.user.nombre}}</a></h4>
+                        <a href="/logout/">Salir</a>
+                        <h4>Compras:</h4>
+                        <ul>
+                            <li><a href="/perfil/">Historial</a></li>
+                            <li><a href="">Canceladas</a></li>
+                        </ul>
+                        <h4>Alquileres:</h4>
+                        <ul>
+                            <li><a href="/perfil/1/">Historial</a></li>
+                            <li><a href="">En Proceso</a></li>
+                            <li><a href="">Canceladas</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-8">
                     {% block content %}
                     {% endblock content %}
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,0 +1,33 @@
+{% extends "main/perfil/base_perfil.html" %}
+{% load humanize %}
+{% load staticfiles %}
+{% block scripts %}
+	
+    <!--Estilos-->
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}files/css/main/perfil.css">
+
+{% endblock scripts %}
+
+{% block content %}
+	<h3>Compras / Historial</h3>
+		<table class="cellpadding">
+			<tbody>
+				{% for v in ventas %}
+				<tr class="bordes">
+					<td><img class="img-responsive thumbnail" src="{{v.producto.imagen.url}}"></td>
+					<td><b>Descripci&oacute;n:</b><p>{{v.producto.titulo}}</p></td>
+					<td><b>Precio:</b><p>{{v.producto.venta.precio}}</p></td>
+					<td><b>Fecha:</b><p>{{v.fecha|date:"d-m-Y"}}</p></td>
+					<td>
+						<b>Verificado:</b>
+						{% if v.verificado %}
+							<p>Verificado.</p>
+						{% else %}
+							<p>Sin verificar.</span></p>
+						{% endif %}
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+{% endblock content %}

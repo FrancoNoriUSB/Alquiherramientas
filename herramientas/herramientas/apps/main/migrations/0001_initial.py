@@ -2,11 +2,13 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
+from django.conf import settings
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
@@ -53,7 +55,7 @@ class Migration(migrations.Migration):
             name='Empresa',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('info', models.CharField(max_length=800)),
+                ('info', models.CharField(max_length=1200)),
                 ('mision', models.CharField(max_length=800)),
                 ('vision', models.CharField(max_length=800)),
                 ('servicios', models.CharField(max_length=800)),
@@ -141,7 +143,6 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('monto', models.DecimalField(max_digits=20, decimal_places=2)),
                 ('fecha', models.DateTimeField(auto_now_add=True)),
-                ('usuario', models.EmailField(max_length=75)),
             ],
             options={
                 'verbose_name': 'Pago',
@@ -183,7 +184,7 @@ class Migration(migrations.Migration):
                 ('oferta', models.BooleanField(default=False, help_text=b'Marcado si desea que se muestre como una oferta')),
                 ('fecha_producto', models.DateTimeField(auto_now_add=True)),
                 ('fecha_actualizacion', models.DateTimeField(auto_now=True)),
-                ('fecha_expiracion', models.DateTimeField()),
+                ('fecha_expiracion', models.DateField(null=True)),
             ],
             options={
                 'ordering': ('titulo',),
@@ -249,6 +250,12 @@ class Migration(migrations.Migration):
             model_name='pago',
             name='producto',
             field=models.ForeignKey(to='main.Producto'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='pago',
+            name='usuario',
+            field=models.ForeignKey(to=settings.AUTH_USER_MODEL),
             preserve_default=True,
         ),
         migrations.AddField(

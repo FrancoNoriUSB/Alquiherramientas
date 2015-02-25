@@ -2,6 +2,7 @@
 from django.utils.translation import gettext as _
 import datetime
 from django.db import models
+from herramientas.apps.administrador.models import *
 
 #Rango de anos a utilizar en las herramientas
 anos = []
@@ -271,7 +272,8 @@ class Pago(models.Model):
 	producto = models.ForeignKey(Producto)
 	monto = models.DecimalField(max_digits=20, decimal_places=2)
 	fecha = models.DateTimeField(auto_now_add=True)
-	usuario = models.EmailField()
+	usuario = models.ForeignKey(User)
+	verificado = models.BooleanField(default=False)
 
 
 	class Meta:
