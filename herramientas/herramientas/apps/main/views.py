@@ -449,9 +449,9 @@ def pagar(request, id_producto):
     if len(ofertas) > 0:
         ofertas = ofertas[randint(0, len(ofertas)-1)]
 
-    boton = ''
-
     producto = Producto.objects.get(id=id_producto)
+
+    boton = ''
 
     # Creando un nuevo usuario
     if request.method=='POST':
@@ -472,8 +472,6 @@ def pagar(request, id_producto):
             email_venta(request, usuario.nombre, usuario.apellido, usuario.email, nombre)
             if precio > 100000.00:
                 return HttpResponseRedirect('/datos/')
-            
-            boton = mercadopago(request, nombre, float(precio))
         except:
             alquilerF = AlquilerForm(request.POST)
             if alquilerF.is_valid():
@@ -484,8 +482,8 @@ def pagar(request, id_producto):
                 email_alquiler(request, usuario.nombre, usuario.apellido, usuario.email, nombre, dias)
                 if total > 100000.00:
                     return HttpResponseRedirect('/datos/')
-                
-                boton = mercadopago(request, nombre, float(precio))
+
+        boton = mercadopago(request, nombre, float(precio))
 
     ctx = {
         'BusquedaForm':busquedaF,
