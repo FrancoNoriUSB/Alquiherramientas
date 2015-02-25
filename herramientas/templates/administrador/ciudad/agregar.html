@@ -5,7 +5,25 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-
+				<h3>Agregar Ciudad:</h3>
+				{%if editado%}
+					<div class="alert alert-success alert-dismissible" role="alert">
+						<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<strong>Guardado!</strong> Se guardado la informaci&oacute;n con &eacute;xito!
+					</div>
+				{%endif%}
+				<form id="form" role="form" enctype="multipart/form-data" method="post" action="">
+		        {% csrf_token %}
+		        	<h4>Ciudad:</h4>
+		            	{%bootstrap_form CiudadForm%}
+		            <div class="form-group">
+		                {% buttons %}
+		                    <button type="submit" class="btn btn-primary">
+		                        Guardar
+		                    </button>
+		                {% endbuttons %}
+		            </div>
+		        </form>
 	        </div>
         </div>
 	</div>

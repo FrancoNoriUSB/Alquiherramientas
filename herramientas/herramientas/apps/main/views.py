@@ -17,7 +17,7 @@ from random import randint
 from funciones import *
 from models import *
 from forms import *
-from herramientas.apps.administrador.forms import LoginForm
+from herramientas.apps.administrador.forms import LoginForm, UserCreationForm
 import json
 
 # Mercadopago
@@ -365,17 +365,17 @@ def producto(request, id_producto):
 
     ctx = {
         'BusquedaForm':busquedaF,
-        'ofertas':ofertas,
-        'producto': producto,
-        'UsuarioForm':usuarioF,
-        'alquilerF' : alquilerF,
-        'ventaF' : ventaF,
         'LoginForm':loginF,
+        'UsuarioForm':usuarioF,
+        'ofertas':ofertas,
+        'producto':producto,
+        'alquilerF':alquilerF,
+        'ventaF':ventaF,
         'ciudades':ciudades,
         'zonas':zonas,
-        'contactoF': contactoF,
-        'indicator': indicator,
-        'wrapper': wrapper,
+        'contactoF':contactoF,
+        'indicator':indicator,
+        'wrapper':wrapper,
 
     }
 

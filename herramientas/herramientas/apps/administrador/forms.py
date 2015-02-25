@@ -98,7 +98,6 @@ class CategoriaForm(forms.ModelForm):
     class Meta:
         model = Categoria
         fields = ('nombre',)
-        fields = ('nombre',)
 
 
 #Formulario de marcas
@@ -106,15 +105,34 @@ class MarcaForm(forms.ModelForm):
     class Meta:
         model = Marca
         fields = ('nombre',)
-        fields = ('nombre',)
 
 
 #Formulario de modelos
 class ModeloForm(forms.ModelForm):
     class Meta:
         model = Modelo
-        fields = ('nombre',)
         fields = ('nombre','marca',)
+
+
+#Formulario de Estados
+class EstadoForm(forms.ModelForm):
+    class Meta:
+        model = Estado
+        fields = ('nombre',)
+    
+
+#Formulario de ciudades
+class CiudadForm(forms.ModelForm):
+    class Meta:
+        model = Ciudad
+        fields = ('nombre', 'estado')
+    
+
+#Formulario de zonas
+class ZonaForm(forms.ModelForm):
+    class Meta:
+        model = Zona
+        fields = ('nombre', 'ciudad')
 
 
 #Formulario de herramienta
@@ -135,14 +153,14 @@ class DireccionForm(forms.ModelForm):
 class VentaForm(forms.ModelForm):
     class Meta:
         model = Venta
-        exclude = ['fecha_producto', 'fecha_actualizacion',]
+        exclude = ['fecha_producto', 'fecha_actualizacion','direccion','herramienta']
         widgets = {
             'titulo': forms.TextInput(),
             'contenido': forms.Textarea(),
             'imagen': forms.FileInput(),
             'oferta': forms.CheckboxInput(),
-            'precio': forms.TextInput(),
-            'fecha_expiracion': forms.DateInput(),
+            'precio': forms.NumberInput(),
+            'fecha_expiracion': forms.DateInput(attrs={'placeholder':'Formato dd/mm/aaaa'}),
         }
 
 
@@ -150,14 +168,14 @@ class VentaForm(forms.ModelForm):
 class AlquilerForm(forms.ModelForm):
     class Meta:
         model = Alquiler
-        exclude = ['fecha_producto', 'fecha_actualizacion',]
+        exclude = ['fecha_producto', 'fecha_actualizacion','direccion','herramienta']
         widgets = {
             'titulo': forms.TextInput(),
             'contenido': forms.Textarea(),
             'imagen': forms.FileInput(),
             'oferta': forms.CheckboxInput(),
-            'precio': forms.IntegerField(),
-            'dias': forms.IntegerField(),
+            'precio': forms.NumberInput(attrs={'placeholder':'Precio diario'}),
+            'fecha_expiracion': forms.DateInput(attrs={'placeholder':'Formato dd/mm/aaaa'}),
         }
 
 

@@ -102,16 +102,18 @@ def venta_agregar(request):
 		ventaF = VentaForm(request.POST, request.FILES)
 		herramientaF = HerramientaForm(request.POST)
 		direccionF = DireccionForm(request.POST)
-		if ventaF.is_valid() and herramientaF.is_valid() and direccionF.is_valid():
-			print "SI SI SI"
-			venta = ventaF.save(commit=False)
-			herramienta = herramientaF.save()
-			direccion = direccionF.save()
-			venta.herramienta = herramienta
-			venta.direccion = direccion
-			venta.save()
-			editado = True
 
+		if herramientaF.is_valid() and direccionF.is_valid():
+			herramienta = herramientaF.save(commit=False)
+			direccion = direccionF.save(commit=False)
+			if ventaF.is_valid():
+				herramienta.save()
+				direccion.save()
+				venta = ventaF.save(commit=False)
+				venta.herramienta = herramienta
+				venta.direccion = direccion
+				venta.save()
+				editado = True
 
 	ctx={
 		'VentaForm':ventaF,
@@ -134,10 +136,23 @@ def venta_editar(request, id_producto):
 	return render_to_response('administrador/venta/editar.html', ctx, context_instance=RequestContext(request))
 
 
-
 #Vista de listar productos de venta en el admin
 @login_required(login_url='/administrador/login/')
 def venta_listar(request):
+
+	ventas = Venta.objects.all()
+
+	paginator = Paginator(ventas, 10)
+	page = request.GET.get('page')
+
+	try:
+		ventas = paginator.page(page)
+	except PageNotAnInteger:
+		# If page is not an integer, deliver first page.
+		ventas = paginator.page(1)
+	except EmptyPage:
+		# If page is out of range (e.g. 9999), deliver last page of results.
+		ventas = paginator.page(paginator.num_pages)
 
 	ctx={
 
@@ -150,10 +165,34 @@ def venta_listar(request):
 @login_required(login_url='/administrador/login/')
 def alquiler_agregar(request):
 
+	editado = ''
+	alquilerF = AlquilerForm()
+	herramientaF = HerramientaForm()
+	direccionF = DireccionForm()
+
+	if request.POST:
+		alquilerF = AlquilerForm(request.POST, request.FILES)
+		herramientaF = HerramientaForm(request.POST)
+		direccionF = DireccionForm(request.POST)
+
+		if herramientaF.is_valid() and direccionF.is_valid():
+			herramienta = herramientaF.save(commit=False)
+			direccion = direccionF.save(commit=False)
+			if alquilerF.is_valid():
+				herramienta.save()
+				direccion.save()
+				venta = alquilerF.save(commit=False)
+				venta.herramienta = herramienta
+				venta.direccion = direccion
+				venta.save()
+				editado = True
+
 	ctx={
-
+		'AlquilerForm':alquilerF,
+		'HerramientaForm':herramientaF,
+		'DireccionForm':direccionF,
+		'editado':editado,
 	}
-
 	return render_to_response('administrador/alquiler/agregar.html', ctx, context_instance=RequestContext(request))
 
 
@@ -233,6 +272,354 @@ def configuracion_admin(request):
 
 	return render_to_response('administrador/configuracion/configuracion.html', ctx, context_instance=RequestContext(request))
 
+
+#Vista de la empresa en el admin
+@login_required(login_url='/administrador/login/')
+def configuracion_admin(request):
+
+	ctx={
+
+	}
+
+	return render_to_response('administrador/configuracion/configuracion.html', ctx, context_instance=RequestContext(request))
+
+
+#Vista para agregar categorias
+@login_required(login_url='/administrador/login/')
+def categoria_agregar(request):
+
+	editado = ''
+	categoriaF = CategoriaForm()
+
+	if request.POST:
+		categoriaF = CategoriaForm(request.POST)
+		if categoriaF.is_valid():
+			categoriaF.save()
+			editado = True
+
+	ctx={
+		'CategoriaForm':categoriaF,
+		'editado':editado,
+	}
+
+	return render_to_response('administrador/categoria/agregar.html', ctx, context_instance=RequestContext(request))
+
+
+#Vista para editar categorias
+@login_required(login_url='/administrador/login/')
+def categoria_editar(request, id_categoria):
+
+	editado = ''
+	categoria = get_object_or_404(Categoria, id=id_categoria)
+	categoriaF = CategoriaForm(instance=categoria)
+
+	if request.POST:
+		categoriaF = CategoriaForm(request.POST, instance=categoria)
+		if categoriaF.is_valid():
+			categoriaF.save()
+			editado = True
+
+	ctx={
+		'CategoriaForm':categoriaF,
+		'editado':editado,
+	}
+
+	return render_to_response('administrador/categoria/editar.html', ctx, context_instance=RequestContext(request))
+
+
+#Vista para listar categorias
+@login_required(login_url='/administrador/login/')
+def categoria_listar(request):
+
+	categorias = Categoria.objects.all().order_by('id')
+
+	ctx={
+		"categorias":categorias,
+	}
+
+	return render_to_response('administrador/categoria/listar.html', ctx, context_instance=RequestContext(request))
+
+
+#Vista para agregar marcas
+@login_required(login_url='/administrador/login/')
+def marca_agregar(request):
+
+	editado = ''
+	marcaF = MarcaForm()
+
+	if request.POST:
+		marcaF = MarcaForm(request.POST)
+		if marcaF.is_valid():
+			marcaF.save()
+			editado = True
+
+
+	ctx={
+		'MarcaForm':marcaF,
+		'editado':editado,
+	}
+
+	return render_to_response('administrador/marca/agregar.html', ctx, context_instance=RequestContext(request))
+
+
+#Vista para editar marcas
+@login_required(login_url='/administrador/login/')
+def marca_editar(request, id_marca):
+
+	editado = ''
+	marca = get_object_or_404(marca, id=id_marca)
+	marcaF = MarcaForm(instance=marca)
+
+	if request.POST:
+		marcaF = MarcaForm(request.POST,instance=marca)
+		if marcaF.is_valid():
+			marcaF.save()
+			editado = True
+
+
+	ctx={
+		'MarcaForm':marcaF,
+		'editado':editado,
+	}
+
+	return render_to_response('administrador/marca/editar.html', ctx, context_instance=RequestContext(request))
+
+
+#Vista para listar marcas
+@login_required(login_url='/administrador/login/')
+def marca_listar(request):
+
+	marcas = Marca.objects.all().order_by('id')
+
+	ctx={
+		"marcas":marcas,
+	}
+
+	return render_to_response('administrador/marca/listar.html', ctx, context_instance=RequestContext(request))
+
+
+#Vista para agregar modelos
+@login_required(login_url='/administrador/login/')
+def modelo_agregar(request):
+
+	editado = ''
+	modeloF = ModeloForm()
+
+	if request.POST:
+		modeloF = ModeloForm(request.POST)
+		if modeloF.is_valid():
+			modeloF.save()
+			editado = True
+
+	ctx={
+		'ModeloForm':modeloF,
+		'editado':editado,
+	}
+
+	return render_to_response('administrador/modelo/agregar.html', ctx, context_instance=RequestContext(request))
+
+
+#Vista para editar modelos
+@login_required(login_url='/administrador/login/')
+def modelo_editar(request, id_modelo):
+
+	editado = ''
+	modelo = get_object_or_404(Modelo, id=id_modelo)
+	modeloF = ModeloForm(instance=modelo)
+
+	if request.POST:
+		modeloF = ModeloForm(request.POST,instance=modelo)
+		if modeloF.is_valid():
+			modeloF.save()
+			editado = True
+
+	ctx={
+		'ModeloForm':modeloF,
+		'editado':editado,
+	}
+
+	return render_to_response('administrador/modelo/editar.html', ctx, context_instance=RequestContext(request))
+
+
+#Vista para listar modelos
+@login_required(login_url='/administrador/login/')
+def modelo_listar(request):
+
+	modelos = Modelo.objects.all().order_by('id')
+
+	ctx={
+		"modelos":modelos,
+	}
+
+	return render_to_response('administrador/modelo/listar.html', ctx, context_instance=RequestContext(request))
+
+
+#Vista para agregar estados
+@login_required(login_url='/administrador/login/')
+def estado_agregar(request):
+
+	editado = ''
+	estadoF = EstadoForm()
+
+	if request.POST:
+		estadoF = EstadoForm(request.POST)
+		if estadoF.is_valid():
+			estadoF.save()
+			editado = True
+
+	ctx={
+		'EstadoForm':estadoF,
+		'editado':editado,
+	}
+
+	return render_to_response('administrador/estado/agregar.html', ctx, context_instance=RequestContext(request))
+
+
+#Vista para editar estados
+@login_required(login_url='/administrador/login/')
+def estado_editar(request, id_estado):
+
+	editado = ''
+	estado = get_object_or_404(Estado,id=id_estado)
+	estadoF = EstadoForm(instance=estado)
+
+	if request.POST:
+		estadoF = EstadoForm(request.POST,instance=estado)
+		if estadoF.is_valid():
+			estadoF.save()
+			editado = True
+
+	ctx={
+		'EstadoForm':estadoF,
+		'editado':editado,
+	}
+
+	return render_to_response('administrador/estado/editar.html', ctx, context_instance=RequestContext(request))
+
+
+#Vista para listar estados
+@login_required(login_url='/administrador/login/')
+def estado_listar(request):
+
+	estados = Estado.objects.all().order_by('id')
+
+	ctx={
+		"estados":estados,
+	}
+
+	return render_to_response('administrador/estado/listar.html', ctx, context_instance=RequestContext(request))
+
+
+#Vista para agregar ciudades
+@login_required(login_url='/administrador/login/')
+def ciudad_agregar(request):
+
+	editado = ''
+	ciudadF = CiudadForm()
+
+	if request.POST:
+		ciudadF = CiudadForm(request.POST)
+		if ciudadF.is_valid():
+			ciudadF.save()
+			editado = True
+
+	ctx={
+		'CiudadForm':ciudadF,
+		'editado':editado,
+	}
+
+	return render_to_response('administrador/ciudad/agregar.html', ctx, context_instance=RequestContext(request))
+
+
+#Vista para editar ciudades
+@login_required(login_url='/administrador/login/')
+def ciudad_editar(request, id_ciudad):
+
+	editado = ''
+	ciudad = get_object_or_404(Ciudad,id=id_ciudad)
+	ciudadF = CiudadForm(instance=ciudad)
+
+	if request.POST:
+		ciudadF = CiudadForm(request.POST,instance=ciudad)
+		if ciudadF.is_valid():
+			ciudadF.save()
+			editado = True
+
+	ctx={
+		'CiudadForm':ciudadF,
+		'editado':editado,
+	}
+
+	return render_to_response('administrador/ciudad/editar.html', ctx, context_instance=RequestContext(request))
+
+
+#Vista para listar ciudades
+@login_required(login_url='/administrador/login/')
+def ciudad_listar(request):
+
+	ciudades = Ciudad.objects.all().order_by('id')
+
+	ctx={
+		"ciudades":ciudades,
+	}
+
+	return render_to_response('administrador/ciudad/listar.html', ctx, context_instance=RequestContext(request))
+
+
+#Vista para agregar zonas
+@login_required(login_url='/administrador/login/')
+def zona_agregar(request):
+
+	editado = ''
+	zonaF = ZonaForm()
+
+	if request.POST:
+		zonaF = ZonaForm(request.POST)
+		if zonaF.is_valid():
+			zonaF.save()
+			editado = True
+
+	ctx={
+		'ZonaForm':zonaF,
+		'editado':editado,
+	}
+
+	return render_to_response('administrador/zona/agregar.html', ctx, context_instance=RequestContext(request))
+
+
+#Vista para editar zonas
+@login_required(login_url='/administrador/login/')
+def zona_editar(request, id_zona):
+
+	editado = ''
+	zona = get_object_or_404(Zona,id=id_zona)
+	zonaF = ZonaForm(instance=zona)
+
+	if request.POST:
+		zonaF = ZonaForm(request.POST,instance=zona)
+		if zonaF.is_valid():
+			zonaF.save()
+			editado = True
+
+	ctx={
+		'ZonaForm':zonaF,
+		'editado':editado,
+	}
+
+	return render_to_response('administrador/zona/editar.html', ctx, context_instance=RequestContext(request))
+
+
+#Vista para listar zonas
+@login_required(login_url='/administrador/login/')
+def zona_listar(request):
+
+	zonas = Zona.objects.all().order_by('id')
+
+	ctx={
+		"zonas":zonas,
+	}
+
+	return render_to_response('administrador/zona/listar.html', ctx, context_instance=RequestContext(request))
 
 
 #Vista para cerrar la sesion

@@ -1,0 +1,44 @@
+{%extends "administrador/base.html"%}
+{% load bootstrap3 %}
+
+{% block contenido %}
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+				<h3>Categor&iacute;as:</h3>
+				<table class="table table-striped">
+					<tr>
+						<td>
+							ID
+						</td>
+						<td>
+							Categor&iacute;a
+						</td>
+						<td>
+							Editar
+						</td>
+						<td>
+							Eliminar
+						</td>
+					</tr>
+					{%for categoria in categorias%}
+						<tr>
+							<td>
+								{{categoria.id}}
+							</td>
+							<td>
+								{{categoria.nombre}}
+							</td>
+							<td>
+								Editar <a href=""><span class="glyphicon glyphicon-pencil"></span></a>
+							</td>
+							<td>
+								Eliminar <a href=""><span class="glyphicon glyphicon-trash"></span></a>
+							</td>
+						</tr>
+					{%endfor%}
+				</table>
+	        </div>
+        </div>
+	</div>
+{% endblock contenido %}

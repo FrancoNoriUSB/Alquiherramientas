@@ -215,7 +215,7 @@ class Producto(models.Model):
 	oferta = models.BooleanField(default=False, help_text='Marcado si desea que se muestre como una oferta')
 	fecha_producto = models.DateTimeField(auto_now_add=True)
 	fecha_actualizacion = models.DateTimeField(auto_now=True)
-	fecha_expiracion = models.DateTimeField(null=True)
+	fecha_expiracion = models.DateField(null=True)
 
 	#Claves foraneas
 	direccion = models.ForeignKey(Direccion)
@@ -265,6 +265,7 @@ class Venta(Producto):
 		verbose_name = "Venta"
 		verbose_name_plural = "Ventas"
 
+
 # Clase de registro de los pagos realizados.
 class Pago(models.Model):
 	concepto = models.CharField(max_length=200)
@@ -280,6 +281,7 @@ class Pago(models.Model):
 		pass
 
 
+#Clase de transacciones de pagos de ventas
 class PagoVenta(Pago):
 
 	class Meta:
@@ -290,6 +292,7 @@ class PagoVenta(Pago):
 		pass
 
 
+#Clase de transacciones de pagos de alquileres
 class PagoAlquiler(Pago):
 	dias = models.IntegerField()
 

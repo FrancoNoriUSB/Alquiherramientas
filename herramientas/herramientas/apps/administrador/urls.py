@@ -43,31 +43,31 @@ urlpatterns = patterns('herramientas.apps.administrador.views',
 
     #Urls de categorias
     url(r'^administrador/categoria/agregar/$', 'categoria_agregar', name='categoria_agregar'),
-    url(r'^administrador/categoria/editar/$', 'categoria_editar', name='alquiler_editar'),
+    url(r'^administrador/categoria/editar/(?P<id_categoria>[0-9A-Za-z]+)/$', 'categoria_editar', name='alquiler_editar'),
     url(r'^administrador/categoria/listar/$', 'categoria_listar', name='categoria_listar'),
 
     #Urls de marcas
     url(r'^administrador/marca/agregar/$', 'marca_agregar', name='marca_agregar'),
-    url(r'^administrador/marca/editar/$', 'marca_editar', name='marca_editar'),
+    url(r'^administrador/marca/editar/(?P<id_marca>[0-9A-Za-z]+)/$', 'marca_editar', name='marca_editar'),
     url(r'^administrador/marca/listar/$', 'marca_listar', name='marca_listar'),
 
     #Urls de modelos
     url(r'^administrador/modelo/agregar/$', 'modelo_agregar', name='modelo_agregar'),
-    url(r'^administrador/modelo/editar/$', 'modelo_editar', name='modelo_editar'),
+    url(r'^administrador/modelo/editar/(?P<id_modelo>[0-9A-Za-z]+)/$', 'modelo_editar', name='modelo_editar'),
     url(r'^administrador/modelo/listar/$', 'modelo_listar', name='modelo_listar'),
 
     #Urls de estados
     url(r'^administrador/estado/agregar/$', 'estado_agregar', name='estado_agregar'),
-    url(r'^administrador/estado/editar/$', 'estado_editar', name='estado_editar'),
+    url(r'^administrador/estado/editar/(?P<id_estado>[0-9A-Za-z]+)/$', 'estado_editar', name='estado_editar'),
     url(r'^administrador/estado/listar/$', 'estado_listar', name='estado_listar'),
 
     #Urls de ciudad
     url(r'^administrador/ciudad/agregar/$', 'ciudad_agregar', name='ciudad_agregar'),
-    url(r'^administrador/ciudad/editar/$', 'ciudad_editar', name='ciudad_editar'),
+    url(r'^administrador/ciudad/editar/(?P<id_ciudad>[0-9A-Za-z]+)/$', 'ciudad_editar', name='ciudad_editar'),
     url(r'^administrador/ciudad/listar/$', 'ciudad_listar', name='ciudad_listar'),
 
     #Urls de zonas
     url(r'^administrador/zona/agregar/$', 'zona_agregar', name='zona_agregar'),
-    url(r'^administrador/zona/editar/$', 'zona_editar', name='zona_editar'),
+    url(r'^administrador/zona/editar/(?P<id_zona>[0-9A-Za-z]+)/$', 'zona_editar', name='zona_editar'),
     url(r'^administrador/zona/listar/$', 'zona_listar', name='zona_listar'),
 )
