@@ -1,1 +1,51 @@
 {%extends "administrador/base.html"%}
+{% load bootstrap3 %}
+
+{% block contenido %}
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+				<h3>Editar Alquiler:</h3>
+				{%if editado%}
+					<div class="alert alert-success alert-dismissible" role="alert">
+						<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<strong>Editado!</strong> Se ha editado la informaci&oacute;n con &eacute;xito!
+					</div>
+				{%endif%}
+				<form id="form" role="form" enctype="multipart/form-data" method="post" action="">
+		        {% csrf_token %}
+		        	<h4>Herramienta:</h4>
+		            {% bootstrap_field HerramientaForm.nombre %}
+		            {% bootstrap_field HerramientaForm.ano %}
+		            {% bootstrap_field HerramientaForm.categoria %}
+		            {% bootstrap_field HerramientaForm.marca %}
+		            {% bootstrap_field HerramientaForm.modelo %}
+					<br>
+		            <h4>Direccion:</h4>
+		            {% bootstrap_field DireccionForm.domicilio %}
+		            {% bootstrap_field DireccionForm.estado %}
+		            {% bootstrap_field DireccionForm.ciudad %}
+		            {% bootstrap_field DireccionForm.zona %}
+					<br>
+					<br>
+		        	<h4>Info Publicacion:</h4>
+		            {% bootstrap_field AlquilerForm.titulo %}
+		            {% bootstrap_field AlquilerForm.contenido %}
+		            {% bootstrap_field AlquilerForm.cantidad %}
+		            {% bootstrap_field AlquilerForm.imagen %}
+		            {% bootstrap_field AlquilerForm.fecha_expiracion %}
+		            {% bootstrap_field AlquilerForm.oferta %}
+		            {% bootstrap_field AlquilerForm.dias %}
+		            {% bootstrap_field AlquilerForm.precio %}
+		            <div class="form-group">
+		                {% buttons %}
+		                    <button type="submit" class="btn btn-primary">
+		                        Publicar
+		                    </button>
+		                {% endbuttons %}
+		            </div>
+		        </form>
+	        </div>
+        </div>
+	</div>
+{% endblock contenido %}

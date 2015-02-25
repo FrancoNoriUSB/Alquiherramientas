@@ -1,0 +1,68 @@
+{%extends "administrador/base.html"%}
+{% load bootstrap3 %}
+
+{% block contenido %}
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+				<h3>Ventas:</h3>
+				<table class="table table-striped">
+					<tr>
+						<td>
+							ID
+						</td>
+						<td>
+							Titulo
+						</td>
+						<td>
+							Herramienta
+						</td>
+						<td>
+							Monto
+						</td>
+						<td>
+							Usuario
+						</td>
+						<td>
+							Editar
+						</td>
+						<td>
+							Im&aacute;genes
+						</td>
+						<td>
+							Eliminar
+						</td>
+					</tr>
+					{%for venta in ventas%}
+						<tr>
+							<td>
+								{{venta.id}}
+							</td>
+							<td>
+								{{venta.titulo}}
+							</td>
+							<td>
+								{{venta.herramienta.nombre}}
+							</td>
+							<td>
+								{{venta.precio}}
+							</td>
+							<td>
+								{{venta.pago.usuario.nombre}}
+							</td>
+							<td>
+								Editar <a href="/administrador/venta/editar/{{venta.id}}/"><span class="glyphicon glyphicon-pencil"></span></a>
+							</td>
+							<td>
+								Im&aacute;genes <a href="/administrador/venta/imagen/{{venta.id}}/"><span class="glyphicon glyphicon-pencil"></span></a>
+							</td>
+							<td>
+								Eliminar <a href=""><span class="glyphicon glyphicon-trash"></span></a>
+							</td>
+						</tr>
+					{%endfor%}
+				</table>
+	        </div>
+        </div>
+	</div>
+{% endblock contenido %}

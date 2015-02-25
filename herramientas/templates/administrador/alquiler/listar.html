@@ -1,0 +1,74 @@
+{%extends "administrador/base.html"%}
+{% load bootstrap3 %}
+
+{% block contenido %}
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+				<h3>Alquileres:</h3>
+				<table class="table table-striped">
+					<tr>
+						<td>
+							ID
+						</td>
+						<td>
+							Titulo
+						</td>
+						<td>
+							Herramienta
+						</td>
+						<td>
+							Monto
+						</td>
+						<td>
+							Dias
+						</td>
+						<td>
+							Usuario
+						</td>
+						<td>
+							Editar
+						</td>
+						<td>
+							Im&aacute;genes
+						</td>
+						<td>
+							Eliminar
+						</td>
+					</tr>
+					{%for alquiler in alquileres%}
+						<tr>
+							<td>
+								{{alquiler.id}}
+							</td>
+							<td>
+								{{alquiler.titulo}}
+							</td>
+							<td>
+								{{alquiler.herramienta.nombre}}
+							</td>
+							<td>
+								{{alquiler.precio}}
+							</td>
+							<td>
+								{{alquiler.pago.dias}}
+							</td>
+							<td>
+								{{alquiler.pago.usuario.nombre}}
+							</td>
+							<td>
+								Editar <a href="/administrador/alquiler/editar/{{alquiler.id}}/"><span class="glyphicon glyphicon-pencil"></span></a>
+							</td>
+							<td>
+								Im&aacute;genes <a href="/administrador/alquiler/imagen/{{alquiler.id}}/"><span class="glyphicon glyphicon-picture"></span></a>
+							</td>
+							<td>
+								Eliminar <a href=""><span class="glyphicon glyphicon-trash"></span></a>
+							</td>
+						</tr>
+					{%endfor%}
+				</table>
+	        </div>
+        </div>
+	</div>
+{% endblock contenido %}

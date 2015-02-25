@@ -14,6 +14,7 @@ from django.db.models import Count
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from models import *
+from django.forms.models import inlineformset_factory
 from herramientas.apps.administrador.forms import *
 from herramientas.apps.main.models import *
 import json
@@ -129,18 +130,73 @@ def venta_agregar(request):
 @login_required(login_url='/administrador/login/')
 def venta_editar(request, id_producto):
 
-	ctx={
+	editado = ''
+	venta = Venta.objects.get(id=id_producto)
+	ventaF = VentaForm(instance=venta)
+	herramientaF = HerramientaForm(instance=venta.herramienta)
+	direccionF = DireccionForm(instance=venta.direccion)
 
+	if request.POST:
+		ventaF = VentaForm(request.POST, request.FILES, instance=venta)
+		herramientaF = HerramientaForm(request.POST, instance=venta.herramienta)
+		direccionF = DireccionForm(request.POST, instance=venta.direccion)
+
+		if herramientaF.is_valid() and direccionF.is_valid():
+			herramienta = herramientaF.save(commit=False)
+			direccion = direccionF.save(commit=False)
+			if ventaF.is_valid():
+				herramienta.save()
+				direccion.save()
+				venta = ventaF.save(commit=False)
+				venta.herramienta = herramienta
+				venta.direccion = direccion
+				venta.save()
+				editado = True
+
+	ctx={
+		'VentaForm':ventaF,
+		'HerramientaForm':herramientaF,
+		'DireccionForm':direccionF,
+		'editado':editado,
 	}
 
 	return render_to_response('administrador/venta/editar.html', ctx, context_instance=RequestContext(request))
+
+
+#Vista de editar imagenes de producto de venta
+@login_required(login_url='/administrador/login/')
+def venta_imagen(request, id_producto):
+
+	editado = ''
+	venta = Venta.objects.get(id=id_producto)
+
+	imagenes = ImagenProducto.objects.filter(Producto=venta)
+
+	#Formset de imagen
+	ImagenFormset = inlineformset_factory(Producto, ImagenProducto, form = ImagenProductoForm, can_delete=True, extra=1, max_num=len(imagenes)+2, fields=['imagen', 'descripcion'])
+	ventaF = ImagenFormset(instance=venta, queryset=ImagenProducto.objects.filter(Producto=venta))
+
+	if request.POST:
+		ventaF = ImagenFormset(request.POST, request.FILES, instance=venta)
+		if ventaF.is_valid():
+			ventaF.save()
+
+	ventaF = ImagenFormset(instance=venta, queryset=ImagenProducto.objects.filter(Producto=venta))
+	
+	ctx = {
+		'Venta':venta,
+		'VentaForm':ventaF,
+		'editado':editado,
+	}
+
+	return render_to_response('administrador/venta/imagen.html', ctx, context_instance=RequestContext(request))
 
 
 #Vista de listar productos de venta en el admin
 @login_required(login_url='/administrador/login/')
 def venta_listar(request):
 
-	ventas = Venta.objects.all()
+	ventas = Venta.objects.all().order_by('id')
 
 	paginator = Paginator(ventas, 10)
 	page = request.GET.get('page')
@@ -155,10 +211,10 @@ def venta_listar(request):
 		ventas = paginator.page(paginator.num_pages)
 
 	ctx={
-
+		'ventas':ventas,
 	}
 
-	return render_to_response('administrador/venta/ventas.html', ctx, context_instance=RequestContext(request))
+	return render_to_response('administrador/venta/listar.html', ctx, context_instance=RequestContext(request))
 
 
 #Vista de agregar producto de alquiler en el admin
@@ -193,6 +249,7 @@ def alquiler_agregar(request):
 		'DireccionForm':direccionF,
 		'editado':editado,
 	}
+
 	return render_to_response('administrador/alquiler/agregar.html', ctx, context_instance=RequestContext(request))
 
 
@@ -200,22 +257,92 @@ def alquiler_agregar(request):
 @login_required(login_url='/administrador/login/')
 def alquiler_editar(request, id_producto):
 
-	ctx={
+	editado = ''
+	alquiler = Alquiler.objects.get(id=id_producto)
+	alquilerF = AlquilerForm(instance=alquiler)
+	herramientaF = HerramientaForm(instance=alquiler.herramienta)
+	direccionF = DireccionForm(instance=alquiler.direccion)
 
+	if request.POST:
+		alquilerF = AlquilerForm(request.POST, request.FILES, instance=alquiler)
+		herramientaF = HerramientaForm(request.POST, instance=alquiler.herramienta)
+		direccionF = DireccionForm(request.POST, instance=alquiler.direccion)
+
+		if herramientaF.is_valid() and direccionF.is_valid():
+			herramienta = herramientaF.save(commit=False)
+			direccion = direccionF.save(commit=False)
+			if alquilerF.is_valid():
+				herramienta.save()
+				direccion.save()
+				venta = alquilerF.save(commit=False)
+				venta.herramienta = herramienta
+				venta.direccion = direccion
+				venta.save()
+				editado = True
+
+	ctx={
+		'AlquilerForm':alquilerF,
+		'HerramientaForm':herramientaF,
+		'DireccionForm':direccionF,
+		'editado':editado,
+	}
+	
+	return render_to_response('administrador/alquiler/editar.html', ctx, context_instance=RequestContext(request))
+
+
+#Vista de editar imagenes de producto de alquiler
+@login_required(login_url='/administrador/login/')
+def alquiler_imagen(request, id_producto):
+
+	editado = ''
+	alquiler = Alquiler.objects.get(id=id_producto)
+
+	imagenes = ImagenProducto.objects.filter(Producto=alquiler)
+
+	#Formset de imagen
+	ImagenFormset = inlineformset_factory(Producto, ImagenProducto, form = ImagenProductoForm, can_delete=True, extra=1, max_num=len(imagenes)+2, fields=['imagen', 'descripcion'])
+	alquilerF = ImagenFormset(instance=alquiler, queryset=ImagenProducto.objects.filter(Producto=alquiler))
+
+	if request.POST:
+		alquilerF = ImagenFormset(request.POST, request.FILES, instance=alquiler)
+		if alquilerF.is_valid():
+			alquilerF.save()
+
+	alquilerF = ImagenFormset(instance=alquiler, queryset=ImagenProducto.objects.filter(Producto=alquiler))
+	
+	ctx = {
+		'Alquiler':alquiler,
+		'AlquilerForm':alquilerF,
+		'editado':editado,
 	}
 
-	return render_to_response('administrador/alquiler/editar.html', ctx, context_instance=RequestContext(request))
+	return render_to_response('administrador/alquiler/imagen.html', ctx, context_instance=RequestContext(request))
 
 
 #Vista de listar productos de alquiler en el admin
 @login_required(login_url='/administrador/login/')
 def alquiler_listar(request):
 
-	ctx={
+	alquileres = Alquiler.objects.all().order_by('id')
 
+	paginator = Paginator(alquileres, 10)
+	page = request.GET.get('page')
+
+	try:
+		alquileres = paginator.page(page)
+	except PageNotAnInteger:
+		# If page is not an integer, deliver first page.
+		alquileres = paginator.page(1)
+	except EmptyPage:
+		# If page is out of range (e.g. 9999), deliver last page of results.
+		alquileres = paginator.page(paginator.num_pages)
+
+	ctx={
+		'alquileres':alquileres,
 	}
 
-	return render_to_response('administrador/alquiler/alquileres.html', ctx, context_instance=RequestContext(request))
+
+	return render_to_response('administrador/alquiler/listar.html', ctx, context_instance=RequestContext(request))
 
 
 #Vista de afiliaciones en el admin
