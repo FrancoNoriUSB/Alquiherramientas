@@ -16,6 +16,14 @@ body > div > div.contenido.container-fluid > div > div.contenido > div > div > a
 	margin-right: auto;
 }
 
+body > div > div.row > div.contenido.col-lg-8.col-md-8.col-sm-8 > div > div > a > img,
+body > div > div.row > div.barra-lateral.col-lg-4.col-md-4.col-sm-4 > div.col-lg-12.col-md-12.col-sm-12.ofertas > div > img{
+	max-height: 185px !important;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+
 /*Hace que el precio de las cosas aparezca a la derecha*/
 .precio {
 	float: right;
