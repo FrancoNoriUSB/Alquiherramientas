@@ -272,9 +272,9 @@ class Pago(models.Model):
 	producto = models.ForeignKey(Producto)
 	monto = models.DecimalField(max_digits=20, decimal_places=2)
 	fecha = models.DateTimeField(auto_now_add=True)
-	usuario = models.ForeignKey(User)
 	verificado = models.BooleanField(default=False)
 
+	usuario = models.ForeignKey(User)
 
 	class Meta:
 		verbose_name = "Pago"

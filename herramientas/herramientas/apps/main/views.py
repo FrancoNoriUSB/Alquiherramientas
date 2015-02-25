@@ -476,7 +476,7 @@ def pagar(request, id_producto):
                 precio = alquilerF.cleaned_data['total']
                 dias = alquilerF.cleaned_data['dias']
                 total = alquilerF.cleaned_data['total']
-                pagoAlquiler = PagoAlquiler.objects.create(producto=razon,monto=precio,dias=dias,fecha=fecha,usuario=usuario)
+                pagoAlquiler = PagoAlquiler.objects.create(producto=razon,monto=precio,dias=dias,fecha=fecha,usuario=usuario,verificado=False)
                 email_alquiler(request, usuario.nombre, usuario.apellido, usuario.email, nombre, dias)
                 if total > 100000.00:
                     return HttpResponseRedirect('/datos/')

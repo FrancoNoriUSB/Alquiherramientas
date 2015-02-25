@@ -9,7 +9,17 @@
 {% endblock scripts %}
 {% block content %}
 	<div class="row">
-		{% autoescape off %}{{boton_mp}}{% endautoescape %}
+		<h3 class="titulo">Presione el bot&oacute;n para realizar el pago:</h3>
+		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+			<div class="thumbnail">
+				<img src="{{producto.imagen.url}}" alt="">
+				<div class="caption">
+					<h3>{{producto.titulo}}</h3>
+					<p>{{producto.contenido}}</p>
+					<p class="text-center">{% autoescape off %}{{boton_mp}}{% endautoescape %}</p>
+				</div>
+			</div>
+		</div>
 	</div>
 {% endblock content %}
 
