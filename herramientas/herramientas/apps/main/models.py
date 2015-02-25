@@ -218,8 +218,8 @@ class Producto(models.Model):
 	fecha_expiracion = models.DateField(null=True)
 
 	#Claves foraneas
-	direccion = models.ForeignKey(Direccion)
-	herramienta = models.OneToOneField(Herramienta)
+	direccion = models.ForeignKey(Direccion, on_delete=models.CASCADE)
+	herramienta = models.OneToOneField(Herramienta, on_delete=models.CASCADE)
 
 	class Meta:
 		ordering = ('titulo',)

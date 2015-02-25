@@ -9,7 +9,6 @@ from models import *
 from forms import *
 
 
-
 class UserAdmin(UserAdmin):
     # The forms to add and change user instances
     form = UserChangeForm
@@ -38,6 +37,7 @@ class UserAdmin(UserAdmin):
 
 # Now register the new UserAdmin...
 admin.site.register(User, UserAdmin)
+admin.site.register(Banner)
 # ... and, since we're not using Django's built-in permissions,
 # unregister the Group model from admin.
 admin.site.unregister(Group)

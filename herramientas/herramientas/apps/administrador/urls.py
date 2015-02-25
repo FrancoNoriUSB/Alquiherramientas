@@ -24,6 +24,7 @@ urlpatterns = patterns('herramientas.apps.administrador.views',
     url(r'^administrador/alquiler/editar/(?P<id_producto>[0-9A-Za-z]+)/$', 'alquiler_editar', name='alquiler_editar'),
     url(r'^administrador/alquiler/imagen/(?P<id_producto>[0-9A-Za-z]+)/$', 'alquiler_imagen', name='alquiler_imagen'),
     url(r'^administrador/alquiler/listar/$', 'alquiler_listar', name='alquiler_listar'),
+    url(r'^administrador/alquiler/eliminar/(?P<id_producto>[0-9A-Za-z]+)/$', 'alquiler_eliminar', name='alquiler_eliminar'),
 
 	#Url de afiliacion de usuarios
     url(r'^administrador/afiliacion/$', 'afiliacion_admin', name='afiliacion_admin'),
@@ -35,7 +36,10 @@ urlpatterns = patterns('herramientas.apps.administrador.views',
     url(r'^administrador/banners/$', 'banners_admin', name='banners_admin'),
 
 	#Url de usuarios
-    url(r'^administrador/usuarios/$', 'usuarios_admin', name='usuarios_admin'),
+    url(r'^administrador/usuario/listar/$', 'usuario_listar', name='usuario_listar'),
+    url(r'^administrador/usuario/bloquear/(?P<id_usuario>[0-9A-Za-z]+)/$', 'usuario_bloquear', name='usuario_bloquear'),
+    url(r'^administrador/usuario/desbloquear/(?P<id_usuario>[0-9A-Za-z]+)/$', 'usuario_desbloquear', name='usuario_desbloquear'),
+    url(r'^administrador/usuario/eliminar/(?P<id_usuario>[0-9A-Za-z]+)/$', 'usuario_eliminar', name='usuario_eliminar'),
 
 	#Url de configuracion
     url(r'^administrador/configuracion/$', 'configuracion_admin', name='configuracion_admin'),
@@ -45,31 +49,37 @@ urlpatterns = patterns('herramientas.apps.administrador.views',
 
     #Urls de categorias
     url(r'^administrador/categoria/agregar/$', 'categoria_agregar', name='categoria_agregar'),
-    url(r'^administrador/categoria/editar/(?P<id_categoria>[0-9A-Za-z]+)/$', 'categoria_editar', name='alquiler_editar'),
+    url(r'^administrador/categoria/editar/(?P<id_categoria>[0-9A-Za-z]+)/$', 'categoria_editar', name='categoria_editar'),
     url(r'^administrador/categoria/listar/$', 'categoria_listar', name='categoria_listar'),
+    url(r'^administrador/categoria/eliminar/(?P<id_categoria>[0-9A-Za-z]+)/$', 'categoria_eliminar', name='categoria_eliminar'),
 
     #Urls de marcas
     url(r'^administrador/marca/agregar/$', 'marca_agregar', name='marca_agregar'),
     url(r'^administrador/marca/editar/(?P<id_marca>[0-9A-Za-z]+)/$', 'marca_editar', name='marca_editar'),
     url(r'^administrador/marca/listar/$', 'marca_listar', name='marca_listar'),
+    url(r'^administrador/marca/eliminar/(?P<id_marca>[0-9A-Za-z]+)/$', 'marca_eliminar', name='marca_eliminar'),
 
     #Urls de modelos
     url(r'^administrador/modelo/agregar/$', 'modelo_agregar', name='modelo_agregar'),
     url(r'^administrador/modelo/editar/(?P<id_modelo>[0-9A-Za-z]+)/$', 'modelo_editar', name='modelo_editar'),
     url(r'^administrador/modelo/listar/$', 'modelo_listar', name='modelo_listar'),
+    url(r'^administrador/modelo/eliminar/(?P<id_modelo>[0-9A-Za-z]+)/$', 'modelo_eliminar', name='modelo_eliminar'),
 
     #Urls de estados
     url(r'^administrador/estado/agregar/$', 'estado_agregar', name='estado_agregar'),
     url(r'^administrador/estado/editar/(?P<id_estado>[0-9A-Za-z]+)/$', 'estado_editar', name='estado_editar'),
     url(r'^administrador/estado/listar/$', 'estado_listar', name='estado_listar'),
+    url(r'^administrador/estado/eliminar/(?P<id_estado>[0-9A-Za-z]+)/$', 'estado_eliminar', name='estado_eliminar'),
 
     #Urls de ciudad
     url(r'^administrador/ciudad/agregar/$', 'ciudad_agregar', name='ciudad_agregar'),
     url(r'^administrador/ciudad/editar/(?P<id_ciudad>[0-9A-Za-z]+)/$', 'ciudad_editar', name='ciudad_editar'),
     url(r'^administrador/ciudad/listar/$', 'ciudad_listar', name='ciudad_listar'),
+    url(r'^administrador/ciudad/eliminar/(?P<id_ciudad>[0-9A-Za-z]+)/$', 'ciudad_eliminar', name='ciudad_eliminar'),
 
     #Urls de zonas
     url(r'^administrador/zona/agregar/$', 'zona_agregar', name='zona_agregar'),
     url(r'^administrador/zona/editar/(?P<id_zona>[0-9A-Za-z]+)/$', 'zona_editar', name='zona_editar'),
     url(r'^administrador/zona/listar/$', 'zona_listar', name='zona_listar'),
+    url(r'^administrador/zona/eliminar/(?P<id_zona>[0-9A-Za-z]+)/$', 'zona_eliminar', name='zona_eliminar'),
 )

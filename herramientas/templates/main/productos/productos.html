@@ -35,5 +35,24 @@
             <strong>Estado:</strong> {{producto.direccion.estado.nombre}} <br> 
 		</div>
 		{%endfor%}
+        <div class="paginacion row">
+            <div class="col-lg-12 col-md-12">
+                <nav>
+                  <ul class="pagination">
+                    {% if productos.has_previous %}
+                        <li>
+                            <a href="?page={{ productos.previous_page_number }}">&laquo;</a>
+                        </li>
+                    {% endif %}
+                        <li><a href="">{{ productos.number }}</a></li>
+                    {% if productos.has_next %}
+                        <li>
+                            <a href="?page={{ productos.next_page_number }}">&raquo;</a>
+                        </li>
+                    {% endif %}
+                  </ul>
+                </nav>
+            </div>
+        </div>
 	</div>
 {% endblock content %}

@@ -13,27 +13,27 @@
 <h3 class="titulo">Anuncios Venta/Alquiler</h3>
 	<div class="row">
 		{%for producto in productos%}
-		<div class="col-lg-4 col-md-4 col-sm-9 col-xs-9">
-			<a href="/productos/{{producto.id}}/">
-				<img class="img-responsive" src="{{producto.imagen.url}}" alt="">
-			</a>
-			<h4>{{producto.titulo}}</h4>
-            <div class="divider"></div>
-            {%if producto.alquiler%}
-            	<p class="precio"> {{producto.alquiler.precio}} (por d&iacute;a) </p> <strong class="tipo"> Alquiler</strong> 
-            {%else%}
-				<p class="precio"> {{producto.venta.precio|floatformat|intcomma}}</p> <strong class="tipo"> Venta</strong>
-            {%endif%}
-            <br>
-            <strong>Marca:</strong> {{producto.herramienta.marca.nombre}}
-            <br>
-			<strong>A&ntilde;o:</strong> {{producto.herramienta.ano}}
-            <br>
-            <a href="/productos/{{producto.id}}/">
-                <button class="btn btn-primary boton ver-mas">ver +</button>
-            </a>
-            <strong>Estado:</strong> {{producto.direccion.estado.nombre}} <br> 
-		</div>
+    		<div class="col-lg-4 col-md-4 col-sm-9 col-xs-9">
+    			<a href="/productos/{{producto.id}}/">
+    				<img class="img-responsive" src="{{producto.imagen.url}}" alt="">
+    			</a>
+    			<h4>{{producto.titulo}}</h4>
+                <div class="divider"></div>
+                {%if producto.alquiler%}
+                	<p class="precio"> {{producto.alquiler.precio}} (por d&iacute;a) </p> <strong class="tipo"> Alquiler</strong> 
+                {%else%}
+    				<p class="precio"> {{producto.venta.precio|floatformat|intcomma}}</p> <strong class="tipo"> Venta</strong>
+                {%endif%}
+                <br>
+                <strong>Marca:</strong> {{producto.herramienta.marca.nombre}}
+                <br>
+    			<strong>A&ntilde;o:</strong> {{producto.herramienta.ano}}
+                <br>
+                <a href="/productos/{{producto.id}}/">
+                    <button class="btn btn-primary boton ver-mas">ver +</button>
+                </a>
+                <strong>Estado:</strong> {{producto.direccion.estado.nombre}} <br> 
+    		</div>
         {%empty%}
             <h3>Lo sentimos, no se encontraron productos con estos datos.</h3>
             <h4>Redefine los campos de b&uacute;squeda para encontrar lo que buscas.</h4>
@@ -58,7 +58,6 @@
                 </nav>
             </div>
         </div>
-        
 	</div>
 {% endblock content %}
 

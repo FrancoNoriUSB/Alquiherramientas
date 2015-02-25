@@ -37,7 +37,26 @@
         <div class="banners container">
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-hidden">
-                    <img class="img-responsive" src="{{STATIC_URL}}files/img/banner-alquiherramienta.png" alt="">
+                    <!-- Slider de imagenes -->
+                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner" role="listbox">
+                            {%for banner in banners%}
+                                {%if forloop.first%}
+                                <div class="item active">
+                                    <img class="img-responsive" src="{{banner.imagen.url}}" alt="{{banner.nombre}}">
+                                    <div class="carousel-caption">
+                                    </div>
+                                </div>
+                                {%else%}
+                                <div class="item">
+                                    <img class="img-responsive"  src="{{banner.imagen.url}}" alt="{{banner.nombre}}">
+                                    <div class="carousel-caption">
+                                    </div>
+                                </div>
+                                {%endif%}
+                            {%endfor%}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

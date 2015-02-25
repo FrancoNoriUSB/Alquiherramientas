@@ -1,1 +1,30 @@
 {%extends "administrador/base.html"%}
+{% load bootstrap3 %}
+
+{% block contenido %}
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+				<h3>Configuraci&oacute;n:</h3>
+				{%if editado%}
+					<div class="alert alert-success alert-dismissible" role="alert">
+						<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<strong>Guardado!</strong> Se ha guardado la informaci&oacute;n con &eacute;xito!
+					</div>
+				{%endif%}
+				<br>
+				<form id="form" role="form" enctype="multipart/form-data" method="post" action="">
+		        {% csrf_token %}
+					{%bootstrap_form UserChangeForm%}
+		            <div class="form-group">
+		                {% buttons %}
+		                    <button type="submit" class="btn btn-primary">
+		                        Publicar
+		                    </button>
+		                {% endbuttons %}
+		            </div>
+		        </form>
+	        </div>
+        </div>
+	</div>
+{% endblock contenido %}

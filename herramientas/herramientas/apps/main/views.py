@@ -18,6 +18,7 @@ from funciones import *
 from models import *
 from forms import *
 from herramientas.apps.administrador.forms import LoginForm, UserCreationForm
+from herramientas.apps.administrador.models import Banner
 import json
 
 # Mercadopago
@@ -39,6 +40,9 @@ def inicio(request):
 
     #Formulario de ingreso
     loginF = LoginForm()
+
+    #Banners superiores
+    banners = Banner.objects.all().order_by('id')
 
     # Ofertas de los productos
     ofertas = []
@@ -125,7 +129,6 @@ def inicio(request):
                 else:
                     productos_list = dynamic_query(Producto, fields_list, types_list, values_list, operator)
 
-    #Busqueda de propiedades en el pais actual
     productos_list = tuple(productos_list)
     paginator = Paginator(productos_list, 6)
     page = request.GET.get('page')
@@ -166,6 +169,7 @@ def inicio(request):
         'productos':productos,
         'UsuarioForm':usuarioF,
         'LoginForm':loginF,
+        'banners':banners,
         'ciudades':ciudades,
         'zonas':zonas,
     }
@@ -184,6 +188,9 @@ def empresa(request):
 
     #Formulario de ingreso
     loginF = LoginForm()
+
+    #Banners superiores
+    banners = Banner.objects.all().order_by('id')
 
     #Ciudades
     ciudades = Ciudad.objects.all()
@@ -210,6 +217,7 @@ def empresa(request):
         'ofertas':ofertas,
         'UsuarioForm':usuarioF,
         'LoginForm':loginF,
+        'banners':banners,
         'ciudades':ciudades,
         'zonas':zonas,
     }
@@ -228,6 +236,9 @@ def productos(request, palabra):
 
     #Formulario de ingreso
     loginF = LoginForm()
+
+    #Banners superiores
+    banners = Banner.objects.all().order_by('id')
 
     #Ciudades
     ciudades = {}
@@ -255,6 +266,19 @@ def productos(request, palabra):
             usuarioF.save()
             return HttpResponseRedirect('/')
 
+    #Busqueda de propiedades en el pais actual
+    paginator = Paginator(productos, 6)
+    page = request.GET.get('page')
+
+    try:
+        productos = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        productos = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        productos = paginator.page(paginator.num_pages)
+
     #Preparar el objeto Json de las ciudades
     for estado in Estado.objects.all():
         ciudades[estado.id] = dict(Ciudad.objects.filter(estado=estado).values_list('id', 'nombre'))
@@ -273,6 +297,7 @@ def productos(request, palabra):
         'productos':productos,
         'UsuarioForm':usuarioF,
         'LoginForm':loginF,
+        'banners':banners,
         'ciudades':ciudades,
         'zonas':zonas,
     }
@@ -291,6 +316,9 @@ def producto(request, id_producto):
 
     #Formulario de ingreso
     loginF = LoginForm()
+
+    #Banners superiores
+    banners = Banner.objects.all().order_by('id')
 
     # Formulario de contacto
     contactoF = ContactoForm()
@@ -366,6 +394,7 @@ def producto(request, id_producto):
     ctx = {
         'BusquedaForm':busquedaF,
         'LoginForm':loginF,
+        'banners':banners,
         'UsuarioForm':usuarioF,
         'ofertas':ofertas,
         'producto':producto,
@@ -393,6 +422,9 @@ def pagar(request, id_producto):
     #Formulario de ingreso
     loginF = LoginForm()
 
+    #Banners superiores
+    banners = Banner.objects.all().order_by('id')
+    
     # Formulario de contacto
     contactoF = ContactoForm()
 
@@ -440,6 +472,7 @@ def pagar(request, id_producto):
         'producto': producto,
         'UsuarioForm':usuarioF,
         'LoginForm':loginF,
+        'banners':banners,
         'ciudades':ciudades,
         'zonas':zonas,
         'contactoF': contactoF,
@@ -463,6 +496,9 @@ def datos(request):
     #Formulario de ingreso
     loginF = LoginForm()
 
+    #Banners superiores
+    banners = Banner.objects.all().order_by('id')
+    
     #Ciudades
     ciudades = Ciudad.objects.all()
     
@@ -488,6 +524,7 @@ def datos(request):
         'ofertas':ofertas,
         'UsuarioForm':usuarioF,
         'LoginForm':loginF,
+        'banners':banners,
         'ciudades':ciudades,
         'zonas':zonas,
     }
@@ -532,6 +569,9 @@ def afiliacion(request):
     #Formulario de ingreso
     loginF = LoginForm()
 
+    #Banners superiores
+    banners = Banner.objects.all().order_by('id')
+    
     #Ciudades
     ciudades = Ciudad.objects.all()
     
@@ -557,6 +597,7 @@ def afiliacion(request):
         'ofertas':ofertas,
         'UsuarioForm':usuarioF,
         'LoginForm':loginF,
+        'banners':banners,
         'ciudades':ciudades,
         'zonas':zonas,
     }
@@ -579,6 +620,9 @@ def contactos(request):
     #Formulario de ingreso
     loginF = LoginForm()
 
+    #Banners superiores
+    banners = Banner.objects.all().order_by('id')
+    
     #Ciudades
     ciudades = Ciudad.objects.all()
     
@@ -615,6 +659,7 @@ def contactos(request):
         'ContactoForm':contactoF,
         'UsuarioForm':usuarioF,
         'LoginForm':loginF,
+        'banners':banners,
         'ciudades':ciudades,
         'zonas':zonas,
     }

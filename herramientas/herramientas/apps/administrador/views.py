@@ -14,9 +14,10 @@ from django.db.models import Count
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from models import *
-from django.forms.models import inlineformset_factory
+from django.forms.models import inlineformset_factory, modelformset_factory
 from herramientas.apps.administrador.forms import *
 from herramientas.apps.main.models import *
+from herramientas.apps.administrador.models import *
 import json
 
 
@@ -201,6 +202,7 @@ def venta_listar(request):
 	paginator = Paginator(ventas, 10)
 	page = request.GET.get('page')
 
+
 	try:
 		ventas = paginator.page(page)
 	except PageNotAnInteger:
@@ -215,6 +217,15 @@ def venta_listar(request):
 	}
 
 	return render_to_response('administrador/venta/listar.html', ctx, context_instance=RequestContext(request))
+
+
+#Vista de eliminar venta
+@login_required(login_url='/administrador/login/')
+def venta_eliminar(request, id_producto):
+
+    venta = get_object_or_404(Venta, producto__id=id_producto)
+    venta.delete()
+    return HttpResponseRedirect('/administrador/venta/listar/')
 
 
 #Vista de agregar producto de alquiler en el admin
@@ -345,6 +356,15 @@ def alquiler_listar(request):
 	return render_to_response('administrador/alquiler/listar.html', ctx, context_instance=RequestContext(request))
 
 
+#Vista de eliminar alquiler
+@login_required(login_url='/administrador/login/')
+def alquiler_eliminar(request, id_producto):
+
+    alquiler = get_object_or_404(Alquiler, id=id_producto)
+    alquiler.delete()
+    return HttpResponseRedirect('/administrador/alquiler/listar/')
+
+
 #Vista de afiliaciones en el admin
 @login_required(login_url='/administrador/login/')
 def afiliacion_admin(request):
@@ -367,12 +387,27 @@ def contactos_admin(request):
 	return render_to_response('administrador/contactos/contactos.html', ctx, context_instance=RequestContext(request))
 
 
-#Vista de la empresa en el admin
+#Vista de los banners
 @login_required(login_url='/administrador/login/')
 def banners_admin(request):
 
-	ctx={
+	editado = ''
 
+	banners = Banner.objects.all()
+
+	#Formset de imagen
+	BannerFormset = modelformset_factory(Banner,  form=BannerForm, can_delete=True, extra=1, max_num=len(banners)+2, fields=['nombre', 'imagen', 'url'])
+	bannerF = BannerFormset(queryset=Banner.objects.all())
+
+	if request.POST:
+		bannerF = BannerFormset(request.POST, request.FILES)
+		if bannerF.is_valid():
+			bannerF.save()
+
+	bannerF = BannerFormset(queryset=Banner.objects.all())
+	
+	ctx = {
+		'BannerForm':bannerF,
 	}
 
 	return render_to_response('administrador/banners/banners.html', ctx, context_instance=RequestContext(request))
@@ -380,32 +415,78 @@ def banners_admin(request):
 
 #Vista de la empresa en el admin
 @login_required(login_url='/administrador/login/')
-def usuarios_admin(request):
+def usuario_listar(request):
+
+	usuarios = User.objects.all().order_by('id')
+
+	paginator = Paginator(usuarios, 10)
+	page = request.GET.get('page')
+	
+
+	try:
+		usuarios = paginator.page(page)
+	except PageNotAnInteger:
+		# If page is not an integer, deliver first page.
+		usuarios = paginator.page(1)
+	except EmptyPage:
+		# If page is out of range (e.g. 9999), deliver last page of results.
+		usuarios = paginator.page(paginator.num_pages)
 
 	ctx={
-
+		'usuarios':usuarios,
 	}
 
-	return render_to_response('administrador/usuarios/usuarios.html', ctx, context_instance=RequestContext(request))
+	return render_to_response('administrador/usuarios/listar.html', ctx, context_instance=RequestContext(request))
+
+
+#Vista de la empresa en el admin
+@login_required(login_url='/administrador/login/')
+def usuario_bloquear(request, id_usuario):
+
+	usuario = User.objects.get(id=id_usuario)
+	usuario.is_active = False
+	usuario.save()
+
+	return HttpResponseRedirect('/administrador/usuario/listar/')
+
+
+#Vista de la empresa en el admin
+@login_required(login_url='/administrador/login/')
+def usuario_desbloquear(request, id_usuario):
+
+	usuario = User.objects.get(id=id_usuario)
+	usuario.is_active = True
+	usuario.save()
+
+	return HttpResponseRedirect('/administrador/usuario/listar/')
+
+
+#Vista de eliminar usuario
+@login_required(login_url='/administrador/login/')
+def usuario_eliminar(request, id_usuario):
+
+    usuario = get_object_or_404(User, id=id_usuario)
+    usuario.delete()
+    return HttpResponseRedirect('/administrador/usuario/listar/')
 
 
 #Vista de la empresa en el admin
 @login_required(login_url='/administrador/login/')
 def configuracion_admin(request):
 
+	editado = ''
+	user = User.objects.get(email=request.user.email)
+	userF = UserChangeForm(instance=user)
+	
+	if request.POST:
+		userF = UserChangeForm(request.POST, instance=user)
+		if userF.is_valid():
+			userF.save()
+			editado = True
+
 	ctx={
-
-	}
-
-	return render_to_response('administrador/configuracion/configuracion.html', ctx, context_instance=RequestContext(request))
-
-
-#Vista de la empresa en el admin
-@login_required(login_url='/administrador/login/')
-def configuracion_admin(request):
-
-	ctx={
-
+		'UserChangeForm':userF,
+		'editado':editado,
 	}
 
 	return render_to_response('administrador/configuracion/configuracion.html', ctx, context_instance=RequestContext(request))
@@ -460,11 +541,33 @@ def categoria_listar(request):
 
 	categorias = Categoria.objects.all().order_by('id')
 
+	paginator = Paginator(categorias, 10)
+	page = request.GET.get('page')
+	
+
+	try:
+		categorias = paginator.page(page)
+	except PageNotAnInteger:
+		# If page is not an integer, deliver first page.
+		categorias = paginator.page(1)
+	except EmptyPage:
+		# If page is out of range (e.g. 9999), deliver last page of results.
+		categorias = paginator.page(paginator.num_pages)
+
 	ctx={
 		"categorias":categorias,
 	}
 
 	return render_to_response('administrador/categoria/listar.html', ctx, context_instance=RequestContext(request))
+
+
+#Vista de eliminar categoria
+@login_required(login_url='/administrador/login/')
+def categoria_eliminar(request, id_categoria):
+
+    categoria = get_object_or_404(Categoria, id=id_categoria)
+    categoria.delete()
+    return HttpResponseRedirect('/administrador/categoria/listar/')
 
 
 #Vista para agregar marcas
@@ -518,11 +621,33 @@ def marca_listar(request):
 
 	marcas = Marca.objects.all().order_by('id')
 
+	paginator = Paginator(marcas, 10)
+	page = request.GET.get('page')
+	
+
+	try:
+		marcas = paginator.page(page)
+	except PageNotAnInteger:
+		# If page is not an integer, deliver first page.
+		marcas = paginator.page(1)
+	except EmptyPage:
+		# If page is out of range (e.g. 9999), deliver last page of results.
+		marcas = paginator.page(paginator.num_pages)
+
 	ctx={
 		"marcas":marcas,
 	}
 
 	return render_to_response('administrador/marca/listar.html', ctx, context_instance=RequestContext(request))
+
+
+#Vista de eliminar marca
+@login_required(login_url='/administrador/login/')
+def marca_eliminar(request, id_marca):
+
+    marca = get_object_or_404(Marca, id=id_marca)
+    marca.delete()
+    return HttpResponseRedirect('/administrador/marca/listar/')
 
 
 #Vista para agregar modelos
@@ -574,11 +699,33 @@ def modelo_listar(request):
 
 	modelos = Modelo.objects.all().order_by('id')
 
+	paginator = Paginator(modelos, 10)
+	page = request.GET.get('page')
+	
+
+	try:
+		modelos = paginator.page(page)
+	except PageNotAnInteger:
+		# If page is not an integer, deliver first page.
+		modelos = paginator.page(1)
+	except EmptyPage:
+		# If page is out of range (e.g. 9999), deliver last page of results.
+		modelos = paginator.page(paginator.num_pages)
+
 	ctx={
 		"modelos":modelos,
 	}
 
 	return render_to_response('administrador/modelo/listar.html', ctx, context_instance=RequestContext(request))
+
+
+#Vista de eliminar modelo
+@login_required(login_url='/administrador/login/')
+def modelo_eliminar(request, id_modelo):
+
+    modelo = get_object_or_404(Modelo, id=id_modelo)
+    modelo.delete()
+    return HttpResponseRedirect('/administrador/modelo/listar/')
 
 
 #Vista para agregar estados
@@ -630,11 +777,33 @@ def estado_listar(request):
 
 	estados = Estado.objects.all().order_by('id')
 
+	paginator = Paginator(estados, 10)
+	page = request.GET.get('page')
+	
+
+	try:
+		estados = paginator.page(page)
+	except PageNotAnInteger:
+		# If page is not an integer, deliver first page.
+		estados = paginator.page(1)
+	except EmptyPage:
+		# If page is out of range (e.g. 9999), deliver last page of results.
+		estados = paginator.page(paginator.num_pages)
+
 	ctx={
 		"estados":estados,
 	}
 
 	return render_to_response('administrador/estado/listar.html', ctx, context_instance=RequestContext(request))
+
+
+#Vista de eliminar estado
+@login_required(login_url='/administrador/login/')
+def estado_eliminar(request, id_estado):
+
+    estado = get_object_or_404(Estado, id=id_estado)
+    estado.delete()
+    return HttpResponseRedirect('/administrador/estado/listar/')
 
 
 #Vista para agregar ciudades
@@ -686,11 +855,33 @@ def ciudad_listar(request):
 
 	ciudades = Ciudad.objects.all().order_by('id')
 
+	paginator = Paginator(ciudades, 10)
+	page = request.GET.get('page')
+	
+
+	try:
+		ciudades = paginator.page(page)
+	except PageNotAnInteger:
+		# If page is not an integer, deliver first page.
+		ciudades = paginator.page(1)
+	except EmptyPage:
+		# If page is out of range (e.g. 9999), deliver last page of results.
+		ciudades = paginator.page(paginator.num_pages)
+
 	ctx={
 		"ciudades":ciudades,
 	}
 
 	return render_to_response('administrador/ciudad/listar.html', ctx, context_instance=RequestContext(request))
+
+
+#Vista de eliminar ciudad
+@login_required(login_url='/administrador/login/')
+def ciudad_eliminar(request, id_ciudad):
+
+    ciudad = get_object_or_404(Ciudad, id=id_ciudad)
+    ciudad.delete()
+    return HttpResponseRedirect('/administrador/ciudad/listar/')
 
 
 #Vista para agregar zonas
@@ -742,11 +933,33 @@ def zona_listar(request):
 
 	zonas = Zona.objects.all().order_by('id')
 
+	paginator = Paginator(zonas, 10)
+	page = request.GET.get('page')
+	
+
+	try:
+		zonas = paginator.page(page)
+	except PageNotAnInteger:
+		# If page is not an integer, deliver first page.
+		zonas = paginator.page(1)
+	except EmptyPage:
+		# If page is out of range (e.g. 9999), deliver last page of results.
+		zonas = paginator.page(paginator.num_pages)
+
 	ctx={
 		"zonas":zonas,
 	}
 
 	return render_to_response('administrador/zona/listar.html', ctx, context_instance=RequestContext(request))
+
+
+#Vista de eliminar zona
+@login_required(login_url='/administrador/login/')
+def zona_eliminar(request, id_zona):
+
+    zona = get_object_or_404(Zona, id=id_zona)
+    zona.delete()
+    return HttpResponseRedirect('/administrador/zona/listar/')
 
 
 #Vista para cerrar la sesion

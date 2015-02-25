@@ -57,13 +57,19 @@
 								{{alquiler.pago.usuario.nombre}}
 							</td>
 							<td>
-								Editar <a href="/administrador/alquiler/editar/{{alquiler.id}}/"><span class="glyphicon glyphicon-pencil"></span></a>
+								<a href="/administrador/alquiler/editar/{{alquiler.id}}/">Editar <span class="glyphicon glyphicon-pencil"></span></a>
 							</td>
 							<td>
-								Im&aacute;genes <a href="/administrador/alquiler/imagen/{{alquiler.id}}/"><span class="glyphicon glyphicon-picture"></span></a>
+								<a href="/administrador/alquiler/imagen/{{alquiler.id}}/">Im&aacute;genes <span class="glyphicon glyphicon-picture"></span></a>
 							</td>
 							<td>
-								Eliminar <a href=""><span class="glyphicon glyphicon-trash"></span></a>
+								<a class="eliminar_bot" style="cursor:pointer;">Eliminar 
+									<span class="glyphicon glyphicon-trash"></span>
+
+									<form action="." method="POST" id="eliminar">
+										<input id="id_eliminar" type="hidden" value="{{alquiler.id|safe}}">
+									</form>
+								</a>
 							</td>
 						</tr>
 					{%endfor%}
@@ -72,3 +78,18 @@
         </div>
 	</div>
 {% endblock contenido %}
+
+{%block js%}
+<script>
+/*Funcion que hace el submit para eliminar el alquiler*/
+$( document ).ready(function(){
+	$( ".eliminar_bot" ).click(function(){
+		var form = $(this).children('form:first');
+		var bar = $("input[id='id_eliminar']",form).val();
+		if (confirm("Esta seguro de querer eliminar este alquiler?")==true){
+			window.location.replace("/administrador/alquiler/eliminar/"+bar+"/");
+		}
+	});
+});
+</script>
+{%endblock js%}

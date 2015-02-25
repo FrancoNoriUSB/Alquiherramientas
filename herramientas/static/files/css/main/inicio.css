@@ -17,6 +17,13 @@ body > div > div.contenido.container-fluid > div > div.contenido.col-lg-9.col-md
 	float: right;
 }
 
+body > div > div.row > div.contenido.col-lg-8.col-md-8.col-sm-8 > div > div > a > img,
+body > div > div.row > div.barra-lateral.col-lg-4.col-md-4.col-sm-4 > div.col-lg-12.col-md-12.col-sm-12.ofertas > div > img{
+	max-height: 185px !important;
+	margin-left: auto;
+	margin-right: auto;
+}
+
 body > div > div.contenido.container-fluid > div > div.contenido > div > div > a > img{
 	height: 180px !important;
 	margin-left: auto;

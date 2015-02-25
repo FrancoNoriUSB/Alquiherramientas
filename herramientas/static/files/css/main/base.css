@@ -15,7 +15,7 @@ body > header > nav{
 	background-image: linear-gradient(#625D53 0%, #625D53 100%) !important;
 }
 
-body > header > div > div > div > img{
+#carousel-example-generic > div > div > img{
 	margin-left: auto;
 	margin-right: auto;
 }

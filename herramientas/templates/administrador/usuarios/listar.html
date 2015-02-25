@@ -1,0 +1,115 @@
+{%extends "administrador/base.html"%}
+{% load bootstrap3 %}
+
+{% block contenido %}
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+				<h3>Usuarios:</h3>
+				<table class="table table-striped">
+					<tr>
+						<td>
+							ID
+						</td>
+						<td>
+							Nombre y apellido
+						</td>
+						<td>
+							Correo
+						</td>
+						<td>
+							Cedula
+						</td>
+						<td>
+							Ciudad
+						</td>
+						<td>
+							Status
+						</td>
+						<td>
+							Bloquear/Desbloquear
+						</td>
+						<td>
+							Eliminar
+						</td>
+					</tr>
+					{%for usuario in usuarios%}
+						<tr>
+							<td>
+								{{usuario.id}}
+							</td>
+							<td>
+								{{usuario.nombre}} {{usuario.apellido}}
+							</td>
+							<td>
+								{{usuario.email}}
+							</td>
+							<td>
+								{{usuario.nacionalidad}}-{{usuario.cedula}}
+							</td>
+							<td>
+								{{usuario.ciudad}}
+							</td>
+							<td>
+								{%if usuario.is_active%}
+									Activo
+								{%else%}
+									Bloqueado
+								{%endif%}
+							</td>
+							<td>
+								{%if usuario.is_active%}
+									<a href="/administrador/usuario/bloquear/{{usuario.id}}/">Bloquear <span class="glyphicon glyphicon-ban-circle"></span></a>
+								{%else%}
+									<a href="/administrador/usuario/desbloquear/{{usuario.id}}/">Desbloquear <span class="glyphicon glyphicon-ok-circle"></span></a>
+								{%endif%}
+							</td>
+							<td>
+								<a class="eliminar_bot" style="cursor:pointer;">Eliminar 
+									<span class="glyphicon glyphicon-trash"></span>
+
+									<form action="." method="POST" id="eliminar">
+										<input id="id_eliminar" type="hidden" value="{{usuario.id|safe}}">
+									</form>
+								</a>
+							</td>
+						</tr>
+					{%endfor%}
+				</table>
+	        </div>
+        </div>
+        <div class="paginacion row">
+            <div class="col-lg-12 col-md-12">
+                <nav>
+                  <ul class="pagination">
+                    {% if usuarios.has_previous %}
+                        <li>
+                            <a href="?page={{ usuarios.previous_page_number }}">&laquo;</a>
+                        </li>
+                    {% endif %}
+                        <li><a href="">{{ usuarios.number }}</a></li>
+                    {% if usuarios.has_next %}
+                        <li>
+                            <a href="?page={{ usuarios.next_page_number }}">&raquo;</a>
+                        </li>
+                    {% endif %}
+                  </ul>
+                </nav>
+            </div>
+        </div>
+	</div>
+{% endblock contenido %}
+{%block js%}
+<script>
+/*Funcion que hace el submit para eliminar el usuario*/
+$( document ).ready(function(){
+	$( ".eliminar_bot" ).click(function(){
+		var form = $(this).children('form:first');
+		var bar = $("input[id='id_eliminar']",form).val();
+		if (confirm("Esta seguro de querer eliminar este usuario?")==true){
+			window.location.replace("/administrador/usuario/eliminar/"+bar+"/");
+		}
+	});
+});
+</script>
+{%endblock js%}

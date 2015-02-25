@@ -30,15 +30,54 @@
 								{{estado.nombre}}
 							</td>
 							<td>
-								Editar <a href=""><span class="glyphicon glyphicon-pencil"></span></a>
+								<a href="">Editar <span class="glyphicon glyphicon-pencil"></span></a>
 							</td>
 							<td>
-								Eliminar <a href=""><span class="glyphicon glyphicon-trash"></span></a>
+								<a class="eliminar_bot" style="cursor:pointer;">Eliminar 
+									<span class="glyphicon glyphicon-trash"></span>
+
+									<form action="." method="POST" id="eliminar">
+										<input id="id_eliminar" type="hidden" value="{{estado.id|safe}}">
+									</form>
+								</a>
 							</td>
 						</tr>
 					{%endfor%}
 				</table>
 	        </div>
         </div>
+        <div class="paginacion row">
+            <div class="col-lg-12 col-md-12">
+                <nav>
+                  <ul class="pagination">
+                    {% if estados.has_previous %}
+                        <li>
+                            <a href="?page={{ estados.previous_page_number }}">&laquo;</a>
+                        </li>
+                    {% endif %}
+                        <li><a href="">{{ estados.number }}</a></li>
+                    {% if estados.has_next %}
+                        <li>
+                            <a href="?page={{ estados.next_page_number }}">&raquo;</a>
+                        </li>
+                    {% endif %}
+                  </ul>
+                </nav>
+            </div>
+        </div>
 	</div>
 {% endblock contenido %}
+{%block js%}
+<script>
+/*Funcion que hace el submit para eliminar el estado*/
+$( document ).ready(function(){
+	$( ".eliminar_bot" ).click(function(){
+		var form = $(this).children('form:first');
+		var bar = $("input[id='id_eliminar']",form).val();
+		if (confirm("Esta seguro de querer eliminar este estado?")==true){
+			window.location.replace("/administrador/estado/eliminar/"+bar+"/");
+		}
+	});
+});
+</script>
+{%endblock js%}

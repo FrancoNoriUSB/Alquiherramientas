@@ -15,6 +15,9 @@
     <!--CSS -->
     <link rel="stylesheet" href="{{STATIC_URL}}bootstrap/css/bootstrap.min.css">
 
+    <!-- jQuery -->
+    <script src="http://code.jquery.com/jquery.js"></script>
+
     <!-- Optional theme -->
     <link rel="stylesheet" href="{{STATIC_URL}}bootstrap/css/bootstrap-theme.min.css">
 
@@ -230,16 +233,10 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="/administrador/afiliacion/">Afiliaci&oacute;n</a>
-                        </li>
-                        <li>
-                            <a href="/administrador/contactos/">Contactos</a>
-                        </li>
-                        <li>
                             <a href="/administrador/banners/">Banners</a>
                         </li>
                         <li>
-                            <a href="/administrador/usuarios/">Usuarios</a>
+                            <a href="/administrador/usuario/listar/">Usuarios</a>
                         </li>
                         <li>
                             <a href="/administrador/configuracion/">Configuraci&oacute;n</a>
@@ -265,9 +262,6 @@
     {%block js%}
 
     {%endblock js%}
-
-    <!-- jQuery -->
-    <script src="http://code.jquery.com/jquery.js"></script>
 
     <!-- Bootstrap JavaScript -->
     <script src="{{STATIC_URL}}bootstrap/js/bootstrap.min.js"></script>
