@@ -26,7 +26,8 @@ urlpatterns = patterns('herramientas.apps.main.views',
     url(r'^login/$', 'loginUser', name='loginUser'),
 
     #View de perfil de usuario
-    url(r'^perfil/$', 'perfil', name='perfil'),
+    url(r'^perfil/$', 'perfilCompras', name='perfil'),
+    url(r'^perfil/1/$', 'perfilAlquiler', name='perfil'),
 
     #View de login de usuario
     url(r'^logout/$', 'logoutUser', name='logoutUser'),

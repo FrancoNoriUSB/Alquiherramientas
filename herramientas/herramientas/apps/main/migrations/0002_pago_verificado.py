@@ -12,9 +12,9 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AddField(
-            model_name='producto',
-            name='cantidad',
-            field=models.IntegerField(default=1, max_length=3),
+            model_name='pago',
+            name='verificado',
+            field=models.BooleanField(default=False),
             preserve_default=True,
         ),
     ]

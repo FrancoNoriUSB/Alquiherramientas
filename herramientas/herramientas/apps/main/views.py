@@ -368,10 +368,18 @@ def producto(request, id_producto):
 
     # Creando un nuevo usuario
     if request.method=='POST':
+        nombre = producto.titulo
         usuarioF = UserCreationForm(request.POST)
+        contactoF = ContactoForm(request.POST)
+
         if usuarioF.is_valid():
             usuarioF.save()
             return HttpResponseRedirect('/')
+
+        if contactoF.is_valid():
+            contact_email_producto(request, contactoF, nombre)
+            retorno = '/productos/'+str(id_producto)+'/'
+            return HttpResponseRedirect(retorno)
 
 
     # Crear el slider con las imagenes del producto
@@ -446,23 +454,32 @@ def pagar(request, id_producto):
     # Creando un nuevo usuario
     if request.method=='POST':
         usuarioF = UserCreationForm(request.POST)
+
         if usuarioF.is_valid():
             usuarioF.save()
             return HttpResponseRedirect('/')
 
+        # Registro del pago.
         nombre = producto.titulo
-        razon = producto.id
+        razon = producto
         fecha = datetime.datetime.now()
-        usuario = request.user.get_short_name()
+        usuario = request.user
         try:
             precio = producto.venta.precio
-            pagoVenta = PagoVenta.objects.create(concepto=nombre,monto=precio,fecha=fecha,usuario=usuario)
+            pagoVenta = PagoVenta.objects.create(producto=razon,monto=precio,fecha=fecha,usuario=usuario)
+            email_venta(request, usuario.nombre, usuario.apellido, usuario.email, nombre)
+            if precio > 100000.00:
+                return HttpResponseRedirect('/datos/')
         except:
             alquilerF = AlquilerForm(request.POST)
             if alquilerF.is_valid():
                 precio = alquilerF.cleaned_data['total']
                 dias = alquilerF.cleaned_data['dias']
-                pagoAlquiler = PagoAlquiler.objects.create(concepto=nombre,monto=precio,dias=dias,fecha=fecha,usuario=usuario)
+                total = alquilerF.cleaned_data['total']
+                pagoAlquiler = PagoAlquiler.objects.create(producto=razon,monto=precio,dias=dias,fecha=fecha,usuario=usuario)
+                email_alquiler(request, usuario.nombre, usuario.apellido, usuario.email, nombre, dias)
+                if total > 100000.00:
+                    return HttpResponseRedirect('/datos/')
 
     boton = mercadopago(request, nombre, float(precio))
 
@@ -633,10 +650,7 @@ def contactos(request):
     if request.method == 'POST':
         contactoF = ContactoForm(request.POST)
         if contactoF.is_valid():
-            titulo = "Mensaje de: "+contactoF.cleaned_data['remitente']
-            mensaje = contactoF.cleaned_data['mensaje']
-            correo = EmailMessage(titulo, mensaje, to=['valderrama_862@hotmail.com'])
-            correo.send()
+            contact_email(request, contactoF)
             return HttpResponseRedirect('/contactos/')
 
     # Ofertas de los productos
@@ -665,6 +679,7 @@ def contactos(request):
     }
 
     return render_to_response('main/contactos/contactos.html', ctx, context_instance=RequestContext(request))
+
 
 
 # Vista para login de usuario
@@ -696,13 +711,26 @@ def loginUser(request):
 
 #Vista de perfil de usuario
 @login_required
-def perfil(request):
+def perfilCompras(request):
+    usuario = request.user
+    ventas = PagoVenta.objects.filter(usuario=usuario.pk)
 
     ctx = {
-
+        'ventas': ventas,
     }
 
-    return render_to_response('main/perfil/perfil.html', ctx, context_instance=RequestContext(request))
+    return render_to_response('main/perfil/perfil_compras.html', ctx, context_instance=RequestContext(request))
+
+@login_required
+def perfilAlquiler(request):
+    usuario = request.user
+    alquiler = PagoAlquiler.objects.filter(usuario=usuario.pk)
+
+    ctx = {
+        'alquiler': alquiler,
+    }
+
+    return render_to_response('main/perfil/perfil_alquileres.html', ctx, context_instance=RequestContext(request))
 
 
 # Vista para logout de usuario

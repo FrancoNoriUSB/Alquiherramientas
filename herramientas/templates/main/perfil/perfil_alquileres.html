@@ -1,0 +1,34 @@
+{% extends "main/perfil/base_perfil.html" %}
+{% load humanize %}
+{% load staticfiles %}
+{% block scripts %}
+	
+    <!--Estilos-->
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}files/css/main/perfil.css">
+
+{% endblock scripts %}
+
+{% block content %}
+	<h3>Alquileres / Historial</h3>
+		<table>
+			<tbody>
+				{% for a in alquiler %}
+				<tr class="bordes">
+					<td><img class="img-responsive thumbnail" src="{{a.producto.imagen.url}}"></td>
+					<td><b>Descripcion:</b><p>{{a.producto.titulo}}</p></td>
+					<td><b>Precio:</b><p>{{a.producto.alquiler.precio}}</p></td>
+					<td><b>Fecha:</b><p>{{a.fecha|date:"d-m-Y"}}</p></td>
+					<td><b>Dias:</b><p>{{a.dias}}</p></td>
+					<td>
+						<b>Verificado:</b>
+						{% if a.verificado %}
+							<p>Verificado</p>
+						{% else %}
+							<p>Sin verificar.</p>
+						{% endif %}
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+{% endblock content %}
