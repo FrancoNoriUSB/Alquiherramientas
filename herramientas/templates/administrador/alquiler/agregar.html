@@ -1,1 +1,57 @@
 {%extends "administrador/base.html"%}
+{% load bootstrap3 %}
+
+{% block contenido %}
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+				<h3>Agregar Alquiler</h3>
+				{%if editado%}
+					<div class="alert alert-success alert-dismissible" role="alert">
+						<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<strong>Guardado!</strong> Se guardado la informaci&oacute;n con &eacute;xito!
+					</div>
+				{%endif%}
+				<form id="form" role="form" enctype="multipart/form-data" method="post" action="">
+		        {% csrf_token %}
+		        	<h4>Herramienta:</h4>
+		            {% bootstrap_field HerramientaForm.nombre %}
+		            {% bootstrap_field HerramientaForm.ano %}
+		            {% bootstrap_field HerramientaForm.categoria %}
+		            <a href="/administrador/categoria/agregar/">Agregar Categoria <span class="glyphicon glyphicon-plus"></span></a>
+		            {% bootstrap_field HerramientaForm.marca %}
+		            <a href="/administrador/marca/agregar/">Agregar Marca <span class="glyphicon glyphicon-plus"></span></a>
+		            {% bootstrap_field HerramientaForm.modelo %}
+		            <a href="/administrador/modelo/agregar/">Agregar Modelo <span class="glyphicon glyphicon-plus"></span></a>
+					<br>
+		            <h4>Direccion:</h4>
+		            {% bootstrap_field DireccionForm.domicilio %}
+		            {% bootstrap_field DireccionForm.estado %}
+		            <a href="/administrador/estado/agregar/">Agregar Estado <span class="glyphicon glyphicon-plus"></span></a>
+		            {% bootstrap_field DireccionForm.ciudad %}
+		            <a href="/administrador/ciudad/agregar/">Agregar Ciudad <span class="glyphicon glyphicon-plus"></span></a>
+		            {% bootstrap_field DireccionForm.zona %}
+		            <a href="/administrador/zona/agregar/">Agregar Zona <span class="glyphicon glyphicon-plus"></span></a>
+					<br>
+					<br>
+		        	<h4>Info Publicacion:</h4>
+		            {% bootstrap_field AlquilerForm.titulo %}
+		            {% bootstrap_field AlquilerForm.contenido %}
+		            {% bootstrap_field AlquilerForm.cantidad %}
+		            {% bootstrap_field AlquilerForm.imagen %}
+		            {% bootstrap_field AlquilerForm.fecha_expiracion %}
+		            {% bootstrap_field AlquilerForm.oferta %}
+		            {% bootstrap_field AlquilerForm.dias %}
+		            {% bootstrap_field AlquilerForm.precio %}
+		            <div class="form-group">
+		                {% buttons %}
+		                    <button type="submit" class="btn btn-primary">
+		                        Publicar
+		                    </button>
+		                {% endbuttons %}
+		            </div>
+		        </form>
+	        </div>
+        </div>
+	</div>
+{% endblock contenido %}

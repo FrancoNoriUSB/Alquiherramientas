@@ -68,6 +68,18 @@ class LoginForm(forms.ModelForm):
         }
 
 
+class EmpresaForm(forms.ModelForm):
+    class Meta:
+        model = Empresa
+        fields = ('info', 'mision', 'vision', 'servicios')
+        widgets = {
+            'info':forms.Textarea(),
+            'mision':forms.Textarea(),
+            'vision':forms.Textarea(),
+            'servicios':forms.Textarea(),
+        }
+
+
 #Formulario de empresa
 class EmpresaForm(forms.ModelForm):
     class Meta:
@@ -81,18 +93,74 @@ class EmpresaForm(forms.ModelForm):
         }
 
 
+#Formulario de categorias
+class CategoriaForm(forms.ModelForm):
+    class Meta:
+        model = Categoria
+        fields = ('nombre',)
+
+
+#Formulario de marcas
+class MarcaForm(forms.ModelForm):
+    class Meta:
+        model = Marca
+        fields = ('nombre',)
+
+
+#Formulario de modelos
+class ModeloForm(forms.ModelForm):
+    class Meta:
+        model = Modelo
+        fields = ('nombre','marca',)
+
+
+#Formulario de Estados
+class EstadoForm(forms.ModelForm):
+    class Meta:
+        model = Estado
+        fields = ('nombre',)
+    
+
+#Formulario de ciudades
+class CiudadForm(forms.ModelForm):
+    class Meta:
+        model = Ciudad
+        fields = ('nombre', 'estado')
+    
+
+#Formulario de zonas
+class ZonaForm(forms.ModelForm):
+    class Meta:
+        model = Zona
+        fields = ('nombre', 'ciudad')
+
+
+#Formulario de herramienta
+class HerramientaForm(forms.ModelForm):
+    class Meta:
+        model = Herramienta
+        fields = ('nombre','ano','categoria','marca','modelo',)
+
+
+#Formulario de direccion
+class DireccionForm(forms.ModelForm):
+    class Meta:
+        model = Direccion
+        fields = ('domicilio','estado','ciudad','zona',)
+
+
 #Formulario para vender articulos
 class VentaForm(forms.ModelForm):
     class Meta:
         model = Venta
-        exclude = ['fecha_producto', 'fecha_actualizacion',]
+        exclude = ['fecha_producto', 'fecha_actualizacion','direccion','herramienta']
         widgets = {
             'titulo': forms.TextInput(),
             'contenido': forms.Textarea(),
-            'cantidad': forms.IntegerField(),
             'imagen': forms.FileInput(),
-            'oferta': forms.Select(),
-            'precio': forms.IntegerField(),
+            'oferta': forms.CheckboxInput(),
+            'precio': forms.NumberInput(),
+            'fecha_expiracion': forms.DateInput(attrs={'placeholder':'Formato dd/mm/aaaa'}),
         }
 
 
@@ -100,16 +168,19 @@ class VentaForm(forms.ModelForm):
 class AlquilerForm(forms.ModelForm):
     class Meta:
         model = Alquiler
-        exclude = ['fecha_producto', 'fecha_actualizacion',]
+        exclude = ['fecha_producto', 'fecha_actualizacion','direccion','herramienta']
         widgets = {
             'titulo': forms.TextInput(),
             'contenido': forms.Textarea(),
-            'cantidad': forms.IntegerField(),
             'imagen': forms.FileInput(),
-            'oferta': forms.Select(),
-            'precio': forms.IntegerField(),
-            'dias': forms.IntegerField(),
+            'oferta': forms.CheckboxInput(),
+            'precio': forms.NumberInput(attrs={'placeholder':'Precio diario'}),
+            'fecha_expiracion': forms.DateInput(attrs={'placeholder':'Formato dd/mm/aaaa'}),
         }
 
 
 #Formulario de banners
+class BannerForm(forms.ModelForm):
+    class Meta:
+        model = Banner
+        fields = ('nombre', 'imagen', 'url')

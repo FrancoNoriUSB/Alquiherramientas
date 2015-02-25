@@ -13,7 +13,7 @@ for n in range(1960, (datetime.datetime.now().year+1)):
 #Informacion de empresa
 class Empresa(models.Model):
 
-	info = models.CharField(max_length=800)
+	info = models.CharField(max_length=1200)
 	mision = models.CharField(max_length=800)
 	vision = models.CharField(max_length=800)
 	servicios = models.CharField(max_length=800)
@@ -24,7 +24,7 @@ class Empresa(models.Model):
 		verbose_name_plural="Empresas"
 
 	def __unicode__(self):
-		return u"%s"%(self.info)
+		return u"Empresa"
 
 #Estados del pais
 class Estado(models.Model):
@@ -215,7 +215,7 @@ class Producto(models.Model):
 	oferta = models.BooleanField(default=False, help_text='Marcado si desea que se muestre como una oferta')
 	fecha_producto = models.DateTimeField(auto_now_add=True)
 	fecha_actualizacion = models.DateTimeField(auto_now=True)
-	fecha_expiracion = models.DateTimeField()
+	fecha_expiracion = models.DateField(null=True)
 
 	#Claves foraneas
 	direccion = models.ForeignKey(Direccion)
@@ -265,6 +265,7 @@ class Venta(Producto):
 		verbose_name = "Venta"
 		verbose_name_plural = "Ventas"
 
+
 # Clase de registro de los pagos realizados.
 class Pago(models.Model):
 	producto = models.ForeignKey(Producto)
@@ -281,6 +282,7 @@ class Pago(models.Model):
 		pass
 
 
+#Clase de transacciones de pagos de ventas
 class PagoVenta(Pago):
 
 	class Meta:
@@ -291,6 +293,7 @@ class PagoVenta(Pago):
 		pass
 
 
+#Clase de transacciones de pagos de alquileres
 class PagoAlquiler(Pago):
 	dias = models.IntegerField()
 

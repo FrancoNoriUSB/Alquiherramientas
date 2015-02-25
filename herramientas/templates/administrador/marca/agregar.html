@@ -5,19 +5,17 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-				<h3>Informaci&oacute;n de empresa:</h3>
+				<h3>Agregar Marca:</h3>
 				{%if editado%}
 					<div class="alert alert-success alert-dismissible" role="alert">
 						<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-						<strong>Editado!</strong> Se edit&oacute; la informaci&oacute;n con &eacute;xito!
+						<strong>Guardado!</strong> Se guardado la informaci&oacute;n con &eacute;xito!
 					</div>
 				{%endif%}
 				<form id="form" role="form" enctype="multipart/form-data" method="post" action="">
 		        {% csrf_token %}
-		            {% bootstrap_field EmpresaForm.info %}
-		            {% bootstrap_field EmpresaForm.mision %}
-		            {% bootstrap_field EmpresaForm.vision %}
-		            {% bootstrap_field EmpresaForm.servicios %}
+		        	<h4>Marca:</h4>
+		            	{%bootstrap_form MarcaForm%}
 		            <div class="form-group">
 		                {% buttons %}
 		                    <button type="submit" class="btn btn-primary">

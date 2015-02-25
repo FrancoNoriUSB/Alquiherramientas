@@ -17,7 +17,7 @@ from random import randint
 from funciones import *
 from models import *
 from forms import *
-from herramientas.apps.administrador.forms import LoginForm
+from herramientas.apps.administrador.forms import LoginForm, UserCreationForm
 import json
 
 # Mercadopago
@@ -26,7 +26,7 @@ import mercadopago
 import os, sys
 
 #Variable global que tiene datos especificos del cliente. No tocar por ahora
-mp = mercadopago.MP("2041234873847333", "dcFLGjyBjtk5dOfN4rC16s45a3mECeaA")
+mp = mercadopago.MP("1735954876648483", "hsJ0KIzKHXSYVudbHcCG3yBdmEUF0abn")
 
 #Vista del inicio
 def inicio(request):
@@ -365,17 +365,17 @@ def producto(request, id_producto):
 
     ctx = {
         'BusquedaForm':busquedaF,
-        'ofertas':ofertas,
-        'producto': producto,
-        'UsuarioForm':usuarioF,
-        'alquilerF' : alquilerF,
-        'ventaF' : ventaF,
         'LoginForm':loginF,
+        'UsuarioForm':usuarioF,
+        'ofertas':ofertas,
+        'producto':producto,
+        'alquilerF':alquilerF,
+        'ventaF':ventaF,
         'ciudades':ciudades,
         'zonas':zonas,
-        'contactoF': contactoF,
-        'indicator': indicator,
-        'wrapper': wrapper,
+        'contactoF':contactoF,
+        'indicator':indicator,
+        'wrapper':wrapper,
 
     }
 
@@ -493,6 +493,7 @@ def datos(request):
     }
 
     return render_to_response('main/productos/datos.html', ctx, context_instance=RequestContext(request))
+
 
 #View para setear el boton de mercadopago
 def mercadopago(request, pago, monto, **kwargs):
@@ -657,6 +658,7 @@ def perfil(request):
     }
 
     return render_to_response('main/perfil/perfil.html', ctx, context_instance=RequestContext(request))
+
 
 # Vista para logout de usuario
 def logoutUser(request):

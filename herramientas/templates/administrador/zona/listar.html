@@ -1,0 +1,50 @@
+{%extends "administrador/base.html"%}
+{% load bootstrap3 %}
+
+{% block contenido %}
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+				<h3>Zonas:</h3>
+				<table class="table table-striped">
+					<tr>
+						<td>
+							ID
+						</td>
+						<td>
+							Zona
+						</td>
+						<td>
+							Ciudad
+						</td>
+						<td>
+							Editar
+						</td>
+						<td>
+							Eliminar
+						</td>
+					</tr>
+					{%for zona in zonas%}
+						<tr>
+							<td>
+								{{zona.id}}
+							</td>
+							<td>
+								{{zona.nombre}}
+							</td>
+							<td>
+								{{zona.ciudad.nombre}}
+							</td>
+							<td>
+								Editar <a href=""><span class="glyphicon glyphicon-pencil"></span></a>
+							</td>
+							<td>
+								Eliminar <a href=""><span class="glyphicon glyphicon-trash"></span></a>
+							</td>
+						</tr>
+					{%endfor%}
+				</table>
+	        </div>
+        </div>
+	</div>
+{% endblock contenido %}
