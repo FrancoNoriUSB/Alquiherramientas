@@ -419,18 +419,18 @@ def pagar(request, id_producto):
             return HttpResponseRedirect('/')
 
         nombre = producto.titulo
-        razon = producto.id
+        razon = producto
         fecha = datetime.datetime.now()
         usuario = request.user.get_short_name()
         try:
             precio = producto.venta.precio
-            pagoVenta = PagoVenta.objects.create(concepto=nombre,monto=precio,fecha=fecha,usuario=usuario)
+            pagoVenta = PagoVenta.objects.create(producto=razon,monto=precio,fecha=fecha,usuario=usuario)
         except:
             alquilerF = AlquilerForm(request.POST)
             if alquilerF.is_valid():
                 precio = alquilerF.cleaned_data['total']
                 dias = alquilerF.cleaned_data['dias']
-                pagoAlquiler = PagoAlquiler.objects.create(concepto=nombre,monto=precio,dias=dias,fecha=fecha,usuario=usuario)
+                pagoAlquiler = PagoAlquiler.objects.create(producto=razon,monto=precio,dias=dias,fecha=fecha,usuario=usuario)
 
     boton = mercadopago(request, nombre, float(precio))
 

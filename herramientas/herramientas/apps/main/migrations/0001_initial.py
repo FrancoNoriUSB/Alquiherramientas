@@ -50,6 +50,22 @@ class Migration(migrations.Migration):
             bases=(models.Model,),
         ),
         migrations.CreateModel(
+            name='Empresa',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('info', models.CharField(max_length=800)),
+                ('mision', models.CharField(max_length=800)),
+                ('vision', models.CharField(max_length=800)),
+                ('servicios', models.CharField(max_length=800)),
+            ],
+            options={
+                'ordering': ('info',),
+                'verbose_name': 'Empresa',
+                'verbose_name_plural': 'Empresas',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
             name='Estado',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
@@ -87,8 +103,8 @@ class Migration(migrations.Migration):
             ],
             options={
                 'abstract': False,
-                'verbose_name': 'ImagenProducto',
-                'verbose_name_plural': 'ImagenesProductos',
+                'verbose_name': 'Imagen Producto',
+                'verbose_name_plural': 'Imagenes Producto',
             },
             bases=(models.Model,),
         ),
@@ -120,11 +136,49 @@ class Migration(migrations.Migration):
             bases=(models.Model,),
         ),
         migrations.CreateModel(
+            name='Pago',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('monto', models.DecimalField(max_digits=20, decimal_places=2)),
+                ('fecha', models.DateTimeField(auto_now_add=True)),
+                ('usuario', models.EmailField(max_length=75)),
+            ],
+            options={
+                'verbose_name': 'Pago',
+                'verbose_name_plural': 'Pagos',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='PagoAlquiler',
+            fields=[
+                ('pago_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='main.Pago')),
+                ('dias', models.IntegerField()),
+            ],
+            options={
+                'verbose_name': 'Pago Alquiler',
+                'verbose_name_plural': 'Pago Alquilers',
+            },
+            bases=('main.pago',),
+        ),
+        migrations.CreateModel(
+            name='PagoVenta',
+            fields=[
+                ('pago_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='main.Pago')),
+            ],
+            options={
+                'verbose_name': 'Pago Venta',
+                'verbose_name_plural': 'Pago Ventas',
+            },
+            bases=('main.pago',),
+        ),
+        migrations.CreateModel(
             name='Producto',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('titulo', models.CharField(max_length=100)),
                 ('contenido', models.CharField(max_length=10000)),
+                ('cantidad', models.IntegerField(default=1, max_length=3)),
                 ('imagen', models.ImageField(upload_to=b'uploads/Productos')),
                 ('oferta', models.BooleanField(default=False, help_text=b'Marcado si desea que se muestre como una oferta')),
                 ('fecha_producto', models.DateTimeField(auto_now_add=True)),
@@ -189,6 +243,12 @@ class Migration(migrations.Migration):
             model_name='producto',
             name='herramienta',
             field=models.OneToOneField(to='main.Herramienta'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='pago',
+            name='producto',
+            field=models.ForeignKey(to='main.Producto'),
             preserve_default=True,
         ),
         migrations.AddField(
