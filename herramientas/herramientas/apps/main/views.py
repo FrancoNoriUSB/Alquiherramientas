@@ -449,6 +449,8 @@ def pagar(request, id_producto):
     if len(ofertas) > 0:
         ofertas = ofertas[randint(0, len(ofertas)-1)]
 
+    boton = ''
+
     producto = Producto.objects.get(id=id_producto)
 
     # Creando un nuevo usuario
