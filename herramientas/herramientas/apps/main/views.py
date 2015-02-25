@@ -470,6 +470,8 @@ def pagar(request, id_producto):
             email_venta(request, usuario.nombre, usuario.apellido, usuario.email, nombre)
             if precio > 100000.00:
                 return HttpResponseRedirect('/datos/')
+            else:
+                boton = mercadopago(request, nombre, float(precio))
         except:
             alquilerF = AlquilerForm(request.POST)
             if alquilerF.is_valid():
@@ -480,8 +482,8 @@ def pagar(request, id_producto):
                 email_alquiler(request, usuario.nombre, usuario.apellido, usuario.email, nombre, dias)
                 if total > 100000.00:
                     return HttpResponseRedirect('/datos/')
-
-    boton = mercadopago(request, nombre, float(precio))
+                else:
+                    boton = mercadopago(request, nombre, float(precio))
 
     ctx = {
         'BusquedaForm':busquedaF,
