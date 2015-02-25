@@ -1,0 +1,33 @@
+{%extends "administrador/base.html"%}
+{% load bootstrap3 %}
+
+{% block contenido %}
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+				<h3>Agregar Im&aacute;genes:</h3>
+				<h4>{{Alquiler.titulo}}</h4>
+				{%if editado%}
+					<div class="alert alert-success alert-dismissible" role="alert">
+						<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<strong>Guardado!</strong> Se ha agregado la im&aacute;gen con &eacute;xito!
+					</div>
+				{%endif%}
+				<form id="form" role="form" enctype="multipart/form-data" method="post" action="">
+		        {% csrf_token %}
+					{{ AlquilerForm.management_form }}
+		        	{%for form in AlquilerForm%}
+		        		{%bootstrap_form form%}
+		        	{%endfor%}
+		            <div class="form-group">
+		                {% buttons %}
+		                    <button type="submit" class="btn btn-primary">
+		                        Publicar
+		                    </button>
+		                {% endbuttons %}
+		            </div>
+		        </form>
+	        </div>
+        </div>
+	</div>
+{% endblock contenido %}

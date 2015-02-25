@@ -179,6 +179,16 @@ class AlquilerForm(forms.ModelForm):
         }
 
 
+#Formulario de imagenes de inmuebles
+class ImagenProductoForm(forms.ModelForm):
+    class Meta:
+        model = ImagenProducto
+        exclude = ['producto', 'thumbnail']
+        widgets = {
+            'descripcion': forms.TextInput(),
+        }
+
+
 #Formulario de banners
 class BannerForm(forms.ModelForm):
     class Meta:
