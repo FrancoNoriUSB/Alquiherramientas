@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
 
+#Manager del modelo de usuario
 class UserManager(BaseUserManager):
 	def create_user(self, nombre, apellido, correo, password, ciudad, nacionalidad, cedula):
 		if not email:

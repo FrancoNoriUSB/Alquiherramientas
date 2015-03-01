@@ -18,13 +18,7 @@
 							Herramienta
 						</td>
 						<td>
-							Monto
-						</td>
-						<td>
-							Usuario
-						</td>
-						<td>
-							Verificado
+							Precio
 						</td>
 						<td>
 							Editar
@@ -51,12 +45,6 @@
 								{{venta.precio}}
 							</td>
 							<td>
-								{{venta.pago.usuario.nombre}}
-							</td>
-							<td>
-								{{venta.pago.verificado}}
-							</td>
-							<td>
 								<a href="/administrador/venta/editar/{{venta.id}}/">Editar <span class="glyphicon glyphicon-pencil"></span></a>
 							</td>
 							<td>
@@ -74,6 +62,25 @@
 						</tr>
 					{%endfor%}
 				</table>
+	        </div>
+	        <div class="paginacion row">
+	            <div class="col-lg-12 col-md-12">
+	                <nav>
+	                  <ul class="pagination">
+	                    {% if ventas.has_previous %}
+	                        <li>
+	                            <a href="?page={{ ventas.previous_page_number }}">&laquo;</a>
+	                        </li>
+	                    {% endif %}
+	                        <li><a href="">{{ ventas.number }}</a></li>
+	                    {% if ventas.has_next %}
+	                        <li>
+	                            <a href="?page={{ ventas.next_page_number }}">&raquo;</a>
+	                        </li>
+	                    {% endif %}
+	                  </ul>
+	                </nav>
+	            </div>
 	        </div>
         </div>
 	</div>

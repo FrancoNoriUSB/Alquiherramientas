@@ -35,19 +35,19 @@ def login_admin(request):
 		else:
 			email = request.POST['email']
 			password = request.POST['password']
-			usuario = authenticate(email=email, password=password, is_staff=True)
+			usuario = authenticate(email=email, password=password)
 			if usuario:
-					# Caso del usuario activo
-					if usuario.is_active:
-						login(request, usuario)
-						return HttpResponseRedirect('/administrador/')
-					else:
-						return "Tu cuenta esta bloqueada"
+				# Caso del usuario activo
+				if usuario.is_active and usuario.is_staff:
+					login(request, usuario)
+					return HttpResponseRedirect('/administrador/')
 			else:
 				# Usuario invalido o no existe!
 				print "Invalid login details: {0}, {1}".format(email, password)
 
 		return HttpResponseRedirect('/administrador/')
+	else:
+		loginF = LoginForm()
 
 	ctx={
 		'LoginForm':loginF,
@@ -197,11 +197,10 @@ def venta_imagen(request, id_producto):
 @login_required(login_url='/administrador/login/')
 def venta_listar(request):
 
-	ventas = Venta.objects.all().order_by('id')
+	ventas = Venta.objects.all().order_by('-id')
 
 	paginator = Paginator(ventas, 10)
 	page = request.GET.get('page')
-
 
 	try:
 		ventas = paginator.page(page)
@@ -223,7 +222,7 @@ def venta_listar(request):
 @login_required(login_url='/administrador/login/')
 def venta_eliminar(request, id_producto):
 
-    venta = get_object_or_404(Venta, producto__id=id_producto)
+    venta = get_object_or_404(Venta, id=id_producto)
     venta.delete()
     return HttpResponseRedirect('/administrador/venta/listar/')
 
@@ -334,7 +333,7 @@ def alquiler_imagen(request, id_producto):
 @login_required(login_url='/administrador/login/')
 def alquiler_listar(request):
 
-	alquileres = Alquiler.objects.all().order_by('id')
+	alquileres = Alquiler.objects.all().order_by('-id')
 
 	paginator = Paginator(alquileres, 10)
 	page = request.GET.get('page')
@@ -417,7 +416,7 @@ def banners_admin(request):
 @login_required(login_url='/administrador/login/')
 def usuario_listar(request):
 
-	usuarios = User.objects.all().order_by('id')
+	usuarios = User.objects.all().order_by('-id')
 
 	paginator = Paginator(usuarios, 10)
 	page = request.GET.get('page')
@@ -539,7 +538,7 @@ def categoria_editar(request, id_categoria):
 @login_required(login_url='/administrador/login/')
 def categoria_listar(request):
 
-	categorias = Categoria.objects.all().order_by('id')
+	categorias = Categoria.objects.all().order_by('-id')
 
 	paginator = Paginator(categorias, 10)
 	page = request.GET.get('page')
@@ -597,7 +596,7 @@ def marca_agregar(request):
 def marca_editar(request, id_marca):
 
 	editado = ''
-	marca = get_object_or_404(marca, id=id_marca)
+	marca = get_object_or_404(Marca, id=id_marca)
 	marcaF = MarcaForm(instance=marca)
 
 	if request.POST:
@@ -619,7 +618,7 @@ def marca_editar(request, id_marca):
 @login_required(login_url='/administrador/login/')
 def marca_listar(request):
 
-	marcas = Marca.objects.all().order_by('id')
+	marcas = Marca.objects.all().order_by('-id')
 
 	paginator = Paginator(marcas, 10)
 	page = request.GET.get('page')
@@ -697,7 +696,7 @@ def modelo_editar(request, id_modelo):
 @login_required(login_url='/administrador/login/')
 def modelo_listar(request):
 
-	modelos = Modelo.objects.all().order_by('id')
+	modelos = Modelo.objects.all().order_by('-id')
 
 	paginator = Paginator(modelos, 10)
 	page = request.GET.get('page')
@@ -775,7 +774,7 @@ def estado_editar(request, id_estado):
 @login_required(login_url='/administrador/login/')
 def estado_listar(request):
 
-	estados = Estado.objects.all().order_by('id')
+	estados = Estado.objects.all().order_by('-id')
 
 	paginator = Paginator(estados, 10)
 	page = request.GET.get('page')
@@ -853,7 +852,7 @@ def ciudad_editar(request, id_ciudad):
 @login_required(login_url='/administrador/login/')
 def ciudad_listar(request):
 
-	ciudades = Ciudad.objects.all().order_by('id')
+	ciudades = Ciudad.objects.all().order_by('-id')
 
 	paginator = Paginator(ciudades, 10)
 	page = request.GET.get('page')
@@ -931,7 +930,7 @@ def zona_editar(request, id_zona):
 @login_required(login_url='/administrador/login/')
 def zona_listar(request):
 
-	zonas = Zona.objects.all().order_by('id')
+	zonas = Zona.objects.all().order_by('-id')
 
 	paginator = Paginator(zonas, 10)
 	page = request.GET.get('page')

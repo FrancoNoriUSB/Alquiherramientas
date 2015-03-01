@@ -9,7 +9,6 @@ Colores a utilizar:
 */
 
 /*Estilos de la barra de menus*/
-
 .navbar, #side-menu{
 	background-color: #292929;
 }
@@ -34,4 +33,9 @@ Colores a utilizar:
 .nav>li>a:hover, .nav>li>a:focus {
 	text-decoration: none;
 	background-color: #625D53 !important;
+}
+
+/**/
+#form > div.formulario{
+	border-top:groove;
 }

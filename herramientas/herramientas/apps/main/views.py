@@ -350,6 +350,7 @@ def producto(request, id_producto):
             'precio': producto.alquiler.precio,
             'dias':0,
             'garantia': int(producto.alquiler.precio) / 10,
+            'cantidad':0,
             'total':0,
             'clausulas':False
         }
@@ -357,8 +358,8 @@ def producto(request, id_producto):
         garantia = int(producto.venta.precio) / 10
         dataV = {
             'precio': producto.venta.precio,
-            'garantia': garantia,
-            'total': producto.venta.precio + garantia
+            'cantidad':1,
+            'total': producto.venta.precio
         }
 
     if dataA != {}:

@@ -194,3 +194,5 @@ class BannerForm(forms.ModelForm):
     class Meta:
         model = Banner
         fields = ('nombre', 'imagen', 'url')
+        widgets = {
+        }

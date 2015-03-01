@@ -17,7 +17,14 @@
 		        {% csrf_token %}
 					{{ BannerForm.management_form }}
 		        	{%for form in BannerForm%}
-		        		{%bootstrap_form form%}
+		        		<div class="formulario">
+			        		{%bootstrap_form form%}
+				        	{%if form.imagen.value != None%}
+		                        Miniatura:
+		                        <img width="200px" height="200px" src="{{MEDIA_URL}}{{form.imagen.value}}" alt="" class="img-responsive">
+		                        <br>
+		                    {%endif%}
+						</div>
 		        	{%endfor%}
 		            <div class="form-group">
 		                {% buttons %}

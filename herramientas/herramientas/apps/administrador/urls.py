@@ -18,6 +18,7 @@ urlpatterns = patterns('herramientas.apps.administrador.views',
     url(r'^administrador/venta/editar/(?P<id_producto>[0-9A-Za-z]+)/$', 'venta_editar', name='venta_editar'),
     url(r'^administrador/venta/imagen/(?P<id_producto>[0-9A-Za-z]+)/$', 'venta_imagen', name='venta_imagen'),
     url(r'^administrador/venta/listar/$', 'venta_listar', name='venta_listar'),
+    url(r'^administrador/venta/eliminar/(?P<id_producto>[0-9A-Za-z]+)/$', 'venta_eliminar', name='venta_eliminar'),
 
     #Urls de alquileres
     url(r'^administrador/alquiler/agregar/$', 'alquiler_agregar', name='alquiler_agregar'),

@@ -18,13 +18,10 @@
 							Herramienta
 						</td>
 						<td>
-							Monto
+							Precio
 						</td>
 						<td>
 							Dias
-						</td>
-						<td>
-							Usuario
 						</td>
 						<td>
 							Editar
@@ -51,10 +48,7 @@
 								{{alquiler.precio}}
 							</td>
 							<td>
-								{{alquiler.pago.dias}}
-							</td>
-							<td>
-								{{alquiler.pago.usuario.nombre}}
+								{{alquiler.dias}}
 							</td>
 							<td>
 								<a href="/administrador/alquiler/editar/{{alquiler.id}}/">Editar <span class="glyphicon glyphicon-pencil"></span></a>
@@ -74,6 +68,25 @@
 						</tr>
 					{%endfor%}
 				</table>
+	        </div>
+	        <div class="paginacion row">
+	            <div class="col-lg-12 col-md-12">
+	                <nav>
+	                  <ul class="pagination">
+	                    {% if alquileres.has_previous %}
+	                        <li>
+	                            <a href="?page={{ alquileres.previous_page_number }}">&laquo;</a>
+	                        </li>
+	                    {% endif %}
+	                        <li><a href="">{{ alquileres.number }}</a></li>
+	                    {% if alquileres.has_next %}
+	                        <li>
+	                            <a href="?page={{ alquileres.next_page_number }}">&raquo;</a>
+	                        </li>
+	                    {% endif %}
+	                  </ul>
+	                </nav>
+	            </div>
 	        </div>
         </div>
 	</div>

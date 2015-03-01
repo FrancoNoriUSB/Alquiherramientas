@@ -71,7 +71,6 @@ def contact_email_producto(request, form, herramienta):
     return True
 
 
-
 #Query dinamico extraido de un proyecto ajeno
 def dynamic_query(model, fields, types, values, operator):
     """
