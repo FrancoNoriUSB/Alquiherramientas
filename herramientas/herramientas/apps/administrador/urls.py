@@ -16,15 +16,19 @@ urlpatterns = patterns('herramientas.apps.administrador.views',
 	#Urls de ventas
     url(r'^administrador/venta/agregar/$', 'venta_agregar', name='venta_agregar'),
     url(r'^administrador/venta/editar/(?P<id_producto>[0-9A-Za-z]+)/$', 'venta_editar', name='venta_editar'),
+    url(r'^administrador/venta/disponible/(?P<id_producto>[0-9A-Za-z]+)/$', 'venta_disponible', name='venta_disponible'),
     url(r'^administrador/venta/imagen/(?P<id_producto>[0-9A-Za-z]+)/$', 'venta_imagen', name='venta_imagen'),
     url(r'^administrador/venta/listar/$', 'venta_listar', name='venta_listar'),
+    url(r'^administrador/venta/ventas/$', 'venta_ventas', name='venta_ventas'),
     url(r'^administrador/venta/eliminar/(?P<id_producto>[0-9A-Za-z]+)/$', 'venta_eliminar', name='venta_eliminar'),
 
     #Urls de alquileres
     url(r'^administrador/alquiler/agregar/$', 'alquiler_agregar', name='alquiler_agregar'),
     url(r'^administrador/alquiler/editar/(?P<id_producto>[0-9A-Za-z]+)/$', 'alquiler_editar', name='alquiler_editar'),
+    url(r'^administrador/alquiler/disponible/(?P<id_producto>[0-9A-Za-z]+)/$', 'alquiler_disponible', name='alquiler_disponible'),
     url(r'^administrador/alquiler/imagen/(?P<id_producto>[0-9A-Za-z]+)/$', 'alquiler_imagen', name='alquiler_imagen'),
     url(r'^administrador/alquiler/listar/$', 'alquiler_listar', name='alquiler_listar'),
+    url(r'^administrador/alquiler/alquileres/$', 'alquiler_alquileres', name='alquiler_alquileres'),
     url(r'^administrador/alquiler/eliminar/(?P<id_producto>[0-9A-Za-z]+)/$', 'alquiler_eliminar', name='alquiler_eliminar'),
 
 	#Url de afiliacion de usuarios
@@ -38,8 +42,8 @@ urlpatterns = patterns('herramientas.apps.administrador.views',
 
 	#Url de usuarios
     url(r'^administrador/usuario/listar/$', 'usuario_listar', name='usuario_listar'),
+    url(r'^administrador/usuario/(?P<id_usuario>[0-9A-Za-z]+)/$', 'usuario_view', name='usuario_view'),
     url(r'^administrador/usuario/bloquear/(?P<id_usuario>[0-9A-Za-z]+)/$', 'usuario_bloquear', name='usuario_bloquear'),
-    url(r'^administrador/usuario/desbloquear/(?P<id_usuario>[0-9A-Za-z]+)/$', 'usuario_desbloquear', name='usuario_desbloquear'),
     url(r'^administrador/usuario/eliminar/(?P<id_usuario>[0-9A-Za-z]+)/$', 'usuario_eliminar', name='usuario_eliminar'),
 
 	#Url de configuracion

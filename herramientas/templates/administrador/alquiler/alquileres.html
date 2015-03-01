@@ -5,7 +5,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-				<h3>Alquileres:</h3>
+				<h3>Alquileres realizados:</h3>
 				<table class="table table-striped">
 					<tr>
 						<td>
@@ -24,16 +24,16 @@
 							Dias
 						</td>
 						<td>
-							Editar
+							Cantidad
 						</td>
 						<td>
-							Disponibilidad
+							Fecha
 						</td>
 						<td>
-							Im&aacute;genes
+							Usuario
 						</td>
 						<td>
-							Eliminar
+							Verificado
 						</td>
 					</tr>
 					{%for alquiler in alquileres%}
@@ -42,41 +42,35 @@
 								{{alquiler.id}}
 							</td>
 							<td>
-								{{alquiler.titulo}}
+								{{alquiler.producto.titulo}}
 							</td>
 							<td>
-								{{alquiler.herramienta.nombre}}
+								{{alquiler.producto.herramienta.nombre}}
 							</td>
 							<td>
-								{{alquiler.precio}}
+								{{alquiler.monto}}
 							</td>
 							<td>
 								{{alquiler.dias}}
 							</td>
 							<td>
-								<a href="/administrador/alquiler/editar/{{alquiler.id}}/">Editar <span class="glyphicon glyphicon-pencil"></span></a>
+								{{alquiler.cantidad}}
 							</td>
-							{%if alquiler.disponible%}
+							<td>
+								{{alquiler.fecha}}
+							</td>
+							<td>
+								<a href="/administrador/usuario/{{alquiler.usuario.id}}/">{{alquiler.usuario.nombre}}	{{alquiler.usuario.apellido}}</a>
+							</td>
+							{%if alquiler.verificado%}
 								<td>
-									<a href="/administrador/alquiler/disponible/{{alquiler.id}}/">Disponible <span class="glyphicon glyphicon-ok"></span></a>
+									<a href="/administrador/alquiler/verificado/{{alquiler.id}}/">Verificado <span class="glyphicon glyphicon-ok"></span></a>
 								</td>
 							{%else%}
 								<td>
-									<a href="/administrador/alquiler/disponible/{{alquiler.id}}/">No Disponible <span class="glyphicon glyphicon-remove"></span></a>
+									<a href="/administrador/alquiler/verificado/{{alquiler.id}}/">No Verificado <span class="glyphicon glyphicon-remove"></span></a>
 								</td>
 							{%endif%}
-							<td>
-								<a href="/administrador/alquiler/imagen/{{alquiler.id}}/">Im&aacute;genes <span class="glyphicon glyphicon-picture"></span></a>
-							</td>
-							<td>
-								<a class="eliminar_bot" style="cursor:pointer;">Eliminar 
-									<span class="glyphicon glyphicon-trash"></span>
-
-									<form action="." method="POST" id="eliminar">
-										<input id="id_eliminar" type="hidden" value="{{alquiler.id|safe}}">
-									</form>
-								</a>
-							</td>
 						</tr>
 					{%endfor%}
 				</table>

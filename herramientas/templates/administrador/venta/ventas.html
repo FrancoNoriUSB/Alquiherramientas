@@ -4,8 +4,8 @@
 {% block contenido %}
 	<div class="container">
 		<div class="row">
-			<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-				<h3>Ventas:</h3>
+			<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+				<h3>Ventas realizadas:</h3>
 				<table class="table table-striped">
 					<tr>
 						<td>
@@ -21,16 +21,16 @@
 							Precio
 						</td>
 						<td>
-							Editar
+							Cantidad
 						</td>
 						<td>
-							Disponibilidad
+							Fecha
 						</td>
 						<td>
-							Im&aacute;genes
+							Usuario
 						</td>
 						<td>
-							Eliminar
+							Verificado
 						</td>
 					</tr>
 					{%for venta in ventas%}
@@ -39,38 +39,32 @@
 								{{venta.id}}
 							</td>
 							<td>
-								{{venta.titulo}}
+								{{venta.producto.titulo}}
 							</td>
 							<td>
-								{{venta.herramienta.nombre}}
+								{{venta.producto.herramienta.nombre}}
 							</td>
 							<td>
-								{{venta.precio}}
+								{{venta.monto}}
 							</td>
 							<td>
-								<a href="/administrador/venta/editar/{{venta.id}}/">Editar <span class="glyphicon glyphicon-pencil"></span></a>
+								{{venta.cantidad}}
 							</td>
-							{%if venta.disponible%}
+							<td>
+								{{venta.fecha}}
+							</td>
+							<td>
+								<a href="/administrador/usuario/{{venta.usuario.id}}/">{{venta.usuario.nombre}} {{venta.usuario.apellido}}</a>
+							</td>
+							{%if venta.verificado%}
 								<td>
-									<a href="/administrador/venta/disponible/{{venta.id}}/">Disponible <span class="glyphicon glyphicon-ok"></span></a>
+									<a href="/administrador/venta/verificado/{{venta.id}}/">Verificado <span class="glyphicon glyphicon-ok"></span></a>
 								</td>
 							{%else%}
 								<td>
-									<a href="/administrador/venta/disponible/{{venta.id}}/">No Disponible <span class="glyphicon glyphicon-remove"></span></a>
+									<a href="/administrador/venta/verificado/{{venta.id}}/">No Verificado <span class="glyphicon glyphicon-remove"></span></a>
 								</td>
 							{%endif%}
-							<td>
-								<a href="/administrador/venta/imagen/{{venta.id}}/">Im&aacute;genes <span class="glyphicon glyphicon-pencil"></span></a>
-							</td>
-							<td>
-								<a class="eliminar_bot" style="cursor:pointer;">Eliminar 
-									<span class="glyphicon glyphicon-trash"></span>
-
-									<form action="." method="POST" id="eliminar">
-										<input id="id_eliminar" type="hidden" value="{{venta.id|safe}}">
-									</form>
-								</a>
-							</td>
 						</tr>
 					{%endfor%}
 				</table>
@@ -98,16 +92,5 @@
 	</div>
 {% endblock contenido %}
 {%block js%}
-<script>
-/*Funcion que hace el submit para eliminar la venta*/
-$( document ).ready(function(){
-	$( ".eliminar_bot" ).click(function(){
-		var form = $(this).children('form:first');
-		var bar = $("input[id='id_eliminar']",form).val();
-		if (confirm("Esta seguro de querer eliminar esta venta?")==true){
-			window.location.replace("/administrador/venta/eliminar/"+bar+"/");
-		}
-	});
-});
-</script>
+
 {%endblock js%}

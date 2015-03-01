@@ -211,9 +211,10 @@ class Herramienta(models.Model):
 class Producto(models.Model):
 	titulo = models.CharField(max_length=100)
 	contenido = models.CharField(max_length=10000)
-	cantidad = models.IntegerField(max_length=3, default=1)
+	cantidad = models.IntegerField(max_length=10, default=1)
 	imagen = models.ImageField(upload_to='uploads/Productos')
 	oferta = models.BooleanField(default=False, help_text='Marcado si desea que se muestre como una oferta')
+	disponible = models.BooleanField(default=True)
 	fecha_producto = models.DateTimeField(auto_now_add=True)
 	fecha_actualizacion = models.DateTimeField(auto_now=True)
 	fecha_expiracion = models.DateField(null=True)
@@ -269,12 +270,14 @@ class Venta(Producto):
 
 # Clase de registro de los pagos realizados.
 class Pago(models.Model):
-	producto = models.ForeignKey(Producto)
 	monto = models.DecimalField(max_digits=20, decimal_places=2)
 	fecha = models.DateTimeField(auto_now_add=True)
 	verificado = models.BooleanField(default=False)
+	cantidad = models.DecimalField(max_digits=10, decimal_places=0)
 
+	#Claves foraneas
 	usuario = models.ForeignKey(User)
+	producto = models.ForeignKey(Producto)
 
 	class Meta:
 		verbose_name = "Pago"
