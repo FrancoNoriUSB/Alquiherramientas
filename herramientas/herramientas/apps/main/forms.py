@@ -43,7 +43,7 @@ class ContactoForm(forms.Form):
 #Formulario para vender articulos
 class VentaForm(forms.Form):
 	precio = forms.DecimalField(required=True)
-	cantidad = forms.DecimalField(required=True)
+	cantidad = forms.DecimalField(required=True,min_value=1)
 	total = forms.DecimalField(required=True)
 	clausulas = forms.BooleanField(required=True)
 
@@ -51,8 +51,8 @@ class VentaForm(forms.Form):
 #Formulario para alquilar articulos
 class AlquilerForm(forms.Form):
 	precio = forms.DecimalField(required=True)
-	dias = forms.IntegerField(required=True,min_value=0)
+	dias = forms.IntegerField(required=True,min_value=1)
 	garantia = forms.DecimalField(required=True)
-	cantidad = forms.DecimalField(required=True)
+	cantidad = forms.DecimalField(required=True,min_value=1)
 	total = forms.DecimalField(required=True)
 	clausulas = forms.BooleanField(required=True)

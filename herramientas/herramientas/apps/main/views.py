@@ -356,14 +356,13 @@ def producto(request, id_producto):
     try:
         dataA = {
             'precio': producto.alquiler.precio,
-            'dias':0,
-            'garantia':0,
-            'cantidad':0,
-            'total':0,
+            'dias':1,
+            'cantidad':1,
+            'garantia': producto.alquiler.precio,
+            'total':producto.alquiler.precio,
             'clausulas':False
         }
     except:
-        garantia = int(producto.venta.precio) / 10
         dataV = {
             'precio': producto.venta.precio,
             'cantidad':1,
@@ -475,22 +474,30 @@ def pagar(request, id_producto):
         razon = producto
         fecha = datetime.datetime.now()
         usuario = request.user
-        try:
-            precio = producto.venta.precio
-            pagoVenta = PagoVenta.objects.create(producto=razon,monto=precio,fecha=fecha,usuario=usuario)
-            email_venta(request, usuario.nombre, usuario.apellido, usuario.telefono, usuario.email, nombre)
+        alquilerF = AlquilerForm(request.POST)
+        ventaF = VentaForm(request.POST)
+        
+        if alquilerF.is_valid():
+            precio = alquilerF.cleaned_data['total']
+            dias = alquilerF.cleaned_data['dias']
+            total = alquilerF.cleaned_data['total']
+            cantidad = alquilerF.cleaned_data['cantidad']
+            acepto = alquilerF.cleaned_data['clausulas']
+            pagoAlquiler = PagoAlquiler.objects.create(producto=razon,monto=precio,dias=dias,
+                                                       fecha=fecha,usuario=usuario,verificado=False,
+                                                       cantidad=cantidad,aceptado=acepto)
+            email_alquiler(request, usuario.nombre, usuario.apellido, usuario.telefono, usuario.email, nombre, dias, cantidad)
+            if total > 100000.00:
+                return HttpResponseRedirect('/datos/')
+        elif ventaF.is_valid():
+            precio = ventaF.cleaned_data['total']
+            cantidad = ventaF.cleaned_data['cantidad']
+            acepto = ventaF.cleaned_data['clausulas']
+            pagoVenta = PagoVenta.objects.create(producto=razon,monto=precio,fecha=fecha,
+                                                 usuario=usuario,verificado=False,cantidad=cantidad,aceptado=acepto)
+            email_venta(request, usuario.nombre, usuario.apellido, usuario.telefono, usuario.email, nombre, cantidad)
             if precio > 100000.00:
                 return HttpResponseRedirect('/datos/')
-        except:
-            alquilerF = AlquilerForm(request.POST)
-            if alquilerF.is_valid():
-                precio = alquilerF.cleaned_data['total']
-                dias = alquilerF.cleaned_data['dias']
-                total = alquilerF.cleaned_data['total']
-                pagoAlquiler = PagoAlquiler.objects.create(producto=razon,monto=precio,dias=dias,fecha=fecha,usuario=usuario,verificado=False)
-                email_alquiler(request, usuario.nombre, usuario.apellido, usuario.telefono, usuario.email, nombre, dias)
-                if total > 100000.00:
-                    return HttpResponseRedirect('/datos/')
 
         boton = mercadopago(request, nombre, float(precio))
 

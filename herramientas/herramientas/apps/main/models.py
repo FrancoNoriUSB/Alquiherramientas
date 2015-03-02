@@ -305,6 +305,7 @@ class Pago(models.Model):
 	fecha = models.DateTimeField(auto_now_add=True)
 	verificado = models.BooleanField(default=False)
 	cantidad = models.DecimalField(max_digits=10, decimal_places=0)
+	aceptado = models.BooleanField(default=False)
 
 	#Claves foraneas
 	usuario = models.ForeignKey(User)
