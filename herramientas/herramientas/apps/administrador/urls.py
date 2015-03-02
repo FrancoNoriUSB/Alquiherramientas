@@ -20,6 +20,7 @@ urlpatterns = patterns('herramientas.apps.administrador.views',
     url(r'^administrador/venta/imagen/(?P<id_producto>[0-9A-Za-z]+)/$', 'venta_imagen', name='venta_imagen'),
     url(r'^administrador/venta/listar/$', 'venta_listar', name='venta_listar'),
     url(r'^administrador/venta/ventas/$', 'venta_ventas', name='venta_ventas'),
+    url(r'^administrador/venta/ventas/verificar/(?P<id_producto>[0-9A-Za-z]+)/$', 'venta_ventas_verificar', name='venta_ventas_verificar'),
     url(r'^administrador/venta/eliminar/(?P<id_producto>[0-9A-Za-z]+)/$', 'venta_eliminar', name='venta_eliminar'),
 
     #Urls de alquileres
@@ -29,6 +30,7 @@ urlpatterns = patterns('herramientas.apps.administrador.views',
     url(r'^administrador/alquiler/imagen/(?P<id_producto>[0-9A-Za-z]+)/$', 'alquiler_imagen', name='alquiler_imagen'),
     url(r'^administrador/alquiler/listar/$', 'alquiler_listar', name='alquiler_listar'),
     url(r'^administrador/alquiler/alquileres/$', 'alquiler_alquileres', name='alquiler_alquileres'),
+    url(r'^administrador/alquiler/alquileres/verificar/(?P<id_producto>[0-9A-Za-z]+)/$', 'alquiler_alquileres_verificar', name='alquiler_alquileres_verificar'),
     url(r'^administrador/alquiler/eliminar/(?P<id_producto>[0-9A-Za-z]+)/$', 'alquiler_eliminar', name='alquiler_eliminar'),
 
 	#Url de afiliacion de usuarios

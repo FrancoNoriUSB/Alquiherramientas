@@ -1,6 +1,5 @@
 from django.contrib import admin
-from herramientas.apps.main.models import Alquiler, Categoria, Ciudad, Venta, Direccion, Estado
-from herramientas.apps.main.models import Herramienta, Marca, Modelo, Producto, Zona, Empresa, ImagenProducto
+from herramientas.apps.main.models import *
 
 
 class ImagenProductoInline(admin.TabularInline):
@@ -12,8 +11,10 @@ class ProductoAdmin(admin.ModelAdmin):
 	inlines = (ImagenProductoInline,)
 
 admin.site.register(Alquiler)
+admin.site.register(Afiliacion)
 admin.site.register(Categoria)
 admin.site.register(Ciudad)
+admin.site.register(Contactos)
 admin.site.register(Venta)
 admin.site.register(Direccion)
 admin.site.register(Estado)

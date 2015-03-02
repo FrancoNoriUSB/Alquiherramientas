@@ -16,7 +16,7 @@ class BusquedaForm(forms.Form):
 
 	choices_precio = (
 		('','- Precio -'),
-		('0-10000','0-10.000'),
+		('0-10000','0 - 10.000'),
 		('10000-50000','10.000 - 50.000'),
 		('50000-200000','50.000 - 200.000'),
 		('200000-1000000','200.000 - 1.000.000'),
@@ -28,7 +28,7 @@ class BusquedaForm(forms.Form):
 	categoria = forms.ModelChoiceField(queryset=Categoria.objects.all(), empty_label=' - Categoria -', required=False)
 	marca = forms.ModelChoiceField(queryset=Marca.objects.all(), empty_label=' - Marca -', required=False)
 	estado = forms.ModelChoiceField(queryset=Estado.objects.all(), empty_label=' - Estado -', required=False)
-	ano = forms.ModelChoiceField(queryset=Herramienta.objects.all().values_list('ano', flat=True).distinct().order_by('ano'), empty_label=' - Año -', required=False)
+	ano = forms.ModelChoiceField(queryset=Herramienta.objects.all().values_list('ano', flat=True).distinct().order_by('ano'), empty_label='- Año -', required=False, to_field_name="ano")
 	precio = forms.ChoiceField(choices=choices_precio, widget=forms.Select(), required=False)
 
 

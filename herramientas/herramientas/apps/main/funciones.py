@@ -85,7 +85,7 @@ def dynamic_query(model, fields, types, values, operator):
     for (f, t, v) in zip(fields, types, values):
         # We only want to build a Q with a value
         if v != None:
-            if t == 'precio__range':
+            if t == 'range':
                 kwargs = {str('%s__%s' % (f,t)) : (v)}
             else:
                 kwargs = {str('%s__%s' % (f,t)) : str('%s' % v)}

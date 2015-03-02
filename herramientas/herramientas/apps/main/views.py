@@ -67,6 +67,7 @@ def inicio(request):
         busquedaF = BusquedaForm(request.GET)
         
         #Caso para el buscador de herramientas
+        print busquedaF
         if busquedaF.is_valid():
             tipo = busquedaF.cleaned_data['tipo']
             categoria = busquedaF.cleaned_data['categoria']
@@ -97,7 +98,10 @@ def inicio(request):
                 fields_list.append('herramienta')
                 fields_list.append('herramienta')
                 fields_list.append('direccion')
-                #fields_list.append('venta')
+                if tipo == 'venta':
+                    fields_list.append('precio')
+                elif tipo == 'alquiler':
+                    fields_list.append('precio')
 
                 #Comparadores para buscar
                 types_list=[]
@@ -105,7 +109,7 @@ def inicio(request):
                 types_list.append('marca__nombre__exact')
                 types_list.append('ano__exact')
                 types_list.append('estado__nombre__exact')
-                #types_list.append('precio__range')
+                types_list.append('range')
 
                 #Valores a buscar
                 values_list=[]
@@ -113,7 +117,7 @@ def inicio(request):
                 values_list.append(marca)
                 values_list.append(ano)
                 values_list.append(estado)
-                #values_list.append((precio_menor, precio_mayor))
+                values_list.append((precio_menor, precio_mayor))
 
                 operator = 'and'
 
@@ -198,6 +202,9 @@ def empresa(request):
     #Zonas
     zonas = Zona.objects.all()
 
+    #Datos de la empresa
+    empresa = Empresa.objects.get(id=1)
+
     # Ofertas de los productos
     ofertas = []
     ofertas = Producto.objects.filter(oferta=True).order_by('?')
@@ -220,6 +227,7 @@ def empresa(request):
         'banners':banners,
         'ciudades':ciudades,
         'zonas':zonas,
+        'empresa':empresa,
     }
 
     return render_to_response('main/empresa/empresa.html', ctx, context_instance=RequestContext(request))
@@ -597,6 +605,9 @@ def afiliacion(request):
     
     #Zonas
     zonas = Zona.objects.all()
+
+    #Afiliacion de alquiherramientas
+    afiliacion = Afiliacion.objects.get(id=1)
     
     # Ofertas de los productos
     ofertas = []
@@ -620,6 +631,7 @@ def afiliacion(request):
         'banners':banners,
         'ciudades':ciudades,
         'zonas':zonas,
+        'afiliacion':afiliacion,
     }
 
     return render_to_response('main/afiliacion/afiliacion.html', ctx, context_instance=RequestContext(request))
@@ -648,6 +660,9 @@ def contactos(request):
     
     #Zonas
     zonas = Zona.objects.all()
+
+    #Contactos de alquiherramientas
+    contactos = Contactos.objects.get(id=1)
     
     #Formulario de contacto
     if request.method == 'POST':
@@ -679,6 +694,7 @@ def contactos(request):
         'banners':banners,
         'ciudades':ciudades,
         'zonas':zonas,
+        'contactos':contactos,
     }
 
     return render_to_response('main/contactos/contactos.html', ctx, context_instance=RequestContext(request))
