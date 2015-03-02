@@ -35,7 +35,28 @@ Colores a utilizar:
 	background-color: #625D53 !important;
 }
 
-/**/
+/*Colores de glyphicons*/
+.glyphicon-plus, .glyphicon-ok, .glyphicon-ok-circle{
+	color: green;
+}
+
+.glyphicon-picture{
+	color: #292929;
+}
+
+.glyphicon-th-list{
+	color: #0B3755;
+}
+
+.glyphicon-pencil{
+	color:#D8971B;
+}
+
+.glyphicon-trash, .glyphicon-remove, .glyphicon-ban-circle{
+	color:red;
+}
+
+/*Formularios de imagenes y de banners*/
 #form > div.formulario{
 	border-top:groove;
 }

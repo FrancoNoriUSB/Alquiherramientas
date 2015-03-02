@@ -253,6 +253,16 @@ def venta_ventas(request):
 	return render_to_response('administrador/venta/ventas.html', ctx, context_instance=RequestContext(request))
 
 
+#Vista de verificacion de ventas realizados
+@login_required(login_url='/administrador/login/')
+def venta_ventas_verificar(request, id_producto):
+
+	venta = get_object_or_404(PagoVenta, id=id_producto)
+	venta.verificado = not (venta.verificado)
+	venta.save()
+	return HttpResponseRedirect('/administrador/venta/ventas/')
+
+
 #Vista de eliminar venta
 @login_required(login_url='/administrador/login/')
 def venta_eliminar(request, id_producto):
@@ -424,6 +434,16 @@ def alquiler_alquileres(request):
 	return render_to_response('administrador/alquiler/alquileres.html', ctx, context_instance=RequestContext(request))
 
 
+#Vista de verificacion de alquileres realizados
+@login_required(login_url='/administrador/login/')
+def alquiler_alquileres_verificar(request, id_producto):
+
+	alquiler = get_object_or_404(PagoAlquiler, id=id_producto)
+	alquiler.verificado = not (alquiler.verificado)
+	alquiler.save()
+	return HttpResponseRedirect('/administrador/alquiler/alquileres/')
+
+
 #Vista de eliminar alquiler
 @login_required(login_url='/administrador/login/')
 def alquiler_eliminar(request, id_producto):
@@ -437,8 +457,21 @@ def alquiler_eliminar(request, id_producto):
 @login_required(login_url='/administrador/login/')
 def afiliacion_admin(request):
 
-	ctx={
+	editado = ''
+	afiliacion = get_object_or_404(Afiliacion, id=1)
+	afiliacionF = AfiliacionForm(instance=afiliacion)
 
+	if request.POST:
+		afiliacionF = AfiliacionForm(request.POST, instance=afiliacion)
+		if afiliacionF.is_valid():
+			afiliacionF.save()
+			editado = True
+
+	afiliacionF = AfiliacionForm(instance=afiliacion)
+
+	ctx={
+		'AfiliacionForm':afiliacionF,
+		'editado':editado,
 	}
 
 	return render_to_response('administrador/afiliacion/afiliacion.html', ctx, context_instance=RequestContext(request))
@@ -448,8 +481,21 @@ def afiliacion_admin(request):
 @login_required(login_url='/administrador/login/')
 def contactos_admin(request):
 
-	ctx={
+	editado = ''
+	contactos = get_object_or_404(Contactos, id=1)
+	contactosF = ContactosForm(instance=contactos)
 
+	if request.POST:
+		contactosF = ContactosForm(request.POST, instance=contactos)
+		if contactosF.is_valid():
+			contactosF.save()
+			editado = True
+
+	contactosF = ContactosForm(instance=contactos)
+
+	ctx={
+		'ContactosForm':contactosF,
+		'editado':editado,
 	}
 
 	return render_to_response('administrador/contactos/contactos.html', ctx, context_instance=RequestContext(request))

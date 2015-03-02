@@ -27,6 +27,37 @@ class Empresa(models.Model):
 	def __unicode__(self):
 		return u"Empresa"
 
+
+#Informacion de afiliacion
+class Afiliacion(models.Model):
+
+	info = models.CharField(max_length=1200)
+	beneficios = models.CharField(max_length=800)
+
+	class Meta:
+		ordering = ('info',)
+		verbose_name="Afiliacion"
+		verbose_name_plural="Afiliaciones"
+
+	def __unicode__(self):
+		return u"Afiliacion"
+
+
+#Informacion de afiliacion
+class Contactos(models.Model):
+
+	telefonos = models.CharField(max_length=500)
+	correo = models.CharField(max_length=500)
+
+	class Meta:
+		ordering = ('correo',)
+		verbose_name="Contacto"
+		verbose_name_plural="Contactos"
+
+	def __unicode__(self):
+		return u"Contacto"
+
+
 #Estados del pais
 class Estado(models.Model):
 	nombre = models.CharField(max_length=30)

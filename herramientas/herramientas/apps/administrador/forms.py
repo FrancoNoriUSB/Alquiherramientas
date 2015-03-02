@@ -83,16 +83,25 @@ class EmpresaForm(forms.ModelForm):
         }
 
 
-#Formulario de empresa
-class EmpresaForm(forms.ModelForm):
+#Formulario de contactos
+class ContactosForm(forms.ModelForm):
     class Meta:
-        model = Empresa
-        fields = ('info','mision','vision','servicios')
+        model = Contactos
+        fields = ('telefonos','correo',)
+        widgets = {
+            'telefonos': forms.Textarea(),
+            'correo': forms.Textarea(),
+        }
+
+
+#Formulario de afiliacion
+class AfiliacionForm(forms.ModelForm):
+    class Meta:
+        model = Afiliacion
+        fields = ('info','beneficios',)
         widgets = {
             'info': forms.Textarea(),
-            'mision': forms.Textarea(),
-            'vision': forms.Textarea(),
-            'servicios': forms.Textarea(),
+            'beneficios': forms.Textarea(),
         }
 
 
