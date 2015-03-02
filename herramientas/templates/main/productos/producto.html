@@ -8,6 +8,30 @@
 
 {% endblock scripts %}
 {% block content %}
+
+<div class="modal fade" id="modalClausulas" tabindex="-1" role="dialog" aria-labelledby="modalClausulasLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Clausulas</h4>
+      </div>
+      <div class="modal-body">
+        <p>
+        	Minions ipsum uuuhhh uuuhhh hahaha me want bananaaa! Poopayee chasy tulaliloo uuuhhh butt daa pepete chasy butt butt. Daa belloo! Pepete tatata bala tu bee do bee do bee do. Wiiiii chasy bee do bee do bee do belloo! Chasy ti aamoo! Jiji belloo! Potatoooo jeje tatata bala tu. Gelatooo poopayee para tú tatata bala tu tulaliloo. Tatata bala tu ti aamoo! Bananaaaa belloo! Butt bee do bee do bee do bananaaaa poulet tikka masala me want bananaaa! Po kass la bodaaa potatoooo baboiii poulet tikka masala jiji bappleees para tú potatoooo daa tulaliloo. 
+			<br>
+			<br>
+			Bananaaaa bee do bee do bee do poopayee butt po kass potatoooo underweaaar tatata bala tu gelatooo. Potatoooo jiji po kass jiji. Me want bananaaa! me want bananaaa! Butt jiji hana dul sae jeje jeje para tú jiji pepete bananaaaa. Gelatooo po kass tulaliloo butt poulet tikka masala hahaha po kass jiji aaaaaah uuuhhh. Gelatooo po kass tank yuuu! Wiiiii underweaaar uuuhhh jeje poulet tikka masala. Po kass butt poopayee tank yuuu! Underweaaar me want bananaaa! Jeje. Butt belloo! Aaaaaah tank yuuu! Gelatooo wiiiii jeje tulaliloo. Tank yuuu! poulet tikka masala tank yuuu! Potatoooo jiji.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
 	<div class="row">
 		<h3 class="titulo">{{producto.titulo}}/{{producto.herramienta.marca.nombre}}</h3>
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -63,7 +87,7 @@
             <br/>
 
             <p>
-            	Minions ipsum uuuhhh uuuhhh hahaha me want bananaaa! Poopayee chasy tulaliloo uuuhhh butt daa pepete chasy butt butt. Daa belloo! Pepete tatata bala tu bee do bee do bee do. Wiiiii chasy bee do bee do bee do belloo! Chasy ti aamoo! Jiji belloo! Potatoooo jeje tatata bala tu. Gelatooo poopayee para tú tatata bala tu tulaliloo. Tatata bala tu ti aamoo! Bananaaaa belloo! Butt bee do bee do bee do bananaaaa poulet tikka masala me want bananaaa! Po kass la bodaaa potatoooo baboiii poulet tikka masala jiji bappleees para tú potatoooo daa tulaliloo. 
+            	{{producto.contenido}} 
             </p><br/>
 
             <div role="tabpanel">
@@ -110,14 +134,15 @@
 								</table>
 							    <div class="checkbox">
 							    	<p class="obligatorio">Este campo es obligatorio.</p>
-							    	{% render_field alquilerF.clausulas type="checkbox" id="clausulaAlqui" %} Acepto las clausulas
+							    	{% render_field alquilerF.clausulas type="checkbox" id="clausulaAlqui" %} Acepto las 
+							    	<a data-toggle="modal" data-target="#modalClausulas">clausulas</a>
 							    </div>
 							    {% if user.is_authenticated %}
 									<button type="submit" class="btn btn-primary alquiler">
 								        Alquilar
 								    </button>
 							    {% else %}
-							    	<p>Debes ingresar al sistema para poder realizar alquileres.</p>
+							    	<p><a href="#acceso" class="ingresar dropdown-toggle" aria-expanded="false">Ingresa</a> al sistema. Si no estas regristrado hazlo <a href="" data-toggle="modal" data-target="#registroModal">aqui.</a></p>
 							    {% endif %}
 							</form>
 						{% else %}
@@ -134,14 +159,15 @@
 								</table>
 							    <div class="checkbox">
 							    	<p class="obligatorio">Este campo es obligatorio.</p>
-							    	{% render_field ventaF.clausulas type="checkbox" id="clausulaVenta" %} Acepto las clausulas
+							    	{% render_field ventaF.clausulas type="checkbox" id="clausulaVenta" %} Acepto las
+							    	<a data-toggle="modal" data-target="#modalClausulas">clausulas</a>
 							    </div>
 								{% if user.is_authenticated %}
 									<button type="submit" class="btn btn-primary venta">
 								        Comprar
 								    </button>
 							    {% else %}
-							    	<p>Debes ingresar al sistema para poder realizar compras.</p>
+							    	<p><a href="#acceso" class="ingresar dropdown-toggle" aria-expanded="false">Ingresa</a> al sistema. Si no estas regristrado hazlo <a href="" data-toggle="modal" data-target="#registroModal">aqui.</a></p>
 							    {% endif %}
 							</form>
 						{% endif %}
@@ -190,7 +216,11 @@
 		$('#diasAlqui').change(function(){
 			if ($('#diasAlqui').val() == 0){
 				$('#totalAlqui').val('0');
+				$('#garantiaAlqui').val('0')
 			} else {
+				$('#garantiaAlqui').val(
+					parseFloat($('#precioAlqui').val() * $('#diasAlqui').val())
+				);
 				$('#totalAlqui').val(
 					parseFloat($('#precioAlqui').val() * $('#diasAlqui').val()) + parseFloat($('#garantiaAlqui').val())
 				);
@@ -222,5 +252,9 @@
 		});
 	});
 
+	/*Funcion que abre y cierra el dropdown de registro*/
+	$('.ingresar').on('click', function (event) {
+	    $('.dropdown-menu').parent().toggleClass('open');
+	});
 	</script>
 {% endblock js %}

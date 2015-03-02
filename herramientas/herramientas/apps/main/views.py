@@ -349,7 +349,7 @@ def producto(request, id_producto):
         dataA = {
             'precio': producto.alquiler.precio,
             'dias':0,
-            'garantia': int(producto.alquiler.precio) / 10,
+            'garantia':0,
             'cantidad':0,
             'total':0,
             'clausulas':False
@@ -470,7 +470,7 @@ def pagar(request, id_producto):
         try:
             precio = producto.venta.precio
             pagoVenta = PagoVenta.objects.create(producto=razon,monto=precio,fecha=fecha,usuario=usuario)
-            email_venta(request, usuario.nombre, usuario.apellido, usuario.email, nombre)
+            email_venta(request, usuario.nombre, usuario.apellido, usuario.telefono, usuario.email, nombre)
             if precio > 100000.00:
                 return HttpResponseRedirect('/datos/')
         except:
@@ -480,7 +480,7 @@ def pagar(request, id_producto):
                 dias = alquilerF.cleaned_data['dias']
                 total = alquilerF.cleaned_data['total']
                 pagoAlquiler = PagoAlquiler.objects.create(producto=razon,monto=precio,dias=dias,fecha=fecha,usuario=usuario,verificado=False)
-                email_alquiler(request, usuario.nombre, usuario.apellido, usuario.email, nombre, dias)
+                email_alquiler(request, usuario.nombre, usuario.apellido, usuario.telefono, usuario.email, nombre, dias)
                 if total > 100000.00:
                     return HttpResponseRedirect('/datos/')
 
