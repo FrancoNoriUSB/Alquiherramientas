@@ -25,28 +25,36 @@ def contact_email(request, form):
 
 
 #Funcion para los correos de compra de una herramienta.
-def email_venta(request, nombre, apellido, email, herramienta):
+def email_venta(request, nombre, apellido, telefono, email, herramienta, cantidad):
     emails = []
     #Informacion del usuario
     emails.append("evalderrama862@gmail.com")
 
     #Mensaje a enviar
-    message = 'El usuario: '+ str(nombre) +' '+ str(apellido) +'.<br> Ha realizado el tramite para la compra de: ' + str(herramienta) +'<br>'
-    message += 'Correo de contacto: '+ str(email)
+    message = 'El usuario: '+ str(nombre) +' '+ str(apellido) +'.<br>'
+    message += 'Ha realizado el tramite para la compra de: ' + str(herramienta) +'<br>'
+    message += 'Cantidad: '+ str(cantidad) + '<br/>'
+    message += 'Correo de contacto: '+ str(email) + '<br/>'
+    message += 'Numero de contacto: '+ str(telefono) + '<br/>'
+    message += 'El usuario acepto las clausulas.'
     subject = "Venta de: "+str(herramienta)
     send_mail(subject, message, 'francong2@gmail.com', emails, html_message=message, fail_silently=False)
     return True
 
 #Funcion para los correos de alquiler de una herramienta.
-def email_alquiler(request, nombre, apellido, email, herramienta, dias):
+def email_alquiler(request, nombre, apellido, telefono, email, herramienta, dias, cantidad):
     emails = []
     #Informacion del usuario
     emails.append("evalderrama862@gmail.com")
 
     #Mensaje a enviar
-    message = 'El usuario: '+ str(nombre) +' '+ str(apellido) +'.<br> Ha realizado el tramite para el alquiler de: ' + str(herramienta) +'<br>'
+    message = 'El usuario: '+ str(nombre) +' '+ str(apellido) +'.<br>'
+    message += 'Ha realizado el tramite para el alquiler de: ' + str(herramienta) +'<br>'
+    message += 'Cantidad: '+ str(cantidad) + '<br/>'
     message += 'Por '+ str(dias) + ' dias.<br/>'
-    message += 'Correo de contacto: '+ str(email)
+    message += 'Correo de contacto: '+ str(email) +'<br/>'
+    message += 'Numero de contacto: '+ str(telefono) + '<br/>'
+    message += 'El usuario acepto las clausulas.'
     subject = "Alquiler de: "+str(herramienta)
     send_mail(subject, message, 'francong2@gmail.com', emails, html_message=message, fail_silently=False)
     return True

@@ -5,7 +5,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
 #Manager del modelo de usuario
 class UserManager(BaseUserManager):
-	def create_user(self, nombre, apellido, correo, password, ciudad, nacionalidad, cedula):
+	def create_user(self, nombre, apellido, correo, telefono, password, ciudad, nacionalidad, cedula):
 		if not email:
 			raise ValueError("Por favor ingrese un correo válido.")
 
@@ -13,6 +13,7 @@ class UserManager(BaseUserManager):
 			email = self.normalize_email(correo),
 			nombre = nombre,
 			apellido = apellido,
+			telefono = telefono,
 			ciudad = ciudad,
 			nacionalidad = nacionalidad,
 			cedula = cedula,
@@ -21,11 +22,12 @@ class UserManager(BaseUserManager):
 		user.save()
 		return user
 
-	def create_superuser(self, nombre, apellido, email, password, ciudad, nacionalidad, cedula):
+	def create_superuser(self, nombre, apellido, email, telefono, password, ciudad, nacionalidad, cedula):
 		user = self.model(
 			email = self.normalize_email(email),
 			nombre = nombre,
 			apellido = apellido,
+			telefono = telefono,
 			ciudad = ciudad,
 			nacionalidad = nacionalidad,
 			cedula = cedula,
@@ -47,6 +49,7 @@ class User(AbstractBaseUser):
 	apellido = models.CharField(max_length=40)
 	email = models.EmailField(unique=True)
 	ciudad = models.CharField(max_length=40)
+	telefono = models.IntegerField(max_length=20)
 	nacionalidad = models.CharField(max_length=1, choices=NAC, default='V')
 	cedula = models.IntegerField(max_length=10)
 	is_staff = models.BooleanField(default=False)

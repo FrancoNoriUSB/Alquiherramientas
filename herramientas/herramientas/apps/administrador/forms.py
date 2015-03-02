@@ -18,7 +18,10 @@ class UserCreationForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('email', 'nombre', 'apellido', 'ciudad', 'nacionalidad', 'cedula')
+        fields = ('email', 'nombre', 'apellido', 'telefono',  'ciudad', 'nacionalidad', 'cedula')
+        widgets = {
+                    'telefono': forms.TextInput(),
+        }
 
     def clean_password2(self):
         # Check that the two password entries match
@@ -47,7 +50,7 @@ class UserChangeForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('email', 'password', 'nombre', 'apellido', 'ciudad', 'nacionalidad', 'cedula')
+        fields = ('email', 'password', 'nombre', 'apellido', 'telefono', 'ciudad', 'nacionalidad', 'cedula')
 
     def clean_password(self):
         # Regardless of what the user provides, return the initial value.

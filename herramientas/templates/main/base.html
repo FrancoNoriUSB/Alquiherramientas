@@ -141,6 +141,12 @@
                                         <br>
                                         <br>
                                         <div class="form-inline">
+                                            <label for="id_apellido">Tel&eacute;fono</label>
+                                            {%render_field UsuarioForm.telefono class="form-control" placeholder="Teléfono"%}
+                                        </div>
+                                        <br>
+                                        <br>
+                                        <div class="form-inline">
                                             <label for="id_email">Correo electr&oacute;nico</label>
                                             {%render_field UsuarioForm.email class="form-control" placeholder="Correo Electrónico"%}
                                         </div>
@@ -192,7 +198,7 @@
                         <a href="/logout/">Salir</a>
                     {%else%}
                     <button class="btn btn-default" data-toggle="modal" data-target="#registroModal"><strong>REG&iacute;STRATE</strong></button>
-                    <div class="btn-group">
+                    <div class="btn-group" id="acceso">
                         <button type="button" class="btn btn-default dropdown-toggle" aria-expanded="false" id="login">
                         <strong>INGRESA</strong>
                         </button>
