@@ -35,6 +35,10 @@ body > div > div.row > div.barra-lateral.col-lg-4.col-md-4.col-sm-4 > div.col-lg
 	margin-right: auto;
 }
 
+body > div > div.row > div.contenido.col-lg-8.col-md-8.col-sm-8 > div > div.superior{
+	margin-bottom: 6%;
+}
+
 /*Estilos de bootstrap modificados*/
 .navbar-brand {
 	padding: 0px;
