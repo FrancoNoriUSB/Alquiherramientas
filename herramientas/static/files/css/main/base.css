@@ -97,6 +97,11 @@ body > header > nav > div > div.collapse.navbar-collapse.navHeaderCollapse.navhe
 	margin: 1% 0 5% 0;
 }
 
+/* centrar la imagen de ofertas*/
+.centered{
+	margin: 0 auto;
+}
+
 /*Estilo para poner un boton de color gris y el hover gris tambien*/
 .boton{
 	background-image: -webkit-linear-gradient(#7E7769 0%, #625D53 100%);
