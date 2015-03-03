@@ -262,23 +262,57 @@
                 </div>
                 {%if ofertas%}
                 <div class="col-lg-12 col-md-12 col-sm-12 ofertas">
-                    <div class="ofertas-content">
-                        <h3>Ofertas</h3>
-                        <img class="img-responsive" src="{{ofertas.imagen.url}}" alt="">
-                        <h4>{{ofertas.titulo}}</h4>
-                        <p style="font-weight: bolder;">
-                            {%if ofertas.alquiler%}
-                                <p class="precio">{{ofertas.alquiler.precio}} (por d&iacute;a)</p><p>Alquiler </p>
-                            {%else%}
-                                <p class="precio">{{ofertas.venta.precio|floatformat|intcomma}} </p><p>Venta </p>
-                            {%endif%}
-                            <strong>Marca:</strong> {{ofertas.herramienta.marca.nombre}} <br>
-                            <strong>A&ntilde;o:</strong> {{ofertas.herramienta.ano}} <br>
-                            <a href="/productos/{{ofertas.id}}/">
-                                <button class="btn btn-primary boton ver-mas">ver +</button>
-                            </a>
-                            <strong>Estado:</strong> {{ofertas.direccion.estado.nombre}}
-                        </p>
+
+
+                    <!-- Slider de imagenes -->
+                    <div id="carouselOferta" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner" role="listbox">
+                            {%for oferta in ofertas%}
+                                {%if forloop.first%}
+                                <div class="item active">
+                                    <div class="ofertas-content">
+                                        <h3>Ofertas</h3>
+                                        <img class="img-responsive centered" src="{{oferta.imagen.url}}" alt="">
+                                        <h4>{{oferta.titulo}}</h4>
+                                        <p style="font-weight: bolder;">
+                                            {%if oferta.alquiler%}
+                                                <p class="precio">{{oferta.alquiler.precio}} (por d&iacute;a)</p><p>Alquiler </p>
+                                            {%else%}
+                                                <p class="precio">{{oferta.venta.precio|floatformat|intcomma}} </p><p>Venta </p>
+                                            {%endif%}
+                                            <strong>Marca:</strong> {{oferta.herramienta.marca.nombre}} <br>
+                                            <strong>A&ntilde;o:</strong> {{oferta.herramienta.ano}} <br>
+                                            <a href="/productos/{{oferta.id}}/">
+                                                <button class="btn btn-primary boton ver-mas">ver +</button>
+                                            </a>
+                                            <strong>Estado:</strong> {{oferta.direccion.estado.nombre}}
+                                        </p>
+                                    </div>
+                                </div>
+                                {%else%}
+                                <div class="item">
+                                    <div class="ofertas-content">
+                                        <h3>Ofertas</h3>
+                                        <img class="img-responsive centered" src="{{oferta.imagen.url}}" alt="">
+                                        <h4>{{oferta.titulo}}</h4>
+                                        <p style="font-weight: bolder;">
+                                            {%if oferta.alquiler%}
+                                                <p class="precio">{{oferta.alquiler.precio}} (por d&iacute;a)</p><p>Alquiler </p>
+                                            {%else%}
+                                                <p class="precio">{{oferta.venta.precio|floatformat|intcomma}} </p><p>Venta </p>
+                                            {%endif%}
+                                            <strong>Marca:</strong> {{oferta.herramienta.marca.nombre}} <br>
+                                            <strong>A&ntilde;o:</strong> {{oferta.herramienta.ano}} <br>
+                                            <a href="/productos/{{oferta.id}}/">
+                                                <button class="btn btn-primary boton ver-mas">ver +</button>
+                                            </a>
+                                            <strong>Estado:</strong> {{oferta.direccion.estado.nombre}}
+                                        </p>
+                                    </div>
+                                </div>
+                                {%endif%}
+                            {%endfor%}
+                        </div>
                     </div>
                 </div>
                 {%endif%}

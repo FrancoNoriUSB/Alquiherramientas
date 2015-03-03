@@ -46,10 +46,7 @@ def inicio(request):
 
     # Ofertas de los productos
     ofertas = []
-    ofertas = Producto.objects.filter(oferta=True).order_by('?')
-    
-    if len(ofertas) > 0:
-        ofertas = ofertas[randint(0, len(ofertas)-1)]
+    ofertas = Producto.objects.filter(oferta=True).filter(disponible=True).order_by('?')
 
     #Ciudades
     ciudades = {}
@@ -58,7 +55,7 @@ def inicio(request):
     zonas = {}
 
     #Productos que se ofertan
-    productos = Producto.objects.all().order_by('fecha_producto')
+    productos = Producto.objects.filter(disponible=True).order_by('fecha_producto')
 
     productos_list = productos
 
@@ -207,10 +204,7 @@ def empresa(request):
 
     # Ofertas de los productos
     ofertas = []
-    ofertas = Producto.objects.filter(oferta=True).order_by('?')
-    
-    if len(ofertas) > 0:
-        ofertas = ofertas[randint(0, len(ofertas)-1)]
+    ofertas =  Producto.objects.filter(oferta=True).filter(disponible=True).order_by('?')
 
     # Creando un nuevo usuario
     if request.method=='POST':
@@ -254,18 +248,15 @@ def productos(request, palabra):
     #Zonas
     zonas = {}
     
-    # Ofertas de los productos
     ofertas = []
-    ofertas = Producto.objects.filter(oferta=True).order_by('?')
+    ofertas =  Producto.objects.filter(oferta=True).filter(disponible=True).order_by('?')
     
-    if len(ofertas) > 0:
-        ofertas = ofertas[randint(0, len(ofertas)-1)]
 
     #productos que se ofertan
     if palabra == 'alquiler':
-        productos = Alquiler.objects.all().order_by('fecha_producto')
+        productos = Alquiler.objects.filter(disponible=True).order_by('fecha_producto')
     else:
-        productos = Venta.objects.all().order_by('fecha_producto')
+        productos = Venta.objects.filter(disponible=True).order_by('fecha_producto')
 
     # Creando un nuevo usuario
     if request.method=='POST':
@@ -339,16 +330,13 @@ def producto(request, id_producto):
     
     # Ofertas de los productos
     ofertas = []
-    ofertas = Producto.objects.filter(oferta=True).order_by('?')
+    ofertas =  Producto.objects.filter(oferta=True).filter(disponible=True).order_by('?')
     
     #Datos iniciales de formularios de venta y alquiler
     dataA = {}
     dataV = {}
     ventaF = VentaForm()
     alquilerF = AlquilerForm()
-
-    if len(ofertas) > 0:
-        ofertas = ofertas[randint(0, len(ofertas)-1)]
 
     producto = Producto.objects.get(id=id_producto)
 
@@ -452,10 +440,7 @@ def pagar(request, id_producto):
     
     # Ofertas de los productos
     ofertas = []
-    ofertas = Producto.objects.filter(oferta=True).order_by('?')
-
-    if len(ofertas) > 0:
-        ofertas = ofertas[randint(0, len(ofertas)-1)]
+    ofertas =  Producto.objects.filter(oferta=True).filter(disponible=True).order_by('?')
 
     producto = Producto.objects.get(id=id_producto)
 
@@ -542,11 +527,8 @@ def datos(request):
 
     # Ofertas de los productos
     ofertas = []
-    ofertas = Producto.objects.filter(oferta=True).order_by('?')
+    ofertas =  Producto.objects.filter(oferta=True).filter(disponible=True).order_by('?')
     
-    if len(ofertas) > 0:
-        ofertas = ofertas[randint(0, len(ofertas)-1)]
-
     # Creando un nuevo usuario
     if request.method=='POST':
         usuarioF = UserCreationForm(request.POST)
@@ -618,10 +600,8 @@ def afiliacion(request):
     
     # Ofertas de los productos
     ofertas = []
-    ofertas = Producto.objects.filter(oferta=True).order_by('?')
-    
-    if len(ofertas) > 0:
-        ofertas = ofertas[randint(0, len(ofertas)-1)]
+    ofertas =  Producto.objects.filter(oferta=True).filter(disponible=True).order_by('?')
+
 
     # Creando un nuevo usuario
     if request.method=='POST':
@@ -680,10 +660,7 @@ def contactos(request):
 
     # Ofertas de los productos
     ofertas = []
-    ofertas = Producto.objects.filter(oferta=True).order_by('?')
-    
-    if len(ofertas) > 0:
-        ofertas = ofertas[randint(0, len(ofertas)-1)]
+    ofertas =  Producto.objects.filter(oferta=True).filter(disponible=True).order_by('?')
 
     # Creando un nuevo usuario
     if request.method=='POST':
