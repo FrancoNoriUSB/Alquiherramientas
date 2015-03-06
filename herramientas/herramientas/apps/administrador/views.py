@@ -98,7 +98,10 @@ def venta_agregar(request):
 	editado = ''
 	ventaF = VentaForm()
 	herramientaF = HerramientaForm()
-	direccionF = DireccionForm()
+	estados = Estado.objects.all()
+	direccionF = DireccionForm(initial={'estado':estados, 'ciudad':'', 'zona':''})
+	ciudades = {'':'- Ciudad -'}
+	zonas = {}
 
 	if request.POST:
 		ventaF = VentaForm(request.POST, request.FILES)
@@ -117,10 +120,27 @@ def venta_agregar(request):
 				venta.save()
 				editado = True
 
+
+	#Ciudades a agregar
+	for estado in Estado.objects.all().order_by('id'):
+		ciudades_estado = Ciudad.objects.filter(estado=estado)
+		for ciudad in ciudades_estado:
+			ciudades[estado.id] = dict(Ciudad.objects.filter(estado=estado).values_list('id','nombre'))
+	ciudades = json.dumps(ciudades)
+
+	print ciudades
+
+	#Zonas a agregar
+	for ciudad in Ciudad.objects.all():
+		zonas[ciudad.id] = dict(Zona.objects.filter(ciudad=ciudad).values_list('id', 'nombre'))
+	zonas = json.dumps(zonas)
+
 	ctx={
 		'VentaForm':ventaF,
 		'HerramientaForm':herramientaF,
 		'DireccionForm':direccionF,
+		'ciudades':ciudades,
+		'zonas':zonas,
 		'editado':editado,
 	}
 
@@ -136,6 +156,9 @@ def venta_editar(request, id_producto):
 	ventaF = VentaForm(instance=venta)
 	herramientaF = HerramientaForm(instance=venta.herramienta)
 	direccionF = DireccionForm(instance=venta.direccion)
+	ciudades = {'':'- Ciudad -'}
+	zonas = {'':'- Zona -'}
+
 
 	if request.POST:
 		ventaF = VentaForm(request.POST, request.FILES, instance=venta)
@@ -154,10 +177,26 @@ def venta_editar(request, id_producto):
 				venta.save()
 				editado = True
 
+	#Ciudades a agregar
+	for estado in Estado.objects.all().order_by('id'):
+		ciudades_estado = Ciudad.objects.filter(estado=estado)
+		for ciudad in ciudades_estado:
+			ciudades[estado.id] = dict(Ciudad.objects.filter(estado=estado).values_list('id','nombre'))
+	ciudades = json.dumps(ciudades)
+
+	print ciudades
+
+	#Zonas a agregar
+	for ciudad in Ciudad.objects.all():
+		zonas[ciudad.id] = dict(Zona.objects.filter(ciudad=ciudad).values_list('id', 'nombre'))
+	zonas = json.dumps(zonas)
+
 	ctx={
 		'VentaForm':ventaF,
 		'HerramientaForm':herramientaF,
 		'DireccionForm':direccionF,
+		'ciudades':ciudades,
+		'zonas':zonas,
 		'editado':editado,
 	}
 
@@ -279,7 +318,10 @@ def alquiler_agregar(request):
 	editado = ''
 	alquilerF = AlquilerForm()
 	herramientaF = HerramientaForm()
-	direccionF = DireccionForm()
+	estados = Estado.objects.all()
+	direccionF = DireccionForm(initial={'estado':estados, 'ciudad':'', 'zona':''})
+	ciudades = {'':'- Ciudad -'}
+	zonas = {'':'- Zona -'}
 
 	if request.POST:
 		alquilerF = AlquilerForm(request.POST, request.FILES)
@@ -298,10 +340,26 @@ def alquiler_agregar(request):
 				venta.save()
 				editado = True
 
+	#Ciudades a agregar
+	for estado in Estado.objects.all().order_by('id'):
+		ciudades_estado = Ciudad.objects.filter(estado=estado)
+		for ciudad in ciudades_estado:
+			ciudades[estado.id] = dict(Ciudad.objects.filter(estado=estado).values_list('id','nombre'))
+	ciudades = json.dumps(ciudades)
+
+	print ciudades
+
+	#Zonas a agregar
+	for ciudad in Ciudad.objects.all():
+		zonas[ciudad.id] = dict(Zona.objects.filter(ciudad=ciudad).values_list('id', 'nombre'))
+	zonas = json.dumps(zonas)
+
 	ctx={
 		'AlquilerForm':alquilerF,
 		'HerramientaForm':herramientaF,
 		'DireccionForm':direccionF,
+		'ciudades':ciudades,
+		'zonas':zonas,
 		'editado':editado,
 	}
 
@@ -317,6 +375,8 @@ def alquiler_editar(request, id_producto):
 	alquilerF = AlquilerForm(instance=alquiler)
 	herramientaF = HerramientaForm(instance=alquiler.herramienta)
 	direccionF = DireccionForm(instance=alquiler.direccion)
+	ciudades = {'':'- Ciudad -'}
+	zonas = {'':'- Zona -'}
 
 	if request.POST:
 		alquilerF = AlquilerForm(request.POST, request.FILES, instance=alquiler)
@@ -335,10 +395,26 @@ def alquiler_editar(request, id_producto):
 				venta.save()
 				editado = True
 
+	#Ciudades a agregar
+	for estado in Estado.objects.all().order_by('id'):
+		ciudades_estado = Ciudad.objects.filter(estado=estado)
+		for ciudad in ciudades_estado:
+			ciudades[estado.id] = dict(Ciudad.objects.filter(estado=estado).values_list('id','nombre'))
+	ciudades = json.dumps(ciudades)
+
+	print ciudades
+
+	#Zonas a agregar
+	for ciudad in Ciudad.objects.all():
+		zonas[ciudad.id] = dict(Zona.objects.filter(ciudad=ciudad).values_list('id', 'nombre'))
+	zonas = json.dumps(zonas)
+
 	ctx={
 		'AlquilerForm':alquilerF,
 		'HerramientaForm':herramientaF,
 		'DireccionForm':direccionF,
+		'ciudades':ciudades,
+		'zonas':zonas,
 		'editado':editado,
 	}
 	

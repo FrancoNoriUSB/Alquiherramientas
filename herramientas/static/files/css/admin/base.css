@@ -22,9 +22,6 @@ Colores a utilizar:
 	color: white;
 }
 
-.sidebar ul li {
-	border-bottom: 1px solid #292929 !important;
-}
 
 .sidebar ul li a.active {
 	background-color: #625D53 !important;
