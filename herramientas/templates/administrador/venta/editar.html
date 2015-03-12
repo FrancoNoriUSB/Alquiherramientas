@@ -48,3 +48,45 @@
         </div>
 	</div>
 {% endblock contenido %}
+{% block js %}
+<script>
+var ciudades = {{ ciudades|safe }};
+
+function cargar_ciudades(){
+    var estado = $('#id_estado').val();
+    var elem_ciudades = $('#id_ciudad');
+
+    if (estado != ""){
+        elem_ciudades.empty();
+        elem_ciudades.append('<option value="" selected="selected"> - Ciudad -</option>');
+        $.each(ciudades[estado], function(i, ciudad){
+            elem_ciudades.append('<option value="'+ i +'">' + ciudad + '</option>')
+        });
+    } else {
+        elem_zonas.empty();
+        elem_zonas.append('<option value="" selected="selected"> - Ciudad -</option>');
+    }
+}
+$(document).on('change', '#id_estado', cargar_ciudades);
+
+var zonas = {{ zonas|safe }};
+
+function cargar_zonas(){
+    var ciudad = $('#id_ciudad').val();
+    var elem_zonas = $('#id_zona');
+
+
+    if (ciudad != ""){
+        elem_zonas.empty();
+        elem_zonas.append('<option value="" selected="selected"> - Zona -</option>');
+        $.each(zonas[ciudad], function(i, zona){
+            elem_zonas.append('<option value="'+ i +'">' + zona + '</option>')
+        });
+    } else {
+        elem_zonas.empty();
+        elem_zonas.append('<option value="" selected="selected"> - Zona -</option>');
+    }
+}
+$(document).on('change', '#id_ciudad', cargar_zonas);
+</script>
+{% endblock js %}

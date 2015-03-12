@@ -99,7 +99,10 @@ def venta_agregar(request):
 	ventaF = VentaForm()
 	imagenF = ImagenForm()
 	herramientaF = HerramientaForm()
-	direccionF = DireccionForm()
+	estados = Estado.objects.all()
+	direccionF = DireccionForm(initial={'estado':estados, 'ciudad':'', 'zona':''})
+	ciudades = {'':'- Ciudad -'}
+	zonas = {}
 
 	if request.POST:
 		ventaF = VentaForm(request.POST)
@@ -121,11 +124,31 @@ def venta_agregar(request):
 				venta.save()
 				editado = True
 
+
+	#Ciudades a agregar
+	for estado in Estado.objects.all().order_by('id'):
+		ciudades_estado = Ciudad.objects.filter(estado=estado)
+		for ciudad in ciudades_estado:
+			ciudades[estado.id] = dict(Ciudad.objects.filter(estado=estado).values_list('id','nombre'))
+	ciudades = json.dumps(ciudades)
+
+	print ciudades
+
+	#Zonas a agregar
+	for ciudad in Ciudad.objects.all():
+		zonas[ciudad.id] = dict(Zona.objects.filter(ciudad=ciudad).values_list('id', 'nombre'))
+	zonas = json.dumps(zonas)
+
 	ctx={
 		'VentaForm':ventaF,
 		'HerramientaForm':herramientaF,
 		'DireccionForm':direccionF,
+<<<<<<< HEAD
 		'ImagenForm':imagenF,
+=======
+		'ciudades':ciudades,
+		'zonas':zonas,
+>>>>>>> 69f584d234c0d921dc9afd646dd6d6987a785f49
 		'editado':editado,
 	}
 
@@ -142,6 +165,9 @@ def venta_editar(request, id_producto):
 	imagenF = ImagenForm(instance=venta.imagen)
 	herramientaF = HerramientaForm(instance=venta.herramienta)
 	direccionF = DireccionForm(instance=venta.direccion)
+	ciudades = {'':'- Ciudad -'}
+	zonas = {'':'- Zona -'}
+
 
 	if request.POST:
 		ventaF = VentaForm(request.POST, instance=venta)
@@ -163,11 +189,30 @@ def venta_editar(request, id_producto):
 				venta.save()
 				editado = True
 
+	#Ciudades a agregar
+	for estado in Estado.objects.all().order_by('id'):
+		ciudades_estado = Ciudad.objects.filter(estado=estado)
+		for ciudad in ciudades_estado:
+			ciudades[estado.id] = dict(Ciudad.objects.filter(estado=estado).values_list('id','nombre'))
+	ciudades = json.dumps(ciudades)
+
+	print ciudades
+
+	#Zonas a agregar
+	for ciudad in Ciudad.objects.all():
+		zonas[ciudad.id] = dict(Zona.objects.filter(ciudad=ciudad).values_list('id', 'nombre'))
+	zonas = json.dumps(zonas)
+
 	ctx={
 		'VentaForm':ventaF,
 		'HerramientaForm':herramientaF,
 		'DireccionForm':direccionF,
+<<<<<<< HEAD
 		'ImagenForm':imagenF,
+=======
+		'ciudades':ciudades,
+		'zonas':zonas,
+>>>>>>> 69f584d234c0d921dc9afd646dd6d6987a785f49
 		'editado':editado,
 	}
 
@@ -290,7 +335,10 @@ def alquiler_agregar(request):
 	alquilerF = AlquilerForm()
 	imagenF = ImagenForm()
 	herramientaF = HerramientaForm()
-	direccionF = DireccionForm()
+	estados = Estado.objects.all()
+	direccionF = DireccionForm(initial={'estado':estados, 'ciudad':'', 'zona':''})
+	ciudades = {'':'- Ciudad -'}
+	zonas = {'':'- Zona -'}
 
 	if request.POST:
 		alquilerF = AlquilerForm(request.POST)
@@ -312,11 +360,30 @@ def alquiler_agregar(request):
 				venta.save()
 				editado = True
 
+	#Ciudades a agregar
+	for estado in Estado.objects.all().order_by('id'):
+		ciudades_estado = Ciudad.objects.filter(estado=estado)
+		for ciudad in ciudades_estado:
+			ciudades[estado.id] = dict(Ciudad.objects.filter(estado=estado).values_list('id','nombre'))
+	ciudades = json.dumps(ciudades)
+
+	print ciudades
+
+	#Zonas a agregar
+	for ciudad in Ciudad.objects.all():
+		zonas[ciudad.id] = dict(Zona.objects.filter(ciudad=ciudad).values_list('id', 'nombre'))
+	zonas = json.dumps(zonas)
+
 	ctx={
 		'AlquilerForm':alquilerF,
 		'HerramientaForm':herramientaF,
 		'DireccionForm':direccionF,
+<<<<<<< HEAD
 		'ImagenForm': imagenF,
+=======
+		'ciudades':ciudades,
+		'zonas':zonas,
+>>>>>>> 69f584d234c0d921dc9afd646dd6d6987a785f49
 		'editado':editado,
 	}
 
@@ -332,7 +399,12 @@ def alquiler_editar(request, id_producto):
 	alquilerF = AlquilerForm(instance=alquiler)
 	herramientaF = HerramientaForm(instance=alquiler.herramienta)
 	direccionF = DireccionForm(instance=alquiler.direccion)
+<<<<<<< HEAD
 	imagenF = ImagenForm(instance=Alquiler.imagen)
+=======
+	ciudades = {'':'- Ciudad -'}
+	zonas = {'':'- Zona -'}
+>>>>>>> 69f584d234c0d921dc9afd646dd6d6987a785f49
 
 	if request.POST:
 		alquilerF = AlquilerForm(request.POST, instance=alquiler)
@@ -354,10 +426,26 @@ def alquiler_editar(request, id_producto):
 				venta.save()
 				editado = True
 
+	#Ciudades a agregar
+	for estado in Estado.objects.all().order_by('id'):
+		ciudades_estado = Ciudad.objects.filter(estado=estado)
+		for ciudad in ciudades_estado:
+			ciudades[estado.id] = dict(Ciudad.objects.filter(estado=estado).values_list('id','nombre'))
+	ciudades = json.dumps(ciudades)
+
+	print ciudades
+
+	#Zonas a agregar
+	for ciudad in Ciudad.objects.all():
+		zonas[ciudad.id] = dict(Zona.objects.filter(ciudad=ciudad).values_list('id', 'nombre'))
+	zonas = json.dumps(zonas)
+
 	ctx={
 		'AlquilerForm':alquilerF,
 		'HerramientaForm':herramientaF,
 		'DireccionForm':direccionF,
+		'ciudades':ciudades,
+		'zonas':zonas,
 		'editado':editado,
 	}
 	
