@@ -250,7 +250,6 @@ def productos(request, palabra):
     
     ofertas = []
     ofertas =  Producto.objects.filter(oferta=True).filter(disponible=True).order_by('?')
-    
 
     #productos que se ofertan
     if palabra == 'alquiler':
@@ -299,6 +298,7 @@ def productos(request, palabra):
         'banners':banners,
         'ciudades':ciudades,
         'zonas':zonas,
+        'palabra':palabra,
     }
 
     return render_to_response('main/productos/productos.html', ctx, context_instance=RequestContext(request))
