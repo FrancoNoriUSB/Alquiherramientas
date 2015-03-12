@@ -665,7 +665,7 @@ def contactos(request):
     zonas = Zona.objects.all()
 
     #Contactos de alquiherramientas
-    #contactos = Contactos.objects.get(id=1)
+    contactos = Contactos.objects.get(id=1)
     
     #Formulario de contacto
     if request.method == 'POST':
