@@ -97,6 +97,7 @@ def venta_agregar(request):
 
 	editado = ''
 	ventaF = VentaForm()
+	imagenF = ImagenForm()
 	herramientaF = HerramientaForm()
 	estados = Estado.objects.all()
 	direccionF = DireccionForm(initial={'estado':estados, 'ciudad':'', 'zona':''})
@@ -104,19 +105,22 @@ def venta_agregar(request):
 	zonas = {}
 
 	if request.POST:
-		ventaF = VentaForm(request.POST, request.FILES)
+		ventaF = VentaForm(request.POST)
+		imagenF = ImagenForm(request.POST, request.FILES)
 		herramientaF = HerramientaForm(request.POST)
 		direccionF = DireccionForm(request.POST)
-
-		if herramientaF.is_valid() and direccionF.is_valid():
+		if herramientaF.is_valid() and direccionF.is_valid() and imagenF.is_valid():
 			herramienta = herramientaF.save(commit=False)
 			direccion = direccionF.save(commit=False)
+			imagen = imagenF.save(commit=False)
 			if ventaF.is_valid():
 				herramienta.save()
 				direccion.save()
+				imagen.save()
 				venta = ventaF.save(commit=False)
 				venta.herramienta = herramienta
 				venta.direccion = direccion
+				venta.imagen = imagen
 				venta.save()
 				editado = True
 
@@ -139,6 +143,7 @@ def venta_agregar(request):
 		'VentaForm':ventaF,
 		'HerramientaForm':herramientaF,
 		'DireccionForm':direccionF,
+		'ImagenForm':imagenF,
 		'ciudades':ciudades,
 		'zonas':zonas,
 		'editado':editado,
@@ -154,6 +159,7 @@ def venta_editar(request, id_producto):
 	editado = ''
 	venta = Venta.objects.get(id=id_producto)
 	ventaF = VentaForm(instance=venta)
+	imagenF = ImagenForm(instance=venta.imagen)
 	herramientaF = HerramientaForm(instance=venta.herramienta)
 	direccionF = DireccionForm(instance=venta.direccion)
 	ciudades = {'':'- Ciudad -'}
@@ -161,19 +167,22 @@ def venta_editar(request, id_producto):
 
 
 	if request.POST:
-		ventaF = VentaForm(request.POST, request.FILES, instance=venta)
+		ventaF = VentaForm(request.POST, instance=venta)
 		herramientaF = HerramientaForm(request.POST, instance=venta.herramienta)
 		direccionF = DireccionForm(request.POST, instance=venta.direccion)
-
-		if herramientaF.is_valid() and direccionF.is_valid():
+		imagenF = ImagenForm(request.POST, request.FILES, instance=venta.imagen)
+		if herramientaF.is_valid() and direccionF.is_valid() and imagenF.is_valid():
 			herramienta = herramientaF.save(commit=False)
 			direccion = direccionF.save(commit=False)
+			imagen = imagenF.save(commit=False)
 			if ventaF.is_valid():
 				herramienta.save()
 				direccion.save()
+				imagen.save()
 				venta = ventaF.save(commit=False)
 				venta.herramienta = herramienta
 				venta.direccion = direccion
+				venta.imagen = imagen
 				venta.save()
 				editado = True
 
@@ -195,6 +204,7 @@ def venta_editar(request, id_producto):
 		'VentaForm':ventaF,
 		'HerramientaForm':herramientaF,
 		'DireccionForm':direccionF,
+		'ImagenForm':imagenF,
 		'ciudades':ciudades,
 		'zonas':zonas,
 		'editado':editado,
@@ -317,6 +327,7 @@ def alquiler_agregar(request):
 
 	editado = ''
 	alquilerF = AlquilerForm()
+	imagenF = ImagenForm()
 	herramientaF = HerramientaForm()
 	estados = Estado.objects.all()
 	direccionF = DireccionForm(initial={'estado':estados, 'ciudad':'', 'zona':''})
@@ -324,19 +335,22 @@ def alquiler_agregar(request):
 	zonas = {'':'- Zona -'}
 
 	if request.POST:
-		alquilerF = AlquilerForm(request.POST, request.FILES)
+		alquilerF = AlquilerForm(request.POST)
+		imagenF = ImagenForm(request.POST, request.FILES)
 		herramientaF = HerramientaForm(request.POST)
 		direccionF = DireccionForm(request.POST)
-
-		if herramientaF.is_valid() and direccionF.is_valid():
+		if herramientaF.is_valid() and direccionF.is_valid() and imagenF.is_valid():
 			herramienta = herramientaF.save(commit=False)
 			direccion = direccionF.save(commit=False)
+			imagen = imagenF.save(commit=False)
 			if alquilerF.is_valid():
 				herramienta.save()
 				direccion.save()
+				imagen.save()
 				venta = alquilerF.save(commit=False)
 				venta.herramienta = herramienta
 				venta.direccion = direccion
+				venta.imagen = imagen
 				venta.save()
 				editado = True
 
@@ -358,6 +372,7 @@ def alquiler_agregar(request):
 		'AlquilerForm':alquilerF,
 		'HerramientaForm':herramientaF,
 		'DireccionForm':direccionF,
+		'ImagenForm': imagenF,
 		'ciudades':ciudades,
 		'zonas':zonas,
 		'editado':editado,
@@ -375,23 +390,30 @@ def alquiler_editar(request, id_producto):
 	alquilerF = AlquilerForm(instance=alquiler)
 	herramientaF = HerramientaForm(instance=alquiler.herramienta)
 	direccionF = DireccionForm(instance=alquiler.direccion)
+<<<<<<< HEAD
+	imagenF = ImagenForm(instance=Alquiler.imagen)
+=======
 	ciudades = {'':'- Ciudad -'}
 	zonas = {'':'- Zona -'}
+>>>>>>> 69f584d234c0d921dc9afd646dd6d6987a785f49
 
 	if request.POST:
-		alquilerF = AlquilerForm(request.POST, request.FILES, instance=alquiler)
+		alquilerF = AlquilerForm(request.POST, instance=alquiler)
 		herramientaF = HerramientaForm(request.POST, instance=alquiler.herramienta)
 		direccionF = DireccionForm(request.POST, instance=alquiler.direccion)
-
+		imagenF = ImagenForm(request.POST, request.FILES, instance=Alquiler.imagen)
 		if herramientaF.is_valid() and direccionF.is_valid():
 			herramienta = herramientaF.save(commit=False)
 			direccion = direccionF.save(commit=False)
+			imagen = imagenF.save(commit=False)
 			if alquilerF.is_valid():
 				herramienta.save()
 				direccion.save()
+				imagen.save()
 				venta = alquilerF.save(commit=False)
 				venta.herramienta = herramienta
 				venta.direccion = direccion
+				venta.imagen = imagen
 				venta.save()
 				editado = True
 
@@ -733,7 +755,6 @@ def categoria_listar(request):
 
 	paginator = Paginator(categorias, 10)
 	page = request.GET.get('page')
-	
 
 	try:
 		categorias = paginator.page(page)
@@ -773,7 +794,6 @@ def marca_agregar(request):
 			marcaF.save()
 			editado = True
 
-
 	ctx={
 		'MarcaForm':marcaF,
 		'editado':editado,
@@ -796,7 +816,6 @@ def marca_editar(request, id_marca):
 			marcaF.save()
 			editado = True
 
-
 	ctx={
 		'MarcaForm':marcaF,
 		'editado':editado,
@@ -813,7 +832,6 @@ def marca_listar(request):
 
 	paginator = Paginator(marcas, 10)
 	page = request.GET.get('page')
-	
 
 	try:
 		marcas = paginator.page(page)

@@ -101,7 +101,7 @@ body > header > nav > div > div.collapse.navbar-collapse.navHeaderCollapse.navhe
 	margin: 1% 0 5% 0;
 }
 
-/* centrar la imagen de ofertas*/
+/* centrar la imagen de ofertas, tamanio minimo y maximo*/
 .centered{
 	margin: 0 auto;
 }

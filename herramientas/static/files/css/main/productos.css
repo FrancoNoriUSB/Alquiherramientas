@@ -23,6 +23,14 @@ body > div > div.row > div.barra-lateral.col-lg-4.col-md-4.col-sm-4 > div.col-lg
 	margin-right: auto;
 }
 
+/* Tamanio de la imagen de las publicaciones */
+.cuadrado {
+	min-height: 185px !important;
+}
+
+.separado{
+	margin-bottom: 20px;
+}
 
 /*Hace que el precio de las cosas aparezca a la derecha*/
 .precio {

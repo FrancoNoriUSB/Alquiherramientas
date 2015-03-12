@@ -23,7 +23,7 @@ urlpatterns = patterns('herramientas.apps.main.views',
     url(r'^contactos/$', 'contactos', name='contactos'),
 
     #View de login de usuario
-    url(r'^login/$', 'loginUser', name='loginUser'),
+    url(r'^login/(?P<redirect>.*)$', 'loginUser', name='loginUser'),
 
     #View de perfil de usuario
     url(r'^perfil/$', 'perfilCompras', name='perfil'),

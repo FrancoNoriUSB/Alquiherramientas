@@ -123,7 +123,7 @@ class Direccion(models.Model):
 
 #Imagen de los anuncios que se publican
 class Imagen(models.Model):
-    imagen = models.ImageField(upload_to='uploads/img/', null=True)
+    imagen = models.ImageField(upload_to='uploads/img/', null=False)
     thumbnail = models.ImageField(upload_to='uploads/img/thumbnails/', blank=True, null=True, editable=False)
     descripcion = models.CharField(max_length=140, null=True)
 
@@ -238,13 +238,23 @@ class Herramienta(models.Model):
 		return u"%s" %(self.nombre)
 
 
+class ImagenInicial(Imagen):
+
+	class Meta:
+		abstract = False
+		verbose_name = "Imagen Inicial"
+		verbose_name_plural = "Imagenes Iniciales"
+
+	def __unicode__(self):
+		return u"%s" %(self.descripcion)
+
 # Producto de las herramientas.
 class Producto(models.Model):
 	titulo = models.CharField(max_length=100)
 	contenido = models.CharField(max_length=10000)
 	cantidad = models.IntegerField(max_length=10, default=1)
-	imagen = models.ImageField(upload_to='uploads/Productos')
 	oferta = models.BooleanField(default=False, help_text='Marcado si desea que se muestre como una oferta')
+	imagen = models.ForeignKey(ImagenInicial)
 	disponible = models.BooleanField(default=True)
 	fecha_producto = models.DateTimeField(auto_now_add=True)
 	fecha_actualizacion = models.DateTimeField(auto_now=True)

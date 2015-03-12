@@ -54,6 +54,9 @@ def inicio(request):
     #Zonas
     zonas = {}
 
+    # Direccion para redireccionar al logear.
+    redirect = '/'
+
     #Productos que se ofertan
     productos = Producto.objects.filter(disponible=True).order_by('fecha_producto')
 
@@ -64,7 +67,6 @@ def inicio(request):
         busquedaF = BusquedaForm(request.GET)
         
         #Caso para el buscador de herramientas
-        print busquedaF
         if busquedaF.is_valid():
             tipo = busquedaF.cleaned_data['tipo']
             categoria = busquedaF.cleaned_data['categoria']
@@ -173,6 +175,7 @@ def inicio(request):
         'banners':banners,
         'ciudades':ciudades,
         'zonas':zonas,
+        'redirect':redirect,
     }
 
     return render_to_response('main/inicio/inicio.html', ctx, context_instance=RequestContext(request))
@@ -204,7 +207,10 @@ def empresa(request):
 
     # Ofertas de los productos
     ofertas = []
-    ofertas =  Producto.objects.filter(oferta=True).filter(disponible=True).order_by('?')
+    ofertas = Producto.objects.filter(oferta=True).filter(disponible=True).order_by('?')
+
+    # Direccion para redireccionar al logear.
+    redirect = '/empresa/' 
 
     # Creando un nuevo usuario
     if request.method=='POST':
@@ -222,6 +228,7 @@ def empresa(request):
         'ciudades':ciudades,
         'zonas':zonas,
         'empresa':empresa,
+        'redirect':redirect,
     }
 
     return render_to_response('main/empresa/empresa.html', ctx, context_instance=RequestContext(request))
@@ -248,9 +255,13 @@ def productos(request, palabra):
     #Zonas
     zonas = {}
     
+    # Ofertas de los productos
     ofertas = []
-    ofertas =  Producto.objects.filter(oferta=True).filter(disponible=True).order_by('?')
+    ofertas = Producto.objects.filter(oferta=True).filter(disponible=True).order_by('?')
 
+    # Direccion para redireccionar al logear.
+    redirect = request.path
+    
     #productos que se ofertan
     if palabra == 'alquiler':
         productos = Alquiler.objects.filter(disponible=True).order_by('fecha_producto')
@@ -298,7 +309,11 @@ def productos(request, palabra):
         'banners':banners,
         'ciudades':ciudades,
         'zonas':zonas,
+<<<<<<< HEAD
         'palabra':palabra,
+=======
+        'redirect':redirect,
+>>>>>>> 8efefc48ccbdc742e0f9fe9edeeac6ccbd06c17c
     }
 
     return render_to_response('main/productos/productos.html', ctx, context_instance=RequestContext(request))
@@ -328,9 +343,12 @@ def producto(request, id_producto):
     #Zonas
     zonas = Zona.objects.all()
     
-    # Ofertas de los productos
+   # Ofertas de los productos
     ofertas = []
-    ofertas =  Producto.objects.filter(oferta=True).filter(disponible=True).order_by('?')
+    ofertas = Producto.objects.filter(oferta=True).filter(disponible=True).order_by('?')
+
+    # Direccion para redireccionar al logear.
+    redirect = request.path
     
     #Datos iniciales de formularios de venta y alquiler
     dataA = {}
@@ -379,22 +397,10 @@ def producto(request, id_producto):
 
 
     # Crear el slider con las imagenes del producto
-    imagenes = producto.imagenes.all()
-    x = 1
-    indicador = """ <li data-target="#carousel-example-generic" data-slide-to="%s" class="active"></li> """ %x
-    wrap = """ <div class="item active">
-                    <img src="/media/%s" />
-                </div> """ % producto.imagen
-    for i in imagenes:
-        indicador += """ <li data-target="#carousel-example-generic" data-slide-to="%s"></li> """ %x
-        wrap += """ <div class="item">
-                          <img src="/media/%s"/>
-                        </div> """ % i.imagen
-        x += 1
-
-    indicator = """ <ol class="carousel-indicators"> """ + indicador + """ </ol> """
-    wrapper = """ <div class="carousel-inner" role="listbox"> """ + wrap + """ </div> """
-
+    imagenes = []
+    imagenes = ImagenProducto.objects.filter(Producto=id_producto).order_by('id')
+    imagen = producto.imagen.imagen
+   
     ctx = {
         'BusquedaForm':busquedaF,
         'LoginForm':loginF,
@@ -407,8 +413,9 @@ def producto(request, id_producto):
         'ciudades':ciudades,
         'zonas':zonas,
         'contactoF':contactoF,
-        'indicator':indicator,
-        'wrapper':wrapper,
+        'imagen':imagen,
+        'imagenes':imagenes,
+        'redirect':redirect,
 
     }
 
@@ -440,7 +447,10 @@ def pagar(request, id_producto):
     
     # Ofertas de los productos
     ofertas = []
-    ofertas =  Producto.objects.filter(oferta=True).filter(disponible=True).order_by('?')
+    ofertas = Producto.objects.filter(oferta=True).filter(disponible=True).order_by('?')
+
+    # Direccion para redireccionar al logear.
+    redirect = request.path
 
     producto = Producto.objects.get(id=id_producto)
 
@@ -497,6 +507,7 @@ def pagar(request, id_producto):
         'zonas':zonas,
         'contactoF': contactoF,
         'boton_mp': boton,
+        'redirect':redirect,
     }
 
     return render_to_response('main/productos/pago.html', ctx, context_instance=RequestContext(request))
@@ -527,7 +538,10 @@ def datos(request):
 
     # Ofertas de los productos
     ofertas = []
-    ofertas =  Producto.objects.filter(oferta=True).filter(disponible=True).order_by('?')
+    ofertas = Producto.objects.filter(oferta=True).filter(disponible=True).order_by('?')
+
+    # Direccion para redireccionar al logear.
+    redirect = request.path
     
     # Creando un nuevo usuario
     if request.method=='POST':
@@ -544,6 +558,7 @@ def datos(request):
         'banners':banners,
         'ciudades':ciudades,
         'zonas':zonas,
+        'redirect':redirect,
     }
 
     return render_to_response('main/productos/datos.html', ctx, context_instance=RequestContext(request))
@@ -600,7 +615,10 @@ def afiliacion(request):
     
     # Ofertas de los productos
     ofertas = []
-    ofertas =  Producto.objects.filter(oferta=True).filter(disponible=True).order_by('?')
+    ofertas = Producto.objects.filter(oferta=True).filter(disponible=True).order_by('?')
+
+    # Direccion para redireccionar al logear.
+    redirect = request.path
 
 
     # Creando un nuevo usuario
@@ -619,6 +637,7 @@ def afiliacion(request):
         'ciudades':ciudades,
         'zonas':zonas,
         'afiliacion':afiliacion,
+        'redirect':redirect,
     }
 
     return render_to_response('main/afiliacion/afiliacion.html', ctx, context_instance=RequestContext(request))
@@ -649,7 +668,7 @@ def contactos(request):
     zonas = Zona.objects.all()
 
     #Contactos de alquiherramientas
-    contactos = Contactos.objects.get(id=1)
+    #contactos = Contactos.objects.get(id=1)
     
     #Formulario de contacto
     if request.method == 'POST':
@@ -658,9 +677,12 @@ def contactos(request):
             contact_email(request, contactoF)
             return HttpResponseRedirect('/contactos/')
 
-    # Ofertas de los productos
+   # Ofertas de los productos
     ofertas = []
-    ofertas =  Producto.objects.filter(oferta=True).filter(disponible=True).order_by('?')
+    ofertas = Producto.objects.filter(oferta=True).filter(disponible=True).order_by('?')
+
+    # Direccion para redireccionar al logear.
+    redirect = request.path
 
     # Creando un nuevo usuario
     if request.method=='POST':
@@ -679,6 +701,7 @@ def contactos(request):
         'ciudades':ciudades,
         'zonas':zonas,
         'contactos':contactos,
+        'redirect':redirect,
     }
 
     return render_to_response('main/contactos/contactos.html', ctx, context_instance=RequestContext(request))
@@ -686,7 +709,7 @@ def contactos(request):
 
 
 # Vista para login de usuario
-def loginUser(request):
+def loginUser(request,redirect):
 
     email = ''
     password = ''
@@ -702,7 +725,7 @@ def loginUser(request):
                 # Caso del usuario activo
                 if usuario.is_active:
                     login(request, usuario)
-                    return HttpResponseRedirect('/perfil/')
+                    return HttpResponseRedirect(redirect)
                 else:
                     return "Tu cuenta esta bloqueada"
         else:

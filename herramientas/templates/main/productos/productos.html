@@ -13,8 +13,15 @@
 <h3 class="titulo">Anuncios {{palabra|capfirst}}</h3>
     <div class="row">
 		{%for producto in productos%}
-            {%if forloop.counter > 3%}
-            <div class="col-lg-4 col-md-4 col-sm-9 col-xs-9 inferior">
+
+		<div class="col-lg-4 col-md-4 col-sm-9 col-xs-9 separado">
+			<a href="/productos/{{producto.id}}/">
+				<img class="img-responsive cuadrado" src="{{producto.imagen.thumbnail.url}}" alt="">
+			</a>
+			<h4>{{producto.titulo}}</h4>
+            <div class="divider"></div>
+            {%if producto.alquiler%}
+            	<p class="precio"> {{producto.alquiler.precio}} (por dia) </p> <strong class="tipo"> Alquiler</strong> 
             {%else%}
             <div class="col-lg-4 col-md-4 col-sm-9 col-xs-9 superior">
             {%endif%}

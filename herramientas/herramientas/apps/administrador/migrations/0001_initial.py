@@ -21,10 +21,12 @@ class Migration(migrations.Migration):
                 ('apellido', models.CharField(max_length=40)),
                 ('email', models.EmailField(unique=True, max_length=75)),
                 ('ciudad', models.CharField(max_length=40)),
+                ('telefono', models.IntegerField(max_length=20)),
                 ('nacionalidad', models.CharField(default=b'V', max_length=1, choices=[(b'V', b'V'), (b'E', b'E')])),
                 ('cedula', models.IntegerField(max_length=10)),
                 ('is_staff', models.BooleanField(default=False)),
                 ('is_active', models.BooleanField(default=True)),
+                ('is_afiliado', models.BooleanField(default=False)),
             ],
             options={
                 'abstract': False,
