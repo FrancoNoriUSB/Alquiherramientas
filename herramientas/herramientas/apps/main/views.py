@@ -309,11 +309,8 @@ def productos(request, palabra):
         'banners':banners,
         'ciudades':ciudades,
         'zonas':zonas,
-<<<<<<< HEAD
         'palabra':palabra,
-=======
         'redirect':redirect,
->>>>>>> 8efefc48ccbdc742e0f9fe9edeeac6ccbd06c17c
     }
 
     return render_to_response('main/productos/productos.html', ctx, context_instance=RequestContext(request))

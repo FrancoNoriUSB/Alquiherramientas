@@ -316,9 +316,9 @@ def venta_ventas_verificar(request, id_producto):
 @login_required(login_url='/administrador/login/')
 def venta_eliminar(request, id_producto):
 
-    venta = get_object_or_404(Venta, id=id_producto)
-    venta.delete()
-    return HttpResponseRedirect('/administrador/venta/listar/')
+	venta = get_object_or_404(Venta, id=id_producto)
+	venta.delete()
+	return HttpResponseRedirect('/administrador/venta/listar/')
 
 
 #Vista de agregar producto de alquiler en el admin
@@ -390,12 +390,9 @@ def alquiler_editar(request, id_producto):
 	alquilerF = AlquilerForm(instance=alquiler)
 	herramientaF = HerramientaForm(instance=alquiler.herramienta)
 	direccionF = DireccionForm(instance=alquiler.direccion)
-<<<<<<< HEAD
 	imagenF = ImagenForm(instance=Alquiler.imagen)
-=======
 	ciudades = {'':'- Ciudad -'}
 	zonas = {'':'- Zona -'}
->>>>>>> 69f584d234c0d921dc9afd646dd6d6987a785f49
 
 	if request.POST:
 		alquilerF = AlquilerForm(request.POST, instance=alquiler)
@@ -546,9 +543,9 @@ def alquiler_alquileres_verificar(request, id_producto):
 @login_required(login_url='/administrador/login/')
 def alquiler_eliminar(request, id_producto):
 
-    alquiler = get_object_or_404(Alquiler, id=id_producto)
-    alquiler.delete()
-    return HttpResponseRedirect('/administrador/alquiler/listar/')
+	alquiler = get_object_or_404(Alquiler, id=id_producto)
+	alquiler.delete()
+	return HttpResponseRedirect('/administrador/alquiler/listar/')
 
 
 #Vista de afiliaciones en el admin
@@ -677,9 +674,9 @@ def usuario_bloquear(request, id_usuario):
 @login_required(login_url='/administrador/login/')
 def usuario_eliminar(request, id_usuario):
 
-    usuario = get_object_or_404(User, id=id_usuario)
-    usuario.delete()
-    return HttpResponseRedirect('/administrador/usuario/listar/')
+	usuario = get_object_or_404(User, id=id_usuario)
+	usuario.delete()
+	return HttpResponseRedirect('/administrador/usuario/listar/')
 
 
 #Vista de la empresa en el admin
@@ -776,9 +773,9 @@ def categoria_listar(request):
 @login_required(login_url='/administrador/login/')
 def categoria_eliminar(request, id_categoria):
 
-    categoria = get_object_or_404(Categoria, id=id_categoria)
-    categoria.delete()
-    return HttpResponseRedirect('/administrador/categoria/listar/')
+	categoria = get_object_or_404(Categoria, id=id_categoria)
+	categoria.delete()
+	return HttpResponseRedirect('/administrador/categoria/listar/')
 
 
 #Vista para agregar marcas
@@ -853,9 +850,9 @@ def marca_listar(request):
 @login_required(login_url='/administrador/login/')
 def marca_eliminar(request, id_marca):
 
-    marca = get_object_or_404(Marca, id=id_marca)
-    marca.delete()
-    return HttpResponseRedirect('/administrador/marca/listar/')
+	marca = get_object_or_404(Marca, id=id_marca)
+	marca.delete()
+	return HttpResponseRedirect('/administrador/marca/listar/')
 
 
 #Vista para agregar modelos
@@ -931,9 +928,9 @@ def modelo_listar(request):
 @login_required(login_url='/administrador/login/')
 def modelo_eliminar(request, id_modelo):
 
-    modelo = get_object_or_404(Modelo, id=id_modelo)
-    modelo.delete()
-    return HttpResponseRedirect('/administrador/modelo/listar/')
+	modelo = get_object_or_404(Modelo, id=id_modelo)
+	modelo.delete()
+	return HttpResponseRedirect('/administrador/modelo/listar/')
 
 
 #Vista para agregar estados
@@ -1009,9 +1006,9 @@ def estado_listar(request):
 @login_required(login_url='/administrador/login/')
 def estado_eliminar(request, id_estado):
 
-    estado = get_object_or_404(Estado, id=id_estado)
-    estado.delete()
-    return HttpResponseRedirect('/administrador/estado/listar/')
+	estado = get_object_or_404(Estado, id=id_estado)
+	estado.delete()
+	return HttpResponseRedirect('/administrador/estado/listar/')
 
 
 #Vista para agregar ciudades
@@ -1087,9 +1084,9 @@ def ciudad_listar(request):
 @login_required(login_url='/administrador/login/')
 def ciudad_eliminar(request, id_ciudad):
 
-    ciudad = get_object_or_404(Ciudad, id=id_ciudad)
-    ciudad.delete()
-    return HttpResponseRedirect('/administrador/ciudad/listar/')
+	ciudad = get_object_or_404(Ciudad, id=id_ciudad)
+	ciudad.delete()
+	return HttpResponseRedirect('/administrador/ciudad/listar/')
 
 
 #Vista para agregar zonas
@@ -1165,14 +1162,14 @@ def zona_listar(request):
 @login_required(login_url='/administrador/login/')
 def zona_eliminar(request, id_zona):
 
-    zona = get_object_or_404(Zona, id=id_zona)
-    zona.delete()
-    return HttpResponseRedirect('/administrador/zona/listar/')
+	zona = get_object_or_404(Zona, id=id_zona)
+	zona.delete()
+	return HttpResponseRedirect('/administrador/zona/listar/')
 
 
 #Vista para cerrar la sesion
 @login_required
 def logout_admin(request):
 
-    logout(request)
-    return HttpResponseRedirect('/administrador/')
+	logout(request)
+	return HttpResponseRedirect('/administrador/')
