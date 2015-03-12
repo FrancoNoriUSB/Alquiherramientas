@@ -33,6 +33,15 @@ body > div > div.row > div.contenido.col-lg-8.col-md-8.col-sm-8 > div > div > h4
 	color: #0B3755;
 }
 
+/* Tamanio de la imagen de las publicaciones */
+.cuadrado {
+	min-height: 185px !important;
+}
+
+.separado{
+	margin-bottom: 20px;
+}
+
 /*Hace que el precio de las cosas aparezca a la derecha*/
 .precio {
 	float: right;

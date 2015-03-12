@@ -164,13 +164,13 @@
                                         </div>
                                         <br>
                                         <br>
-                                        <div class="form-inline">
+                                        <div class="form-inline" align="right">
                                             <label for="id_ciudad">Ciudad</label>
                                             {%render_field UsuarioForm.ciudad class="form-control" placeholder="Ciudad de Residencia"%}
                                         </div>
                                         <br>
                                         <br>
-                                        <div class="form-inline">
+                                        <div class="form-inline" align="right">
                                             <label for="">Documento</label>
                                             {%render_field UsuarioForm.nacionalidad class="form-control"%}
                                             {%render_field UsuarioForm.cedula class="form-control" placeholder="Cédula"%}
@@ -205,7 +205,7 @@
                         <div class="dropdown-menu" role="menu">
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <br>
-                                <form role="form" method="POST" action="/login/">
+                                <form role="form" method="POST" action="/login/{{redirect}}">
                                     <div class="form-group">
                                         {%csrf_token%}
                                         <div class="form-inline">
@@ -272,7 +272,7 @@
                                 <div class="item active">
                                     <div class="ofertas-content">
                                         <h3>Ofertas</h3>
-                                        <img class="img-responsive centered" src="{{oferta.imagen.url}}" alt="">
+                                        <img class="img-responsive centered" src="{{oferta.imagen.thumbnail.url}}" alt="">
                                         <h4>{{oferta.titulo}}</h4>
                                         <p style="font-weight: bolder;">
                                             {%if oferta.alquiler%}
@@ -293,7 +293,7 @@
                                 <div class="item">
                                     <div class="ofertas-content">
                                         <h3>Ofertas</h3>
-                                        <img class="img-responsive centered" src="{{oferta.imagen.url}}" alt="">
+                                        <img class="img-responsive centered" src="{{oferta.imagen.thumbnail.url}}" alt="">
                                         <h4>{{oferta.titulo}}</h4>
                                         <p style="font-weight: bolder;">
                                             {%if oferta.alquiler%}

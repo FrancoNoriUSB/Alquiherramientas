@@ -8,10 +8,12 @@ Colores a utilizar:
 	Negro: #292929;
 */
 
-/* Centrar la imagen del producto */
-.centered {
-	margin: 0 auto;
+
+.cuadrado {
+	max-height: 500px;
+	min-height: 500px
 }
+
  /* Centrar la imagen dentro del slider */
 .item img{
 	margin: 0 auto;
@@ -38,4 +40,17 @@ Colores a utilizar:
 .errorDia{
 	display: none;
 	color: red;
+}
+
+.thumb{
+	min-width: 30px;
+	max-width: 30px;
+	min-height: 40px;
+	max-height: 40px;
+}
+
+.col-lg-1{
+	padding: 4px 3px 4px 2px;
+	margin: 0 2px 0 2px;
+
 }

@@ -13,9 +13,9 @@
 <h3 class="titulo">Anuncios Venta/Alquiler</h3>
 	<div class="row">
 		{%for producto in productos%}
-    		<div class="col-lg-4 col-md-4 col-sm-9 col-xs-9">
+    		<div class="col-lg-4 col-md-4 col-sm-9 col-xs-9 separado">
     			<a href="/productos/{{producto.id}}/">
-    				<img class="img-responsive" src="{{producto.imagen.url}}" alt="">
+    				<img class="img-responsive cuadrado" src="{{producto.imagen.thumbnail.url}}" alt="">
     			</a>
     			<h4>{{producto.titulo}}</h4>
                 <div class="divider"></div>

@@ -13,6 +13,20 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
+            name='Afiliacion',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('info', models.CharField(max_length=1200)),
+                ('beneficios', models.CharField(max_length=800)),
+            ],
+            options={
+                'ordering': ('info',),
+                'verbose_name': 'Afiliacion',
+                'verbose_name_plural': 'Afiliaciones',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
             name='Categoria',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
@@ -34,6 +48,20 @@ class Migration(migrations.Migration):
                 'ordering': ('nombre',),
                 'verbose_name': 'Ciudad',
                 'verbose_name_plural': 'Ciudades',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Contactos',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('telefonos', models.CharField(max_length=500)),
+                ('correo', models.CharField(max_length=500)),
+            ],
+            options={
+                'ordering': ('correo',),
+                'verbose_name': 'Contacto',
+                'verbose_name_plural': 'Contactos',
             },
             bases=(models.Model,),
         ),
@@ -96,10 +124,25 @@ class Migration(migrations.Migration):
             bases=(models.Model,),
         ),
         migrations.CreateModel(
+            name='ImagenInicial',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('imagen', models.ImageField(upload_to=b'uploads/img/')),
+                ('thumbnail', models.ImageField(upload_to=b'uploads/img/thumbnails/', null=True, editable=False, blank=True)),
+                ('descripcion', models.CharField(max_length=140, null=True)),
+            ],
+            options={
+                'abstract': False,
+                'verbose_name': 'Imagen Inicial',
+                'verbose_name_plural': 'Imagenes Iniciales',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
             name='ImagenProducto',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('imagen', models.ImageField(null=True, upload_to=b'uploads/img/')),
+                ('imagen', models.ImageField(upload_to=b'uploads/img/')),
                 ('thumbnail', models.ImageField(upload_to=b'uploads/img/thumbnails/', null=True, editable=False, blank=True)),
                 ('descripcion', models.CharField(max_length=140, null=True)),
             ],
@@ -143,6 +186,9 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('monto', models.DecimalField(max_digits=20, decimal_places=2)),
                 ('fecha', models.DateTimeField(auto_now_add=True)),
+                ('verificado', models.BooleanField(default=False)),
+                ('cantidad', models.DecimalField(max_digits=10, decimal_places=0)),
+                ('aceptado', models.BooleanField(default=False)),
             ],
             options={
                 'verbose_name': 'Pago',
@@ -179,9 +225,9 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('titulo', models.CharField(max_length=100)),
                 ('contenido', models.CharField(max_length=10000)),
-                ('cantidad', models.IntegerField(default=1, max_length=3)),
-                ('imagen', models.ImageField(upload_to=b'uploads/Productos')),
+                ('cantidad', models.IntegerField(default=1, max_length=10)),
                 ('oferta', models.BooleanField(default=False, help_text=b'Marcado si desea que se muestre como una oferta')),
+                ('disponible', models.BooleanField(default=True)),
                 ('fecha_producto', models.DateTimeField(auto_now_add=True)),
                 ('fecha_actualizacion', models.DateTimeField(auto_now=True)),
                 ('fecha_expiracion', models.DateField(null=True)),
@@ -244,6 +290,12 @@ class Migration(migrations.Migration):
             model_name='producto',
             name='herramienta',
             field=models.OneToOneField(to='main.Herramienta'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='producto',
+            name='imagen',
+            field=models.ForeignKey(to='main.ImagenInicial'),
             preserve_default=True,
         ),
         migrations.AddField(

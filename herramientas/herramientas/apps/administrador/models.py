@@ -5,7 +5,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
 #Manager del modelo de usuario
 class UserManager(BaseUserManager):
-	def create_user(self, nombre, apellido, correo, telefono, password, ciudad, nacionalidad, cedula):
+	def create_user(self, nombre, apellido, correo, telefono, password, ciudad, nacionalidad, cedula, afiliado):
 		if not email:
 			raise ValueError("Por favor ingrese un correo válido.")
 
@@ -17,6 +17,7 @@ class UserManager(BaseUserManager):
 			ciudad = ciudad,
 			nacionalidad = nacionalidad,
 			cedula = cedula,
+			is_afiliado = afiliado,
 			)
 		user.set_password(password)
 		user.save()
@@ -31,6 +32,7 @@ class UserManager(BaseUserManager):
 			ciudad = ciudad,
 			nacionalidad = nacionalidad,
 			cedula = cedula,
+			is_afiliado = True,
 		)
 		user.set_password(password)
 		user.is_staff = True
@@ -54,9 +56,10 @@ class User(AbstractBaseUser):
 	cedula = models.IntegerField(max_length=10)
 	is_staff = models.BooleanField(default=False)
 	is_active = models.BooleanField(default=True)
+	is_afiliado = models.BooleanField(default=False)
 
 	USERNAME_FIELD = "email"
-	REQUIRED_FIELDS = ['nombre', 'apellido', 'password',
+	REQUIRED_FIELDS = ['nombre', 'apellido', 'password', 'telefono',
 						'ciudad', 'nacionalidad', 'cedula']
 
 	objects = UserManager()

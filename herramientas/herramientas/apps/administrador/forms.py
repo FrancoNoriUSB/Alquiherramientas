@@ -165,11 +165,10 @@ class DireccionForm(forms.ModelForm):
 class VentaForm(forms.ModelForm):
     class Meta:
         model = Venta
-        exclude = ['fecha_producto', 'fecha_actualizacion','direccion','herramienta']
+        exclude = ['fecha_producto', 'fecha_actualizacion','direccion','herramienta', 'imagen']
         widgets = {
             'titulo': forms.TextInput(),
             'contenido': forms.Textarea(),
-            'imagen': forms.FileInput(),
             'oferta': forms.CheckboxInput(),
             'precio': forms.NumberInput(),
             'fecha_expiracion': forms.DateInput(attrs={'placeholder':'Formato dd/mm/aaaa'}),
@@ -180,11 +179,10 @@ class VentaForm(forms.ModelForm):
 class AlquilerForm(forms.ModelForm):
     class Meta:
         model = Alquiler
-        exclude = ['fecha_producto', 'fecha_actualizacion','direccion','herramienta']
+        exclude = ['fecha_producto', 'fecha_actualizacion','direccion','herramienta', 'imagen']
         widgets = {
             'titulo': forms.TextInput(),
             'contenido': forms.Textarea(),
-            'imagen': forms.FileInput(),
             'oferta': forms.CheckboxInput(),
             'precio': forms.NumberInput(attrs={'placeholder':'Precio diario'}),
             'fecha_expiracion': forms.DateInput(attrs={'placeholder':'Formato dd/mm/aaaa'}),
@@ -195,10 +193,17 @@ class AlquilerForm(forms.ModelForm):
 class ImagenProductoForm(forms.ModelForm):
     class Meta:
         model = ImagenProducto
-        exclude = ['producto', 'thumbnail']
+        exclude = ['Producto', 'thumbnail']
         widgets = {
             'descripcion': forms.TextInput(),
         }
+
+
+#Formulario para crear la imagen del producto
+class ImagenForm(forms.ModelForm):
+    class Meta:
+        model = ImagenInicial
+        exclude = ['thumbnail', 'descripcion']
 
 
 #Formulario de banners
