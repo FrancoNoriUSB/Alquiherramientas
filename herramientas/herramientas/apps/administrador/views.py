@@ -2,7 +2,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.template.loader import get_template
@@ -37,17 +37,13 @@ def login_admin(request):
 			password = request.POST['password']
 			usuario = authenticate(email=email, password=password)
 			if usuario:
-				# Caso del usuario activo
+				#Caso del usuario activo
 				if usuario.is_active and usuario.is_staff:
 					login(request, usuario)
 					return HttpResponseRedirect('/administrador/')
 			else:
-				# Usuario invalido o no existe!
+				#Usuario invalido o no existe!
 				print "Invalid login details: {0}, {1}".format(email, password)
-
-		return HttpResponseRedirect('/administrador/')
-	else:
-		loginF = LoginForm()
 
 	ctx={
 		'LoginForm':loginF,
@@ -684,18 +680,30 @@ def usuario_eliminar(request, id_usuario):
 def configuracion_admin(request):
 
 	editado = ''
+	modificado = ''
 	user = User.objects.get(email=request.user.email)
 	userF = UserChangeForm(instance=user)
+	modificarF = modificarContrasenaForm(user=user)
 	
 	if request.POST:
 		userF = UserChangeForm(request.POST, instance=user)
+		modificarF = modificarContrasenaForm(user=request.user,data=request.POST)
 		if userF.is_valid():
 			userF.save()
 			editado = True
+		elif modificarF.is_valid():
+			modificarF.save()
+			update_session_auth_hash(request, modificadoF.user)
+			modificado = True
+
+	userF = UserChangeForm(instance=user)
+	modificarF = modificarContrasenaForm(user=user)
 
 	ctx={
 		'UserChangeForm':userF,
+		'modificarContrasenaForm': modificarF,
 		'editado':editado,
+		'modificado':modificado,
 	}
 
 	return render_to_response('administrador/configuracion/configuracion.html', ctx, context_instance=RequestContext(request))

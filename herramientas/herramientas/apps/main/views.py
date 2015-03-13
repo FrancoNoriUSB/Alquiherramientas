@@ -19,6 +19,7 @@ from models import *
 from forms import *
 from herramientas.apps.administrador.forms import LoginForm, UserCreationForm
 from herramientas.apps.administrador.models import Banner
+from mailchimp import utils
 import json
 
 # Mercadopago
@@ -27,6 +28,7 @@ import mercadopago
 import os, sys
 
 #Variable global que tiene datos especificos del cliente. No tocar por ahora
+MAILCHIMP_LIST_ID = '503f2bfba1'
 mp = mercadopago.MP("1735954876648483", "hsJ0KIzKHXSYVudbHcCG3yBdmEUF0abn")
 
 #Vista del inicio
@@ -149,6 +151,9 @@ def inicio(request):
     if request.method=='POST':
         usuarioF = UserCreationForm(request.POST)
         if usuarioF.is_valid():
+            email = usuarioF.cleaned_data['email']
+            list = utils.get_connection().get_list_by_id(MAILCHIMP_LIST_ID)
+            list.subscribe(email, {'EMAIL': email})
             usuarioF.save()
             return HttpResponseRedirect('/')
         elif loginF.is_valid():
