@@ -12,9 +12,11 @@ from django.template import RequestContext
 from datetime import datetime, date
 from django.db.models import Count
 from django.db.models import Q
+from django.core.urlresolvers import reverse
+from django.contrib.auth.views import password_reset, password_reset_confirm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from models import *
 from django.forms.models import inlineformset_factory, modelformset_factory
+from models import *
 from herramientas.apps.administrador.forms import *
 from herramientas.apps.main.models import *
 from herramientas.apps.administrador.models import *
@@ -50,6 +52,20 @@ def login_admin(request):
 	}
 
 	return render_to_response('administrador/login/login.html', ctx, context_instance=RequestContext(request))
+
+
+#Vista para confirmar el reseteo de la contrasena
+def reset_confirm(request, uidb64=None, token=None):
+    return password_reset_confirm(request, template_name='administrador/resetpass/password_reset_confirm.html',
+        uidb64=uidb64, token=token, post_reset_redirect='/administrador/')
+
+
+#Vista para resetear la contrasena
+def reset(request):
+    return password_reset(request, template_name='administrador/resetpass/password_reset_form.html',
+        email_template_name='administrador/resetpass/password_reset_email.html',
+        subject_template_name='administrador/resetpass/password_reset_subject.txt',
+        post_reset_redirect='/administrador/')
 
 
 #Vista del inicio

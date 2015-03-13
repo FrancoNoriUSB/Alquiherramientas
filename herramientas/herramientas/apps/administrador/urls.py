@@ -7,8 +7,10 @@ urlpatterns = patterns('herramientas.apps.administrador.views',
     #Url del panel de inicio del admin
     url(r'^administrador/$', 'inicio', name='inicio'),
 
-    #Url del panel de inicio del admin
+    #Url de logueo y reinicio de contrasena
     url(r'^administrador/login/$', 'login_admin', name='login_admin'),
+    url(r'^administrador/reset/confirm/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$', 'reset_confirm', name='reset_confirm'),
+    url(r'^administrador/reset/$', 'reset', name='reset'),
 
 	#Url de la empresa
     url(r'^administrador/empresa/$', 'empresa_admin', name='empresa_admin'),
