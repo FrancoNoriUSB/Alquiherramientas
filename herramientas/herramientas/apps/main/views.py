@@ -221,6 +221,9 @@ def empresa(request):
     if request.method=='POST':
         usuarioF = UserCreationForm(request.POST)
         if usuarioF.is_valid():
+            email = usuarioF.cleaned_data['email']
+            list = utils.get_connection().get_list_by_id(MAILCHIMP_LIST_ID)
+            list.subscribe(email, {'EMAIL': email})
             usuarioF.save()
             return HttpResponseRedirect('/')
 
@@ -277,6 +280,9 @@ def productos(request, palabra):
     if request.method=='POST':
         usuarioF = UserCreationForm(request.POST)
         if usuarioF.is_valid():
+            email = usuarioF.cleaned_data['email']
+            list = utils.get_connection().get_list_by_id(MAILCHIMP_LIST_ID)
+            list.subscribe(email, {'EMAIL': email})
             usuarioF.save()
             return HttpResponseRedirect('/')
 
@@ -389,6 +395,9 @@ def producto(request, id_producto):
         contactoF = ContactoForm(request.POST)
 
         if usuarioF.is_valid():
+            email = usuarioF.cleaned_data['email']
+            list = utils.get_connection().get_list_by_id(MAILCHIMP_LIST_ID)
+            list.subscribe(email, {'EMAIL': email})
             usuarioF.save()
             return HttpResponseRedirect('/')
 
@@ -463,6 +472,9 @@ def pagar(request, id_producto):
         usuarioF = UserCreationForm(request.POST)
 
         if usuarioF.is_valid():
+            email = usuarioF.cleaned_data['email']
+            list = utils.get_connection().get_list_by_id(MAILCHIMP_LIST_ID)
+            list.subscribe(email, {'EMAIL': email})
             usuarioF.save()
             return HttpResponseRedirect('/')
 
@@ -549,6 +561,9 @@ def datos(request):
     if request.method=='POST':
         usuarioF = UserCreationForm(request.POST)
         if usuarioF.is_valid():
+            email = usuarioF.cleaned_data['email']
+            list = utils.get_connection().get_list_by_id(MAILCHIMP_LIST_ID)
+            list.subscribe(email, {'EMAIL': email})
             usuarioF.save()
             return HttpResponseRedirect('/')
 
@@ -622,11 +637,13 @@ def afiliacion(request):
     # Direccion para redireccionar al logear.
     redirect = request.path
 
-
     # Creando un nuevo usuario
     if request.method=='POST':
         usuarioF = UserCreationForm(request.POST)
         if usuarioF.is_valid():
+            email = usuarioF.cleaned_data['email']
+            list = utils.get_connection().get_list_by_id(MAILCHIMP_LIST_ID)
+            list.subscribe(email, {'EMAIL': email})
             usuarioF.save()
             return HttpResponseRedirect('/')
 
@@ -690,6 +707,9 @@ def contactos(request):
     if request.method=='POST':
         usuarioF = UserCreationForm(request.POST)
         if usuarioF.is_valid():
+            email = usuarioF.cleaned_data['email']
+            list = utils.get_connection().get_list_by_id(MAILCHIMP_LIST_ID)
+            list.subscribe(email, {'EMAIL': email})
             usuarioF.save()
             return HttpResponseRedirect('/')
 
