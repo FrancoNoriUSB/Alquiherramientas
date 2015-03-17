@@ -212,3 +212,12 @@ class BannerForm(forms.ModelForm):
         fields = ('nombre', 'imagen', 'url')
         widgets = {
         }
+
+
+#Formulario para gestionar los archivos de clausulas
+class ClausulasForm(forms.ModelForm):
+    class Meta:
+        model = Clausula
+        fields = ('nombre', 'archivo')
+        widgets = {
+        }

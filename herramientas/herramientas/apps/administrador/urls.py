@@ -91,4 +91,7 @@ urlpatterns = patterns('herramientas.apps.administrador.views',
     url(r'^administrador/zona/editar/(?P<id_zona>[0-9A-Za-z]+)/$', 'zona_editar', name='zona_editar'),
     url(r'^administrador/zona/listar/$', 'zona_listar', name='zona_listar'),
     url(r'^administrador/zona/eliminar/(?P<id_zona>[0-9A-Za-z]+)/$', 'zona_eliminar', name='zona_eliminar'),
+
+    #Urls de clausulas
+    url(r'^administrador/clausulas/$', 'clausulas', name='clausulas'),
 )

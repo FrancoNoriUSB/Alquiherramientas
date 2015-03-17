@@ -15,11 +15,12 @@ from django.db.models import Q
 from django.core.urlresolvers import reverse
 from django.contrib.auth.views import password_reset, password_reset_confirm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.forms.models import inlineformset_factory, modelformset_factory
+from django.forms.models import inlineformset_factory, modelformset_factory, formset_factory
 from models import *
 from herramientas.apps.administrador.forms import *
 from herramientas.apps.main.models import *
 from herramientas.apps.administrador.models import *
+from funciones import *
 import json
 
 
@@ -468,7 +469,6 @@ def alquiler_imagen(request, id_producto):
 
 	editado = ''
 	alquiler = Alquiler.objects.get(id=id_producto)
-
 	imagenes = ImagenProducto.objects.filter(Producto=alquiler)
 
 	#Formset de imagen
@@ -613,7 +613,6 @@ def contactos_admin(request):
 def banners_admin(request):
 
 	editado = ''
-
 	banners = Banner.objects.all()
 
 	#Formset de imagen
@@ -1165,7 +1164,6 @@ def zona_listar(request):
 	paginator = Paginator(zonas, 10)
 	page = request.GET.get('page')
 	
-
 	try:
 		zonas = paginator.page(page)
 	except PageNotAnInteger:
@@ -1189,6 +1187,32 @@ def zona_eliminar(request, id_zona):
 	zona = get_object_or_404(Zona, id=id_zona)
 	zona.delete()
 	return HttpResponseRedirect('/administrador/zona/listar/')
+
+
+#Vista para cargar las clausulas
+def clausulas(request):
+
+	editado = ''
+	clausulas = Clausula.objects.filter(id__range=(1,10))
+	clausulasFormset = modelformset_factory(Clausula, form=ClausulasForm, extra=1, max_num=2, can_delete=True)
+	clausulasF = clausulasFormset(queryset=clausulas)
+
+	if request.method == 'POST':
+		clausulasFormset = modelformset_factory(Clausula, form=ClausulasForm, extra=1, max_num=2, can_delete=True)
+		clausulasF = clausulasFormset(request.POST, request.FILES, queryset=clausulas)
+
+		if clausulasF.is_valid():
+			clausulasSet = clausulasF.save(commit=False)
+			for clausula in clausulasSet:
+				clausula.save()
+				editado = True
+
+	ctx = {
+		'ClausulasForm':clausulasF,
+		'editado':editado,
+	}
+
+	return render_to_response('administrador/clausulas/clausulas.html',ctx, context_instance=RequestContext(request))
 
 
 #Vista para cerrar la sesion
