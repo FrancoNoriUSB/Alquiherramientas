@@ -32,6 +32,21 @@ Colores a utilizar:
 	background-color: #625D53 !important;
 }
 
+#side-menu > li.active > ul > li.active > ul.collapsing > a,
+#side-menu > li.active > ul > li > ul > li > a,
+#side-menu > li > ul > li > ul > li > a,
+#side-menu > li > ul > li > a{
+	color: white;
+}
+
+{
+	color: white;
+}
+
+#side-menu > li > ul > li > a{
+	color: white;
+}
+
 /*Colores de glyphicons*/
 .glyphicon-plus, .glyphicon-ok, .glyphicon-ok-circle{
 	color: green;

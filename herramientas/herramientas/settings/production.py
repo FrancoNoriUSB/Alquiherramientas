@@ -21,6 +21,12 @@ PROJECT_ROOT = os.path.realpath(__file__)
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'm792z$9!^#xkz+hx)w!e)-za1cr=l4*r5o&s^d=gu_xmj8^7=0'
 
+#MailChimp
+MAILCHIMP_API_KEY = 'fd428d20a860e9521a2f9f1dc6968ba5-us10'
+
+#Mailchimp WebHookKey
+MAILCHIMP_WEBHOOK_KEY = ''
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -135,7 +141,7 @@ MEDIA_ROOT = (os.path.join(BASE_DIR, '../media'))
 MEDIA_URL = '/media/'
 
 FIXTURE_DIRS = (
-    #os.path.join(BASE_DIR, '../static/fixtures'),
+    os.path.join(BASE_DIR, '../static/fixtures'),
 )
 
 # For Sidebar Menu (List of apps and models) (RECOMMENDED)

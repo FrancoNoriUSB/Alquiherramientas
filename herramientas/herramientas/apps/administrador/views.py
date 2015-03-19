@@ -2,7 +2,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.template.loader import get_template
@@ -12,12 +12,15 @@ from django.template import RequestContext
 from datetime import datetime, date
 from django.db.models import Count
 from django.db.models import Q
+from django.core.urlresolvers import reverse
+from django.contrib.auth.views import password_reset, password_reset_confirm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.forms.models import inlineformset_factory, modelformset_factory, formset_factory
 from models import *
-from django.forms.models import inlineformset_factory, modelformset_factory
 from herramientas.apps.administrador.forms import *
 from herramientas.apps.main.models import *
 from herramientas.apps.administrador.models import *
+from funciones import *
 import json
 
 
@@ -37,23 +40,33 @@ def login_admin(request):
 			password = request.POST['password']
 			usuario = authenticate(email=email, password=password)
 			if usuario:
-				# Caso del usuario activo
+				#Caso del usuario activo
 				if usuario.is_active and usuario.is_staff:
 					login(request, usuario)
 					return HttpResponseRedirect('/administrador/')
 			else:
-				# Usuario invalido o no existe!
+				#Usuario invalido o no existe!
 				print "Invalid login details: {0}, {1}".format(email, password)
-
-		return HttpResponseRedirect('/administrador/')
-	else:
-		loginF = LoginForm()
 
 	ctx={
 		'LoginForm':loginF,
 	}
 
 	return render_to_response('administrador/login/login.html', ctx, context_instance=RequestContext(request))
+
+
+#Vista para confirmar el reseteo de la contrasena
+def reset_confirm(request, uidb64=None, token=None):
+    return password_reset_confirm(request, template_name='administrador/resetpass/password_reset_confirm.html',
+        uidb64=uidb64, token=token, post_reset_redirect='/administrador/')
+
+
+#Vista para resetear la contrasena
+def reset(request):
+    return password_reset(request, template_name='administrador/resetpass/password_reset_form.html',
+        email_template_name='administrador/resetpass/password_reset_email.html',
+        subject_template_name='administrador/resetpass/password_reset_subject.txt',
+        post_reset_redirect='/administrador/')
 
 
 #Vista del inicio
@@ -316,9 +329,9 @@ def venta_ventas_verificar(request, id_producto):
 @login_required(login_url='/administrador/login/')
 def venta_eliminar(request, id_producto):
 
-    venta = get_object_or_404(Venta, id=id_producto)
-    venta.delete()
-    return HttpResponseRedirect('/administrador/venta/listar/')
+	venta = get_object_or_404(Venta, id=id_producto)
+	venta.delete()
+	return HttpResponseRedirect('/administrador/venta/listar/')
 
 
 #Vista de agregar producto de alquiler en el admin
@@ -457,7 +470,6 @@ def alquiler_imagen(request, id_producto):
 
 	editado = ''
 	alquiler = Alquiler.objects.get(id=id_producto)
-
 	imagenes = ImagenProducto.objects.filter(Producto=alquiler)
 
 	#Formset de imagen
@@ -544,9 +556,9 @@ def alquiler_alquileres_verificar(request, id_producto):
 @login_required(login_url='/administrador/login/')
 def alquiler_eliminar(request, id_producto):
 
-    alquiler = get_object_or_404(Alquiler, id=id_producto)
-    alquiler.delete()
-    return HttpResponseRedirect('/administrador/alquiler/listar/')
+	alquiler = get_object_or_404(Alquiler, id=id_producto)
+	alquiler.delete()
+	return HttpResponseRedirect('/administrador/alquiler/listar/')
 
 
 #Vista de afiliaciones en el admin
@@ -602,7 +614,6 @@ def contactos_admin(request):
 def banners_admin(request):
 
 	editado = ''
-
 	banners = Banner.objects.all()
 
 	#Formset de imagen
@@ -678,9 +689,9 @@ def usuario_bloquear(request, id_usuario):
 @login_required(login_url='/administrador/login/')
 def usuario_eliminar(request, id_usuario):
 
-    usuario = get_object_or_404(User, id=id_usuario)
-    usuario.delete()
-    return HttpResponseRedirect('/administrador/usuario/listar/')
+	usuario = get_object_or_404(User, id=id_usuario)
+	usuario.delete()
+	return HttpResponseRedirect('/administrador/usuario/listar/')
 
 
 #Vista de la empresa en el admin
@@ -688,18 +699,30 @@ def usuario_eliminar(request, id_usuario):
 def configuracion_admin(request):
 
 	editado = ''
+	modificado = ''
 	user = User.objects.get(email=request.user.email)
 	userF = UserChangeForm(instance=user)
+	modificarF = modificarContrasenaForm(user=user)
 	
 	if request.POST:
 		userF = UserChangeForm(request.POST, instance=user)
+		modificarF = modificarContrasenaForm(user=request.user,data=request.POST)
 		if userF.is_valid():
 			userF.save()
 			editado = True
+		elif modificarF.is_valid():
+			modificarF.save()
+			update_session_auth_hash(request, modificadoF.user)
+			modificado = True
+
+	userF = UserChangeForm(instance=user)
+	modificarF = modificarContrasenaForm(user=user)
 
 	ctx={
 		'UserChangeForm':userF,
+		'modificarContrasenaForm': modificarF,
 		'editado':editado,
+		'modificado':modificado,
 	}
 
 	return render_to_response('administrador/configuracion/configuracion.html', ctx, context_instance=RequestContext(request))
@@ -756,7 +779,6 @@ def categoria_listar(request):
 
 	paginator = Paginator(categorias, 10)
 	page = request.GET.get('page')
-	
 
 	try:
 		categorias = paginator.page(page)
@@ -778,9 +800,9 @@ def categoria_listar(request):
 @login_required(login_url='/administrador/login/')
 def categoria_eliminar(request, id_categoria):
 
-    categoria = get_object_or_404(Categoria, id=id_categoria)
-    categoria.delete()
-    return HttpResponseRedirect('/administrador/categoria/listar/')
+	categoria = get_object_or_404(Categoria, id=id_categoria)
+	categoria.delete()
+	return HttpResponseRedirect('/administrador/categoria/listar/')
 
 
 #Vista para agregar marcas
@@ -795,7 +817,6 @@ def marca_agregar(request):
 		if marcaF.is_valid():
 			marcaF.save()
 			editado = True
-
 
 	ctx={
 		'MarcaForm':marcaF,
@@ -819,7 +840,6 @@ def marca_editar(request, id_marca):
 			marcaF.save()
 			editado = True
 
-
 	ctx={
 		'MarcaForm':marcaF,
 		'editado':editado,
@@ -836,7 +856,6 @@ def marca_listar(request):
 
 	paginator = Paginator(marcas, 10)
 	page = request.GET.get('page')
-	
 
 	try:
 		marcas = paginator.page(page)
@@ -858,9 +877,9 @@ def marca_listar(request):
 @login_required(login_url='/administrador/login/')
 def marca_eliminar(request, id_marca):
 
-    marca = get_object_or_404(Marca, id=id_marca)
-    marca.delete()
-    return HttpResponseRedirect('/administrador/marca/listar/')
+	marca = get_object_or_404(Marca, id=id_marca)
+	marca.delete()
+	return HttpResponseRedirect('/administrador/marca/listar/')
 
 
 #Vista para agregar modelos
@@ -936,9 +955,9 @@ def modelo_listar(request):
 @login_required(login_url='/administrador/login/')
 def modelo_eliminar(request, id_modelo):
 
-    modelo = get_object_or_404(Modelo, id=id_modelo)
-    modelo.delete()
-    return HttpResponseRedirect('/administrador/modelo/listar/')
+	modelo = get_object_or_404(Modelo, id=id_modelo)
+	modelo.delete()
+	return HttpResponseRedirect('/administrador/modelo/listar/')
 
 
 #Vista para agregar estados
@@ -1014,9 +1033,9 @@ def estado_listar(request):
 @login_required(login_url='/administrador/login/')
 def estado_eliminar(request, id_estado):
 
-    estado = get_object_or_404(Estado, id=id_estado)
-    estado.delete()
-    return HttpResponseRedirect('/administrador/estado/listar/')
+	estado = get_object_or_404(Estado, id=id_estado)
+	estado.delete()
+	return HttpResponseRedirect('/administrador/estado/listar/')
 
 
 #Vista para agregar ciudades
@@ -1092,9 +1111,9 @@ def ciudad_listar(request):
 @login_required(login_url='/administrador/login/')
 def ciudad_eliminar(request, id_ciudad):
 
-    ciudad = get_object_or_404(Ciudad, id=id_ciudad)
-    ciudad.delete()
-    return HttpResponseRedirect('/administrador/ciudad/listar/')
+	ciudad = get_object_or_404(Ciudad, id=id_ciudad)
+	ciudad.delete()
+	return HttpResponseRedirect('/administrador/ciudad/listar/')
 
 
 #Vista para agregar zonas
@@ -1149,7 +1168,6 @@ def zona_listar(request):
 	paginator = Paginator(zonas, 10)
 	page = request.GET.get('page')
 	
-
 	try:
 		zonas = paginator.page(page)
 	except PageNotAnInteger:
@@ -1170,14 +1188,40 @@ def zona_listar(request):
 @login_required(login_url='/administrador/login/')
 def zona_eliminar(request, id_zona):
 
-    zona = get_object_or_404(Zona, id=id_zona)
-    zona.delete()
-    return HttpResponseRedirect('/administrador/zona/listar/')
+	zona = get_object_or_404(Zona, id=id_zona)
+	zona.delete()
+	return HttpResponseRedirect('/administrador/zona/listar/')
+
+
+#Vista para cargar las clausulas
+def clausulas(request):
+
+	editado = ''
+	clausulas = Clausula.objects.filter(id__range=(1,10))
+	clausulasFormset = modelformset_factory(Clausula, form=ClausulasForm, extra=1, max_num=2, can_delete=True)
+	clausulasF = clausulasFormset(queryset=clausulas)
+
+	if request.method == 'POST':
+		clausulasFormset = modelformset_factory(Clausula, form=ClausulasForm, extra=1, max_num=2, can_delete=True)
+		clausulasF = clausulasFormset(request.POST, request.FILES, queryset=clausulas)
+
+		if clausulasF.is_valid():
+			clausulasSet = clausulasF.save(commit=False)
+			for clausula in clausulasSet:
+				clausula.save()
+				editado = True
+
+	ctx = {
+		'ClausulasForm':clausulasF,
+		'editado':editado,
+	}
+
+	return render_to_response('administrador/clausulas/clausulas.html',ctx, context_instance=RequestContext(request))
 
 
 #Vista para cerrar la sesion
 @login_required
 def logout_admin(request):
 
-    logout(request)
-    return HttpResponseRedirect('/administrador/')
+	logout(request)
+	return HttpResponseRedirect('/administrador/')

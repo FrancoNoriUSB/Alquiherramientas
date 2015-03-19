@@ -7,8 +7,10 @@ urlpatterns = patterns('herramientas.apps.administrador.views',
     #Url del panel de inicio del admin
     url(r'^administrador/$', 'inicio', name='inicio'),
 
-    #Url del panel de inicio del admin
+    #Url de logueo y reinicio de contrasena
     url(r'^administrador/login/$', 'login_admin', name='login_admin'),
+    url(r'^administrador/reset/confirm/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$', 'reset_confirm', name='reset_confirm'),
+    url(r'^administrador/reset/$', 'reset', name='reset'),
 
 	#Url de la empresa
     url(r'^administrador/empresa/$', 'empresa_admin', name='empresa_admin'),
@@ -89,4 +91,7 @@ urlpatterns = patterns('herramientas.apps.administrador.views',
     url(r'^administrador/zona/editar/(?P<id_zona>[0-9A-Za-z]+)/$', 'zona_editar', name='zona_editar'),
     url(r'^administrador/zona/listar/$', 'zona_listar', name='zona_listar'),
     url(r'^administrador/zona/eliminar/(?P<id_zona>[0-9A-Za-z]+)/$', 'zona_eliminar', name='zona_eliminar'),
+
+    #Urls de clausulas
+    url(r'^administrador/clausulas/$', 'clausulas', name='clausulas'),
 )

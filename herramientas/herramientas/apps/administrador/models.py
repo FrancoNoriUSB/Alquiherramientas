@@ -85,16 +85,33 @@ class User(AbstractBaseUser):
 #Modelo para los banners de la aplicacion
 class Banner(models.Model):
 
-    nombre = models.CharField(max_length=100)
-    imagen = models.ImageField(upload_to='slide-home/')
-    url = models.CharField(max_length=200)
+	nombre = models.CharField(max_length=100)
+	imagen = models.ImageField(upload_to='slide-home/')
+	url = models.CharField(max_length=200)
 
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+	created_at = models.DateTimeField(auto_now_add=True)
+	updated_at = models.DateTimeField(auto_now=True)
 
-    class Meta:
-        verbose_name = "Banner"
-        verbose_name_plural = "Banners"
+	class Meta:
+		verbose_name = "Banner"
+		verbose_name_plural = "Banners"
 
-    def __unicode__(self):
-        return u"%s" %(self.nombre)
+	def __unicode__(self):
+		return u"%s" %(self.nombre)
+
+
+#Modelo para las clausulas
+class Clausula(models.Model):
+
+	nombre = models.CharField(max_length=100)
+	archivo = models.FileField(upload_to='uploads/archivos/')
+	
+	created_at = models.DateTimeField(auto_now_add=True)
+	updated_at = models.DateTimeField(auto_now=True)
+
+	class Meta:
+		verbose_name='Clausula'
+		verbose_name_plural = 'Clausulas'
+
+	def __unicode__(self):
+		return u"%s" %(self.nombre)

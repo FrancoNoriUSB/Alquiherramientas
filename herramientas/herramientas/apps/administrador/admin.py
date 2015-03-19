@@ -17,17 +17,17 @@ class UserAdmin(UserAdmin):
     # The fields to be used in displaying the User model.
     # These override the definitions on the base UserAdmin
     # that reference specific fields on auth.User.
-    list_display = ('email', 'password', 'nombre', 'apellido', 'ciudad', 'nacionalidad', 'cedula')
+    list_display = ('email', 'password', 'nombre', 'apellido', 'telefono', 'ciudad', 'nacionalidad', 'cedula')
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
-        ('Informacion Personal', {'fields': ('email', 'nombre', 'apellido', 'ciudad', 'nacionalidad', 'cedula')}),
+        ('Informacion Personal', {'fields': ('email', 'nombre', 'apellido', 'telefono', 'ciudad', 'nacionalidad', 'cedula')}),
     )
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
     # overrides get_fieldsets to use this attribute when creating a user.
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'nombre', 'apellido', 'ciudad', 'cedula', 'password1', 'password2')}
+            'fields': ('email', 'nombre', 'apellido', 'telefono', 'ciudad', 'cedula', 'password1', 'password2')}
         ),
     )
     search_fields = ('email',)
