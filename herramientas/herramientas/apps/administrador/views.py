@@ -143,12 +143,9 @@ def venta_agregar(request):
 		'VentaForm':ventaF,
 		'HerramientaForm':herramientaF,
 		'DireccionForm':direccionF,
-<<<<<<< HEAD
 		'ImagenForm':imagenF,
-=======
 		'ciudades':ciudades,
 		'zonas':zonas,
->>>>>>> 69f584d234c0d921dc9afd646dd6d6987a785f49
 		'editado':editado,
 	}
 
@@ -207,12 +204,9 @@ def venta_editar(request, id_producto):
 		'VentaForm':ventaF,
 		'HerramientaForm':herramientaF,
 		'DireccionForm':direccionF,
-<<<<<<< HEAD
 		'ImagenForm':imagenF,
-=======
 		'ciudades':ciudades,
 		'zonas':zonas,
->>>>>>> 69f584d234c0d921dc9afd646dd6d6987a785f49
 		'editado':editado,
 	}
 
@@ -378,12 +372,9 @@ def alquiler_agregar(request):
 		'AlquilerForm':alquilerF,
 		'HerramientaForm':herramientaF,
 		'DireccionForm':direccionF,
-<<<<<<< HEAD
 		'ImagenForm': imagenF,
-=======
 		'ciudades':ciudades,
 		'zonas':zonas,
->>>>>>> 69f584d234c0d921dc9afd646dd6d6987a785f49
 		'editado':editado,
 	}
 
@@ -399,18 +390,15 @@ def alquiler_editar(request, id_producto):
 	alquilerF = AlquilerForm(instance=alquiler)
 	herramientaF = HerramientaForm(instance=alquiler.herramienta)
 	direccionF = DireccionForm(instance=alquiler.direccion)
-<<<<<<< HEAD
-	imagenF = ImagenForm(instance=Alquiler.imagen)
-=======
+	imagenF = ImagenForm(instance=alquiler.imagen)
 	ciudades = {'':'- Ciudad -'}
 	zonas = {'':'- Zona -'}
->>>>>>> 69f584d234c0d921dc9afd646dd6d6987a785f49
 
 	if request.POST:
 		alquilerF = AlquilerForm(request.POST, instance=alquiler)
 		herramientaF = HerramientaForm(request.POST, instance=alquiler.herramienta)
 		direccionF = DireccionForm(request.POST, instance=alquiler.direccion)
-		imagenF = ImagenForm(request.POST, request.FILES, instance=Alquiler.imagen)
+		imagenF = ImagenForm(request.POST, request.FILES, instance=alquiler.imagen)
 		if herramientaF.is_valid() and direccionF.is_valid():
 			herramienta = herramientaF.save(commit=False)
 			direccion = direccionF.save(commit=False)
@@ -443,6 +431,7 @@ def alquiler_editar(request, id_producto):
 	ctx={
 		'AlquilerForm':alquilerF,
 		'HerramientaForm':herramientaF,
+		'ImagenForm': imagenF,
 		'DireccionForm':direccionF,
 		'ciudades':ciudades,
 		'zonas':zonas,
@@ -619,9 +608,11 @@ def banners_admin(request):
 	#Formset de imagen
 	BannerFormset = modelformset_factory(Banner,  form=BannerForm, can_delete=True, extra=1, max_num=len(banners)+2, fields=['nombre', 'imagen', 'url'])
 	bannerF = BannerFormset(queryset=Banner.objects.all())
+	errores = []
 
 	if request.POST:
 		bannerF = BannerFormset(request.POST, request.FILES)
+		errores = bannerF.errors
 		if bannerF.is_valid():
 			bannerF.save()
 
@@ -629,6 +620,7 @@ def banners_admin(request):
 	
 	ctx = {
 		'BannerForm':bannerF,
+		'errores':errores,
 	}
 
 	return render_to_response('administrador/banners/banners.html', ctx, context_instance=RequestContext(request))

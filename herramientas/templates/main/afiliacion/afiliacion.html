@@ -2,7 +2,98 @@
 {% load main_extras %}
 {% load widget_tweaks %}
 {% load bootstrap3 %}
+{% block scripts %}
+	
+    <!--Estilos-->
+    <link href="{{STATIC_URL}}files/css/main/afiliacion.css" rel="stylesheet">
+
+{% endblock scripts %}
 {% block content %}
+
+	<div class="modal fade" id="registroModalAfiliacion" tabindex="-1" role="dialog" aria-labelledby="registroModalAfiliacionLabel" aria-hidden="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <img class="img-responsive" src="{{STATIC_URL}}files/img/logo-principal.png" alt="">
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <h4 class="modal-title" id="registroModalAfiliacionLabel">Registro gratuito</h4>
+                            <br>
+                            <form role="form" method="POST" action=".">
+                                <div class="form-group">
+                                    {%csrf_token%}
+                                    <div class="form-inline">
+                                        <label for="id_nombre">Nombre</label>
+                                        {%render_field UsuarioForm.nombre class="form-control" placeholder="Nombre"%}
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <div class="form-inline">
+                                        <label for="id_apellido">Apellido</label>
+                                        {%render_field UsuarioForm.apellido class="form-control" placeholder="Apellido"%}
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <div class="form-inline">
+                                        <label for="id_apellido">Tel&eacute;fono</label>
+                                        {%render_field UsuarioForm.telefono class="form-control" placeholder="Teléfono"%}
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <div class="form-inline">
+                                        <label for="id_email">Correo electr&oacute;nico</label>
+                                        {%render_field UsuarioForm.email class="form-control" placeholder="Correo Electrónico"%}
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <div class="form-inline">
+                                        <label for="id_password1">Contrase&ntilde;a</label>
+                                        {%render_field UsuarioForm.password1 class="form-control" placeholder="Contraseña"%}
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <div class="form-inline">
+                                        <label for="id_password2">Confirmaci&oacute;n contrase&ntilde;a</label>
+                                        {%render_field UsuarioForm.password2 class="form-control" placeholder="Repita Contraseña"%}
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <div class="form-inline" align="right">
+                                        <label for="id_ciudad">Ciudad</label>
+                                        {%render_field UsuarioForm.ciudad class="form-control" placeholder="Ciudad de Residencia"%}
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <div class="form-inline" align="right">
+                                        <label for="">Documento</label>
+                                        {%render_field UsuarioForm.nacionalidad class="form-control"%}
+                                        {%render_field UsuarioForm.cedula class="form-control" placeholder="Cédula"%}
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <div class="form-inline" align="right">
+                                        <label for="">Afiliado</label>
+                                        {%render_field UsuarioForm.is_afiliado type="checkbox" checked="true"%}
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary"><strong>Registrarse</strong></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
 	<h3 class="titulo"> Afiliaci&oacute;n: </h3>
 	<div class="row">
 		<div class="col-lg-12 col-md-12 col-sm-12">
@@ -18,8 +109,8 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-lg-8	 col-md-8 col-sm-8">
-            <button class="btn btn-default" data-toggle="modal" data-target="#registroModal">Afiliarse</button>
+		<div class="col-lg-8 col-md-8 col-sm-8">
+            <button class="btn btn-default" data-toggle="modal" data-target="#registroModalAfiliacion">Afiliarse</button>
 		</div>
 	</div>
 {% endblock content %}

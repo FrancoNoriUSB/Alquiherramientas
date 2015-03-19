@@ -346,13 +346,15 @@ def producto(request, id_producto):
     # Direccion para redireccionar al logear.
     redirect = request.path
     
+    producto = Producto.objects.get(id=id_producto)
+    cantidad = producto.cantidad
+    print (cantidad)
+
     #Datos iniciales de formularios de venta y alquiler
     dataA = {}
     dataV = {}
     ventaF = VentaForm()
     alquilerF = AlquilerForm()
-
-    producto = Producto.objects.get(id=id_producto)
 
     # Formularios de compra o alquiler con data inicial.
     try:
@@ -373,8 +375,10 @@ def producto(request, id_producto):
 
     if dataA != {}:
         alquilerF = AlquilerForm(initial=dataA)
+        alquilerF.fields['cantidad'] = forms.IntegerField(required=True,min_value=1,max_value=producto.cantidad)
     elif dataV != {}:
         ventaF = VentaForm(initial=dataV)
+        ventaF.fields['cantidad'] = forms.IntegerField(required=True,min_value=1,max_value=producto.cantidad)
 
     # Creando un nuevo usuario
     if request.method=='POST':
@@ -395,7 +399,7 @@ def producto(request, id_producto):
     # Crear el slider con las imagenes del producto
     imagenes = []
     imagenes = ImagenProducto.objects.filter(Producto=id_producto).order_by('id')
-    imagen = producto.imagen.imagen
+    imagen = producto.imagen
    
     ctx = {
         'BusquedaForm':busquedaF,
@@ -467,29 +471,52 @@ def pagar(request, id_producto):
         usuario = request.user
         alquilerF = AlquilerForm(request.POST)
         ventaF = VentaForm(request.POST)
-        
+        agotado = False
+        botonMp = True
+
         if alquilerF.is_valid():
             precio = alquilerF.cleaned_data['total']
             dias = alquilerF.cleaned_data['dias']
             total = alquilerF.cleaned_data['total']
             cantidad = alquilerF.cleaned_data['cantidad']
             acepto = alquilerF.cleaned_data['clausulas']
-            pagoAlquiler = PagoAlquiler.objects.create(producto=razon,monto=precio,dias=dias,
-                                                       fecha=fecha,usuario=usuario,verificado=False,
-                                                       cantidad=cantidad,aceptado=acepto)
-            email_alquiler(request, usuario.nombre, usuario.apellido, usuario.telefono, usuario.email, nombre, dias, cantidad)
-            if total > 100000.00:
-                return HttpResponseRedirect('/datos/')
+            # Verifica si el producto esta agotado
+            if producto.cantidad == 0:
+                agotado = True
+                botonMp = False
+            else:
+                pagoAlquiler = PagoAlquiler.objects.create(producto=razon,monto=precio,dias=dias,
+                                                           fecha=fecha,usuario=usuario,verificado=False,
+                                                           cantidad=cantidad,aceptado=acepto)
+                producto.cantidad = producto.cantidad - cantidad
+                if producto.cantidad == 0:
+                    producto.disponible = False
+                    email_agotado(request, producto)
+                producto.save()
+                email_alquiler(request, usuario.nombre, usuario.apellido, usuario.telefono, usuario.email, nombre, dias, cantidad)
+                if total > 100000.00:
+                    botonMp = False
         elif ventaF.is_valid():
             precio = ventaF.cleaned_data['total']
             cantidad = ventaF.cleaned_data['cantidad']
             acepto = ventaF.cleaned_data['clausulas']
-            pagoVenta = PagoVenta.objects.create(producto=razon,monto=precio,fecha=fecha,
-                                                 usuario=usuario,verificado=False,cantidad=cantidad,aceptado=acepto)
-            email_venta(request, usuario.nombre, usuario.apellido, usuario.telefono, usuario.email, nombre, cantidad)
-            if precio > 100000.00:
-                return HttpResponseRedirect('/datos/')
+            # Verifica si el producto esta agotado
+            if producto.cantidad == 0:
+                agotado = True
+                botonMp = False
+            else:
+                pagoVenta = PagoVenta.objects.create(producto=razon,monto=precio,fecha=fecha,
+                                                     usuario=usuario,verificado=False,cantidad=cantidad,aceptado=acepto)
+                producto.cantidad = producto.cantidad - cantidad
+                if producto.cantidad == 0:
+                    producto.disponible = False
+                    email_agotado(request, producto)
+                producto.save()
+                email_venta(request, usuario.nombre, usuario.apellido, usuario.telefono, usuario.email, nombre, cantidad)
+                if precio > 100000.00:
+                    botonMp = False
 
+    if botonMp:    
         boton = mercadopago(request, nombre, float(precio))
 
     ctx = {
@@ -504,6 +531,8 @@ def pagar(request, id_producto):
         'contactoF': contactoF,
         'boton_mp': boton,
         'redirect':redirect,
+        'agotado':agotado,
+        'botonMp':botonMp,
     }
 
     return render_to_response('main/productos/pago.html', ctx, context_instance=RequestContext(request))
@@ -607,7 +636,7 @@ def afiliacion(request):
     zonas = Zona.objects.all()
 
     #Afiliacion de alquiherramientas
-    afiliacion = Afiliacion.objects.get(id=1)
+    #afiliacion = Afiliacion.objects.get(id=1)
     
     # Ofertas de los productos
     ofertas = []
@@ -664,7 +693,7 @@ def contactos(request):
     zonas = Zona.objects.all()
 
     #Contactos de alquiherramientas
-    #contactos = Contactos.objects.get(id=1)
+    contactos = Contactos.objects.get(id=1)
     
     #Formulario de contacto
     if request.method == 'POST':

@@ -56,7 +56,7 @@ class User(AbstractBaseUser):
 	cedula = models.IntegerField(max_length=10)
 	is_staff = models.BooleanField(default=False)
 	is_active = models.BooleanField(default=True)
-	is_afiliado = models.BooleanField(default=False)
+	is_afiliado = models.BooleanField(default=False, blank=True)
 
 	USERNAME_FIELD = "email"
 	REQUIRED_FIELDS = ['nombre', 'apellido', 'password', 'telefono',

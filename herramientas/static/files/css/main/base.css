@@ -20,6 +20,10 @@ body > header > nav{
 	margin-right: auto;
 }
 
+#carousel-example-generic > div > div > img{
+	min-height: 390px !important;
+}
+
 /*Estilos del footer*/
 body > footer > nav{
 	background-image: -webkit-linear-gradient(#625D53 0%, #625D53 100%) !important;

@@ -55,9 +55,15 @@
 									<a href="/administrador/venta/disponible/{{venta.id}}/">Disponible <span class="glyphicon glyphicon-ok"></span></a>
 								</td>
 							{%else%}
-								<td>
+								{% if venta.cantidad == 0%}
+									<td>
+										<a href="">Agotado <span class="glyphicon glyphicon-remove"></span></a>
+									</td>
+								{% else %}
+									<td>
 									<a href="/administrador/venta/disponible/{{venta.id}}/">No Disponible <span class="glyphicon glyphicon-remove"></span></a>
 								</td>
+								{% endif %}
 							{%endif%}
 							<td>
 								<a href="/administrador/venta/imagen/{{venta.id}}/">Im&aacute;genes <span class="glyphicon glyphicon-picture"></span></a>

@@ -78,6 +78,15 @@ def contact_email_producto(request, form, herramienta):
     send_mail('Correo contacto', message, 'francong2@gmail.com', emails, html_message=message, fail_silently=False)
     return True
 
+# Funcion para enviar correo cuando se agota un producto.
+def email_agotado(request, producto):
+    emails = []
+    emails.append("evalderrama862@gmail.com")
+
+    #Mensaje a enviar
+    message = 'El producto: '+ str(producto.titulo) + ' se ha agotado.'
+    send_mail('Producto agotado', message, 'francong2@gmail.com', emails, html_message=message, fail_silently=False)
+    return True
 
 #Query dinamico extraido de un proyecto ajeno
 def dynamic_query(model, fields, types, values, operator):

@@ -16,6 +16,9 @@
 				<form id="form" role="form" enctype="multipart/form-data" method="post" action="">
 		        {% csrf_token %}
 					{{ BannerForm.management_form }}
+        			{% for error in errores%}
+        				{{error}}
+        			{%endfor%}
 		        	{%for form in BannerForm%}
 		        		<div class="formulario">
 			        		{%bootstrap_form form%}

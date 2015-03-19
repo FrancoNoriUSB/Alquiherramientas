@@ -4,6 +4,7 @@ from django.contrib import admin
 from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
+from django.core.files.images import get_image_dimensions
 from models import *
 from herramientas.apps.main.models import *
 
@@ -18,7 +19,7 @@ class UserCreationForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('email', 'nombre', 'apellido', 'telefono',  'ciudad', 'nacionalidad', 'cedula')
+        fields = ('email', 'nombre', 'apellido', 'telefono',  'ciudad', 'nacionalidad', 'cedula', 'is_afiliado')
         widgets = {
                     'telefono': forms.TextInput(),
         }
@@ -50,7 +51,7 @@ class UserChangeForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('email', 'password', 'nombre', 'apellido', 'telefono', 'ciudad', 'nacionalidad', 'cedula')
+        fields = ('email', 'password', 'nombre', 'apellido', 'telefono', 'ciudad', 'nacionalidad', 'cedula', 'is_afiliado')
 
     def clean_password(self):
         # Regardless of what the user provides, return the initial value.
@@ -213,3 +214,13 @@ class BannerForm(forms.ModelForm):
         fields = ('nombre', 'imagen', 'url')
         widgets = {
         }
+
+    def clean_imagen(self):
+        imagen = self.cleaned_data.get("imagen")
+        if not imagen:
+            raise forms.ValidationError("Ingrese una imagen.")
+        else:
+            width, height = get_image_dimensions(imagen)
+            if height != 390 :
+                raise forms.ValidationError("La altura de la imagen debe exactamente igual a 390 px.")
+        return imagen
