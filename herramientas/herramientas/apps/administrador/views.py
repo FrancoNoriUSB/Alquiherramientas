@@ -134,6 +134,7 @@ def venta_agregar(request):
 				venta.herramienta = herramienta
 				venta.direccion = direccion
 				venta.imagen = imagen
+				venta.disponible = True
 				venta.save()
 				editado = True
 
@@ -360,11 +361,12 @@ def alquiler_agregar(request):
 				herramienta.save()
 				direccion.save()
 				imagen.save()
-				venta = alquilerF.save(commit=False)
-				venta.herramienta = herramienta
-				venta.direccion = direccion
-				venta.imagen = imagen
-				venta.save()
+				alquiler = alquilerF.save(commit=False)
+				alquiler.herramienta = herramienta
+				alquiler.direccion = direccion
+				alquiler.imagen = imagen
+				alquiler.disponible = True
+				alquiler.save()
 				editado = True
 
 	#Ciudades a agregar
@@ -420,11 +422,11 @@ def alquiler_editar(request, id_producto):
 				herramienta.save()
 				direccion.save()
 				imagen.save()
-				venta = alquilerF.save(commit=False)
-				venta.herramienta = herramienta
-				venta.direccion = direccion
-				venta.imagen = imagen
-				venta.save()
+				alquiler = alquilerF.save(commit=False)
+				alquiler.herramienta = herramienta
+				alquiler.direccion = direccion
+				alquiler.imagen = imagen
+				alquiler.save()
 				editado = True
 
 	#Ciudades a agregar

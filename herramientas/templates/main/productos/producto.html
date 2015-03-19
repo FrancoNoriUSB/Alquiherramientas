@@ -70,18 +70,17 @@
 			</div> <!-- Fin del carusel -->
 			
 			<!-- mini-imagenes -->
+			<br>
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-sm-12">
-					<div class="row">
-						<a href="/media/{{imagen.thumbnail}}" class="thumbnail col-lg-1" data-toggle="lightbox" data-gallery="multiimages">
-							<img class="img-responsive thumb centered" src="/media/{{imagen.thumbnail}}">
+					<a href="/media/{{imagen.imagen}}" class="thumbnail col-lg-1 col-md-1 col-sm-1" data-toggle="lightbox" data-gallery="multiimages">
+						<img class="img-responsive thumb centered" src="/media/{{imagen.thumbnail}}">
+					</a>
+					{% for thumb in imagenes %}
+						<a href="/media/{{thumb.imagen}}" class="thumbnail col-lg-1 col-md-1 col-sm-1" data-toggle="lightbox" data-gallery="multiimages">
+							<img class="img-responsive thumb" src="/media/{{thumb.thumbnail}}">
 						</a>
-						{% for thumb in imagenes %}
-							<a href="/media/{{thumb.thumbnail}}" class="thumbnail col-lg-1" data-toggle="lightbox" data-gallery="multiimages">
-								<img class="img-responsive thumb" src="/media/{{thumb.thumbnail}}">
-							</a>
-						{% endfor %}
-					</div>
+					{% endfor %}
 				</div>
 			</div>
 

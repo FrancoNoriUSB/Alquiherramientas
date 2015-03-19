@@ -134,9 +134,15 @@ def inicio(request):
                 else:
                     productos_list = dynamic_query(Producto, fields_list, types_list, values_list, operator)
 
+    #Paginacion y busqueda
     productos_list = tuple(productos_list)
     paginator = Paginator(productos_list, 6)
     page = request.GET.get('page')
+
+    #Busqueda con paginacion
+    query = request.GET.copy()
+    if query.has_key('page'):
+    	del query['page']
 
     try:
         productos = paginator.page(page)
@@ -181,6 +187,7 @@ def inicio(request):
         'ciudades':ciudades,
         'zonas':zonas,
         'redirect':redirect,
+        'query':query,
     }
 
     return render_to_response('main/inicio/inicio.html', ctx, context_instance=RequestContext(request))
@@ -657,7 +664,7 @@ def afiliacion(request):
     zonas = Zona.objects.all()
 
     #Afiliacion de alquiherramientas
-    #afiliacion = Afiliacion.objects.get(id=1)
+    afiliacion = Afiliacion.objects.get(id=1)
     
     # Ofertas de los productos
     ofertas = []

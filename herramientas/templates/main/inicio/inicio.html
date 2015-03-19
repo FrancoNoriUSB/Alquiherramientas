@@ -49,13 +49,13 @@
                   <ul class="pagination">
                     {% if productos.has_previous %}
                         <li>
-                            <a href="?page={{ productos.previous_page_number }}">&laquo;</a>
+                            <a href="?{{query.urlencode}}&amp;page={{ productos.previous_page_number }}">&laquo;</a>
                         </li>
                     {% endif %}
                         <li><a href="">{{ productos.number }}</a></li>
                     {% if productos.has_next %}
                         <li>
-                            <a href="?page={{ productos.next_page_number }}">&raquo;</a>
+                            <a href="?{{query.urlencode}}&amp;page={{ productos.next_page_number }}">&raquo;</a>
                         </li>
                     {% endif %}
                   </ul>
