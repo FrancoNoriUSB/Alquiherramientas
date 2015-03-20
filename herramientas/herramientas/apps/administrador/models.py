@@ -104,6 +104,7 @@ class Banner(models.Model):
 class Clausula(models.Model):
 
 	nombre = models.CharField(max_length=100)
+	tipo = models.CharField(max_length=30, choices=(('alquiler', 'alquiler'), ('venta','venta')))
 	archivo = models.FileField(upload_to='uploads/archivos/')
 	
 	created_at = models.DateTimeField(auto_now_add=True)

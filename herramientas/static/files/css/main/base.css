@@ -43,6 +43,11 @@ body > div > div.row > div.contenido.col-lg-8.col-md-8.col-sm-8 > div > div.supe
 	margin-bottom: 6%;
 }
 
+div.paginacion.row > div > nav > ul > li > a{
+	color: white !important;
+	background-color: #7E7769 !important;
+}
+
 /*Estilos de bootstrap modificados*/
 .navbar-brand {
 	padding: 0px;
