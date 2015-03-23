@@ -21,7 +21,7 @@ def contact_email(request, form):
     message = 'Correo de contacto del usuario: '+ str(name) +'.<br> Con correo: ' + str(emailF.cleaned_data['correo']) +'<br>'
     message += 'Mensaje: '+ str(emailF.cleaned_data['mensaje']) + '<br>'
     message += 'Telefono de contacto: '+ str(telephone)
-    send_mail('Correo contacto', message, 'francong2@gmail.com', emails, html_message=message, fail_silently=False)
+    send_mail('Correo contacto', message, 'contacto@alquiherramientas.com', emails, html_message=message, fail_silently=False)
     return True
 
 
