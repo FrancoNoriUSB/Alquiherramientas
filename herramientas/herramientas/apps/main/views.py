@@ -423,7 +423,7 @@ def producto(request, id_producto):
 			return HttpResponseRedirect('/')
 
 		if contactoF.is_valid():
-			contact_email_producto(request, contactoF, nombre)
+			contact_email_producto(request, contactoF, nombre, id_producto)
 			retorno = '/productos/'+str(id_producto)+'/'
 			return HttpResponseRedirect(retorno)
 
@@ -515,6 +515,7 @@ def pagar(request, id_producto):
 			total = alquilerF.cleaned_data['total']
 			cantidad = alquilerF.cleaned_data['cantidad']
 			acepto = alquilerF.cleaned_data['clausulas']
+
 			# Verifica si el producto esta agotado
 			if producto.cantidad == 0:
 				agotado = True
@@ -524,10 +525,13 @@ def pagar(request, id_producto):
 														   fecha=fecha,usuario=usuario,verificado=False,
 														   cantidad=cantidad,aceptado=acepto)
 				producto.cantidad = producto.cantidad - cantidad
+				
+				#Verifica la cantidad de productos y envia email dependiendo de si se agoto
 				if producto.cantidad == 0:
 					producto.disponible = False
 					email_agotado(request, producto)
 				producto.save()
+
 				email_alquiler(request, usuario.nombre, usuario.apellido, usuario.telefono, usuario.email, nombre, dias, cantidad)
 				if total > 100000.00:
 					botonMp = False
@@ -535,6 +539,7 @@ def pagar(request, id_producto):
 			precio = ventaF.cleaned_data['total']
 			cantidad = ventaF.cleaned_data['cantidad']
 			acepto = ventaF.cleaned_data['clausulas']
+
 			# Verifica si el producto esta agotado
 			if producto.cantidad == 0:
 				agotado = True
@@ -543,6 +548,8 @@ def pagar(request, id_producto):
 				pagoVenta = PagoVenta.objects.create(producto=razon,monto=precio,fecha=fecha,
 													 usuario=usuario,verificado=False,cantidad=cantidad,aceptado=acepto)
 				producto.cantidad = producto.cantidad - cantidad
+
+				#Verifica la cantidad de productos y envia email dependiendo de si se agoto
 				if producto.cantidad == 0:
 					producto.disponible = False
 					email_agotado(request, producto)
