@@ -25,7 +25,6 @@ from managment import notify
 import json
 
 
-
 #Vista de login de user administrador
 def login_admin(request):
 

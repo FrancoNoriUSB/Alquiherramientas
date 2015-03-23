@@ -14,7 +14,8 @@ def contact_email(request, form):
     #Informacion del usuario
     name = emailF.cleaned_data['nombre']
     telephone = emailF.cleaned_data['telefono']
-    emails.append("evalderrama862@gmail.com")
+    email = emailF.cleaned_data['correo']
+    emails.append(email)
 
     #Mensaje a enviar
     message = 'Correo de contacto del usuario: '+ str(name) +'.<br> Con correo: ' + str(emailF.cleaned_data['correo']) +'<br>'
@@ -28,7 +29,8 @@ def contact_email(request, form):
 def email_venta(request, nombre, apellido, telefono, email, herramienta, cantidad):
     emails = []
     #Informacion del usuario
-    emails.append("evalderrama862@gmail.com")
+    emails.append(email)
+    emails.append('venta@alquiherramientas.com')
 
     #Mensaje a enviar
     message = 'El usuario: '+ str(nombre) +' '+ str(apellido) +'.<br>'
@@ -38,14 +40,16 @@ def email_venta(request, nombre, apellido, telefono, email, herramienta, cantida
     message += 'Numero de contacto: '+ str(telefono) + '<br/>'
     message += 'El usuario acepto las clausulas.'
     subject = "Venta de: "+str(herramienta)
-    send_mail(subject, message, 'francong2@gmail.com', emails, html_message=message, fail_silently=False)
+    send_mail(subject, message, 'venta@alquiherramientas.com', emails, html_message=message, fail_silently=False)
     return True
+
 
 #Funcion para los correos de alquiler de una herramienta.
 def email_alquiler(request, nombre, apellido, telefono, email, herramienta, dias, cantidad):
     emails = []
     #Informacion del usuario
-    emails.append("evalderrama862@gmail.com")
+    emails.append(email)
+    emails.append('alquiler@alquiherramientas.com')
 
     #Mensaje a enviar
     message = 'El usuario: '+ str(nombre) +' '+ str(apellido) +'.<br>'
@@ -56,11 +60,12 @@ def email_alquiler(request, nombre, apellido, telefono, email, herramienta, dias
     message += 'Numero de contacto: '+ str(telefono) + '<br/>'
     message += 'El usuario acepto las clausulas.'
     subject = "Alquiler de: "+str(herramienta)
-    send_mail(subject, message, 'francong2@gmail.com', emails, html_message=message, fail_silently=False)
+    send_mail(subject, message, 'alquiler@alquiherramientas.com', emails, html_message=message, fail_silently=False)
     return True
 
+
 #Funcion para los correos de compra de una herramienta.
-def contact_email_producto(request, form, herramienta):
+def contact_email_producto(request, form, herramienta, id_producto):
 
     emailF = form
     emails = []
@@ -68,25 +73,29 @@ def contact_email_producto(request, form, herramienta):
     #Informacion del usuario
     name = emailF.cleaned_data['nombre']
     telephone = emailF.cleaned_data['telefono']
-    emails.append("evalderrama862@gmail.com")
+    email = emailF.cleaned_data['correo']
+    emails.append(email)
 
     #Mensaje a enviar
-    message = 'Correo de contacto del usuario: '+ str(name) + '.<br/> Enviado mientras veia la herramienta: '+str(herramienta)
+    message = 'Correo de contacto del usuario: '+ str(name) + '.<br/> Enviado mientras veia la herramienta: <a href="www.alquiherramientas.com/productos/'+str(id_producto)+' target="new">'+str(herramienta)+'"</a>'
     message += '.<br> Con correo: ' + str(emailF.cleaned_data['correo']) +'<br>'
     message += 'Mensaje: '+ str(emailF.cleaned_data['mensaje']) + '<br>'
     message += 'Telefono de contacto: '+ str(telephone)
-    send_mail('Correo contacto', message, 'francong2@gmail.com', emails, html_message=message, fail_silently=False)
+    send_mail('Correo contacto', message, 'contacto@alquiherramientas.com', emails, html_message=message, fail_silently=False)
     return True
+
 
 # Funcion para enviar correo cuando se agota un producto.
 def email_agotado(request, producto):
     emails = []
-    emails.append("evalderrama862@gmail.com")
+    emails.append("venta@alquiherramientas.com")
+    emails.append("alquiler@alquiherramientas.com")
 
     #Mensaje a enviar
     message = 'El producto: '+ str(producto.titulo) + ' se ha agotado.'
-    send_mail('Producto agotado', message, 'francong2@gmail.com', emails, html_message=message, fail_silently=False)
+    send_mail('Producto agotado', message, 'contacto@alquiherramientas.com', emails, html_message=message, fail_silently=False)
     return True
+
 
 #Query dinamico extraido de un proyecto ajeno
 def dynamic_query(model, fields, types, values, operator):

@@ -152,10 +152,11 @@ TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
 
 BOOTSTRAP_ADMIN_SIDEBAR_MENU = True
 
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'evserigrafia@gmail.com'
-EMAIL_HOST_PASSWORD = 'mynameis862'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
+#Configuracion de envio de correos
+EMAIL_HOST = 'smtp.webfaction.com'
+EMAIL_HOST_USER = 'herramientas_mail'
+EMAIL_HOST_PASSWORD = '@Alqui2112#'
+DEFAULT_FROM_EMAIL = 'contacto@alquiherramientas.com'
+SERVER_EMAIL = 'contacto@alquiherramientas.com'
 
 AUTH_USER_MODEL = 'administrador.User'

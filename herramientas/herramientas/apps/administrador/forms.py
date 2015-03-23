@@ -21,6 +21,7 @@ class UserCreationForm(forms.ModelForm):
         fields = ('email', 'nombre', 'apellido', 'telefono',  'ciudad', 'nacionalidad', 'cedula', 'is_afiliado')
         widgets = {
                     'telefono': forms.TextInput(),
+                    'is_afiliado': forms.CheckboxInput(),
         }
 
     def clean_password2(self):
