@@ -15,10 +15,10 @@ def contact_email(request, form):
     name = emailF.cleaned_data['nombre']
     telephone = emailF.cleaned_data['telefono']
     email = emailF.cleaned_data['correo']
-    emails.append(email)
+    emails.append('contacto@alquiherramientas.com')
 
     #Mensaje a enviar
-    message = 'Correo de contacto del usuario: '+ str(name) +'.<br> Con correo: ' + str(emailF.cleaned_data['correo']) +'<br>'
+    message = 'Correo de contacto del usuario: '+ str(name) +'.<br> Con correo: ' + str(email) +'<br>'
     message += 'Mensaje: '+ str(emailF.cleaned_data['mensaje']) + '<br>'
     message += 'Telefono de contacto: '+ str(telephone)
     send_mail('Correo contacto', message, 'contacto@alquiherramientas.com', emails, html_message=message, fail_silently=False)
