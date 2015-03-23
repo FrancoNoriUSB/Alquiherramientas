@@ -21,7 +21,9 @@ from herramientas.apps.administrador.forms import *
 from herramientas.apps.main.models import *
 from herramientas.apps.administrador.models import *
 from funciones import *
+from managment import notify
 import json
+
 
 
 #Vista de login de user administrador
