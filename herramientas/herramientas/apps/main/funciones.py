@@ -15,15 +15,17 @@ def contact_email(request, form):
     name = emailF.cleaned_data['nombre']
     telephone = emailF.cleaned_data['telefono']
     email = emailF.cleaned_data['correo']
-    emails.append('contacto@alquiherramientas.com')
+    emails.append(email)
 
     #Mensaje a enviar
-    message = 'Correo de contacto del usuario: '+ str(name) +'.<br> Con correo: ' + str(email) +'<br>'
-    message += 'Mensaje: '+ str(emailF.cleaned_data['mensaje']) + '<br>'
-    message += 'Telefono de contacto: '+ str(telephone)
-    send_mail('Correo contacto', message, 'contacto@alquiherramientas.com', emails, html_message=message, fail_silently=False)
+    email = EmailMessage()
+    email.subject = '[Alquiherramientas] Correo contacto'
+    email.body = message
+    email.from_email = 'Usuario Alquiherramientas <'+str(email)+'>'
+    email.to = emails
+    email.content_subtype = "html"
+    enviado=email.send()
     return True
-
 
 #Funcion para los correos de compra de una herramienta.
 def email_venta(request, nombre, apellido, telefono, email, herramienta, cantidad):
