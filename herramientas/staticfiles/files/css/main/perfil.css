@@ -1,0 +1,26 @@
+/*Documento de Estilos para el perfil de usuatrio de Alquiherramientas 2112
+Elaborado por: Franco Nori G.
+Colores a utilizar:
+	Amarillo: #D8971B;
+	Gris Claro: #7E7769;
+	Gris Oscuro: #625D53;
+	Azul: #0B3755;
+	Negro: #292929;
+*/
+
+.thumbnail {
+	height:75px;
+	width: 75px;
+	margin-top: 10px;
+}
+
+.bordes{
+	border-top: groove;
+	border-bottom: groove;
+}
+
+td{
+	padding: 0 8px 0 8px;
+	
+}
+

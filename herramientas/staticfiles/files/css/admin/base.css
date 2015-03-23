@@ -1,0 +1,74 @@
+/*Archivo de estilos para el admin de la aplicacion
+Elaborado por: Franco Nori G.
+Colores a utilizar:
+  Amarillo: #D8971B;
+  Gris Claro: #7E7769;
+  Gris Oscuro: #625D53;
+  Azul: #0B3755;
+  Negro: #292929;
+*/
+
+/*Estilos de la barra de menus*/
+.navbar, #side-menu{
+	background-color: #292929;
+}
+
+#wrapper > nav > div.navbar-header > a,
+#side-menu > li > a,
+#side-menu > li.active > ul > li > a,
+#side-menu > li.active > ul > li.active > ul > li > a,
+#wrapper > nav > ul > li > a > span,
+#wrapper > nav > ul > li > a{
+	color: white;
+}
+
+
+.sidebar ul li a.active {
+	background-color: #625D53 !important;
+}
+
+.nav>li>a:hover, .nav>li>a:focus {
+	text-decoration: none;
+	background-color: #625D53 !important;
+}
+
+#side-menu > li.active > ul > li.active > ul.collapsing > a,
+#side-menu > li.active > ul > li > ul > li > a,
+#side-menu > li > ul > li > ul > li > a,
+#side-menu > li > ul > li > a{
+	color: white;
+}
+
+{
+	color: white;
+}
+
+#side-menu > li > ul > li > a{
+	color: white;
+}
+
+/*Colores de glyphicons*/
+.glyphicon-plus, .glyphicon-ok, .glyphicon-ok-circle{
+	color: green;
+}
+
+.glyphicon-picture{
+	color: #292929;
+}
+
+.glyphicon-th-list{
+	color: #0B3755;
+}
+
+.glyphicon-pencil{
+	color:#D8971B;
+}
+
+.glyphicon-trash, .glyphicon-remove, .glyphicon-ban-circle{
+	color:red;
+}
+
+/*Formularios de imagenes y de banners*/
+#form > div.formulario{
+	border-top:groove;
+}
