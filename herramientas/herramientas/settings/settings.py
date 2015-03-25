@@ -48,6 +48,7 @@ INSTALLED_APPS = (
     'herramientas.apps.main',
     'widget_tweaks',
     'bootstrap3',
+    'mailchimp',
 )
 
 MIDDLEWARE_CLASSES = (

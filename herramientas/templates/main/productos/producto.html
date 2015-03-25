@@ -15,14 +15,14 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Clausulas</h4>
+        <h4 class="modal-title">Cl&aacute;usulas</h4>
       </div>
       <div class="modal-body">
         <p>
-        	Minions ipsum uuuhhh uuuhhh hahaha me want bananaaa! Poopayee chasy tulaliloo uuuhhh butt daa pepete chasy butt butt. Daa belloo! Pepete tatata bala tu bee do bee do bee do. Wiiiii chasy bee do bee do bee do belloo! Chasy ti aamoo! Jiji belloo! Potatoooo jeje tatata bala tu. Gelatooo poopayee para tú tatata bala tu tulaliloo. Tatata bala tu ti aamoo! Bananaaaa belloo! Butt bee do bee do bee do bananaaaa poulet tikka masala me want bananaaa! Po kass la bodaaa potatoooo baboiii poulet tikka masala jiji bappleees para tú potatoooo daa tulaliloo. 
-			<br>
-			<br>
-			Bananaaaa bee do bee do bee do poopayee butt po kass potatoooo underweaaar tatata bala tu gelatooo. Potatoooo jiji po kass jiji. Me want bananaaa! me want bananaaa! Butt jiji hana dul sae jeje jeje para tú jiji pepete bananaaaa. Gelatooo po kass tulaliloo butt poulet tikka masala hahaha po kass jiji aaaaaah uuuhhh. Gelatooo po kass tank yuuu! Wiiiii underweaaar uuuhhh jeje poulet tikka masala. Po kass butt poopayee tank yuuu! Underweaaar me want bananaaa! Jeje. Butt belloo! Aaaaaah tank yuuu! Gelatooo wiiiii jeje tulaliloo. Tank yuuu! poulet tikka masala tank yuuu! Potatoooo jiji.
+        	{{clausula.texto|linebreaks}}
+        </p>
+        <p>
+        	Descargar archivo digital: <a href="{{clausula.archivo.url}}">Cl&aacute;usulas.</a>
         </p>
       </div>
       <div class="modal-footer">
@@ -200,7 +200,7 @@
 							    <div class="checkbox">
 							    	<p class="obligatorio">Este campo es obligatorio.</p>
 							    	{% render_field ventaF.clausulas type="checkbox" id="clausulaVenta" %} Acepto las
-							    	<a data-toggle="modal" data-target="#modalClausulas">clausulas</a>
+							    	<a data-toggle="modal" data-target="#modalClausulas">cl&aacute;usulas</a>
 							    </div>
 								{% if user.is_authenticated %}
 									<button type="submit" class="btn btn-primary venta">

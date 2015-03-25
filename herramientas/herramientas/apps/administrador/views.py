@@ -21,9 +21,9 @@ from herramientas.apps.administrador.forms import *
 from herramientas.apps.main.models import *
 from herramientas.apps.administrador.models import *
 from funciones import *
-from managment import notify
 import json
 
+notificaciones = Notificacion.objects.all().order_by('created_at')[:10].reverse()
 
 #Vista de login de user administrador
 def login_admin(request):
@@ -75,7 +75,7 @@ def reset(request):
 def inicio(request):
 
 	ctx={
-
+		'notificaciones':notificaciones,
 	}
 
 	return render_to_response('administrador/inicio/inicio.html', ctx, context_instance=RequestContext(request))
@@ -100,6 +100,7 @@ def empresa_admin(request):
 	ctx={
 		'EmpresaForm':empresaF,
 		'editado':editado,
+		'notificaciones':notificaciones,
 	}
 
 	return render_to_response('administrador/empresa/empresa.html', ctx, context_instance=RequestContext(request))
@@ -139,7 +140,6 @@ def venta_agregar(request):
 				venta.save()
 				editado = True
 
-
 	#Ciudades a agregar
 	for estado in Estado.objects.all().order_by('id'):
 		ciudades_estado = Ciudad.objects.filter(estado=estado)
@@ -162,6 +162,7 @@ def venta_agregar(request):
 		'ciudades':ciudades,
 		'zonas':zonas,
 		'editado':editado,
+		'notificaciones':notificaciones,
 	}
 
 	return render_to_response('administrador/venta/agregar.html', ctx, context_instance=RequestContext(request))
@@ -223,6 +224,7 @@ def venta_editar(request, id_producto):
 		'ciudades':ciudades,
 		'zonas':zonas,
 		'editado':editado,
+		'notificaciones':notificaciones,
 	}
 
 	return render_to_response('administrador/venta/editar.html', ctx, context_instance=RequestContext(request))
@@ -262,6 +264,7 @@ def venta_imagen(request, id_producto):
 		'Venta':venta,
 		'VentaForm':ventaF,
 		'editado':editado,
+		'notificaciones':notificaciones,
 	}
 
 	return render_to_response('administrador/venta/imagen.html', ctx, context_instance=RequestContext(request))
@@ -287,6 +290,7 @@ def venta_listar(request):
 
 	ctx={
 		'ventas':ventas,
+		'notificaciones':notificaciones,
 	}
 
 	return render_to_response('administrador/venta/listar.html', ctx, context_instance=RequestContext(request))
@@ -312,6 +316,7 @@ def venta_ventas(request):
 
 	ctx={
 		'ventas':ventas,
+		'notificaciones':notificaciones,
 	}
 
 	return render_to_response('administrador/venta/ventas.html', ctx, context_instance=RequestContext(request))
@@ -392,6 +397,7 @@ def alquiler_agregar(request):
 		'ciudades':ciudades,
 		'zonas':zonas,
 		'editado':editado,
+		'notificaciones':notificaciones,
 	}
 
 	return render_to_response('administrador/alquiler/agregar.html', ctx, context_instance=RequestContext(request))
@@ -452,6 +458,7 @@ def alquiler_editar(request, id_producto):
 		'ciudades':ciudades,
 		'zonas':zonas,
 		'editado':editado,
+		'notificaciones':notificaciones,
 	}
 	
 	return render_to_response('administrador/alquiler/editar.html', ctx, context_instance=RequestContext(request))
@@ -490,6 +497,7 @@ def alquiler_imagen(request, id_producto):
 		'Alquiler':alquiler,
 		'AlquilerForm':alquilerF,
 		'editado':editado,
+		'notificaciones':notificaciones,
 	}
 
 	return render_to_response('administrador/alquiler/imagen.html', ctx, context_instance=RequestContext(request))
@@ -515,6 +523,7 @@ def alquiler_listar(request):
 
 	ctx={
 		'alquileres':alquileres,
+		'notificaciones':notificaciones,
 	}
 
 	return render_to_response('administrador/alquiler/listar.html', ctx, context_instance=RequestContext(request))
@@ -540,6 +549,7 @@ def alquiler_alquileres(request):
 
 	ctx={
 		'alquileres':alquileres,
+		'notificaciones':notificaciones,
 	}
 
 	return render_to_response('administrador/alquiler/alquileres.html', ctx, context_instance=RequestContext(request))
@@ -583,6 +593,7 @@ def afiliacion_admin(request):
 	ctx={
 		'AfiliacionForm':afiliacionF,
 		'editado':editado,
+		'notificaciones':notificaciones,
 	}
 
 	return render_to_response('administrador/afiliacion/afiliacion.html', ctx, context_instance=RequestContext(request))
@@ -607,6 +618,7 @@ def contactos_admin(request):
 	ctx={
 		'ContactosForm':contactosF,
 		'editado':editado,
+		'notificaciones':notificaciones,
 	}
 
 	return render_to_response('administrador/contactos/contactos.html', ctx, context_instance=RequestContext(request))
@@ -635,6 +647,7 @@ def banners_admin(request):
 	ctx = {
 		'BannerForm':bannerF,
 		'errores':errores,
+		'notificaciones':notificaciones,
 	}
 
 	return render_to_response('administrador/banners/banners.html', ctx, context_instance=RequestContext(request))
@@ -649,7 +662,6 @@ def usuario_listar(request):
 	paginator = Paginator(usuarios, 10)
 	page = request.GET.get('page')
 	
-
 	try:
 		usuarios = paginator.page(page)
 	except PageNotAnInteger:
@@ -661,6 +673,7 @@ def usuario_listar(request):
 
 	ctx={
 		'usuarios':usuarios,
+		'notificaciones':notificaciones,
 	}
 
 	return render_to_response('administrador/usuarios/listar.html', ctx, context_instance=RequestContext(request))
@@ -726,6 +739,7 @@ def configuracion_admin(request):
 		'modificarContrasenaForm': modificarF,
 		'editado':editado,
 		'modificado':modificado,
+		'notificaciones':notificaciones,
 	}
 
 	return render_to_response('administrador/configuracion/configuracion.html', ctx, context_instance=RequestContext(request))
@@ -747,6 +761,7 @@ def categoria_agregar(request):
 	ctx={
 		'CategoriaForm':categoriaF,
 		'editado':editado,
+		'notificaciones':notificaciones,
 	}
 
 	return render_to_response('administrador/categoria/agregar.html', ctx, context_instance=RequestContext(request))
@@ -769,6 +784,7 @@ def categoria_editar(request, id_categoria):
 	ctx={
 		'CategoriaForm':categoriaF,
 		'editado':editado,
+		'notificaciones':notificaciones,
 	}
 
 	return render_to_response('administrador/categoria/editar.html', ctx, context_instance=RequestContext(request))
@@ -794,6 +810,7 @@ def categoria_listar(request):
 
 	ctx={
 		"categorias":categorias,
+		'notificaciones':notificaciones,
 	}
 
 	return render_to_response('administrador/categoria/listar.html', ctx, context_instance=RequestContext(request))
@@ -824,6 +841,7 @@ def marca_agregar(request):
 	ctx={
 		'MarcaForm':marcaF,
 		'editado':editado,
+		'notificaciones':notificaciones,
 	}
 
 	return render_to_response('administrador/marca/agregar.html', ctx, context_instance=RequestContext(request))
@@ -846,6 +864,7 @@ def marca_editar(request, id_marca):
 	ctx={
 		'MarcaForm':marcaF,
 		'editado':editado,
+		'notificaciones':notificaciones,
 	}
 
 	return render_to_response('administrador/marca/editar.html', ctx, context_instance=RequestContext(request))
@@ -871,6 +890,7 @@ def marca_listar(request):
 
 	ctx={
 		"marcas":marcas,
+		'notificaciones':notificaciones,
 	}
 
 	return render_to_response('administrador/marca/listar.html', ctx, context_instance=RequestContext(request))
@@ -901,6 +921,7 @@ def modelo_agregar(request):
 	ctx={
 		'ModeloForm':modeloF,
 		'editado':editado,
+		'notificaciones':notificaciones,
 	}
 
 	return render_to_response('administrador/modelo/agregar.html', ctx, context_instance=RequestContext(request))
@@ -923,6 +944,7 @@ def modelo_editar(request, id_modelo):
 	ctx={
 		'ModeloForm':modeloF,
 		'editado':editado,
+		'notificaciones':notificaciones,
 	}
 
 	return render_to_response('administrador/modelo/editar.html', ctx, context_instance=RequestContext(request))
@@ -937,7 +959,6 @@ def modelo_listar(request):
 	paginator = Paginator(modelos, 10)
 	page = request.GET.get('page')
 	
-
 	try:
 		modelos = paginator.page(page)
 	except PageNotAnInteger:
@@ -949,6 +970,7 @@ def modelo_listar(request):
 
 	ctx={
 		"modelos":modelos,
+		'notificaciones':notificaciones,
 	}
 
 	return render_to_response('administrador/modelo/listar.html', ctx, context_instance=RequestContext(request))
@@ -979,6 +1001,7 @@ def estado_agregar(request):
 	ctx={
 		'EstadoForm':estadoF,
 		'editado':editado,
+		'notificaciones':notificaciones,
 	}
 
 	return render_to_response('administrador/estado/agregar.html', ctx, context_instance=RequestContext(request))
@@ -1001,6 +1024,7 @@ def estado_editar(request, id_estado):
 	ctx={
 		'EstadoForm':estadoF,
 		'editado':editado,
+		'notificaciones':notificaciones,
 	}
 
 	return render_to_response('administrador/estado/editar.html', ctx, context_instance=RequestContext(request))
@@ -1014,7 +1038,6 @@ def estado_listar(request):
 
 	paginator = Paginator(estados, 10)
 	page = request.GET.get('page')
-	
 
 	try:
 		estados = paginator.page(page)
@@ -1027,6 +1050,7 @@ def estado_listar(request):
 
 	ctx={
 		"estados":estados,
+		'notificaciones':notificaciones,
 	}
 
 	return render_to_response('administrador/estado/listar.html', ctx, context_instance=RequestContext(request))
@@ -1057,6 +1081,7 @@ def ciudad_agregar(request):
 	ctx={
 		'CiudadForm':ciudadF,
 		'editado':editado,
+		'notificaciones':notificaciones,
 	}
 
 	return render_to_response('administrador/ciudad/agregar.html', ctx, context_instance=RequestContext(request))
@@ -1079,6 +1104,7 @@ def ciudad_editar(request, id_ciudad):
 	ctx={
 		'CiudadForm':ciudadF,
 		'editado':editado,
+		'notificaciones':notificaciones,
 	}
 
 	return render_to_response('administrador/ciudad/editar.html', ctx, context_instance=RequestContext(request))
@@ -1092,7 +1118,6 @@ def ciudad_listar(request):
 
 	paginator = Paginator(ciudades, 10)
 	page = request.GET.get('page')
-	
 
 	try:
 		ciudades = paginator.page(page)
@@ -1105,6 +1130,7 @@ def ciudad_listar(request):
 
 	ctx={
 		"ciudades":ciudades,
+		'notificaciones':notificaciones,
 	}
 
 	return render_to_response('administrador/ciudad/listar.html', ctx, context_instance=RequestContext(request))
@@ -1135,6 +1161,7 @@ def zona_agregar(request):
 	ctx={
 		'ZonaForm':zonaF,
 		'editado':editado,
+		'notificaciones':notificaciones,
 	}
 
 	return render_to_response('administrador/zona/agregar.html', ctx, context_instance=RequestContext(request))
@@ -1157,6 +1184,7 @@ def zona_editar(request, id_zona):
 	ctx={
 		'ZonaForm':zonaF,
 		'editado':editado,
+		'notificaciones':notificaciones,
 	}
 
 	return render_to_response('administrador/zona/editar.html', ctx, context_instance=RequestContext(request))
@@ -1182,6 +1210,7 @@ def zona_listar(request):
 
 	ctx={
 		"zonas":zonas,
+		'notificaciones':notificaciones,
 	}
 
 	return render_to_response('administrador/zona/listar.html', ctx, context_instance=RequestContext(request))
@@ -1217,6 +1246,7 @@ def clausulas(request):
 	ctx = {
 		'ClausulasForm':clausulasF,
 		'editado':editado,
+		'notificaciones':notificaciones,
 	}
 
 	return render_to_response('administrador/clausulas/clausulas.html',ctx, context_instance=RequestContext(request))

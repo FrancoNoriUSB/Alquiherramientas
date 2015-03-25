@@ -31,6 +31,7 @@ import os, sys
 MAILCHIMP_LIST_ID = '503f2bfba1'
 mp = mercadopago.MP("1735954876648483", "hsJ0KIzKHXSYVudbHcCG3yBdmEUF0abn")
 
+
 #Vista del inicio
 def inicio(request):
 
@@ -155,11 +156,15 @@ def inicio(request):
 	# Creando un nuevo usuario
 	if request.method=='POST':
 		usuarioF = UserCreationForm(request.POST)
+		usuarioF.is_afiliado = False
 		if usuarioF.is_valid():
 			email = usuarioF.cleaned_data['email']
 			list = utils.get_connection().get_list_by_id(MAILCHIMP_LIST_ID)
 			list.subscribe(email, {'EMAIL': email})
-			usuarioF.save()
+			usuario = usuarioF.save()
+
+			#Agrega la notificacion de la transaccion
+			notificacionUsuario = Notificacion.objects.create(nombre="Nuevo usuario creado", tipo='usuario',id_modelo=usuario.id)
 			return HttpResponseRedirect('/')
 		elif loginF.is_valid():
 			return HttpResponseRedirect('/login/')
@@ -226,11 +231,15 @@ def empresa(request):
 	# Creando un nuevo usuario
 	if request.method=='POST':
 		usuarioF = UserCreationForm(request.POST)
+		usuarioF.is_afiliado = False
 		if usuarioF.is_valid():
 			email = usuarioF.cleaned_data['email']
 			list = utils.get_connection().get_list_by_id(MAILCHIMP_LIST_ID)
 			list.subscribe(email, {'EMAIL': email})
-			usuarioF.save()
+			usuario = usuarioF.save()
+
+			#Agrega la notificacion de la transaccion
+			notificacionUsuario = Notificacion.objects.create(nombre="Nuevo usuario creado", tipo='usuario',id_modelo=usuario.id)
 			return HttpResponseRedirect('/')
 
 	ctx = {
@@ -285,11 +294,15 @@ def productos(request, palabra):
 	# Creando un nuevo usuario
 	if request.method=='POST':
 		usuarioF = UserCreationForm(request.POST)
+		usuarioF.is_afiliado = False
 		if usuarioF.is_valid():
 			email = usuarioF.cleaned_data['email']
 			list = utils.get_connection().get_list_by_id(MAILCHIMP_LIST_ID)
 			list.subscribe(email, {'EMAIL': email})
-			usuarioF.save()
+			usuario = usuarioF.save()
+
+			#Agrega la notificacion de la transaccion
+			notificacionUsuario = Notificacion.objects.create(nombre="Nuevo usuario creado", tipo='usuario',id_modelo=usuario.id)
 			return HttpResponseRedirect('/')
 
 	#Busqueda de propiedades en el pais actual
@@ -366,7 +379,6 @@ def producto(request, id_producto):
 	
 	producto = Producto.objects.get(id=id_producto)
 	cantidad = producto.cantidad
-	print (cantidad)
 
 	#Datos iniciales de formularios de venta y alquiler
 	dataA = {}
@@ -396,16 +408,14 @@ def producto(request, id_producto):
 		alquilerF = AlquilerForm(initial=dataA)
 		alquilerF.fields['cantidad'] = forms.IntegerField(required=True,min_value=1,max_value=producto.cantidad)
 		try:
-			clausulas = Clausula.objects.get(tipo='alquiler')
-			clausula = clausulas.archivo
+			clausula = Clausula.objects.get(tipo='alquiler')
 		except:
 			clausula = ''
 	elif dataV != {}:
 		ventaF = VentaForm(initial=dataV)
 		ventaF.fields['cantidad'] = forms.IntegerField(required=True,min_value=1,max_value=producto.cantidad)
 		try:
-			clausulas = Clausula.objects.get(tipo='venta')
-			clausula = clausulas.archivo
+			clausula = Clausula.objects.get(tipo='venta')
 		except:
 			clausula = ''
 
@@ -413,13 +423,17 @@ def producto(request, id_producto):
 	if request.method=='POST':
 		nombre = producto.titulo
 		usuarioF = UserCreationForm(request.POST)
+		usuarioF.is_afiliado = False
 		contactoF = ContactoForm(request.POST)
 
 		if usuarioF.is_valid():
 			email = usuarioF.cleaned_data['email']
 			list = utils.get_connection().get_list_by_id(MAILCHIMP_LIST_ID)
 			list.subscribe(email, {'EMAIL': email})
-			usuarioF.save()
+			usuario = usuarioF.save()
+
+			#Agrega la notificacion de la transaccion
+			notificacionUsuario = Notificacion.objects.create(nombre="Nuevo usuario creado", tipo='usuario',id_modelo=usuario.id)
 			return HttpResponseRedirect('/')
 
 		if contactoF.is_valid():
@@ -448,12 +462,15 @@ def producto(request, id_producto):
 		'imagen':imagen,
 		'imagenes':imagenes,
 		'redirect':redirect,
+		'clausula':clausula,
 
 	}
 
 	return render_to_response('main/productos/producto.html', ctx, context_instance=RequestContext(request))
 
-# View que contiene el boton de pago. Falta trabajar.
+
+# View que contiene el boton de pago.
+@login_required
 def pagar(request, id_producto):
 
 	#Formulario de busqueda
@@ -491,15 +508,19 @@ def pagar(request, id_producto):
 	# Creando un nuevo usuario
 	if request.method=='POST':
 		usuarioF = UserCreationForm(request.POST)
+		usuarioF.is_afiliado = False
 
 		if usuarioF.is_valid():
 			email = usuarioF.cleaned_data['email']
 			list = utils.get_connection().get_list_by_id(MAILCHIMP_LIST_ID)
 			list.subscribe(email, {'EMAIL': email})
 			usuarioF.save()
+
+			#Agrega la notificacion de la transaccion
+			notificacionUsuario = Notificacion.objects.create(nombre="Nuevo usuario creado", tipo='usuario',id_modelo=usuarioF.id)
 			return HttpResponseRedirect('/')
 
-		# Registro del pago.
+		#Registro del pago.
 		nombre = producto.titulo
 		razon = producto
 		fecha = datetime.datetime.now()
@@ -525,6 +546,9 @@ def pagar(request, id_producto):
 														   fecha=fecha,usuario=usuario,verificado=False,
 														   cantidad=cantidad,aceptado=acepto)
 				producto.cantidad = producto.cantidad - cantidad
+
+				#Agrega la notificacion de la transaccion
+				notificacionAlquiler = Notificacion.objects.create(nombre="Nuevo alquiler realizado", tipo='alquiler',id_modelo=producto.id)
 				
 				#Verifica la cantidad de productos y envia email dependiendo de si se agoto
 				if producto.cantidad == 0:
@@ -549,6 +573,9 @@ def pagar(request, id_producto):
 													 usuario=usuario,verificado=False,cantidad=cantidad,aceptado=acepto)
 				producto.cantidad = producto.cantidad - cantidad
 
+				#Agrega la notificacion de la transaccion
+				notificacionVenta = Notificacion.objects.create(nombre="Nueva venta realizada", tipo='venta',id_modelo=producto.id)
+				
 				#Verifica la cantidad de productos y envia email dependiendo de si se agoto
 				if producto.cantidad == 0:
 					producto.disponible = False
@@ -579,7 +606,9 @@ def pagar(request, id_producto):
 
 	return render_to_response('main/productos/pago.html', ctx, context_instance=RequestContext(request))
 
+
 # View de los datos bancarios.
+@login_required
 def datos(request):
 
 	#Formulario de busqueda
@@ -613,11 +642,15 @@ def datos(request):
 	# Creando un nuevo usuario
 	if request.method=='POST':
 		usuarioF = UserCreationForm(request.POST)
+		usuarioF.is_afiliado = False
 		if usuarioF.is_valid():
 			email = usuarioF.cleaned_data['email']
 			list = utils.get_connection().get_list_by_id(MAILCHIMP_LIST_ID)
 			list.subscribe(email, {'EMAIL': email})
-			usuarioF.save()
+			usuario = usuarioF.save()
+
+			#Agrega la notificacion de la transaccion
+			notificacionUsuario = Notificacion.objects.create(nombre="Nuevo usuario creado", tipo='usuario',id_modelo=usuario.id)
 			return HttpResponseRedirect('/')
 
 	ctx = {
@@ -697,7 +730,10 @@ def afiliacion(request):
 			email = usuarioF.cleaned_data['email']
 			list = utils.get_connection().get_list_by_id(MAILCHIMP_LIST_ID)
 			list.subscribe(email, {'EMAIL': email})
-			usuarioF.save()
+			usuario = usuarioF.save()
+
+			#Agrega la notificacion de la transaccion
+			notificacionUsuario = Notificacion.objects.create(nombre="Nuevo usuario creado", tipo='usuario',id_modelo=usuario.id)
 			return HttpResponseRedirect('/')
 
 	ctx = {
@@ -759,11 +795,15 @@ def contactos(request):
 	# Creando un nuevo usuario
 	if request.method=='POST':
 		usuarioF = UserCreationForm(request.POST)
+		usuarioF.is_afiliado = False
 		if usuarioF.is_valid():
 			email = usuarioF.cleaned_data['email']
 			list = utils.get_connection().get_list_by_id(MAILCHIMP_LIST_ID)
 			list.subscribe(email, {'EMAIL': email})
-			usuarioF.save()
+			usuario = usuarioF.save()
+
+			#Agrega la notificacion de la transaccion
+			notificacionUsuario = Notificacion.objects.create(nombre="Nuevo usuario creado", tipo='usuario',id_modelo=usuario.id)
 			return HttpResponseRedirect('/')
 
 	ctx = {
@@ -780,7 +820,6 @@ def contactos(request):
 	}
 
 	return render_to_response('main/contactos/contactos.html', ctx, context_instance=RequestContext(request))
-
 
 
 # Vista para login de usuario
@@ -810,7 +849,7 @@ def loginUser(request,redirect):
 	return HttpResponseRedirect('/')
 
 
-#Vista de perfil de usuario
+#Vista de perfil de venta
 @login_required
 def perfilCompras(request):
 	usuario = request.user
@@ -822,6 +861,8 @@ def perfilCompras(request):
 
 	return render_to_response('main/perfil/perfil_compras.html', ctx, context_instance=RequestContext(request))
 
+
+#Vista de perfil de alquiler
 @login_required
 def perfilAlquiler(request):
 	usuario = request.user
