@@ -199,6 +199,7 @@ def venta_editar(request, id_producto):
 				venta.herramienta = herramienta
 				venta.direccion = direccion
 				venta.imagen = imagen
+				venta.disponible = True
 				venta.save()
 				editado = True
 
@@ -433,6 +434,7 @@ def alquiler_editar(request, id_producto):
 				alquiler.herramienta = herramienta
 				alquiler.direccion = direccion
 				alquiler.imagen = imagen
+				alquiler.disponible = True
 				alquiler.save()
 				editado = True
 
@@ -1250,6 +1252,15 @@ def clausulas(request):
 	}
 
 	return render_to_response('administrador/clausulas/clausulas.html',ctx, context_instance=RequestContext(request))
+
+
+#Vista para eliminar las notificaciones
+def notificacion_eliminar(request,id_notif):
+
+	notificacion = get_object_or_404(Notificacion, id=id_notif)
+	notificacion.delete()
+	notificaciones = Notificacion.objects.all().order_by('created_at')[:10].reverse()
+	return HttpResponseRedirect('/')
 
 
 #Vista para cerrar la sesion

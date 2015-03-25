@@ -69,21 +69,22 @@
                         {%for notificacion in notificaciones%}
                         <li>
                             {%if notificacion.tipo == 'alquiler'%}
-                                <a href="#">
+                                <a href="/administrador/alquiler/editar/{{notificacion.id_modelo}}">
                                     <div>
                                         <span class="glyphicon glyphicon-piggy-bank"></span> <strong>{{notificacion.nombre}}</strong>
                             {%elif notificacion.tipo == 'venta'%}
-                                <a href="#">
+                                <a href="/administrador/venta/editar/{{notificacion.id_modelo}}">
                                     <div>
                                         <span class="glyphicon glyphicon-usd"></span> <strong>{{notificacion.nombre}}</strong>
                             {%elif notificacion.tipo == 'usuario'%}
-                                <a href="#">
+                                <a href="/administrador/usuario/listar">
                                     <div>
                                         <span class="glyphicon glyphicon-user"></span> <strong>{{notificacion.nombre}}</strong>
                             {%endif%}
                                     <span class="pull-right text-muted">
                                         <em>{{notificacion.created_at}}</em>
                                     </span>
+                                    <a href="/administrador/notificacion/eliminar/{{notificacion.id}}/"><span class="glyphicon glyphicon-trash"></span></a>
                                 </div>
                             </a>
                         </li>

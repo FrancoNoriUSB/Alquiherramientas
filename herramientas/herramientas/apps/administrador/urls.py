@@ -94,4 +94,7 @@ urlpatterns = patterns('herramientas.apps.administrador.views',
 
     #Urls de clausulas
     url(r'^administrador/clausulas/$', 'clausulas', name='clausulas'),
+
+    #Urls de notificaciones
+    url(r'^administrador/notificacion/eliminar/(?P<id_notif>[0-9A-Za-z]+)/$', 'notificacion_eliminar', name='notificacion_eliminar'),
 )
