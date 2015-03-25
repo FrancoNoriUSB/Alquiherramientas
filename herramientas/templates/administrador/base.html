@@ -58,7 +58,41 @@
             </div>
             <!-- /.navbar-header -->
 
+
+
             <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <span class="glyphicon glyphicon-bell"></span> <span class="badge">{{notificaciones|length}}</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-messages">
+                        {%for notificacion in notificaciones%}
+                        <li>
+                            {%if notificacion.tipo == 'alquiler'%}
+                                <a href="#">
+                                    <div>
+                                        <span class="glyphicon glyphicon-piggy-bank"></span> <strong>{{notificacion.nombre}}</strong>
+                            {%elif notificacion.tipo == 'venta'%}
+                                <a href="#">
+                                    <div>
+                                        <span class="glyphicon glyphicon-usd"></span> <strong>{{notificacion.nombre}}</strong>
+                            {%elif notificacion.tipo == 'usuario'%}
+                                <a href="#">
+                                    <div>
+                                        <span class="glyphicon glyphicon-user"></span> <strong>{{notificacion.nombre}}</strong>
+                            {%endif%}
+                                    <span class="pull-right text-muted">
+                                        <em>{{notificacion.created_at}}</em>
+                                    </span>
+                                </div>
+                            </a>
+                        </li>
+                        <br>
+                        <li class="divider"></li>
+                        {%endfor%}
+                    </ul>
+                    <!-- /.dropdown-messages -->
+                </li>
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                        <span class="glyphicon glyphicon-user"></span> {{request.user.nombre}}

@@ -229,6 +229,6 @@ class BannerForm(forms.ModelForm):
 class ClausulasForm(forms.ModelForm):
     class Meta:
         model = Clausula
-        fields = ('nombre', 'archivo')
+        fields = ('nombre', 'archivo', 'tipo')
         widgets = {
         }

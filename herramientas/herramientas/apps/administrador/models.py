@@ -2,7 +2,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
-
 #Manager del modelo de usuario
 class UserManager(BaseUserManager):
 	def create_user(self, nombre, apellido, correo, telefono, password, ciudad, nacionalidad, cedula, afiliado):
@@ -105,6 +104,7 @@ class Clausula(models.Model):
 
 	nombre = models.CharField(max_length=100)
 	tipo = models.CharField(max_length=30, choices=(('alquiler', 'alquiler'), ('venta','venta')))
+	texto = models.CharField(max_length=10000)
 	archivo = models.FileField(upload_to='uploads/archivos/')
 	
 	created_at = models.DateTimeField(auto_now_add=True)
@@ -113,6 +113,30 @@ class Clausula(models.Model):
 	class Meta:
 		verbose_name='Clausula'
 		verbose_name_plural = 'Clausulas'
+
+	def __unicode__(self):
+		return u"%s" %(self.nombre)
+
+
+#Modelo para las notificaciones en el admin
+class Notificacion(models.Model):
+
+	tipos = (
+		('venta', 'venta'),
+		('alquiler', 'alquiler'),
+		('usuario', 'usuario'),
+	)
+
+	nombre = models.CharField(max_length=50)
+	tipo = models.CharField(choices=tipos,max_length=20)
+	id_modelo = models.CharField(max_length=10)
+
+	created_at = models.DateTimeField(auto_now_add=True)
+	updated_at = models.DateTimeField(auto_now=True)
+
+	class Meta:
+		verbose_name = "Notificacion"
+	verbose_name_plural = "Notificaciones"
 
 	def __unicode__(self):
 		return u"%s" %(self.nombre)

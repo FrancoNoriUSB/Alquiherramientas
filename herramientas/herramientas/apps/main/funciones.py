@@ -16,6 +16,7 @@ def contact_email(request, form):
     telephone = emailF.cleaned_data['telefono']
     email = emailF.cleaned_data['correo']
     emails.append(email)
+    emails.append('contacto@alquiherramientas.com')
 
     #Mensaje a enviar
     message = 'Correo de contacto del usuario: '+ str(name) +'.<br> Con correo: ' + str(email) +'<br>'
@@ -36,7 +37,7 @@ def email_venta(request, nombre, apellido, telefono, email, herramienta, cantida
     emails = []
     #Informacion del usuario
     emails.append(email)
-    emails.append('venta@alquiherramientas.com')
+    emails.append('ventas@alquiherramientas.com')
 
     #Mensaje a enviar
     message = 'El usuario: '+ str(nombre) +' '+ str(apellido) +'.<br>'
@@ -45,8 +46,14 @@ def email_venta(request, nombre, apellido, telefono, email, herramienta, cantida
     message += 'Correo de contacto: '+ str(email) + '<br/>'
     message += 'Numero de contacto: '+ str(telefono) + '<br/>'
     message += 'El usuario acepto las clausulas.'
-    subject = "Venta de: "+str(herramienta)
-    send_mail(subject, message, 'venta@alquiherramientas.com', emails, html_message=message, fail_silently=False)
+
+    email = EmailMessage()
+    email.subject = '[Alquiherramientas] Nueva Venta'
+    email.body = message
+    email.from_email = 'ventas@alquiherramientas.com'
+    email.to = emails
+    email.content_subtype = "html"
+    enviado=email.send()
     return True
 
 
@@ -66,7 +73,14 @@ def email_alquiler(request, nombre, apellido, telefono, email, herramienta, dias
     message += 'Numero de contacto: '+ str(telefono) + '<br/>'
     message += 'El usuario acepto las clausulas.'
     subject = "Alquiler de: "+str(herramienta)
-    send_mail(subject, message, 'alquiler@alquiherramientas.com', emails, html_message=message, fail_silently=False)
+
+    email = EmailMessage()
+    email.subject = '[Alquiherramientas] Nuevo Alquiler'
+    email.body = message
+    email.from_email = 'alquiler@alquiherramientas.com'
+    email.to = emails
+    email.content_subtype = "html"
+    enviado=email.send()
     return True
 
 
@@ -81,25 +95,42 @@ def contact_email_producto(request, form, herramienta, id_producto):
     telephone = emailF.cleaned_data['telefono']
     email = emailF.cleaned_data['correo']
     emails.append(email)
+    emails.append('contacto@alquiherramientas.com')
 
     #Mensaje a enviar
     message = 'Correo de contacto del usuario: '+ str(name) + '.<br/> Enviado mientras veia la herramienta: <a href="www.alquiherramientas.com/productos/'+str(id_producto)+' target="new">'+str(herramienta)+'"</a>'
     message += '.<br> Con correo: ' + str(emailF.cleaned_data['correo']) +'<br>'
     message += 'Mensaje: '+ str(emailF.cleaned_data['mensaje']) + '<br>'
     message += 'Telefono de contacto: '+ str(telephone)
-    send_mail('Correo contacto', message, 'contacto@alquiherramientas.com', emails, html_message=message, fail_silently=False)
+
+    email = EmailMessage()
+    email.subject = '[Alquiherramientas] Contacto de producto'
+    email.body = message
+    email.from_email = 'contacto@alquiherramientas.com'
+    email.to = emails
+    email.content_subtype = "html"
+    enviado=email.send()
+    return True
     return True
 
 
 # Funcion para enviar correo cuando se agota un producto.
 def email_agotado(request, producto):
     emails = []
-    emails.append("venta@alquiherramientas.com")
+    emails.append("ventas@alquiherramientas.com")
     emails.append("alquiler@alquiherramientas.com")
 
     #Mensaje a enviar
     message = 'El producto: '+ str(producto.titulo) + ' se ha agotado.'
-    send_mail('Producto agotado', message, 'contacto@alquiherramientas.com', emails, html_message=message, fail_silently=False)
+    message += 'Visitar en el admin, <a href="www.alquiherramientas.com/administrador/">Producto</a>'
+
+    email = EmailMessage()
+    email.subject = '[Alquiherramientas] Producto Agotado'
+    email.body = message
+    email.from_email = 'contacto@alquiherramientas.com'
+    email.to = emails
+    email.content_subtype = "html"
+    enviado=email.send()
     return True
 
 

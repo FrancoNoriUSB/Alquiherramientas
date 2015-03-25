@@ -49,7 +49,6 @@ INSTALLED_APPS = (
     'widget_tweaks',
     'bootstrap3',
     'mailchimp',
-    'notifications',
 )
 
 MIDDLEWARE_CLASSES = (
