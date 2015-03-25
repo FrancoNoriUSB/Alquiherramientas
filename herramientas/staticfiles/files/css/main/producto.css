@@ -1,0 +1,56 @@
+/*Documento de Estilos para la base de Alquiherramientas 2112
+Elaborado por: Edgar Valderrama.
+Colores a utilizar:
+	Amarillo: #D8971B;
+	Gris Claro: #7E7769;
+	Gris Oscuro: #625D53;
+	Azul: #0B3755;
+	Negro: #292929;
+*/
+
+
+.cuadrado {
+	max-height: 500px;
+	min-height: 500px
+}
+
+ /* Centrar la imagen dentro del slider */
+.item img{
+	margin: 0 auto;
+}
+
+/* Redefinicion de precio para que no se vaya a la derecha.*/ 
+.precio {
+	float : none;
+	color: #D8971B;
+	font-weight: 900;
+	margin: 0 0 0 0;
+}
+
+/*tamanio 100 para los campos de formulario.*/
+.size-100 {
+	width: 100px;
+}
+
+.obligatorio{
+	display: none;
+	color: red;
+}
+
+.errorDia{
+	display: none;
+	color: red;
+}
+
+.thumb{
+	min-width: 30px;
+	max-width: 30px;
+	min-height: 40px;
+	max-height: 40px;
+}
+
+.col-lg-1{
+	padding: 4px 3px 4px 2px;
+	margin: 0 2px 0 2px;
+
+}

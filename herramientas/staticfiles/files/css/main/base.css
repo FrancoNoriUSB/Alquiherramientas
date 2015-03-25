@@ -1,0 +1,275 @@
+/*Documento de Estilos para la base de Alquiherramientas 2112
+Elaborado por: Franco Nori G.
+Colores a utilizar:
+	Amarillo: #D8971B;
+	Gris Claro: #7E7769;
+	Gris Oscuro: #625D53;
+	Azul: #0B3755;
+	Negro: #292929;
+*/
+
+/*Estilos del header*/
+body > header > nav{
+	background-image: -webkit-linear-gradient(#625D53 0%, #625D53 100%) !important;
+	background-image: -o-linear-gradient(#625D53 0%, #625D53 100%) !important;
+	background-image: linear-gradient(#625D53 0%, #625D53 100%) !important;
+}
+
+#carousel-example-generic > div > div > img{
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/*Estilos del footer*/
+body > footer > nav{
+	background-image: -webkit-linear-gradient(#625D53 0%, #625D53 100%) !important;
+	background-image: -o-linear-gradient(#625D53 0%, #625D53 100%) !important;
+	background-image: linear-gradient(#625D53 0%, #625D53 100%) !important;
+}
+
+/*Estilos de contenido*/
+body > div > div.row > div.contenido.col-lg-8.col-md-8.col-sm-8 > div > div > a > img,
+#carouselOferta > div > div > div > img{
+	max-height: 185px !important;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+body > div > div.row > div.contenido.col-lg-8.col-md-8.col-sm-8 > div > div.superior{
+	margin-bottom: 6%;
+}
+
+/*Estilos de bootstrap modificados*/
+.navbar-brand {
+	padding: 0px;
+	line-height: 0px;
+	height: 95px;
+}
+
+header > nav > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul{
+	padding-top: 2%;
+}
+
+body > header > nav > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li > a,
+body > footer > nav > div > div > ul > li > a,
+body > header > nav > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li > div > button{
+	color: white !important;
+}
+
+body > header > nav > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li > a:hover,
+body > header > nav > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li > div > button:hover{
+	background-image: -webkit-linear-gradient(#0B3755 0%, #0B3755 100%);
+	background-image: -o-linear-gradient(#0B3755 0%, #0B3755 100%);
+	background-image: linear-gradient(#0B3755 0%, #0B3755 100%);
+}
+
+body > header > nav > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li > a,
+body > header > nav > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li > div > button{
+	font-size: 20px;
+}
+
+
+body > header > nav > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li > div > button{
+	background-image: -webkit-linear-gradient(#7E7769 0%, #7E7769 100%);
+	background-image: -o-linear-gradient(#7E7769 0%, #7E7769 100%);
+	background-image: linear-gradient(#7E7769 0%, #7E7769 100%);
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border-radius: 0px;
+}
+
+body > header > nav > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li{
+	background-image: -webkit-linear-gradient(#7E7769 0%, #7E7769 100%);
+	background-image: -o-linear-gradient(#7E7769 0%, #7E7769 100%);
+	background-image: linear-gradient(#7E7769 0%, #7E7769 100%);
+	margin-left: 10px;
+}
+
+.navbar-default .navbar-nav>.active>a,
+.navbar-default .navbar-nav>.active>.btn-group>.btn{
+	background-image: -webkit-linear-gradient(#D8971B 0%, #D8971B 100%) !important;
+	background-image: -o-linear-gradient(#D8971B 0%, #D8971B 100%) !important;
+	background-image: linear-gradient(#D8971B 0%, #D8971B 100%) !important;
+}
+
+.navbar-default{
+	z-index: 1;
+}
+
+/*Estilo para poner los titulos de cada pagina, clase de un h3*/
+.titulo {
+	margin: 1% 0 5% 0;
+}
+
+/* centrar la imagen de ofertas, tamanio minimo y maximo*/
+.centered{
+	margin: 0 auto;
+}
+
+/*Estilo para poner un boton de color gris y el hover gris tambien*/
+.boton{
+	background-image: -webkit-linear-gradient(#7E7769 0%, #625D53 100%);
+	background-image: -o-linear-gradient(#7E7769 0%, #625D53 100%);
+	background-image: linear-gradient(#7E7769 0%, #625D53 100%);
+	border: none;
+}
+
+.boton:hover{
+	background-color: #625D53;
+	border: none;
+}
+
+.ver-mas {
+	padding: 1% 1% 1% 1%;
+	width: 30%;
+	float: right;
+}
+
+/*Estilos de los paneles de busqueda y oferta*/
+.buscador {
+	background-color: #0B3755;
+	margin-top: 3%;
+	padding-bottom: 15px;
+}
+
+.buscador h3{
+	color: #FFFFFF;
+	margin: 3% 0 8% 0;
+}
+
+#form {
+	padding: 3% 10% 3% 10%;
+}
+
+#form > div > p{
+	color: white;
+}
+
+.der {
+	float: right;
+	width: 48%;
+}
+
+.izq {
+	float: left;
+	width: 48%;
+}
+
+#form > div > button{
+	float: right;
+}
+
+.ofertas {
+	background-color: #292929;
+	margin: 3% 0 3% 0;
+	color: #7E7769;
+}
+
+.ofertas-content {
+	padding: 3% 10% 3% 10%;
+}
+
+.ofertas-content h3{
+	color: #FFFFFF;
+	margin: 3% 0 8% 0;
+}
+
+.ofertas-content h4{
+	color: #FFFFFF;
+}
+
+/*Registro de usuario y login*/
+#registroModal > div > div{
+	background-color: #625D53;
+}
+
+#registroModal > div > div > div.modal-header{
+	padding: 5px;
+	border-bottom: 0px solid #e5e5e5;
+	min-height: 16.42857143px;
+}
+
+#registroModal > div > div > div.modal-header > img{
+	margin-right: auto;
+	margin-left: auto;
+}
+
+#registroModal > div > div > div.modal-body{
+	padding-top:0px;
+	padding-bottom:30px;
+	padding-left: 50px;
+	padding-right: 50px;
+}
+
+#registroModal > div > div > div.modal-body > div{
+	background-color: #7E7769;
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+
+#registroModal > div > div > div.modal-body > div > div > form{
+	padding-right: 10%;
+}
+
+#registroModal > div > div > div.modal-body > div > div > form > div.form-group > div{
+	float: right;
+}
+
+#registroModal > div > div > div.modal-body > div > div > form > div.form-group > div > label,
+#registroModalLabel{
+	color: white;
+}
+
+#registroModal > div > div > div.modal-body > div > div > form > div > div.form-group > button,
+#registroModal > div > div > div.modal-body > div > div > form > div > div.form-group > button:hover{
+	background-image: -webkit-linear-gradient(#0B3755 0%, #0B3755 100%);
+	background-image: -o-linear-gradient(#0B3755 0%, #0B3755 100%);
+	background-image: linear-gradient(#0B3755 0%, #0B3755 100%);
+	border-color: #0B3755;
+	background-color: #0B3755;
+}
+
+#registroModalLabel{
+	text-align: center;
+}
+
+#registroModal > div > div > div.modal-body > div > div > form > div > div:nth-child(20){
+	width: 62%;
+}
+
+#id_cedula{
+	width: 47%;
+}
+
+body > div > div.contenido.container-fluid > div > div.barra-lateral.col-lg-4.col-md-4.col-sm-4 > div.registro-ingreso > div > div{
+	background-color: #ebebeb;
+}
+
+div.registro-ingreso > div > div > div > form > div > div.form-group > button,
+div.registro-ingreso > div > div > div > form > div > div.form-group > button:hover{
+	background-image: -webkit-linear-gradient(#7E7769 0%, #7E7769 100%);
+	background-image: -o-linear-gradient(#7E7769 0%, #7E7769 100%);
+	background-image: linear-gradient(#7E7769 0%, #7E7769 100%);
+	border-color: #7E7769;
+	background-color: #7E7769;
+	float: right;
+}
+
+/*Hace que el precio de las cosas aparezca a la derecha*/
+.precio {
+	float: right;
+	color: #D8971B;
+	font-weight: 900;
+	margin: 0 0 0 0;
+}
+
+/*Alquiler o venta en blanco.*/
+body > div > div.contenido.container-fluid > div > div.barra-lateral.col-lg-4 > div.ofertas > div > p:nth-child(6){
+	color: #FFFFFF;
+	margin: 0 0 0 0;
+	font-weight: bolder;
+}
+
+body > div > div.contenido.container-fluid > div > div.barra-lateral.col-lg-4 > div.ofertas > div > h3:nth-child(3){
+	margin: 8% 0 3% 0;
+}

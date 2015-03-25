@@ -1,0 +1,335 @@
+[
+{
+    "fields": {
+        "info": "Minions ipsum uuuhhh uuuhhh hahaha me want bananaaa! Poopayee chasy tulaliloo uuuhhh butt daa pepete chasy butt butt. Daa belloo! Pepete tatata bala tu bee do bee do bee do. Wiiiii chasy bee do bee do bee do belloo! Chasy ti aamoo! Jiji belloo! Potatoooo jeje tatata bala tu. Gelatooo poopayee para t\u00fa tatata bala tu tulaliloo. Tatata bala tu ti aamoo! Bananaaaa belloo! Butt bee do bee do bee do bananaaaa poulet tikka masala me want bananaaa! Po kass la bodaaa potatoooo baboiii poulet tikka masala jiji bappleees para t\u00fa potatoooo daa tulaliloo.   Bananaaaa bee do bee do bee do poopayee butt po kass potatoooo underweaaar tatata bala tu gelatooo. Potatoooo jiji po kass jiji. Me want bananaaa! me want bananaaa! Butt jiji hana dul sae jeje jeje para t\u00fa jiji pepete bananaaaa. Gelatooo po kass tulaliloo butt poulet tikka masala hahaha po kass jiji aaaaaah uuuhhh. Gelatooo po kass tank yuuu! Wiiiii underweaaar uuuhhh jeje poulet tikka masala. Po kass butt poopayee tank yuuu! Underweaaar me want bananaaa! Jeje. Butt belloo! Aaaaaah tank yuuu! Gelatooo wiiiii jeje tulaliloo. Tank yuuu! poulet tikka masala tank yuuu! Potatoooo jiji.",
+        "servicios": "Minions ipsum uuuhhh uuuhhh hahaha me want bananaaa! Poopayee chasy tulaliloo uuuhhh butt daa pepete chasy butt butt. Daa belloo! Pepete tatata bala tu bee do bee do bee do. Wiiiii chasy bee do bee do bee do belloo! Chasy ti aamoo! Jiji belloo! Potatoooo jeje tatata bala tu. Gelatooo poopayee para t\u00fa tatata bala tu tulaliloo. Tatata bala tu ti aamoo! Bananaaaa belloo! Butt bee do bee do bee do bananaaaa poulet tikka masala me want bananaaa! Po kass la bodaaa potatoooo baboiii poulet tikka masala jiji bappleees para t\u00fa potatoooo daa tulaliloo.",
+        "mision": "Minions ipsum uuuhhh uuuhhh hahaha me want bananaaa! Poopayee chasy tulaliloo uuuhhh butt daa pepete chasy butt butt. Daa belloo! Pepete tatata bala tu bee do bee do bee do. Wiiiii chasy bee do bee do bee do belloo! Chasy ti aamoo! Jiji belloo! Potatoooo jeje tatata bala tu. Gelatooo poopayee para t\u00fa tatata bala tu tulaliloo. Tatata bala tu ti aamoo! Bananaaaa belloo! Butt bee do bee do bee do bananaaaa poulet tikka masala me want bananaaa! Po kass la bodaaa potatoooo baboiii poulet tikka masala jiji bappleees para t\u00fa potatoooo daa tulaliloo.asd adasd",
+        "vision": "Minions ipsum uuuhhh uuuhhh hahaha me want bananaaa! Poopayee chasy tulaliloo uuuhhh butt daa pepete chasy butt butt. Daa belloo! Pepete tatata bala tu bee do bee do bee do. Wiiiii chasy bee do bee do bee do belloo! Chasy ti aamoo! Jiji belloo! Potatoooo jeje tatata bala tu. Gelatooo poopayee para t\u00fa tatata bala tu tulaliloo. Tatata bala tu ti aamoo! Bananaaaa belloo! Butt bee do bee do bee do bananaaaa poulet tikka masala me want bananaaa! Po kass la bodaaa potatoooo baboiii poulet tikka masala jiji bappleees para t\u00fa potatoooo daa tulaliloo."
+    },
+    "model": "main.empresa",
+    "pk": 1
+},
+{
+    "fields": {
+        "nombre": "Miranda"
+    },
+    "model": "main.estado",
+    "pk": 1
+},
+{
+    "fields": {
+        "nombre": "Distrito Capital"
+    },
+    "model": "main.estado",
+    "pk": 2
+},
+{
+    "fields": {
+        "nombre": "Aragua"
+    },
+    "model": "main.estado",
+    "pk": 3
+},
+{
+    "fields": {
+        "nombre": "Carabobo"
+    },
+    "model": "main.estado",
+    "pk": 4
+},
+{
+    "fields": {
+        "nombre": "Amazonas"
+    },
+    "model": "main.estado",
+    "pk": 5
+},
+{
+    "fields": {
+        "nombre": "Caracas",
+        "estado": 2
+    },
+    "model": "main.ciudad",
+    "pk": 1
+},
+{
+    "fields": {
+        "nombre": "Los Teques",
+        "estado": 1
+    },
+    "model": "main.ciudad",
+    "pk": 2
+},
+{
+    "fields": {
+        "nombre": "Maracay",
+        "estado": 3
+    },
+    "model": "main.ciudad",
+    "pk": 3
+},
+{
+    "fields": {
+        "nombre": "Valencia",
+        "estado": 4
+    },
+    "model": "main.ciudad",
+    "pk": 4
+},
+{
+    "fields": {
+        "nombre": "San Diego",
+        "estado": 4
+    },
+    "model": "main.ciudad",
+    "pk": 5
+},
+{
+    "fields": {
+        "nombre": "Boleita",
+        "ciudad": 1
+    },
+    "model": "main.zona",
+    "pk": 1
+},
+{
+    "fields": {
+        "nombre": "Petare",
+        "ciudad": 1
+    },
+    "model": "main.zona",
+    "pk": 2
+},
+{
+    "fields": {
+        "nombre": "Centro",
+        "ciudad": 1
+    },
+    "model": "main.zona",
+    "pk": 3
+},
+{
+    "fields": {
+        "nombre": "Santa Monica",
+        "ciudad": 1
+    },
+    "model": "main.zona",
+    "pk": 4
+},
+{
+    "fields": {
+        "ciudad": 1,
+        "estado": 2,
+        "zona": 1,
+        "domicilio": "Calle 5ta del centro con 6ta"
+    },
+    "model": "main.direccion",
+    "pk": 1
+},
+{
+    "fields": {
+        "ciudad": 1,
+        "estado": 2,
+        "zona": 1,
+        "domicilio": "Cuadra 12 urbanizacion Boleita Norte"
+    },
+    "model": "main.direccion",
+    "pk": 2
+},
+{
+    "fields": {
+        "ciudad": 1,
+        "estado": 2,
+        "zona": 1,
+        "domicilio": "Calle 1 del cruce 2 con avenia 3"
+    },
+    "model": "main.direccion",
+    "pk": 9
+},
+{
+    "fields": {
+        "ciudad": 1,
+        "estado": 2,
+        "zona": 1,
+        "domicilio": "Cuadra 12 urbanizacion Boleita Norte"
+    },
+    "model": "main.direccion",
+    "pk": 10
+},
+{
+    "fields": {
+        "nombre": "Taladros"
+    },
+    "model": "main.categoria",
+    "pk": 1
+},
+{
+    "fields": {
+        "nombre": "Trompos"
+    },
+    "model": "main.categoria",
+    "pk": 2
+},
+{
+    "fields": {
+        "nombre": "Excavadoras"
+    },
+    "model": "main.categoria",
+    "pk": 3
+},
+{
+    "fields": {
+        "nombre": "Aplanadoras"
+    },
+    "model": "main.categoria",
+    "pk": 4
+},
+{
+    "fields": {
+        "nombre": "Camiones"
+    },
+    "model": "main.categoria",
+    "pk": 5
+},
+{
+    "fields": {
+        "nombre": "Black & Decker"
+    },
+    "model": "main.marca",
+    "pk": 1
+},
+{
+    "fields": {
+        "nombre": "Tapa Amarilla"
+    },
+    "model": "main.marca",
+    "pk": 2
+},
+{
+    "fields": {
+        "nombre": "Caterpillar"
+    },
+    "model": "main.marca",
+    "pk": 3
+},
+{
+    "fields": {
+        "nombre": "John Deere"
+    },
+    "model": "main.marca",
+    "pk": 4
+},
+{
+    "fields": {
+        "nombre": "Volkswagen"
+    },
+    "model": "main.marca",
+    "pk": 5
+},
+{
+    "fields": {
+        "nombre": "Concreto",
+        "marca": 1
+    },
+    "model": "main.modelo",
+    "pk": 1
+},
+{
+    "fields": {
+        "nombre": "G501",
+        "marca": 2
+    },
+    "model": "main.modelo",
+    "pk": 2
+},
+{
+    "fields": {
+        "nombre": "CAT-415",
+        "marca": 3
+    },
+    "model": "main.modelo",
+    "pk": 3
+},
+{
+    "fields": {
+        "nombre": "AP-441",
+        "marca": 4
+    },
+    "model": "main.modelo",
+    "pk": 4
+},
+{
+    "fields": {
+        "nombre": "VKW",
+        "marca": 5
+    },
+    "model": "main.modelo",
+    "pk": 5
+},
+{
+    "fields": {
+        "categoria": 1,
+        "nombre": "Taladro",
+        "ano": 1996,
+        "modelo": 1,
+        "marca": 1
+    },
+    "model": "main.herramienta",
+    "pk": 1
+},
+{
+    "fields": {
+        "categoria": 2,
+        "nombre": "Mezcladora",
+        "ano": 2013,
+        "modelo": 2,
+        "marca": 2
+    },
+    "model": "main.herramienta",
+    "pk": 2
+},
+{
+    "fields": {
+        "categoria": 3,
+        "nombre": "Excavadora",
+        "ano": 2005,
+        "modelo": 3,
+        "marca": 3
+    },
+    "model": "main.herramienta",
+    "pk": 3
+},
+{
+    "fields": {
+        "categoria": 4,
+        "nombre": "Aplanadora",
+        "ano": 2008,
+        "modelo": 4,
+        "marca": 4
+    },
+    "model": "main.herramienta",
+    "pk": 4
+},
+{
+    "fields": {
+        "categoria": 3,
+        "nombre": "Maquina excavadora",
+        "ano": 2003,
+        "modelo": 2,
+        "marca": 4
+    },
+    "model": "main.herramienta",
+    "pk": 11
+},
+{
+    "fields": {
+        "categoria": 2,
+        "nombre": "Mezcladora Portatil",
+        "ano": 2015,
+        "modelo": 3,
+        "marca": 3
+    },
+    "model": "main.herramienta",
+    "pk": 12
+}
+]

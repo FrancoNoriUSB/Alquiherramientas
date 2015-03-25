@@ -75,21 +75,24 @@ ROOT_URLCONF = 'herramientas.urls'
 
 WSGI_APPLICATION = 'herramientas.wsgi.application'
 
+
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
-# Parse database configuration from $DATABASE_URL
+
 DATABASES = {
-    'default': {
+        'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'herramientas',                      # Or path to database file if using sqlite3.
         #The following settings are not used with sqlite3:
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
+        'USER': 'herramientas_user',
+        'PASSWORD': '@123456#',
         'HOST': 'localhost',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '5432',                      # Set to empty string for default.
     }
 }
 
+# Internationalization
+# https://docs.djangoproject.com/en/1.7/topics/i18n/
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 TIME_ZONE = 'America/Caracas'
@@ -109,13 +112,12 @@ DATE_INPUT_FORMATS = (
     )
 
 DATETIME_FORMAT = 'N j, Y, P'
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = 'staticfiles'
+STATIC_ROOT = '/home/franconori/webapps/static_herramientas'
 
 # Additional locations of static files
 STATICFILES_DIRS = (

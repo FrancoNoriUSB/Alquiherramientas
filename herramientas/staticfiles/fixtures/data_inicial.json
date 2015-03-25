@@ -1,0 +1,1185 @@
+[
+{
+    "fields": {
+        "nombre": "Amazonas"
+    },
+    "model": "main.estado",
+    "pk": 1
+},
+{
+    "fields": {
+        "nombre": "Anzoategui"
+    },
+    "model": "main.estado",
+    "pk": 2
+},
+{
+    "fields": {
+        "nombre": "Apure"
+    },
+    "model": "main.estado",
+    "pk": 3
+},
+{
+    "fields": {
+        "nombre": "Distrito Capital"
+    },
+    "model": "main.estado",
+    "pk": 4
+},
+{
+    "fields": {
+        "nombre": "Miranda"
+    },
+    "model": "main.estado",
+    "pk": 5
+},
+{
+    "fields": {
+        "nombre": "M\u00e9rida"
+    },
+    "model": "main.estado",
+    "pk": 6
+},
+{
+    "fields": {
+        "nombre": "T\u00e1chira"
+    },
+    "model": "main.estado",
+    "pk": 7
+},
+{
+    "fields": {
+        "nombre": "Vargas"
+    },
+    "model": "main.estado",
+    "pk": 8
+},
+{
+    "fields": {
+        "nombre": "Zulia"
+    },
+    "model": "main.estado",
+    "pk": 9
+},
+{
+    "fields": {
+        "nombre": "Anaco",
+        "estado": 2
+    },
+    "model": "main.ciudad",
+    "pk": 1
+},
+{
+    "fields": {
+        "nombre": "Guasdualito",
+        "estado": 3
+    },
+    "model": "main.ciudad",
+    "pk": 2
+},
+{
+    "fields": {
+        "nombre": "Barcelona",
+        "estado": 2
+    },
+    "model": "main.ciudad",
+    "pk": 3
+},
+{
+    "fields": {
+        "nombre": "Caracas",
+        "estado": 4
+    },
+    "model": "main.ciudad",
+    "pk": 4
+},
+{
+    "fields": {
+        "nombre": "Guarenas",
+        "estado": 5
+    },
+    "model": "main.ciudad",
+    "pk": 5
+},
+{
+    "fields": {
+        "nombre": "Los Teques",
+        "estado": 5
+    },
+    "model": "main.ciudad",
+    "pk": 6
+},
+{
+    "fields": {
+        "nombre": "El Vig\u00eda",
+        "estado": 6
+    },
+    "model": "main.ciudad",
+    "pk": 7
+},
+{
+    "fields": {
+        "nombre": "M\u00e9rida",
+        "estado": 6
+    },
+    "model": "main.ciudad",
+    "pk": 8
+},
+{
+    "fields": {
+        "nombre": "Maracaibo",
+        "estado": 9
+    },
+    "model": "main.ciudad",
+    "pk": 9
+},
+{
+    "fields": {
+        "nombre": "Cabimas",
+        "estado": 9
+    },
+    "model": "main.ciudad",
+    "pk": 10
+},
+{
+    "fields": {
+        "nombre": "San Cristobal",
+        "estado": 7
+    },
+    "model": "main.ciudad",
+    "pk": 11
+},
+{
+    "fields": {
+        "nombre": "Sucre",
+        "ciudad": 4
+    },
+    "model": "main.zona",
+    "pk": 1
+},
+{
+    "fields": {
+        "nombre": "Petare",
+        "ciudad": 4
+    },
+    "model": "main.zona",
+    "pk": 2
+},
+{
+    "fields": {
+        "ciudad": 4,
+        "estado": 4,
+        "zona": 2,
+        "domicilio": "zona industrial, galpon 8"
+    },
+    "model": "main.direccion",
+    "pk": 1
+},
+{
+    "fields": {
+        "ciudad": 3,
+        "estado": 2,
+        "zona": 1,
+        "domicilio": "Sector el manguito, calle 4, edificio El Saman"
+    },
+    "model": "main.direccion",
+    "pk": 2
+},
+{
+    "fields": {
+        "nombre": "Black and decker"
+    },
+    "model": "main.marca",
+    "pk": 3
+},
+{
+    "fields": {
+        "nombre": "Catherpilar"
+    },
+    "model": "main.marca",
+    "pk": 4
+},
+{
+    "fields": {
+        "nombre": "Rimax"
+    },
+    "model": "main.marca",
+    "pk": 5
+},
+{
+    "fields": {
+        "nombre": "Blacksmith"
+    },
+    "model": "main.marca",
+    "pk": 6
+},
+{
+    "fields": {
+        "nombre": "ABC-123",
+        "marca": 5
+    },
+    "model": "main.modelo",
+    "pk": 1
+},
+{
+    "fields": {
+        "nombre": "DEF-456",
+        "marca": 6
+    },
+    "model": "main.modelo",
+    "pk": 2
+},
+{
+    "fields": {
+        "nombre": "GHI-789",
+        "marca": 4
+    },
+    "model": "main.modelo",
+    "pk": 3
+},
+{
+    "fields": {
+        "nombre": "XYZ-000",
+        "marca": 3
+    },
+    "model": "main.modelo",
+    "pk": 4
+},
+{
+    "fields": {
+        "nombre": "herramienta"
+    },
+    "model": "main.categoria",
+    "pk": 1
+},
+{
+    "fields": {
+        "nombre": "Taladro",
+        "categoria": 1,
+        "modelo": 4,
+        "marca": 3
+    },
+    "model": "main.herramienta",
+    "pk": 1
+},
+{
+    "fields": {
+        "nombre": "Martillo",
+        "categoria": 1,
+        "modelo": 1,
+        "marca": 5
+    },
+    "model": "main.herramienta",
+    "pk": 2
+},
+{
+    "fields": {
+        "nombre": "Camion",
+        "categoria": 1,
+        "modelo": 2,
+        "marca": 6
+    },
+    "model": "main.herramienta",
+    "pk": 3
+},
+{
+    "fields": {
+        "codename": "add_logentry",
+        "name": "Can add log entry",
+        "content_type": 1
+    },
+    "model": "auth.permission",
+    "pk": 1
+},
+{
+    "fields": {
+        "codename": "change_logentry",
+        "name": "Can change log entry",
+        "content_type": 1
+    },
+    "model": "auth.permission",
+    "pk": 2
+},
+{
+    "fields": {
+        "codename": "delete_logentry",
+        "name": "Can delete log entry",
+        "content_type": 1
+    },
+    "model": "auth.permission",
+    "pk": 3
+},
+{
+    "fields": {
+        "codename": "add_permission",
+        "name": "Can add permission",
+        "content_type": 2
+    },
+    "model": "auth.permission",
+    "pk": 4
+},
+{
+    "fields": {
+        "codename": "change_permission",
+        "name": "Can change permission",
+        "content_type": 2
+    },
+    "model": "auth.permission",
+    "pk": 5
+},
+{
+    "fields": {
+        "codename": "delete_permission",
+        "name": "Can delete permission",
+        "content_type": 2
+    },
+    "model": "auth.permission",
+    "pk": 6
+},
+{
+    "fields": {
+        "codename": "add_group",
+        "name": "Can add group",
+        "content_type": 3
+    },
+    "model": "auth.permission",
+    "pk": 7
+},
+{
+    "fields": {
+        "codename": "change_group",
+        "name": "Can change group",
+        "content_type": 3
+    },
+    "model": "auth.permission",
+    "pk": 8
+},
+{
+    "fields": {
+        "codename": "delete_group",
+        "name": "Can delete group",
+        "content_type": 3
+    },
+    "model": "auth.permission",
+    "pk": 9
+},
+{
+    "fields": {
+        "codename": "add_user",
+        "name": "Can add user",
+        "content_type": 4
+    },
+    "model": "auth.permission",
+    "pk": 10
+},
+{
+    "fields": {
+        "codename": "change_user",
+        "name": "Can change user",
+        "content_type": 4
+    },
+    "model": "auth.permission",
+    "pk": 11
+},
+{
+    "fields": {
+        "codename": "delete_user",
+        "name": "Can delete user",
+        "content_type": 4
+    },
+    "model": "auth.permission",
+    "pk": 12
+},
+{
+    "fields": {
+        "codename": "add_contenttype",
+        "name": "Can add content type",
+        "content_type": 5
+    },
+    "model": "auth.permission",
+    "pk": 13
+},
+{
+    "fields": {
+        "codename": "change_contenttype",
+        "name": "Can change content type",
+        "content_type": 5
+    },
+    "model": "auth.permission",
+    "pk": 14
+},
+{
+    "fields": {
+        "codename": "delete_contenttype",
+        "name": "Can delete content type",
+        "content_type": 5
+    },
+    "model": "auth.permission",
+    "pk": 15
+},
+{
+    "fields": {
+        "codename": "add_session",
+        "name": "Can add session",
+        "content_type": 6
+    },
+    "model": "auth.permission",
+    "pk": 16
+},
+{
+    "fields": {
+        "codename": "change_session",
+        "name": "Can change session",
+        "content_type": 6
+    },
+    "model": "auth.permission",
+    "pk": 17
+},
+{
+    "fields": {
+        "codename": "delete_session",
+        "name": "Can delete session",
+        "content_type": 6
+    },
+    "model": "auth.permission",
+    "pk": 18
+},
+{
+    "fields": {
+        "codename": "add_estado",
+        "name": "Can add Estado",
+        "content_type": 7
+    },
+    "model": "auth.permission",
+    "pk": 19
+},
+{
+    "fields": {
+        "codename": "change_estado",
+        "name": "Can change Estado",
+        "content_type": 7
+    },
+    "model": "auth.permission",
+    "pk": 20
+},
+{
+    "fields": {
+        "codename": "delete_estado",
+        "name": "Can delete Estado",
+        "content_type": 7
+    },
+    "model": "auth.permission",
+    "pk": 21
+},
+{
+    "fields": {
+        "codename": "add_ciudad",
+        "name": "Can add Ciudad",
+        "content_type": 8
+    },
+    "model": "auth.permission",
+    "pk": 22
+},
+{
+    "fields": {
+        "codename": "change_ciudad",
+        "name": "Can change Ciudad",
+        "content_type": 8
+    },
+    "model": "auth.permission",
+    "pk": 23
+},
+{
+    "fields": {
+        "codename": "delete_ciudad",
+        "name": "Can delete Ciudad",
+        "content_type": 8
+    },
+    "model": "auth.permission",
+    "pk": 24
+},
+{
+    "fields": {
+        "codename": "add_zona",
+        "name": "Can add Zona",
+        "content_type": 9
+    },
+    "model": "auth.permission",
+    "pk": 25
+},
+{
+    "fields": {
+        "codename": "change_zona",
+        "name": "Can change Zona",
+        "content_type": 9
+    },
+    "model": "auth.permission",
+    "pk": 26
+},
+{
+    "fields": {
+        "codename": "delete_zona",
+        "name": "Can delete Zona",
+        "content_type": 9
+    },
+    "model": "auth.permission",
+    "pk": 27
+},
+{
+    "fields": {
+        "codename": "add_direccion",
+        "name": "Can add Direccion",
+        "content_type": 10
+    },
+    "model": "auth.permission",
+    "pk": 28
+},
+{
+    "fields": {
+        "codename": "change_direccion",
+        "name": "Can change Direccion",
+        "content_type": 10
+    },
+    "model": "auth.permission",
+    "pk": 29
+},
+{
+    "fields": {
+        "codename": "delete_direccion",
+        "name": "Can delete Direccion",
+        "content_type": 10
+    },
+    "model": "auth.permission",
+    "pk": 30
+},
+{
+    "fields": {
+        "codename": "add_marca",
+        "name": "Can add Marca",
+        "content_type": 11
+    },
+    "model": "auth.permission",
+    "pk": 31
+},
+{
+    "fields": {
+        "codename": "change_marca",
+        "name": "Can change Marca",
+        "content_type": 11
+    },
+    "model": "auth.permission",
+    "pk": 32
+},
+{
+    "fields": {
+        "codename": "delete_marca",
+        "name": "Can delete Marca",
+        "content_type": 11
+    },
+    "model": "auth.permission",
+    "pk": 33
+},
+{
+    "fields": {
+        "codename": "add_modelo",
+        "name": "Can add Modelo",
+        "content_type": 12
+    },
+    "model": "auth.permission",
+    "pk": 34
+},
+{
+    "fields": {
+        "codename": "change_modelo",
+        "name": "Can change Modelo",
+        "content_type": 12
+    },
+    "model": "auth.permission",
+    "pk": 35
+},
+{
+    "fields": {
+        "codename": "delete_modelo",
+        "name": "Can delete Modelo",
+        "content_type": 12
+    },
+    "model": "auth.permission",
+    "pk": 36
+},
+{
+    "fields": {
+        "codename": "add_herramienta",
+        "name": "Can add Herramienta",
+        "content_type": 13
+    },
+    "model": "auth.permission",
+    "pk": 37
+},
+{
+    "fields": {
+        "codename": "change_herramienta",
+        "name": "Can change Herramienta",
+        "content_type": 13
+    },
+    "model": "auth.permission",
+    "pk": 38
+},
+{
+    "fields": {
+        "codename": "delete_herramienta",
+        "name": "Can delete Herramienta",
+        "content_type": 13
+    },
+    "model": "auth.permission",
+    "pk": 39
+},
+{
+    "fields": {
+        "codename": "add_alquiler",
+        "name": "Can add Alquiler",
+        "content_type": 14
+    },
+    "model": "auth.permission",
+    "pk": 40
+},
+{
+    "fields": {
+        "codename": "change_alquiler",
+        "name": "Can change Alquiler",
+        "content_type": 14
+    },
+    "model": "auth.permission",
+    "pk": 41
+},
+{
+    "fields": {
+        "codename": "delete_alquiler",
+        "name": "Can delete Alquiler",
+        "content_type": 14
+    },
+    "model": "auth.permission",
+    "pk": 42
+},
+{
+    "fields": {
+        "codename": "add_compra",
+        "name": "Can add Compra",
+        "content_type": 15
+    },
+    "model": "auth.permission",
+    "pk": 43
+},
+{
+    "fields": {
+        "codename": "change_compra",
+        "name": "Can change Compra",
+        "content_type": 15
+    },
+    "model": "auth.permission",
+    "pk": 44
+},
+{
+    "fields": {
+        "codename": "delete_compra",
+        "name": "Can delete Compra",
+        "content_type": 15
+    },
+    "model": "auth.permission",
+    "pk": 45
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2014-12-10T20:41:55.137Z",
+        "object_repr": "Amazonas",
+        "object_id": "1",
+        "change_message": "",
+        "user": 1,
+        "content_type": 7
+    },
+    "model": "admin.logentry",
+    "pk": 1
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2014-12-10T20:42:03.925Z",
+        "object_repr": "Anzoategui",
+        "object_id": "2",
+        "change_message": "",
+        "user": 1,
+        "content_type": 7
+    },
+    "model": "admin.logentry",
+    "pk": 2
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2014-12-10T20:42:09.123Z",
+        "object_repr": "Apure",
+        "object_id": "3",
+        "change_message": "",
+        "user": 1,
+        "content_type": 7
+    },
+    "model": "admin.logentry",
+    "pk": 3
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2014-12-10T20:42:39.221Z",
+        "object_repr": "Anaco",
+        "object_id": "1",
+        "change_message": "",
+        "user": 1,
+        "content_type": 8
+    },
+    "model": "admin.logentry",
+    "pk": 4
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2014-12-10T20:42:53.843Z",
+        "object_repr": "Guasdualito",
+        "object_id": "2",
+        "change_message": "",
+        "user": 1,
+        "content_type": 8
+    },
+    "model": "admin.logentry",
+    "pk": 5
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2014-12-10T20:43:11.764Z",
+        "object_repr": "Barcelona",
+        "object_id": "3",
+        "change_message": "",
+        "user": 1,
+        "content_type": 8
+    },
+    "model": "admin.logentry",
+    "pk": 6
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2014-12-10T21:05:13.821Z",
+        "object_repr": "Caracas",
+        "object_id": "4",
+        "change_message": "",
+        "user": 1,
+        "content_type": 7
+    },
+    "model": "admin.logentry",
+    "pk": 7
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2014-12-10T21:05:20.695Z",
+        "object_repr": "Miranda",
+        "object_id": "5",
+        "change_message": "",
+        "user": 1,
+        "content_type": 7
+    },
+    "model": "admin.logentry",
+    "pk": 8
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2014-12-10T21:05:30.899Z",
+        "object_repr": "M\u00e9rida",
+        "object_id": "6",
+        "change_message": "",
+        "user": 1,
+        "content_type": 7
+    },
+    "model": "admin.logentry",
+    "pk": 9
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2014-12-10T21:05:42.310Z",
+        "object_repr": "T\u00e1chira",
+        "object_id": "7",
+        "change_message": "",
+        "user": 1,
+        "content_type": 7
+    },
+    "model": "admin.logentry",
+    "pk": 10
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2014-12-10T21:05:55.563Z",
+        "object_repr": "Vargas",
+        "object_id": "8",
+        "change_message": "",
+        "user": 1,
+        "content_type": 7
+    },
+    "model": "admin.logentry",
+    "pk": 11
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2014-12-10T21:06:03.859Z",
+        "object_repr": "Zulia",
+        "object_id": "9",
+        "change_message": "",
+        "user": 1,
+        "content_type": 7
+    },
+    "model": "admin.logentry",
+    "pk": 12
+},
+{
+    "fields": {
+        "action_flag": 2,
+        "action_time": "2014-12-10T21:06:31.269Z",
+        "object_repr": "Distrito Capital",
+        "object_id": "4",
+        "change_message": "Modificado/a nombre.",
+        "user": 1,
+        "content_type": 7
+    },
+    "model": "admin.logentry",
+    "pk": 13
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2014-12-10T21:06:44.074Z",
+        "object_repr": "Caracas",
+        "object_id": "4",
+        "change_message": "",
+        "user": 1,
+        "content_type": 8
+    },
+    "model": "admin.logentry",
+    "pk": 14
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2014-12-10T21:07:15.162Z",
+        "object_repr": "Guarenas",
+        "object_id": "5",
+        "change_message": "",
+        "user": 1,
+        "content_type": 8
+    },
+    "model": "admin.logentry",
+    "pk": 15
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2014-12-10T21:07:24.390Z",
+        "object_repr": "Los Teques",
+        "object_id": "6",
+        "change_message": "",
+        "user": 1,
+        "content_type": 8
+    },
+    "model": "admin.logentry",
+    "pk": 16
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2014-12-10T21:07:41.819Z",
+        "object_repr": "El Vig\u00eda",
+        "object_id": "7",
+        "change_message": "",
+        "user": 1,
+        "content_type": 8
+    },
+    "model": "admin.logentry",
+    "pk": 17
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2014-12-10T21:07:49.078Z",
+        "object_repr": "M\u00e9rida",
+        "object_id": "8",
+        "change_message": "",
+        "user": 1,
+        "content_type": 8
+    },
+    "model": "admin.logentry",
+    "pk": 18
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2014-12-10T21:08:04.776Z",
+        "object_repr": "Maracaibo",
+        "object_id": "9",
+        "change_message": "",
+        "user": 1,
+        "content_type": 8
+    },
+    "model": "admin.logentry",
+    "pk": 19
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2014-12-10T21:08:16.843Z",
+        "object_repr": "Cabimas",
+        "object_id": "10",
+        "change_message": "",
+        "user": 1,
+        "content_type": 8
+    },
+    "model": "admin.logentry",
+    "pk": 20
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2014-12-10T21:08:44.198Z",
+        "object_repr": "San Cristobal",
+        "object_id": "11",
+        "change_message": "",
+        "user": 1,
+        "content_type": 8
+    },
+    "model": "admin.logentry",
+    "pk": 21
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2014-12-10T21:08:58.420Z",
+        "object_repr": "Sucre",
+        "object_id": "1",
+        "change_message": "",
+        "user": 1,
+        "content_type": 9
+    },
+    "model": "admin.logentry",
+    "pk": 22
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2014-12-10T21:09:13.821Z",
+        "object_repr": "Petare",
+        "object_id": "2",
+        "change_message": "",
+        "user": 1,
+        "content_type": 9
+    },
+    "model": "admin.logentry",
+    "pk": 23
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2014-12-10T21:12:35.288Z",
+        "object_repr": "zona industrial, galpon 8",
+        "object_id": "1",
+        "change_message": "",
+        "user": 1,
+        "content_type": 10
+    },
+    "model": "admin.logentry",
+    "pk": 24
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2014-12-10T21:16:16.056Z",
+        "object_repr": "Sector el manguito, calle 4, edificio El Saman",
+        "object_id": "2",
+        "change_message": "",
+        "user": 1,
+        "content_type": 10
+    },
+    "model": "admin.logentry",
+    "pk": 25
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2014-12-10T22:15:18.450Z",
+        "object_repr": "Black and decker",
+        "object_id": "3",
+        "change_message": "",
+        "user": 1,
+        "content_type": 11
+    },
+    "model": "admin.logentry",
+    "pk": 26
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2014-12-10T22:15:25.134Z",
+        "object_repr": "catherpilar",
+        "object_id": "4",
+        "change_message": "",
+        "user": 1,
+        "content_type": 11
+    },
+    "model": "admin.logentry",
+    "pk": 27
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2014-12-10T22:15:47.830Z",
+        "object_repr": "Rimax",
+        "object_id": "5",
+        "change_message": "",
+        "user": 1,
+        "content_type": 11
+    },
+    "model": "admin.logentry",
+    "pk": 28
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2014-12-10T22:16:09.422Z",
+        "object_repr": "Blacksmith",
+        "object_id": "6",
+        "change_message": "",
+        "user": 1,
+        "content_type": 11
+    },
+    "model": "admin.logentry",
+    "pk": 29
+},
+{
+    "fields": {
+        "action_flag": 2,
+        "action_time": "2014-12-10T22:16:17.995Z",
+        "object_repr": "Catherpilar",
+        "object_id": "4",
+        "change_message": "Modificado/a nombre.",
+        "user": 1,
+        "content_type": 11
+    },
+    "model": "admin.logentry",
+    "pk": 30
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2014-12-10T22:16:48.973Z",
+        "object_repr": "ABC-123",
+        "object_id": "1",
+        "change_message": "",
+        "user": 1,
+        "content_type": 12
+    },
+    "model": "admin.logentry",
+    "pk": 31
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2014-12-10T22:21:27.896Z",
+        "object_repr": "DEF-456",
+        "object_id": "2",
+        "change_message": "",
+        "user": 1,
+        "content_type": 12
+    },
+    "model": "admin.logentry",
+    "pk": 32
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2014-12-10T22:21:55.038Z",
+        "object_repr": "GHI-789",
+        "object_id": "3",
+        "change_message": "",
+        "user": 1,
+        "content_type": 12
+    },
+    "model": "admin.logentry",
+    "pk": 33
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2014-12-10T22:22:10.330Z",
+        "object_repr": "XYZ-000",
+        "object_id": "4",
+        "change_message": "",
+        "user": 1,
+        "content_type": 12
+    },
+    "model": "admin.logentry",
+    "pk": 34
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2014-12-10T22:22:36.980Z",
+        "object_repr": "Taladro",
+        "object_id": "1",
+        "change_message": "",
+        "user": 1,
+        "content_type": 13
+    },
+    "model": "admin.logentry",
+    "pk": 35
+},
+{
+    "fields": {
+        "action_flag": 2,
+        "action_time": "2014-12-10T22:23:07.213Z",
+        "object_repr": "Taladro",
+        "object_id": "1",
+        "change_message": "Modificado/a modelo.",
+        "user": 1,
+        "content_type": 13
+    },
+    "model": "admin.logentry",
+    "pk": 36
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2014-12-10T22:23:16.637Z",
+        "object_repr": "Martillo",
+        "object_id": "2",
+        "change_message": "",
+        "user": 1,
+        "content_type": 13
+    },
+    "model": "admin.logentry",
+    "pk": 37
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2014-12-10T22:23:43.381Z",
+        "object_repr": "Camion",
+        "object_id": "3",
+        "change_message": "",
+        "user": 1,
+        "content_type": 13
+    },
+    "model": "admin.logentry",
+    "pk": 38
+}
+]
