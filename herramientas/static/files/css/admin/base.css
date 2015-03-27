@@ -29,7 +29,7 @@ Colores a utilizar:
 
 .nav>li>a:hover, .nav>li>a:focus {
 	text-decoration: none;
-	background-color: #625D53 !important;
+	background-color: #0B3755 !important;
 }
 
 #side-menu > li.active > ul > li.active > ul.collapsing > a,

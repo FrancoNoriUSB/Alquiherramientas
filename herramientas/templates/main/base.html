@@ -38,7 +38,7 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-hidden">
                     <!-- Slider de imagenes -->
-                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                    <div id="carouselHeader" class="carousel slide" data-ride="carousel">
                         <div class="carousel-inner" role="listbox">
                             {%for banner in banners%}
                                 {%if forloop.first%}
@@ -372,5 +372,13 @@
     $('#login').on('click', function (event) {
         $(this).parent().toggleClass('open');
     });
+</script>
+<script>
+    $('#carouselOferta').carousel({
+        interval: 3000
+    })
+    $('#carouselHeader').carousel({
+        interval: 5000
+    })
 </script>
 </html>
