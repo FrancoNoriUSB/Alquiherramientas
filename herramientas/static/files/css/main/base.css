@@ -31,6 +31,10 @@ body > footer > nav{
 	background-image: linear-gradient(#625D53 0%, #625D53 100%) !important;
 }
 
+body > footer > nav{
+	margin-bottom: 0px !important;
+}
+
 /*Estilos de contenido*/
 body > div > div.row > div.contenido.col-lg-8.col-md-8.col-sm-8 > div > div > a > img,
 #carouselOferta > div > div > div > img{
