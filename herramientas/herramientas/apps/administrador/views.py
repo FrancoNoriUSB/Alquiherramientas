@@ -23,7 +23,6 @@ from herramientas.apps.administrador.models import *
 from funciones import *
 import json
 
-notificaciones = Notificacion.objects.all().order_by('created_at')[:10].reverse()
 
 #Vista de login de user administrador
 def login_admin(request):
@@ -31,6 +30,7 @@ def login_admin(request):
 	loginF = LoginForm()
 	email = ''
 	password = ''
+	notificaciones = Notificacion.objects.all().order_by('created_at')[:10].reverse()
 
 	if request.POST:
 		loginF = LoginForm(request.POST)
@@ -74,6 +74,7 @@ def reset(request):
 @login_required(login_url='/administrador/login/')
 def inicio(request):
 
+	notificaciones = Notificacion.objects.all().order_by('created_at')[:10].reverse()
 	ctx={
 		'notificaciones':notificaciones,
 	}
@@ -88,6 +89,7 @@ def empresa_admin(request):
 	editado = ''
 	empresa = get_object_or_404(Empresa, id=1)
 	empresaF = EmpresaForm(instance=empresa)
+	notificaciones = Notificacion.objects.all().order_by('created_at')[:10].reverse()
 
 	if request.POST:
 		empresaF = EmpresaForm(request.POST, instance=empresa)
@@ -118,6 +120,7 @@ def venta_agregar(request):
 	direccionF = DireccionForm(initial={'estado':estados, 'ciudad':'', 'zona':''})
 	ciudades = {'':'- Ciudad -'}
 	zonas = {}
+	notificaciones = Notificacion.objects.all().order_by('created_at')[:10].reverse()
 
 	if request.POST:
 		ventaF = VentaForm(request.POST)
@@ -180,6 +183,7 @@ def venta_editar(request, id_producto):
 	direccionF = DireccionForm(instance=venta.direccion)
 	ciudades = {'':'- Ciudad -'}
 	zonas = {'':'- Zona -'}
+	notificaciones = Notificacion.objects.all().order_by('created_at')[:10].reverse()
 
 
 	if request.POST:
@@ -247,8 +251,8 @@ def venta_imagen(request, id_producto):
 
 	editado = ''
 	venta = Venta.objects.get(id=id_producto)
-
 	imagenes = ImagenProducto.objects.filter(Producto=venta)
+	notificaciones = Notificacion.objects.all().order_by('created_at')[:10].reverse()
 
 	#Formset de imagen
 	ImagenFormset = inlineformset_factory(Producto, ImagenProducto, form = ImagenProductoForm, can_delete=True, extra=1, max_num=len(imagenes)+2, fields=['imagen', 'descripcion'])
@@ -279,6 +283,7 @@ def venta_listar(request):
 
 	paginator = Paginator(ventas, 10)
 	page = request.GET.get('page')
+	notificaciones = Notificacion.objects.all().order_by('created_at')[:10].reverse()
 
 	try:
 		ventas = paginator.page(page)
@@ -305,6 +310,7 @@ def venta_ventas(request):
 
 	paginator = Paginator(ventas, 10)
 	page = request.GET.get('page')
+	notificaciones = Notificacion.objects.all().order_by('created_at')[:10].reverse()
 
 	try:
 		ventas = paginator.page(page)
@@ -354,6 +360,7 @@ def alquiler_agregar(request):
 	direccionF = DireccionForm(initial={'estado':estados, 'ciudad':'', 'zona':''})
 	ciudades = {'':'- Ciudad -'}
 	zonas = {'':'- Zona -'}
+	notificaciones = Notificacion.objects.all().order_by('created_at')[:10].reverse()
 
 	if request.POST:
 		alquilerF = AlquilerForm(request.POST)
@@ -416,6 +423,7 @@ def alquiler_editar(request, id_producto):
 	imagenF = ImagenForm(instance=alquiler.imagen)
 	ciudades = {'':'- Ciudad -'}
 	zonas = {'':'- Zona -'}
+	notificaciones = Notificacion.objects.all().order_by('created_at')[:10].reverse()
 
 	if request.POST:
 		alquilerF = AlquilerForm(request.POST, instance=alquiler)
@@ -483,6 +491,7 @@ def alquiler_imagen(request, id_producto):
 	editado = ''
 	alquiler = Alquiler.objects.get(id=id_producto)
 	imagenes = ImagenProducto.objects.filter(Producto=alquiler)
+	notificaciones = Notificacion.objects.all().order_by('created_at')[:10].reverse()
 
 	#Formset de imagen
 	ImagenFormset = inlineformset_factory(Producto, ImagenProducto, form = ImagenProductoForm, can_delete=True, extra=1, max_num=len(imagenes)+2, fields=['imagen', 'descripcion'])
@@ -513,6 +522,7 @@ def alquiler_listar(request):
 
 	paginator = Paginator(alquileres, 10)
 	page = request.GET.get('page')
+	notificaciones = Notificacion.objects.all().order_by('created_at')[:10].reverse()
 
 	try:
 		alquileres = paginator.page(page)
@@ -539,6 +549,7 @@ def alquiler_alquileres(request):
 
 	paginator = Paginator(alquileres, 10)
 	page = request.GET.get('page')
+	notificaciones = Notificacion.objects.all().order_by('created_at')[:10].reverse()
 
 	try:
 		alquileres = paginator.page(page)
@@ -583,6 +594,7 @@ def afiliacion_admin(request):
 	editado = ''
 	afiliacion = get_object_or_404(Afiliacion, id=1)
 	afiliacionF = AfiliacionForm(instance=afiliacion)
+	notificaciones = Notificacion.objects.all().order_by('created_at')[:10].reverse()
 
 	if request.POST:
 		afiliacionF = AfiliacionForm(request.POST, instance=afiliacion)
@@ -608,6 +620,7 @@ def contactos_admin(request):
 	editado = ''
 	contactos = get_object_or_404(Contactos, id=1)
 	contactosF = ContactosForm(instance=contactos)
+	notificaciones = Notificacion.objects.all().order_by('created_at')[:10].reverse()
 
 	if request.POST:
 		contactosF = ContactosForm(request.POST, instance=contactos)
@@ -632,6 +645,7 @@ def banners_admin(request):
 
 	editado = ''
 	banners = Banner.objects.all()
+	notificaciones = Notificacion.objects.all().order_by('created_at')[:10].reverse()
 
 	#Formset de imagen
 	BannerFormset = modelformset_factory(Banner,  form=BannerForm, can_delete=True, extra=1, max_num=len(banners)+2, fields=['nombre', 'imagen', 'url'])
@@ -663,6 +677,7 @@ def usuario_listar(request):
 
 	paginator = Paginator(usuarios, 10)
 	page = request.GET.get('page')
+	notificaciones = Notificacion.objects.all().order_by('created_at')[:10].reverse()
 	
 	try:
 		usuarios = paginator.page(page)
@@ -721,6 +736,7 @@ def configuracion_admin(request):
 	user = User.objects.get(email=request.user.email)
 	userF = UserChangeForm(instance=user)
 	modificarF = modificarContrasenaForm(user=user)
+	notificaciones = Notificacion.objects.all().order_by('created_at')[:10].reverse()
 	
 	if request.POST:
 		userF = UserChangeForm(request.POST, instance=user)
@@ -753,6 +769,7 @@ def categoria_agregar(request):
 
 	editado = ''
 	categoriaF = CategoriaForm()
+	notificaciones = Notificacion.objects.all().order_by('created_at')[:10].reverse()
 
 	if request.POST:
 		categoriaF = CategoriaForm(request.POST)
@@ -776,6 +793,7 @@ def categoria_editar(request, id_categoria):
 	editado = ''
 	categoria = get_object_or_404(Categoria, id=id_categoria)
 	categoriaF = CategoriaForm(instance=categoria)
+	notificaciones = Notificacion.objects.all().order_by('created_at')[:10].reverse()
 
 	if request.POST:
 		categoriaF = CategoriaForm(request.POST, instance=categoria)
@@ -800,6 +818,7 @@ def categoria_listar(request):
 
 	paginator = Paginator(categorias, 10)
 	page = request.GET.get('page')
+	notificaciones = Notificacion.objects.all().order_by('created_at')[:10].reverse()
 
 	try:
 		categorias = paginator.page(page)
@@ -833,6 +852,7 @@ def marca_agregar(request):
 
 	editado = ''
 	marcaF = MarcaForm()
+	notificaciones = Notificacion.objects.all().order_by('created_at')[:10].reverse()
 
 	if request.POST:
 		marcaF = MarcaForm(request.POST)
@@ -856,6 +876,7 @@ def marca_editar(request, id_marca):
 	editado = ''
 	marca = get_object_or_404(Marca, id=id_marca)
 	marcaF = MarcaForm(instance=marca)
+	notificaciones = Notificacion.objects.all().order_by('created_at')[:10].reverse()
 
 	if request.POST:
 		marcaF = MarcaForm(request.POST,instance=marca)
@@ -880,6 +901,7 @@ def marca_listar(request):
 
 	paginator = Paginator(marcas, 10)
 	page = request.GET.get('page')
+	notificaciones = Notificacion.objects.all().order_by('created_at')[:10].reverse()
 
 	try:
 		marcas = paginator.page(page)
@@ -913,6 +935,7 @@ def modelo_agregar(request):
 
 	editado = ''
 	modeloF = ModeloForm()
+	notificaciones = Notificacion.objects.all().order_by('created_at')[:10].reverse()
 
 	if request.POST:
 		modeloF = ModeloForm(request.POST)
@@ -936,6 +959,7 @@ def modelo_editar(request, id_modelo):
 	editado = ''
 	modelo = get_object_or_404(Modelo, id=id_modelo)
 	modeloF = ModeloForm(instance=modelo)
+	notificaciones = Notificacion.objects.all().order_by('created_at')[:10].reverse()
 
 	if request.POST:
 		modeloF = ModeloForm(request.POST,instance=modelo)
@@ -960,6 +984,7 @@ def modelo_listar(request):
 
 	paginator = Paginator(modelos, 10)
 	page = request.GET.get('page')
+	notificaciones = Notificacion.objects.all().order_by('created_at')[:10].reverse()
 	
 	try:
 		modelos = paginator.page(page)
@@ -993,6 +1018,7 @@ def estado_agregar(request):
 
 	editado = ''
 	estadoF = EstadoForm()
+	notificaciones = Notificacion.objects.all().order_by('created_at')[:10].reverse()
 
 	if request.POST:
 		estadoF = EstadoForm(request.POST)
@@ -1016,6 +1042,7 @@ def estado_editar(request, id_estado):
 	editado = ''
 	estado = get_object_or_404(Estado,id=id_estado)
 	estadoF = EstadoForm(instance=estado)
+	notificaciones = Notificacion.objects.all().order_by('created_at')[:10].reverse()
 
 	if request.POST:
 		estadoF = EstadoForm(request.POST,instance=estado)
@@ -1040,6 +1067,7 @@ def estado_listar(request):
 
 	paginator = Paginator(estados, 10)
 	page = request.GET.get('page')
+	notificaciones = Notificacion.objects.all().order_by('created_at')[:10].reverse()
 
 	try:
 		estados = paginator.page(page)
@@ -1073,6 +1101,7 @@ def ciudad_agregar(request):
 
 	editado = ''
 	ciudadF = CiudadForm()
+	notificaciones = Notificacion.objects.all().order_by('created_at')[:10].reverse()
 
 	if request.POST:
 		ciudadF = CiudadForm(request.POST)
@@ -1096,6 +1125,7 @@ def ciudad_editar(request, id_ciudad):
 	editado = ''
 	ciudad = get_object_or_404(Ciudad,id=id_ciudad)
 	ciudadF = CiudadForm(instance=ciudad)
+	notificaciones = Notificacion.objects.all().order_by('created_at')[:10].reverse()
 
 	if request.POST:
 		ciudadF = CiudadForm(request.POST,instance=ciudad)
@@ -1120,6 +1150,7 @@ def ciudad_listar(request):
 
 	paginator = Paginator(ciudades, 10)
 	page = request.GET.get('page')
+	notificaciones = Notificacion.objects.all().order_by('created_at')[:10].reverse()
 
 	try:
 		ciudades = paginator.page(page)
@@ -1153,6 +1184,7 @@ def zona_agregar(request):
 
 	editado = ''
 	zonaF = ZonaForm()
+	notificaciones = Notificacion.objects.all().order_by('created_at')[:10].reverse()
 
 	if request.POST:
 		zonaF = ZonaForm(request.POST)
@@ -1176,6 +1208,7 @@ def zona_editar(request, id_zona):
 	editado = ''
 	zona = get_object_or_404(Zona,id=id_zona)
 	zonaF = ZonaForm(instance=zona)
+	notificaciones = Notificacion.objects.all().order_by('created_at')[:10].reverse()
 
 	if request.POST:
 		zonaF = ZonaForm(request.POST,instance=zona)
@@ -1200,6 +1233,7 @@ def zona_listar(request):
 
 	paginator = Paginator(zonas, 10)
 	page = request.GET.get('page')
+	notificaciones = Notificacion.objects.all().order_by('created_at')[:10].reverse()
 	
 	try:
 		zonas = paginator.page(page)
@@ -1234,6 +1268,7 @@ def clausulas(request):
 	clausulas = Clausula.objects.filter(id__range=(1,10))
 	clausulasFormset = modelformset_factory(Clausula, form=ClausulasForm, extra=1, max_num=2, can_delete=True)
 	clausulasF = clausulasFormset(queryset=clausulas)
+	notificaciones = Notificacion.objects.all().order_by('created_at')[:10].reverse()
 
 	if request.method == 'POST':
 		clausulasFormset = modelformset_factory(Clausula, form=ClausulasForm, extra=1, max_num=2, can_delete=True)

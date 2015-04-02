@@ -27,10 +27,16 @@ Colores a utilizar:
 	background-color: #625D53 !important;
 }
 
-.nav>li>a:hover, .nav>li>a:focus {
+.nav>li>a:hover{
 	text-decoration: none;
 	background-color: #0B3755 !important;
 }
+
+ .nav>li>a:focus{
+	text-decoration: none;
+	background-color: #292929 !important;
+ }
+
 
 #side-menu > li.active > ul > li.active > ul.collapsing > a,
 #side-menu > li.active > ul > li > ul > li > a,
