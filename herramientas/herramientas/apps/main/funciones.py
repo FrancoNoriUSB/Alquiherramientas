@@ -15,7 +15,6 @@ def contact_email(request, form):
     name = emailF.cleaned_data['nombre']
     telephone = emailF.cleaned_data['telefono']
     email = emailF.cleaned_data['correo']
-    emails.append(email)
     emails.append('contacto@alquiherramientas.com')
 
     #Mensaje a enviar
@@ -36,7 +35,6 @@ def contact_email(request, form):
 def email_venta(request, nombre, apellido, telefono, email, herramienta, cantidad):
     emails = []
     #Informacion del usuario
-    emails.append(email)
     emails.append('ventas@alquiherramientas.com')
 
     #Mensaje a enviar
@@ -61,7 +59,6 @@ def email_venta(request, nombre, apellido, telefono, email, herramienta, cantida
 def email_alquiler(request, nombre, apellido, telefono, email, herramienta, dias, cantidad):
     emails = []
     #Informacion del usuario
-    emails.append(email)
     emails.append('alquiler@alquiherramientas.com')
 
     #Mensaje a enviar
@@ -94,7 +91,6 @@ def contact_email_producto(request, form, herramienta, id_producto):
     name = emailF.cleaned_data['nombre']
     telephone = emailF.cleaned_data['telefono']
     email = emailF.cleaned_data['correo']
-    emails.append(email)
     emails.append('contacto@alquiherramientas.com')
 
     #Mensaje a enviar
