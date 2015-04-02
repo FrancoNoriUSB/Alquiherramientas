@@ -28,9 +28,9 @@ MAILCHIMP_API_KEY = 'fd428d20a860e9521a2f9f1dc6968ba5-us10'
 MAILCHIMP_WEBHOOK_KEY = ''
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-TEMPLATE_DEBUG = True
+TEMPLATE_DEBUG = False
 
 ALLOWED_HOSTS = []
 
