@@ -107,7 +107,6 @@ def contact_email_producto(request, form, herramienta, id_producto):
     email.content_subtype = "html"
     enviado=email.send()
     return True
-    return True
 
 
 # Funcion para enviar correo cuando se agota un producto.

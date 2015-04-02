@@ -28,11 +28,14 @@ MAILCHIMP_API_KEY = 'fd428d20a860e9521a2f9f1dc6968ba5-us10'
 MAILCHIMP_WEBHOOK_KEY = ''
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'www.alquiherramientas.com',
+    'alquiherramientas.com',
+]
 
 # Application definition
 INSTALLED_APPS = (
