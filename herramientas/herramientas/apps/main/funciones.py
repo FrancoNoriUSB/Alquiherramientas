@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.core.mail.message import EmailMessage
 from django.core.mail import send_mail
 from django.db.models import Count
@@ -19,7 +20,7 @@ def contact_email(request, form):
 
     #Mensaje a enviar
     message = 'Correo de contacto del usuario: '+ str(name) +'.<br> Con correo: ' + str(email) +'<br>'
-    message += 'Mensaje: '+ str(emailF.cleaned_data['mensaje']) + '<br>'
+    message += 'Mensaje: '+ str(emailF.cleaned_data['mensaje'].encode("utf8")) + '<br>'
     message += 'Telefono de contacto: '+ str(telephone)
 
     email = EmailMessage()
@@ -39,7 +40,7 @@ def email_venta(request, nombre, apellido, telefono, email, herramienta, cantida
 
     #Mensaje a enviar
     message = 'El usuario: '+ str(nombre) +' '+ str(apellido) +'.<br>'
-    message += 'Ha realizado el tramite para la compra de: ' + str(herramienta) +'<br>'
+    message += 'Ha realizado el tramite para la compra de: ' + str(herramienta.encode("utf8")) +'<br>'
     message += 'Cantidad: '+ str(cantidad) + '<br/>'
     message += 'Correo de contacto: '+ str(email) + '<br/>'
     message += 'Numero de contacto: '+ str(telefono) + '<br/>'
@@ -63,13 +64,13 @@ def email_alquiler(request, nombre, apellido, telefono, email, herramienta, dias
 
     #Mensaje a enviar
     message = 'El usuario: '+ str(nombre) +' '+ str(apellido) +'.<br>'
-    message += 'Ha realizado el tramite para el alquiler de: ' + str(herramienta) +'<br>'
+    message += 'Ha realizado el tramite para el alquiler de: ' + str(herramienta.encode("utf8")) +'<br>'
     message += 'Cantidad: '+ str(cantidad) + '<br/>'
     message += 'Por '+ str(dias) + ' dias.<br/>'
     message += 'Correo de contacto: '+ str(email) +'<br/>'
     message += 'Numero de contacto: '+ str(telefono) + '<br/>'
     message += 'El usuario acepto las clausulas.'
-    subject = "Alquiler de: "+str(herramienta)
+    subject = "Alquiler de: "+str(herramienta.encode("utf8"))
 
     email = EmailMessage()
     email.subject = '[Alquiherramientas] Nuevo Alquiler'
@@ -94,10 +95,10 @@ def contact_email_producto(request, form, herramienta, id_producto):
     emails.append('contacto@alquiherramientas.com')
 
     #Mensaje a enviar
-    message = 'Correo de contacto del usuario: '+ str(name) + '.<br/> Enviado mientras veia la herramienta: <a href="www.alquiherramientas.com/productos/'+str(id_producto)+' target="new">'+str(herramienta)+'"</a>'
-    message += '.<br> Con correo: ' + str(emailF.cleaned_data['correo']) +'<br>'
-    message += 'Mensaje: '+ str(emailF.cleaned_data['mensaje']) + '<br>'
-    message += 'Telefono de contacto: '+ str(telephone)
+    message = 'Correo de contacto del usuario: '+ str(name.encode("utf8")) + '.<br/> Enviado mientras veia la herramienta: <a href="www.alquiherramientas.com/productos/'+str(id_producto)+' target="new">'+str(herramienta)+'"</a>'
+    message += '.<br> Con correo: ' + str(emailF.cleaned_data['correo'].encode("utf8")) +'<br>'
+    message += 'Mensaje: '+ str(emailF.cleaned_data['mensaje'].encode("utf8")) + '<br>'
+    message += 'Telefono de contacto: '+ str(telephone.encode("utf8"))
 
     email = EmailMessage()
     email.subject = '[Alquiherramientas] Contacto de producto'
@@ -115,8 +116,11 @@ def email_agotado(request, producto):
     emails.append("ventas@alquiherramientas.com")
     emails.append("alquiler@alquiherramientas.com")
 
+    producto = producto.titulo
+    encoded_str = producto.encode("utf8")
+
     #Mensaje a enviar
-    message = 'El producto: '+ str(producto.titulo) + ' se ha agotado.'
+    message = 'El producto: '+ str(encoded_str) + ' se ha agotado.'
     message += 'Visitar en el admin, <a href="www.alquiherramientas.com/administrador/">Producto</a>'
 
     email = EmailMessage()

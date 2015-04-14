@@ -585,8 +585,12 @@ def pagar(request, id_producto):
 				if precio > 100000.00:
 					botonMp = False
 
+	#Generacion de boton de mercadopago
 	if botonMp:    
 		boton = mercadopago(request, nombre, float(precio))
+
+	#Contactos de alquiherramientas
+	contactos = Contactos.objects.get(id=1)
 
 	ctx = {
 		'BusquedaForm':busquedaF,
@@ -602,6 +606,7 @@ def pagar(request, id_producto):
 		'redirect':redirect,
 		'agotado':agotado,
 		'botonMp':botonMp,
+		'contactos':contactos,
 	}
 
 	return render_to_response('main/productos/pago.html', ctx, context_instance=RequestContext(request))

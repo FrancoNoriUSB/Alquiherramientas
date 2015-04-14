@@ -172,7 +172,7 @@ class VentaForm(forms.ModelForm):
             'contenido': forms.Textarea(),
             'oferta': forms.CheckboxInput(),
             'precio': forms.NumberInput(),
-            'fecha_expiracion': forms.DateInput(attrs={'placeholder':'Formato dd/mm/aaaa'}),
+            'preguntas': forms.Textarea(),
         }
 
 
@@ -186,7 +186,7 @@ class AlquilerForm(forms.ModelForm):
             'contenido': forms.Textarea(),
             'oferta': forms.CheckboxInput(),
             'precio': forms.NumberInput(attrs={'placeholder':'Precio diario'}),
-            'fecha_expiracion': forms.DateInput(attrs={'placeholder':'Formato dd/mm/aaaa'}),
+            'preguntas': forms.Textarea(),
         }
 
 

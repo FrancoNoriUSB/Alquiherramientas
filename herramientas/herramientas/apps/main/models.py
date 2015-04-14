@@ -256,10 +256,10 @@ class Producto(models.Model):
 	oferta = models.BooleanField(default=False, help_text='Marcado si desea que se muestre como una oferta')
 	imagen = models.ForeignKey(ImagenInicial)
 	disponible = models.BooleanField(default=True)
+	preguntas = models.CharField(max_length=500)
 	fecha_producto = models.DateTimeField(auto_now_add=True)
 	fecha_actualizacion = models.DateTimeField(auto_now=True)
-	fecha_expiracion = models.DateField(null=True)
-
+	
 	#Claves foraneas
 	direccion = models.ForeignKey(Direccion, on_delete=models.CASCADE)
 	herramienta = models.OneToOneField(Herramienta, on_delete=models.CASCADE)

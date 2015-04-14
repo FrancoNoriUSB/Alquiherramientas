@@ -28,16 +28,15 @@
 			{% endif %}
 			<div class="col-lg-6 col-md-6 col-sm-6">
 				<div class="thumbnail">
-					<h4><strong>Cuentas Banco 1:</strong></h4>
-					<p>
-						010510140105102020027
-						<br>
-						<br>
-						010510140105102020027
-						<br>
-						<br>
-						010510140105102020027
-					</p>
+					<h4><strong>Contactar al vendedor:</strong></h4>
+					<div class="row">
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<h4><strong>Tel&eacute;fonos:</strong></h4>
+							<p>
+								{{contactos.telefonos|linebreaks}}
+							</p>
+						</div>
+					</div>
 				</div>
 			</div>
 		{% endif %}

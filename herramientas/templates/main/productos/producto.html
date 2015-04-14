@@ -136,8 +136,13 @@
 				            {%endif%}
 						</a>
 					</li>
-					<li role="presentation"><a href="#faq" aria-controls="faq" role="tab" data-toggle="tab">Preguntas Frecuentes</a></li>
-					<li role="presentation"><a href="#contactar" aria-controls="contactar" role="tab" data-toggle="tab">Contactar</a></li>
+					<li role="presentation">
+						<a href="#faq" aria-controls="faq" role="tab" data-toggle="tab">Preguntas Frecuentes
+					</a>
+					</li>
+					<li role="presentation">
+						<a href="#contactar" aria-controls="contactar" role="tab" data-toggle="tab">Contactar</a>
+					</li>
 				</ul>
 
 				<!-- Tab panes -->
@@ -213,11 +218,9 @@
 						{% endif %}
 					</div>
 					<div role="tabpanel" class="tab-pane fade" id="faq"><br/>
-						<ul>
-							<li>Minions ipsum uuuhhh hahaha me want bananaaa! Poopayee chasy tulaliloo uuuhhh butt daa pepete chasy butt butt.</li>
-							<li>Minions ipsum uuuhhh hahaha me want bananaaa! Poopayee chasy tulaliloo uuuhhh butt daa pepete chasy butt butt.</li>
-							<li>Minions ipsum uuuhhh hahaha me want bananaaa! Poopayee chasy tulaliloo uuuhhh butt daa pepete chasy butt butt.</li>
-						</ul>
+						<p class="text-left">
+							{{producto.preguntas|linebreaks}}
+						</p>
 					</div>
 					<div role="tabpanel" class="tab-pane fade" id="contactar"><br/>
 						<form id="contacto" role="form" method="post" action="">{% csrf_token %}
