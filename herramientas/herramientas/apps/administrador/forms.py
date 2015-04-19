@@ -227,10 +227,11 @@ class BannerForm(forms.ModelForm):
                 raise forms.ValidationError("La altura de la imagen debe exactamente igual a 390 px.")
         return imagen
 
+
 #Formulario para gestionar los archivos de clausulas
 class ClausulasForm(forms.ModelForm):
     class Meta:
         model = Clausula
-        fields = ('nombre', 'archivo', 'tipo')
+        fields = ('nombre', 'texto', 'archivo', 'tipo')
         widgets = {
         }
