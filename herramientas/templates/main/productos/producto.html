@@ -87,9 +87,15 @@
 			<br/>
 
             {%if producto.alquiler%}
-            	<p class="precio">{{producto.alquiler.precio}} (por dia)</p><br/>
+            	{%if producto.alquiler.visible%}
+            	   <p class="precio"> {{producto.alquiler.precio}} (por d&iacute;a) </p> 
+                {%endif%}
+                <strong class="tipo"> Alquiler</strong>
             {%else%}
-            	<p class="precio">{{producto.venta.precio}}</p><br/>
+            	{%if producto.venta.visible%}
+            	   <p class="precio"> {{producto.venta.precio}} (por d&iacute;a) </p> 
+                {%endif%}
+                <strong class="tipo"> Alquiler</strong>
             {%endif%}
 
             <table>
@@ -152,8 +158,16 @@
 							<form id="alquiler" role="form" method="post" action="pago/" target="_blank">{% csrf_token %}
 								<table>
 									<tr>
-										<td><strong>Precio por d&iacute;a: </strong></td>
-										<td class="size-100">{% render_field alquilerF.precio class="form-control" readonly="readonly" id="precioAlqui" %}</td>
+                    					{%if producto.alquiler.visible%}
+											<td>
+												<strong>Precio por d&iacute;a: </strong>
+											</td>
+											<td class="size-100">
+												{% render_field alquilerF.precio class="form-control" readonly="readonly" id="precioAlqui" %}
+											</td>
+										{%else%}
+											{% render_field alquilerF.precio class="form-control" readonly="readonly"  style="display:none" id="precioAlqui" %}
+										{%endif%}
 									</tr>
 									<tr>
 										<td><strong>Cantidad: </strong></td>
@@ -169,8 +183,12 @@
 										<td>{% render_field alquilerF.garantia class="form-control" readonly="readonly" id="depositoAlqui" %}</td>
 									</tr>
 									<tr>
-										<td><strong>Total: </strong></td>
-										<td> {% render_field alquilerF.total class="form-control" readonly="readonly" id="totalAlqui"%}</td>
+										{%if producto.alquiler.visible%}
+											<td><strong>Total: </strong></td>
+											<td> {% render_field alquilerF.total class="form-control" readonly="readonly" id="totalAlqui"%}</td>
+										{%else%}
+											{% render_field alquilerF.total class="form-control" readonly="readonly" style="display:none" id="precioAlqui" %}
+										{%endif%}
 									</tr>
 								</table>
 							    <div class="checkbox">
@@ -190,16 +208,24 @@
 							<form id="compra" role="form" method="post" action="pago/" target="_blank">{% csrf_token %}
 								<table>
 									<tr>
-										<td><strong>Precio: {{producto.compra.precio}}</strong></td>
-										<td class="size-100">{% render_field ventaF.precio class="form-control" readonly="readonly" id="precioVenta"%}</td>
+										{%if producto.venta.visible%}
+											<td><strong>Precio: </strong></td>
+											<td class="size-100">{% render_field ventaF.precio class="form-control" readonly="readonly" id="precioVenta"%}</td>
+										{%else%}
+											{% render_field ventaF.precio class="form-control" readonly="readonly"  style="display:none" id="precioVenta" %}
+										{%endif%}
 									</tr>
 									<tr>
 										<td><strong>Cantidad: </strong></td>
 										<td class="size-100">{% render_field ventaF.cantidad class="form-control" id="cantidadVenta" %}</td>
 									</tr>
 									<tr>
-										<td><strong>Total: </strong></td>
-										<td> {% render_field ventaF.total class="form-control" readonly="readonly" id="totalVenta"%}</td>
+										{%if producto.venta.visible%}
+											<td><strong>Total: </strong></td>
+											<td> {% render_field ventaF.total class="form-control" readonly="readonly" id="totalVenta"%}</td>
+										{%else%}
+											{% render_field ventaF.total class="form-control" readonly="readonly"  style="display:none" id="precioVenta" %}
+										{%endif%}
 									</tr>
 								</table>
 							    <div class="checkbox">

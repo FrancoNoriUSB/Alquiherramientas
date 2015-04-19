@@ -150,8 +150,6 @@ def venta_agregar(request):
 			ciudades[estado.id] = dict(Ciudad.objects.filter(estado=estado).values_list('id','nombre'))
 	ciudades = json.dumps(ciudades)
 
-	print ciudades
-
 	#Zonas a agregar
 	for ciudad in Ciudad.objects.all():
 		zonas[ciudad.id] = dict(Zona.objects.filter(ciudad=ciudad).values_list('id', 'nombre'))
@@ -213,8 +211,6 @@ def venta_editar(request, id_producto):
 		for ciudad in ciudades_estado:
 			ciudades[estado.id] = dict(Ciudad.objects.filter(estado=estado).values_list('id','nombre'))
 	ciudades = json.dumps(ciudades)
-
-	print ciudades
 
 	#Zonas a agregar
 	for ciudad in Ciudad.objects.all():
@@ -390,8 +386,6 @@ def alquiler_agregar(request):
 			ciudades[estado.id] = dict(Ciudad.objects.filter(estado=estado).values_list('id','nombre'))
 	ciudades = json.dumps(ciudades)
 
-	print ciudades
-
 	#Zonas a agregar
 	for ciudad in Ciudad.objects.all():
 		zonas[ciudad.id] = dict(Zona.objects.filter(ciudad=ciudad).values_list('id', 'nombre'))
@@ -452,8 +446,6 @@ def alquiler_editar(request, id_producto):
 		for ciudad in ciudades_estado:
 			ciudades[estado.id] = dict(Ciudad.objects.filter(estado=estado).values_list('id','nombre'))
 	ciudades = json.dumps(ciudades)
-
-	print ciudades
 
 	#Zonas a agregar
 	for ciudad in Ciudad.objects.all():

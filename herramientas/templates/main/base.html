@@ -276,9 +276,15 @@
                                         <h4>{{oferta.titulo}}</h4>
                                         <p style="font-weight: bolder;">
                                             {%if oferta.alquiler%}
-                                                <p class="precio">{{oferta.alquiler.precio}} (por d&iacute;a)</p><p>Alquiler </p>
+                                                {%if oferta.alquiler.visible%}
+                                                    <p class="precio">{{oferta.alquiler.precio}} (por d&iacute;a)</p>
+                                                {%endif%}
+                                                <p>Alquiler </p>
                                             {%else%}
-                                                <p class="precio">{{oferta.venta.precio|floatformat|intcomma}} </p><p>Venta </p>
+                                                {%if oferta.venta.visible%}
+                                                    <p class="precio">{{oferta.venta.precio|floatformat|intcomma}} </p>
+                                                {%endif%}
+                                                <p>Venta </p>
                                             {%endif%}
                                             <strong>Marca:</strong> {{oferta.herramienta.marca.nombre}} <br>
                                             <strong>A&ntilde;o:</strong> {{oferta.herramienta.ano}} <br>
@@ -297,9 +303,15 @@
                                         <h4>{{oferta.titulo}}</h4>
                                         <p style="font-weight: bolder;">
                                             {%if oferta.alquiler%}
-                                                <p class="precio">{{oferta.alquiler.precio}} (por d&iacute;a)</p><p>Alquiler </p>
+                                                {%if oferta.alquiler.visible%}
+                                                    <p class="precio">{{oferta.alquiler.precio}} (por d&iacute;a)</p>
+                                                {%endif%}
+                                                <p>Alquiler </p>
                                             {%else%}
-                                                <p class="precio">{{oferta.venta.precio|floatformat|intcomma}} </p><p>Venta </p>
+                                                {%if oferta.venta.visible%}
+                                                    <p class="precio">{{oferta.venta.precio|floatformat|intcomma}} </p>
+                                                {%endif%}
+                                                <p>Venta </p>
                                             {%endif%}
                                             <strong>Marca:</strong> {{oferta.herramienta.marca.nombre}} <br>
                                             <strong>A&ntilde;o:</strong> {{oferta.herramienta.ano}} <br>

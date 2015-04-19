@@ -505,6 +505,8 @@ def pagar(request, id_producto):
 
 	boton = ''
 
+	precio = 0
+
 	# Creando un nuevo usuario
 	if request.method=='POST':
 		usuarioF = UserCreationForm(request.POST)
@@ -531,6 +533,7 @@ def pagar(request, id_producto):
 		botonMp = True
 
 		if alquilerF.is_valid():
+			print 'Here!'
 			precio = alquilerF.cleaned_data['total']
 			dias = alquilerF.cleaned_data['dias']
 			total = alquilerF.cleaned_data['total']

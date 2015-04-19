@@ -172,6 +172,7 @@ class VentaForm(forms.ModelForm):
             'contenido': forms.Textarea(),
             'oferta': forms.CheckboxInput(),
             'precio': forms.NumberInput(),
+            'visible': forms.CheckboxInput(attrs={'placeholder':'Marcado si se quiere mostrar el precio en el articulo'}),
             'preguntas': forms.Textarea(),
         }
 
@@ -186,6 +187,7 @@ class AlquilerForm(forms.ModelForm):
             'contenido': forms.Textarea(),
             'oferta': forms.CheckboxInput(),
             'precio': forms.NumberInput(attrs={'placeholder':'Precio diario'}),
+            'visible': forms.CheckboxInput(attrs={'placeholder':'Marcado si se quiere mostrar el precio en el articulo'}),
             'preguntas': forms.Textarea(),
         }
 

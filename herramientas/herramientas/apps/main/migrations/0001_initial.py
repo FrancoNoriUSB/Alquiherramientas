@@ -228,9 +228,9 @@ class Migration(migrations.Migration):
                 ('cantidad', models.IntegerField(default=1, max_length=10)),
                 ('oferta', models.BooleanField(default=False, help_text=b'Marcado si desea que se muestre como una oferta')),
                 ('disponible', models.BooleanField(default=True)),
+                ('preguntas', models.CharField(max_length=500)),
                 ('fecha_producto', models.DateTimeField(auto_now_add=True)),
                 ('fecha_actualizacion', models.DateTimeField(auto_now=True)),
-                ('fecha_expiracion', models.DateField(null=True)),
             ],
             options={
                 'ordering': ('titulo',),
@@ -245,6 +245,7 @@ class Migration(migrations.Migration):
                 ('producto_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='main.Producto')),
                 ('dias', models.IntegerField()),
                 ('precio', models.DecimalField(max_digits=20, decimal_places=2)),
+                ('visible', models.BooleanField(default=None)),
             ],
             options={
                 'ordering': ('dias',),
@@ -258,6 +259,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('producto_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='main.Producto')),
                 ('precio', models.DecimalField(max_digits=20, decimal_places=2)),
+                ('visible', models.BooleanField(default=None)),
             ],
             options={
                 'ordering': ('precio',),
@@ -313,7 +315,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='imagenproducto',
             name='Producto',
-            field=models.ForeignKey(related_name='imagenes', to='main.Producto'),
+            field=models.ForeignKey(related_name=b'imagenes', to='main.Producto'),
             preserve_default=True,
         ),
         migrations.AddField(

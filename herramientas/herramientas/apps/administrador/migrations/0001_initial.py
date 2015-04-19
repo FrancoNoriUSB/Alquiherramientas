@@ -49,4 +49,36 @@ class Migration(migrations.Migration):
             },
             bases=(models.Model,),
         ),
+        migrations.CreateModel(
+            name='Clausula',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('nombre', models.CharField(max_length=100)),
+                ('tipo', models.CharField(max_length=30, choices=[(b'alquiler', b'alquiler'), (b'venta', b'venta')])),
+                ('texto', models.CharField(max_length=10000)),
+                ('archivo', models.FileField(upload_to=b'uploads/archivos/')),
+                ('created_at', models.DateTimeField(auto_now_add=True)),
+                ('updated_at', models.DateTimeField(auto_now=True)),
+            ],
+            options={
+                'verbose_name': 'Clausula',
+                'verbose_name_plural': 'Clausulas',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Notificacion',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('nombre', models.CharField(max_length=50)),
+                ('tipo', models.CharField(max_length=20, choices=[(b'venta', b'venta'), (b'alquiler', b'alquiler'), (b'usuario', b'usuario')])),
+                ('id_modelo', models.CharField(max_length=10)),
+                ('created_at', models.DateTimeField(auto_now_add=True)),
+                ('updated_at', models.DateTimeField(auto_now=True)),
+            ],
+            options={
+                'verbose_name': 'Notificacion',
+            },
+            bases=(models.Model,),
+        ),
     ]

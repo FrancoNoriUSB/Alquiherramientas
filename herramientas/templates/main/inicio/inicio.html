@@ -24,9 +24,15 @@
     			<h4>{{producto.titulo}}</h4>
                 <div class="divider"></div>
                 {%if producto.alquiler%}
-                	<p class="precio"> {{producto.alquiler.precio}} (por d&iacute;a) </p> <strong class="tipo"> Alquiler</strong> 
+                    {%if producto.alquiler.visible%}
+                	   <p class="precio"> {{producto.alquiler.precio}} (por d&iacute;a) </p>
+                    {%endif%}
+                    <strong class="tipo"> Alquiler</strong>
                 {%else%}
-    				<p class="precio"> {{producto.venta.precio|floatformat|intcomma}}</p> <strong class="tipo"> Venta</strong>
+                    {%if producto.venta.visible%}
+    				    <p class="precio"> {{producto.venta.precio|floatformat|intcomma}}</p>
+                    {%endif%}
+                    <strong class="tipo"> Venta</strong>
                 {%endif%}
                 <br>
                 <strong>Marca:</strong> {{producto.herramienta.marca.nombre}}

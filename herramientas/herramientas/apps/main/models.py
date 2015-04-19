@@ -238,6 +238,7 @@ class Herramienta(models.Model):
 		return u"%s" %(self.nombre)
 
 
+#Modelo de imagen inicial
 class ImagenInicial(Imagen):
 
 	class Meta:
@@ -247,6 +248,7 @@ class ImagenInicial(Imagen):
 
 	def __unicode__(self):
 		return u"%s" %(self.descripcion)
+
 
 # Producto de las herramientas.
 class Producto(models.Model):
@@ -291,6 +293,7 @@ class Alquiler(Producto):
 	dias = models.IntegerField()
 	# Dos numeros decimales.
 	precio = models.DecimalField(max_digits=20,decimal_places=2)
+	visible = models.BooleanField(default=None)
 
 	class Meta:
 		ordering = ('dias',)
@@ -302,6 +305,7 @@ class Alquiler(Producto):
 class Venta(Producto):
 	# Dos numeros decimales.
 	precio = models.DecimalField(max_digits=20, decimal_places=2)
+	visible = models.BooleanField(default=None)
 
 	class Meta:
 		ordering = ('precio',)
