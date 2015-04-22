@@ -234,4 +234,5 @@ class ClausulasForm(forms.ModelForm):
         model = Clausula
         fields = ('nombre', 'texto', 'archivo', 'tipo')
         widgets = {
+            'texto':forms.Textarea(),
         }
