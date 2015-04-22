@@ -41,21 +41,23 @@
                     <div id="carouselHeader" class="carousel slide" data-ride="carousel">
                         <div class="carousel-inner" role="listbox">
                             {%for banner in banners%}
-                                <a href="{{banner.url}}" target="_blank">
                                     {%if forloop.first%}
                                     <div class="item active">
-                                        <img class="img-responsive" src="{{banner.imagen.url}}" alt="{{banner.nombre}}">
-                                        <div class="carousel-caption">
-                                        </div>
+                                        <a href="{{banner.url}}" target="_blank">
+                                            <img class="img-responsive" src="{{banner.imagen.url}}" alt="{{banner.nombre}}">
+                                            <div class="carousel-caption">
+                                            </div>
+                                        </a>
                                     </div>
                                     {%else%}
                                     <div class="item">
-                                        <img class="img-responsive"  src="{{banner.imagen.url}}" alt="{{banner.nombre}}">
-                                        <div class="carousel-caption">
-                                        </div>
+                                        <a href="{{banner.url}}" target="_blank">
+                                            <img class="img-responsive"  src="{{banner.imagen.url}}" alt="{{banner.nombre}}">
+                                            <div class="carousel-caption">
+                                            </div>
+                                        </a>
                                     </div>
                                     {%endif%}
-                                </a>
                             {%endfor%}
                         </div>
                     </div>
