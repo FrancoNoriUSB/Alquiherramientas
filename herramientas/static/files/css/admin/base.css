@@ -45,13 +45,14 @@ Colores a utilizar:
 	color: white;
 }
 
-{
-	color: white;
+#side-menu > li.active > a.active,
+#side-menu > li.active > ul > li.active > a.active,
+#side-menu > li.active > ul > li.active > ul > li > a.active{
+	border-bottom-color: white;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
 }
 
-#side-menu > li > ul > li > a{
-	color: white;
-}
 
 /*Colores de glyphicons*/
 .glyphicon-plus, .glyphicon-ok, .glyphicon-ok-circle{

@@ -118,11 +118,13 @@
                         <li>
                             <a href="/administrador/empresa/">Empresa</a>
                         </li>
-                        <li>
-                            <a href="#">Productos</a>
+                        <li class="{% active_page request 'venta_agregar' %}{% active_page request 'venta_editar' %}{% active_page request 'venta_listar' %} {% active_page request 'venta_imagen' %}{% active_page request 'venta_ventas' %}
+                            {% active_page request 'alquiler_agregar' %}{% active_page request 'alquiler_editar' %}{% active_page request 'alquiler_listar' %} {% active_page request 'alquiler_imagen' %}{% active_page request 'alquiler_alquileres' %}">
+                            <a href="#" class="{% active_page request 'venta_agregar' %}{% active_page request 'venta_editar' %}{% active_page request 'venta_listar' %} {% active_page request 'venta_imagen' %}{% active_page request 'venta_ventas' %}
+                            {% active_page request 'alquiler_agregar' %}{% active_page request 'alquiler_editar' %}{% active_page request 'alquiler_listar' %} {% active_page request 'alquiler_imagen' %}{% active_page request 'alquiler_alquileres' %}">Productos</a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="#">Venta</a>
+                                    <a href="#" class="{% active_page request 'venta_agregar' %}{% active_page request 'venta_editar' %}{% active_page request 'venta_listar' %} {% active_page request 'venta_imagen' %}{% active_page request 'venta_ventas' %}">Venta</a>
                                     <ul class="nav nav-third-level">
                                         <li>
                                             <a href="/administrador/venta/agregar/">A&ntilde;adir</a>
@@ -137,7 +139,7 @@
                                     <!-- /.nav-third-level -->
                                 </li>
                                 <li>
-                                    <a href="#"> Alquiler</a>
+                                    <a href="#" class="{% active_page request 'alquiler_agregar' %}{% active_page request 'alquiler_editar' %}{% active_page request 'alquiler_listar' %} {% active_page request 'alquiler_imagen' %}{% active_page request 'alquiler_alquileres' %}"> Alquiler</a>
                                     <ul class="nav nav-third-level">
                                         <li>
                                             <a href="/administrador/alquiler/agregar/">A&ntilde;adir</a>
@@ -187,11 +189,15 @@
                                 </li>
                             </ul>
                         </li>
-                        <li>
-                            <a href="#">Locaciones</a>
+                        <li class="{% active_page request 'estado_agregar' %}{% active_page request 'estado_editar' %}{% active_page request 'estado_listar' %} 
+                            {% active_page request 'ciudad_agregar' %}{% active_page request 'ciudad_editar' %}{% active_page request 'ciudad_listar' %} 
+                            {% active_page request 'zona_agregar' %}{% active_page request 'zona_editar' %}{% active_page request 'zona_listar' %}">
+                            <a href="#" class="{% active_page request 'estado_agregar' %}{% active_page request 'estado_editar' %}{% active_page request 'estado_listar' %} 
+                            {% active_page request 'ciudad_agregar' %}{% active_page request 'ciudad_editar' %}{% active_page request 'ciudad_listar' %} 
+                            {% active_page request 'zona_agregar' %}{% active_page request 'zona_editar' %}{% active_page request 'zona_listar' %}">Locaciones</a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="#">Estados</a>
+                                    <a href="#" class="{% active_page request 'estado_agregar' %}{% active_page request 'estado_editar' %}{% active_page request 'estado_listar' %}">Estados</a>
                                     <ul class="nav nav-third-level">
                                         <li>
                                             <a href="/administrador/estado/agregar/">A&ntilde;adir</a>
