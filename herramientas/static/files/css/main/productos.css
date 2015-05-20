@@ -9,20 +9,28 @@ Colores a utilizar:
 */
 
 /*Estilos del contenido*/
+body > div > div.contenido.container-fluid > div > div.contenido.col-lg-9.col-md-9.col-sm-9 > div > div.paginacion.row > div > h4{
+	float: left;
+}
+
+body > div > div.contenido.container-fluid > div > div.contenido.col-lg-9.col-md-9.col-sm-9 > div > div.paginacion.row > div > nav{
+	float: right;
+}
+
 body > div > div.row > div.contenido.col-lg-8.col-md-8.col-sm-8 > div > div > a > img,
-#carouselOferta > div > div > div > img{
+body > div > div.row > div.barra-lateral.col-lg-4.col-md-4.col-sm-4 > div.col-lg-12.col-md-12.col-sm-12.ofertas > div > img{
 	max-height: 185px !important;
 	margin-left: auto;
 	margin-right: auto;
 }
 
-body > div > div.row > div.contenido.col-lg-8.col-md-8.col-sm-8 > div > div.superior{
-	margin-bottom: 6%;
+body > div > div.contenido.container-fluid > div > div.contenido > div > div > a > img{
+	height: 180px !important;
+	margin-left: auto;
+	margin-right: auto;
 }
-
-div.paginacion.row > div > nav > ul > li > a{
-	color: white !important;
-	background-color: #7E7769 !important;
+body > div > div.row > div.contenido.col-lg-8.col-md-8.col-sm-8 > div > div > h4{
+	color: #0B3755;
 }
 
 /* Tamanio de la imagen de las publicaciones */
