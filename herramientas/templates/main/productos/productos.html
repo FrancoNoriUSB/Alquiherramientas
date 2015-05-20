@@ -4,8 +4,8 @@
 
 {% block scripts %}
 	
-    <!--Estilos-->
-    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}files/css/main/productos.css">
+<!--Estilos-->
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}files/css/main/productos.css">
 
 {% endblock scripts %}
 
@@ -32,7 +32,7 @@
                     {%if producto.venta.visible%}
                        <p class="precio"> {{producto.venta.precio}} (por d&iacute;a) </p>
                     {%endif%}
-                    <strong class="tipo"> Alquiler</strong>
+                    <strong class="tipo"> Venta</strong>
                 {%endif%}
                 <br>
                 <strong>Marca:</strong> {{producto.herramienta.marca.nombre}}
