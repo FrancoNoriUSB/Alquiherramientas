@@ -21,7 +21,11 @@
     			<a href="/productos/{{producto.id}}/">
     				<img class="img-responsive cuadrado" src="{{producto.imagen.thumbnail.url}}" alt="">
     			</a>
-    			<h4>{{producto.titulo}}</h4>
+    			{%if producto.titulo|length > 26%}
+                    <h4>{{producto.titulo|slice:":23"}}...</h4>
+                {%else%}
+                    <h4>{{producto.titulo}}</h4>
+                {%endif%}
                 <div class="divider"></div>
                 {%if producto.alquiler%}
                     {%if producto.alquiler.visible%}

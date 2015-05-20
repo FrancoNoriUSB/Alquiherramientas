@@ -3,16 +3,16 @@
 {% load humanize %}
 
 {% block scripts %}
-    
-    <!--Estilos-->
-    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}files/css/main/inicio.css">
+	
+<!--Estilos-->
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}files/css/main/productos.css">
 
 {% endblock scripts %}
 
 {% block content %}
 <h3 class="titulo">Anuncios {{palabra|capfirst}}</h3>
     <div class="row">
-        {%for producto in productos%}
+		{%for producto in productos%}
             {%if forloop.counter > 3%}
             <div class="col-lg-4 col-md-4 col-sm-9 col-xs-9 inferior">
             {%else%}
@@ -21,7 +21,11 @@
                 <a href="/productos/{{producto.id}}/">
                     <img class="img-responsive cuadrado" src="{{producto.imagen.thumbnail.url}}" alt="">
                 </a>
-                <h4>{{producto.titulo}}</h4>
+                {%if producto.titulo|length > 26%}
+                    <h4>{{producto.titulo|slice:":23"}}...</h4>
+                {%else%}
+                    <h4>{{producto.titulo}}</h4>
+                {%endif%}
                 <div class="divider"></div>
                 {%if producto.alquiler%}
                     {%if producto.alquiler.visible%}
@@ -30,7 +34,7 @@
                     <strong class="tipo"> Alquiler</strong>
                 {%else%}
                     {%if producto.venta.visible%}
-                        <p class="precio"> {{producto.venta.precio|floatformat|intcomma}}</p>
+                       <p class="precio"> {{producto.venta.precio}} (por d&iacute;a) </p>
                     {%endif%}
                     <strong class="tipo"> Venta</strong>
                 {%endif%}
@@ -55,18 +59,18 @@
                   <ul class="pagination">
                     {% if productos.has_previous %}
                         <li>
-                            <a href="?{{query.urlencode}}&amp;page={{ productos.previous_page_number }}">&laquo;</a>
+                            <a href="?page={{ productos.previous_page_number }}">&laquo;</a>
                         </li>
                     {% endif %}
                         <li><a href="">{{ productos.number }}</a></li>
                     {% if productos.has_next %}
                         <li>
-                            <a href="?{{query.urlencode}}&amp;page={{ productos.next_page_number }}">&raquo;</a>
+                            <a href="?page={{ productos.next_page_number }}">&raquo;</a>
                         </li>
                     {% endif %}
                   </ul>
                 </nav>
             </div>
         </div>
-    </div>
+	</div>
 {% endblock content %}
