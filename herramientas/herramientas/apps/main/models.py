@@ -33,6 +33,7 @@ class Afiliacion(models.Model):
 
 	info = models.CharField(max_length=1200)
 	beneficios = models.CharField(max_length=800)
+	archivo = models.FileField(upload_to='uploads/archivos/')
 
 	class Meta:
 		ordering = ('info',)
