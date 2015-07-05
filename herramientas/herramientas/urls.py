@@ -2,7 +2,7 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-import notifications
+#import notifications
 
 urlpatterns = patterns('',
     # Examples:
@@ -18,7 +18,7 @@ urlpatterns = patterns('',
     url(r'^', include('herramientas.apps.main.urls')),
 
     #Notificaciones
-    url('^inbox/notifications/', include(notifications.urls)),
+    #url('^inbox/notifications/', include(notifications.urls)),
 
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT,}),
 

@@ -589,7 +589,7 @@ def afiliacion_admin(request):
 	notificaciones = Notificacion.objects.all().order_by('created_at')[:10].reverse()
 
 	if request.POST:
-		afiliacionF = AfiliacionForm(request.POST, instance=afiliacion)
+		afiliacionF = AfiliacionForm(request.POST, request.FILES, instance=afiliacion)
 		if afiliacionF.is_valid():
 			afiliacionF.save()
 			editado = True
@@ -1254,6 +1254,7 @@ def zona_eliminar(request, id_zona):
 
 
 #Vista para cargar las clausulas
+@login_required(login_url='/administrador/login/')
 def clausulas(request):
 
 	editado = ''

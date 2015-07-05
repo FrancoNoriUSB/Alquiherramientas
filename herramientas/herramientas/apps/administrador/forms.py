@@ -99,7 +99,7 @@ class ContactosForm(forms.ModelForm):
 class AfiliacionForm(forms.ModelForm):
     class Meta:
         model = Afiliacion
-        fields = ('info','beneficios',)
+        fields = ('info','beneficios','archivo',)
         widgets = {
             'info': forms.Textarea(),
             'beneficios': forms.Textarea(),
