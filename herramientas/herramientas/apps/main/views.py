@@ -143,7 +143,6 @@ def inicio(request):
 	query = request.GET.copy()
 	if query.has_key('page'):
 		del query['page']
-
 	try:
 		productos = paginator.page(page)
 	except PageNotAnInteger:
