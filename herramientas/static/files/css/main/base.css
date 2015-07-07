@@ -31,6 +31,13 @@ body > footer > nav{
 	background-image: linear-gradient(#625D53 0%, #625D53 100%) !important;
 }
 
+body > footer > nav > div > div > p{
+	color: white !important;
+	width: 50%;
+	display: inline-block;
+	margin: 1.5% 0 0 0;
+}
+
 body > footer > nav{
 	margin-bottom: 0px !important;
 }
