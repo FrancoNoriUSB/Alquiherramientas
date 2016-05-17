@@ -2,352 +2,350 @@
 {% load staticfiles %}
 {% load widget_tweaks %}
 {% block scripts %}
-	
+    
     <!--Estilos-->
     <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}files/css/main/producto.css">
     <link href="{{STATIC_URL}}files/css/main/ekko-lightbox.min.css" rel="stylesheet">
 
 {% endblock scripts %}
 {% block content %}
+    <div class="modal fade" id="modalClausulas" tabindex="-1" role="dialog" aria-labelledby="modalClausulasLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Cl&aacute;usulas</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        {{clausula.texto|linebreaks}}
+                    </p>
+                    <p>
+                        Descargar archivo digital: <a href="{{clausula.archivo.url}}">Cl&aacute;usulas.</a>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
-<div class="modal fade" id="modalClausulas" tabindex="-1" role="dialog" aria-labelledby="modalClausulasLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Cl&aacute;usulas</h4>
-      </div>
-      <div class="modal-body">
-        <p>
-        	{{clausula.texto|linebreaks}}
-        </p>
-        <p>
-        	Descargar archivo digital: <a href="{{clausula.archivo.url}}">Cl&aacute;usulas.</a>
-        </p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+    <div class="row">
+        <h3 class="titulo">{{producto.titulo}}/{{producto.herramienta.marca.nombre}}</h3>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
+            <!-- Slider de imagenes -->
+            <div id="caruselImagen" class="carousel slide" data-ride="carousel">
+                
+                <ol class="carousel-indicators">
+                    <li data-target="#caruselImagen" data-slide-to="0" class="active"></li>
+                    {% for i in imagenes %}
+                        <li data-target="#caruselImagen" data-slide-to="{{forloop.counter}}"></li>
+                    {% endfor %}
+                </ol>
 
-	<div class="row">
-		<h3 class="titulo">{{producto.titulo}}/{{producto.herramienta.marca.nombre}}</h3>
-		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="carousel-inner" role="listbox">
+                    <div class="item active">
+                        <img class="img-responsive cuadrado" src="/media/{{imagen.imagen}}">
+                    </div>
+                    {% for i in imagenes %}
+                        <div class="item">
+                            <img class="img-responsive cuadrado" src="/media/{{i.imagen}}">
+                        </div>
+                    {% endfor %}
+                </div>
 
-			<!-- Slider de imagenes -->
-			<div id="caruselImagen" class="carousel slide" data-ride="carousel">
-				
-				<ol class="carousel-indicators">
-					<li data-target="#caruselImagen" data-slide-to="0" class="active"></li>
-					{% for i in imagenes %}
-						<li data-target="#caruselImagen" data-slide-to="{{forloop.counter}}"></li>
-					{% endfor %}
-				</ol>
+                <!-- Controls -->
+                <a class="left carousel-control" href="#caruselImagen" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#caruselImagen" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div> <!-- Fin del carusel -->
+            
+            <!-- mini-imagenes -->
+            <br>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <a href="/media/{{imagen.imagen}}" class="thumbnail col-lg-1 col-md-1 col-sm-1" data-toggle="lightbox" data-gallery="multiimages">
+                        <img class="img-responsive thumb centered" src="/media/{{imagen.thumbnail}}">
+                    </a>
+                    {% for thumb in imagenes %}
+                        <a href="/media/{{thumb.imagen}}" class="thumbnail col-lg-1 col-md-1 col-sm-1" data-toggle="lightbox" data-gallery="multiimages">
+                            <img class="img-responsive thumb" src="/media/{{thumb.thumbnail}}">
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
 
-				<div class="carousel-inner" role="listbox">
-					<div class="item active">
-						<img class="img-responsive cuadrado" src="/media/{{imagen.imagen}}">
-					</div>
-					{% for i in imagenes %}
-						<div class="item">
-							<img class="img-responsive cuadrado" src="/media/{{i.imagen}}">
-						</div>
-					{% endfor %}
-				</div>
-
-				<!-- Controls -->
-				<a class="left carousel-control" href="#caruselImagen" role="button" data-slide="prev">
-					<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-					<span class="sr-only">Previous</span>
-				</a>
-				<a class="right carousel-control" href="#caruselImagen" role="button" data-slide="next">
-					<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-					<span class="sr-only">Next</span>
-				</a>
-			</div> <!-- Fin del carusel -->
-			
-			<!-- mini-imagenes -->
-			<br>
-			<div class="row">
-				<div class="col-lg-12 col-md-12 col-sm-12">
-					<a href="/media/{{imagen.imagen}}" class="thumbnail col-lg-1 col-md-1 col-sm-1" data-toggle="lightbox" data-gallery="multiimages">
-						<img class="img-responsive thumb centered" src="/media/{{imagen.thumbnail}}">
-					</a>
-					{% for thumb in imagenes %}
-						<a href="/media/{{thumb.imagen}}" class="thumbnail col-lg-1 col-md-1 col-sm-1" data-toggle="lightbox" data-gallery="multiimages">
-							<img class="img-responsive thumb" src="/media/{{thumb.thumbnail}}">
-						</a>
-					{% endfor %}
-				</div>
-			</div>
-
-			<br/>
+            <br/>
 
             {%if producto.alquiler%}
-            	{%if producto.alquiler.visible%}
-            	   <p class="precio"> {{producto.alquiler.precio}} (por d&iacute;a) </p> 
+                {%if producto.alquiler.visible%}
+                   <p class="precio"> {{producto.alquiler.precio}} (por d&iacute;a) </p> 
                 {%endif%}
                 <strong class="tipo"> Alquiler</strong>
             {%else%}
-            	{%if producto.venta.visible%}
-            	   <p class="precio"> {{producto.venta.precio}} (por d&iacute;a) </p> 
+                {%if producto.venta.visible%}
+                   <p class="precio"> {{producto.venta.precio}} (por d&iacute;a) </p> 
                 {%endif%}
-                <strong class="tipo"> Alquiler</strong>
+                <strong class="tipo"> Venta</strong>
             {%endif%}
 
             <table>
-            	<tr>
-            		<td>
-            			<strong>Marca:</strong> {{producto.herramienta.marca.nombre}}
-            		</td>
-            		<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            		<td>
-            			<strong>Direcci&oacute;n:</strong> {{producto.direccion}}
-            		</td>
-            	</tr>
-            	<tr>
-            		<td>
-            			<strong>Modelo:</strong> {{producto.herramienta.modelo}}
-            		</td>
-            		<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            		<td>
-            			<strong>A&ntilde;o:</strong> {{producto.herramienta.ano}}
-            		</td>
-            	</tr>
-            	<tr>
-            		<td>
-            			<strong>Zona:</strong> {{producto.direccion.zona}}
-            		</td>
-            	</tr>
+                <tr>
+                    <td>
+                        <strong>Marca:</strong> {{producto.herramienta.marca.nombre}}
+                    </td>
+                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td>
+                        <strong>Direcci&oacute;n:</strong> {{producto.direccion}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Modelo:</strong> {{producto.herramienta.modelo}}
+                    </td>
+                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td>
+                        <strong>A&ntilde;o:</strong> {{producto.herramienta.ano}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Zona:</strong> {{producto.direccion.zona}}
+                    </td>
+                </tr>
             </table>
             <br/>
 
             <p>
-            	{{producto.contenido}} 
+                {{producto.contenido}} 
             </p><br/>
 
             <div role="tabpanel">
 
-				<!-- Nav tabs -->
-				<ul class="nav nav-tabs" role="tablist">
-					<li role="presentation" class="active">
-						<a href="#accion" aria-controls="accion" role="tab" data-toggle="tab">
-							{%if producto.alquiler%}
-				            	Alquilar
-				            {%else%}
-				            	Comprar
-				            {%endif%}
-						</a>
-					</li>
-					<li role="presentation">
-						<a href="#faq" aria-controls="faq" role="tab" data-toggle="tab">Preguntas Frecuentes
-					</a>
-					</li>
-					<li role="presentation">
-						<a href="#contactar" aria-controls="contactar" role="tab" data-toggle="tab">Contactar</a>
-					</li>
-				</ul>
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active">
+                        <a href="#accion" aria-controls="accion" role="tab" data-toggle="tab">
+                            {%if producto.alquiler%}
+                                Alquilar
+                            {%else%}
+                                Comprar
+                            {%endif%}
+                        </a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#faq" aria-controls="faq" role="tab" data-toggle="tab">Preguntas Frecuentes
+                    </a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#contactar" aria-controls="contactar" role="tab" data-toggle="tab">Contactar</a>
+                    </li>
+                </ul>
 
-				<!-- Tab panes -->
-				<div class="tab-content">
-					<div role="tabpanel" class="tab-pane fade in active" id="accion"><br/>
-						{% if producto.alquiler %}
-							<form id="alquiler" role="form" method="post" action="pago/" target="_blank">{% csrf_token %}
-								<table>
-									<tr>
-                    					{%if producto.alquiler.visible%}
-											<td>
-												<strong>Precio por d&iacute;a: </strong>
-											</td>
-											<td class="size-100">
-												{% render_field alquilerF.precio class="form-control" readonly="readonly" id="precioAlqui" %}
-											</td>
-										{%else%}
-											{% render_field alquilerF.precio class="form-control" readonly="readonly"  style="display:none" id="precioAlqui" %}
-										{%endif%}
-									</tr>
-									<tr>
-										<td><strong>Cantidad: </strong></td>
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade in active" id="accion"><br/>
+                        {% if producto.alquiler %}
+                            <form id="alquiler" role="form" method="post" action="pago/" target="_blank">{% csrf_token %}
+                                <table>
+                                    <tr>
+                                        {%if producto.alquiler.visible%}
+                                            <td>
+                                                <strong>Precio por d&iacute;a: </strong>
+                                            </td>
+                                            <td class="size-100">
+                                                {% render_field alquilerF.precio class="form-control" readonly="readonly" id="precioAlqui" %}
+                                            </td>
+                                        {%else%}
+                                            {% render_field alquilerF.precio class="form-control" readonly="readonly"  style="display:none" id="precioAlqui" %}
+                                        {%endif%}
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Cantidad: </strong></td>
 
-										<td class="size-100">{% render_field alquilerF.cantidad class="form-control" id="cantidadAlqui"%}</td>
-									</tr>
-									<tr>
-										<td><strong>Dias: </strong></td>
-										<td>{% render_field alquilerF.dias class="form-control" id="diasAlqui" %}</td>
-									</tr>
-									<tr>
-										<td><strong>Dep&oacute;sito: </strong></td>
-										<td>{% render_field alquilerF.garantia class="form-control" readonly="readonly" id="depositoAlqui" %}</td>
-									</tr>
-									<tr>
-										{%if producto.alquiler.visible%}
-											<td><strong>Total: </strong></td>
-											<td> {% render_field alquilerF.total class="form-control" readonly="readonly" id="totalAlqui"%}</td>
-										{%else%}
-											{% render_field alquilerF.total class="form-control" readonly="readonly" style="display:none" id="precioAlqui" %}
-										{%endif%}
-									</tr>
-								</table>
-							    <div class="checkbox">
-							    	<p class="obligatorio">Este campo es obligatorio.</p>
-							    	{% render_field alquilerF.clausulas type="checkbox" id="clausulaAlqui" %} Acepto las 
-							    	<a data-toggle="modal" data-target="#modalClausulas">clausulas</a>
-							    </div>
-							    {% if user.is_authenticated %}
-									<button type="submit" class="btn btn-primary alquiler">
-								        Alquilar
-								    </button>
-							    {% else %}
-							    	<p><a href="#acceso" class="ingresar dropdown-toggle" aria-expanded="false">Ingresa</a> al sistema. Si no estas regristrado hazlo <a href="" data-toggle="modal" data-target="#registroModal">aqui.</a></p>
-							    {% endif %}
-							</form>
-						{% else %}
-							<form id="compra" role="form" method="post" action="pago/" target="_blank">{% csrf_token %}
-								<table>
-									<tr>
-										{%if producto.venta.visible%}
-											<td><strong>Precio: </strong></td>
-											<td class="size-100">{% render_field ventaF.precio class="form-control" readonly="readonly" id="precioVenta"%}</td>
-										{%else%}
-											{% render_field ventaF.precio class="form-control" readonly="readonly"  style="display:none" id="precioVenta" %}
-										{%endif%}
-									</tr>
-									<tr>
-										<td><strong>Cantidad: </strong></td>
-										<td class="size-100">{% render_field ventaF.cantidad class="form-control" id="cantidadVenta" %}</td>
-									</tr>
-									<tr>
-										{%if producto.venta.visible%}
-											<td><strong>Total: </strong></td>
-											<td> {% render_field ventaF.total class="form-control" readonly="readonly" id="totalVenta"%}</td>
-										{%else%}
-											{% render_field ventaF.total class="form-control" readonly="readonly"  style="display:none" id="precioVenta" %}
-										{%endif%}
-									</tr>
-								</table>
-							    <div class="checkbox">
-							    	<p class="obligatorio">Este campo es obligatorio.</p>
-							    	{% render_field ventaF.clausulas type="checkbox" id="clausulaVenta" %} Acepto las
-							    	<a data-toggle="modal" data-target="#modalClausulas">cl&aacute;usulas</a>
-							    </div>
-								{% if user.is_authenticated %}
-									<button type="submit" class="btn btn-primary venta">
-								        Comprar
-								    </button>
-							    {% else %}
-							    	<p><a href="#acceso" class="ingresar dropdown-toggle" aria-expanded="false">Ingresa</a> al sistema. Si no estas regristrado hazlo <a href="" data-toggle="modal" data-target="#registroModal">aqui.</a></p>
-							    {% endif %}
-							</form>
-						{% endif %}
-					</div>
-					<div role="tabpanel" class="tab-pane fade" id="faq"><br/>
-						<p class="text-left">
-							{{producto.preguntas|linebreaks}}
-						</p>
-					</div>
-					<div role="tabpanel" class="tab-pane fade" id="contactar"><br/>
-						<form id="contacto" role="form" method="post" action="">{% csrf_token %}
-							<div class="form-group">
-						        {%render_field contactoF.nombre class="form-control" placeholder="Nombre"%}
-						    </div>
-						    <div class="form-group">
-						        {%render_field contactoF.telefono class="form-control" placeholder="Telefono"%}
-						    </div>
-							<div class="form-group">
-						        {%render_field contactoF.correo class="form-control" placeholder="Correo"%}
-						    </div>
-						    <div class="form-group">
-						    	{%render_field contactoF.mensaje class="form-control" placeholder="Mensaje"%}
-						    </div>
-							<button type="submit" class="btn btn-primary">
-						        Enviar
-						    </button>
-						</form>
-					</div>
-				</div>
-			</div>
-			<br/>
-		</div>
-	</div>
+                                        <td class="size-100">{% render_field alquilerF.cantidad class="form-control" id="cantidadAlqui"%}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Dias: </strong></td>
+                                        <td>{% render_field alquilerF.dias class="form-control" id="diasAlqui" %}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Dep&oacute;sito: </strong></td>
+                                        <td>{% render_field alquilerF.garantia class="form-control" readonly="readonly" id="depositoAlqui" %}</td>
+                                    </tr>
+                                    <tr>
+                                        {%if producto.alquiler.visible%}
+                                            <td><strong>Total: </strong></td>
+                                            <td> {% render_field alquilerF.total class="form-control" readonly="readonly" id="totalAlqui"%}</td>
+                                        {%else%}
+                                            {% render_field alquilerF.total class="form-control" readonly="readonly" style="display:none" id="precioAlqui" %}
+                                        {%endif%}
+                                    </tr>
+                                </table>
+                                <div class="checkbox">
+                                    <p class="obligatorio">Este campo es obligatorio.</p>
+                                    {% render_field alquilerF.clausulas type="checkbox" id="clausulaAlqui" %} Acepto las 
+                                    <a data-toggle="modal" data-target="#modalClausulas">clausulas</a>
+                                </div>
+                                {% if user.is_authenticated %}
+                                    <button type="submit" class="btn btn-primary alquiler">
+                                        Alquilar
+                                    </button>
+                                {% else %}
+                                    <p><a href="#acceso" class="ingresar dropdown-toggle" aria-expanded="false">Ingresa</a> al sistema. Si no estas regristrado hazlo <a href="" data-toggle="modal" data-target="#registroModal">aqui.</a></p>
+                                {% endif %}
+                            </form>
+                        {% else %}
+                            <form id="compra" role="form" method="post" action="pago/" target="_blank">{% csrf_token %}
+                                <table>
+                                    <tr>
+                                        {%if producto.venta.visible%}
+                                            <td><strong>Precio: </strong></td>
+                                            <td class="size-100">{% render_field ventaF.precio class="form-control" readonly="readonly" id="precioVenta"%}</td>
+                                        {%else%}
+                                            {% render_field ventaF.precio class="form-control" readonly="readonly"  style="display:none" id="precioVenta" %}
+                                        {%endif%}
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Cantidad: </strong></td>
+                                        <td class="size-100">{% render_field ventaF.cantidad class="form-control" id="cantidadVenta" %}</td>
+                                    </tr>
+                                    <tr>
+                                        {%if producto.venta.visible%}
+                                            <td><strong>Total: </strong></td>
+                                            <td> {% render_field ventaF.total class="form-control" readonly="readonly" id="totalVenta"%}</td>
+                                        {%else%}
+                                            {% render_field ventaF.total class="form-control" readonly="readonly"  style="display:none" id="precioVenta" %}
+                                        {%endif%}
+                                    </tr>
+                                </table>
+                                <div class="checkbox">
+                                    <p class="obligatorio">Este campo es obligatorio.</p>
+                                    {% render_field ventaF.clausulas type="checkbox" id="clausulaVenta" %} Acepto las
+                                    <a data-toggle="modal" data-target="#modalClausulas">cl&aacute;usulas</a>
+                                </div>
+                                {% if user.is_authenticated %}
+                                    <button type="submit" class="btn btn-primary venta">
+                                        Comprar
+                                    </button>
+                                {% else %}
+                                    <p><a href="#acceso" class="ingresar dropdown-toggle" aria-expanded="false">Ingresa</a> al sistema. Si no estas regristrado hazlo <a href="" data-toggle="modal" data-target="#registroModal">aqui.</a></p>
+                                {% endif %}
+                            </form>
+                        {% endif %}
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="faq"><br/>
+                        <p class="text-left">
+                            {{producto.preguntas|linebreaks}}
+                        </p>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="contactar"><br/>
+                        <form id="contacto" role="form" method="post" action="">{% csrf_token %}
+                            <div class="form-group">
+                                {%render_field contactoF.nombre class="form-control" placeholder="Nombre"%}
+                            </div>
+                            <div class="form-group">
+                                {%render_field contactoF.telefono class="form-control" placeholder="Telefono"%}
+                            </div>
+                            <div class="form-group">
+                                {%render_field contactoF.correo class="form-control" placeholder="Correo"%}
+                            </div>
+                            <div class="form-group">
+                                {%render_field contactoF.mensaje class="form-control" placeholder="Mensaje"%}
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                Enviar
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <br/>
+        </div>
+    </div>
 {% endblock content %}
 
 {% block js %}
-	<script src="{{STATIC_URL}}files/js/ekko-lightbox.min.js"></script>
+    <script src="{{STATIC_URL}}files/js/ekko-lightbox.min.js"></script>
 
-	<script type="text/javascript">
-	$('#myTab a').click(function (e) {
-		e.preventDefault()
-		$(this).tab('show')
-	});
+    <script type="text/javascript">
+    $('#myTab a').click(function (e) {
+        e.preventDefault()
+        $(this).tab('show')
+    });
 
-	$(function(){
-		$('#diasAlqui').change(function(){
-			$('#depositoAlqui').val(
-				parseFloat(parseFloat($('#precioAlqui').val()) * $('#diasAlqui').val() * $('#cantidadAlqui').val())
-			);
-			$('#totalAlqui').val(
-				parseFloat($('#depositoAlqui').val()) * 2
-			);
-		});
-		$('#cantidadAlqui').change(function(){
-			$('#depositoAlqui').val(
-				parseFloat(parseFloat($('#precioAlqui').val()) * $('#diasAlqui').val() * $('#cantidadAlqui').val())
-			);
-			$('#totalAlqui').val(
-				parseFloat($('#depositoAlqui').val()) * 2
-			);
-		});
-	});
+    $(function(){
+        $('#diasAlqui').change(function(){
+            $('#depositoAlqui').val(
+                parseFloat(parseFloat($('#precioAlqui').val()) * $('#diasAlqui').val() * $('#cantidadAlqui').val())
+            );
+            $('#totalAlqui').val(
+                parseFloat($('#depositoAlqui').val()) * 2
+            );
+        });
+        $('#cantidadAlqui').change(function(){
+            $('#depositoAlqui').val(
+                parseFloat(parseFloat($('#precioAlqui').val()) * $('#diasAlqui').val() * $('#cantidadAlqui').val())
+            );
+            $('#totalAlqui').val(
+                parseFloat($('#depositoAlqui').val()) * 2
+            );
+        });
+    });
 
-	$(function(){
-		$('.alquiler').click(function(e){
-			if ($('#diasAlqui').val() == 0){
-				e.preventDefault();
-				$('.errorDia').show();
-			} else {
-				$('.errorDia').hide();
-			};
-			if ($('#clausulaAlqui').prop('checked') == false){
-				e.preventDefault();
-				$('.obligatorio').show();
-			};
-		});
-	});
+    $(function(){
+        $('.alquiler').click(function(e){
+            if ($('#diasAlqui').val() == 0){
+                e.preventDefault();
+                $('.errorDia').show();
+            } else {
+                $('.errorDia').hide();
+            };
+            if ($('#clausulaAlqui').prop('checked') == false){
+                e.preventDefault();
+                $('.obligatorio').show();
+            };
+        });
+    });
 
-	$(function(){
-		$('.venta').click(function(e){
-			if ($('#clausulaVenta').prop('checked') == false){
-				e.preventDefault();
-				$('.obligatorio').show();
-			};
-		});
-	});
+    $(function(){
+        $('.venta').click(function(e){
+            if ($('#clausulaVenta').prop('checked') == false){
+                e.preventDefault();
+                $('.obligatorio').show();
+            };
+        });
+    });
 
-	$(function(){
-		$('#cantidadVenta').change(function(){
-			$('#totalVenta').val(
-				parseFloat($('#precioVenta').val() * $('#cantidadVenta').val())
-			)
-		});
-	});
+    $(function(){
+        $('#cantidadVenta').change(function(){
+            $('#totalVenta').val(
+                parseFloat($('#precioVenta').val() * $('#cantidadVenta').val())
+            )
+        });
+    });
 
-	/*Funcion que abre y cierra el dropdown de registro*/
-	$('.ingresar').on('click', function (event) {
-	    $('.dropdown-menu').parent().toggleClass('open');
-	});
+    /*Funcion que abre y cierra el dropdown de registro*/
+    $('.ingresar').on('click', function (event) {
+        $('.dropdown-menu').parent().toggleClass('open');
+    });
 
-	$(document).ready(function() {
-	    $('#carousel-example-generic').carousel({
-	    //options here
-	    });
-	});
+    $(document).ready(function() {
+        $('#carousel-example-generic').carousel({
+        //options here
+        });
+    });
 
-	$(document).delegate('*[data-toggle="lightbox"]', 'click', function(event) {
-	    event.preventDefault();
-	    $(this).ekkoLightbox();
-	}); 
-	</script>
+    $(document).delegate('*[data-toggle="lightbox"]', 'click', function(event) {
+        event.preventDefault();
+        $(this).ekkoLightbox();
+    }); 
+    </script>
 {% endblock js %}
